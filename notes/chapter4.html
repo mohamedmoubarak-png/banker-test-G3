@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c1f3f">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<title>ملخص الباب الرابع</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: ورقة كشكول واحدة في النص، هامش أحمر، شريط أقسام ثابت فوق */
+:root{
+  --bg:#e6ebf3; --paper:#fbfcfe; --card:#ffffff; --card-edge:#cbd6e8;
+  --ink:#0c1f3f; --ink-2:#44577a; --line:#dbe3f0;
+  --gold:#c9a13b; --gold-ink:#7d5f0c; --gold-wash:#faf2d8; --hl:rgba(201,161,59,.38);
+  --margin:#d4584c;
+  --cat-a:#a23d35; --cat-a-wash:#fbebe9;
+  --cat-b:#1f4f9a; --cat-b-wash:#e6eefb;
+  --cat-c:#7d5f0c; --cat-c-wash:#faf2d8;
+  --ok:#1d7a4d; --no:#b3382e; --ok-wash:#e4f4ec; --no-wash:#fbebe9;
+  --head-bg:#0c1f3f; --head-ink:#f3f6fc;
+  --shadow:0 1px 0 rgba(12,31,63,.06),0 10px 28px rgba(12,31,63,.10);
+  --f-display:'Aref Ruqaa','Amiri',serif;
+  --f-body:'Tajawal','Cairo',system-ui,sans-serif;
+  --f-ui:'Cairo','Tajawal',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+    --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+    --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+    --margin:#e5675c;
+    --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+    --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+    --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+    --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+    --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+  --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+  --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+  --margin:#e5675c;
+  --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+  --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+  --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+  --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+  --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.95;margin:0;
+  padding-block:0 72px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));
+  -webkit-text-size-adjust:100%;text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+bdi.en,.ltr{font-family:var(--f-ui);unicode-bidi:isolate}
+.ltr{direction:ltr;text-align:left}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+
+/* شريط الأقسام */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);display:flex;gap:10px;align-items:center;padding-block:8px;border-bottom:1px solid var(--card-edge)}
+.chips{display:flex;gap:6px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none;padding-block:2px;
+  -webkit-mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);padding-inline-end:20px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-family:var(--f-ui);font-size:13.5px;font-weight:600;line-height:1.4;padding:6px 13px;border-radius:999px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chip:hover,.chip.on{background:var(--head-bg);border-color:var(--head-bg);color:var(--head-ink)}
+.themeb{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--card-edge);background:var(--card);color:var(--gold-ink);cursor:pointer;padding:0}
+.themeb svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.themeb .i-moon{display:none}
+.themeb.dark .i-sun{display:none}
+.themeb.dark .i-moon{display:block;fill:currentColor}
+
+/* الورقة */
+.sheet{position:relative;width:100%;background-color:var(--paper);
+  border-radius:6px;box-shadow:var(--shadow);padding-block:28px 40px;padding-inline-start:44px;padding-inline-end:28px;
+  display:flex;flex-direction:column;gap:44px;min-width:0}
+.sheet::before{content:"";position:absolute;inset-block:0;inset-inline-start:30px;width:0;border-inline-start:1.5px solid var(--margin);opacity:.55;pointer-events:none}
+.sheet::after{content:"";position:absolute;inset-block:0;inset-inline-start:9px;width:10px;pointer-events:none;
+  background:radial-gradient(circle at center,var(--bg) 0 3.5px,transparent 4px) center 36px/10px 96px repeat-y}
+.sheet>*{min-width:0}
+.sheet{overflow-wrap:anywhere}
+mark{background:none;color:inherit;box-shadow:inset 0 -.5em 0 var(--hl);padding-inline:1px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,6vw,42px);line-height:1.5;margin:0;text-decoration:underline wavy var(--gold);text-decoration-thickness:2px;text-underline-offset:12px;text-wrap:balance}
+section>h2{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.6;margin:0 0 16px;display:inline-block;box-shadow:inset 0 -.32em 0 var(--hl)}
+h3{font-family:var(--f-ui);font-size:17.5px;margin:0;line-height:1.6}
+p{margin:0}
+.lead{color:var(--ink-2)}
+.hero{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.stamp{display:inline-block;transform:rotate(-2deg);font-family:var(--f-ui);font-weight:600;font-size:13px;line-height:1.5;color:var(--gold-ink);background:var(--gold-wash);border:2px solid var(--gold);border-radius:6px;padding:2px 12px}
+.sub{color:var(--ink-2);font-size:17px}
+
+/* الجداول: جدول عادي على الشاشات الواسعة، وكروت مرصوصة على الموبايل (كل خانة معاها اسم العمود) */
+.tscroll{overflow-x:auto;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.75;table-layout:auto}
+th{background:var(--head-bg);color:var(--head-ink);font-family:var(--f-ui);font-weight:700;font-size:14px;padding:10px 14px;text-align:start;vertical-align:bottom;line-height:1.5}
+td{padding:11px 14px;vertical-align:top;text-align:start;border-top:1px solid var(--card-edge);font-variant-numeric:tabular-nums}
+tbody tr:nth-child(even) td:not([class]){background:color-mix(in srgb,var(--paper) 55%,transparent)}
+td.first{background:var(--gold-wash);font-weight:700;min-width:7.5em}
+td.first small{display:block;font-weight:400;color:var(--ink-2);font-size:13px;line-height:1.5}
+td.c-a{background:var(--cat-a-wash)} td.c-b{background:var(--cat-b-wash)} td.c-c{background:var(--cat-c-wash)}
+td .ex{display:block;color:var(--ink-2);font-size:13.5px;line-height:1.6;margin-top:4px}
+.tscroll.w2 table td.first{width:38%}
+@media (max-width:700px){
+  .tscroll.stk{overflow:visible;border:0;background:none;border-radius:0}
+  .tscroll.stk table,.tscroll.stk tbody,.tscroll.stk tr,.tscroll.stk td{display:block;width:100%}
+  .tscroll.stk thead{display:none}
+  .tscroll.stk tr{border:1px solid var(--card-edge);border-radius:10px;overflow:hidden;background:var(--card);margin-bottom:10px}
+  .tscroll.stk tr:last-child{margin-bottom:0}
+  .tscroll.stk td{border-top:1px solid var(--line);padding:9px 14px;background:none}
+  .tscroll.stk td.first{border-top:0;background:var(--gold-wash);font-size:16.5px;min-width:0}
+  .tscroll.stk td.c-a{background:var(--cat-a-wash)} .tscroll.stk td.c-b{background:var(--cat-b-wash)} .tscroll.stk td.c-c{background:var(--cat-c-wash)}
+  .tscroll.stk td[data-l]:not(.first)::before{content:attr(data-l);display:block;font-family:var(--f-ui);font-size:12.5px;font-weight:700;color:var(--ink-2);line-height:1.5;margin-bottom:1px}
+  .tscroll.stk td.empty::before{display:none}
+}
+.legend{font-size:14px;color:var(--ink-2);margin-top:12px}
+.legend .k{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-inline:4px 4px}
+
+/* مربعات */
+.golden,.tip,.formula{border:2px dashed var(--gold);background:var(--gold-wash);border-radius:8px;padding:10px 16px;line-height:1.9}
+.golden b{color:var(--gold-ink)}
+.tip{border-color:var(--margin);background:var(--card)}
+.tip b{color:var(--margin)}
+.stack{display:flex;flex-direction:column;gap:16px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.card{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tag{align-self:flex-start;font-family:var(--f-ui);font-size:12px;font-weight:700;line-height:1.5;padding:1px 10px;border-radius:999px}
+.tag.a{background:var(--cat-a-wash);color:var(--cat-a)} .tag.b{background:var(--cat-b-wash);color:var(--cat-b)} .tag.c{background:var(--cat-c-wash);color:var(--cat-c)}
+.cname{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.cname .en{font-family:var(--f-ui);font-weight:700;font-size:18px;direction:ltr}
+.cname .ar{font-size:16px;color:var(--ink-2)}
+.formula{display:flex;flex-direction:column;gap:6px;padding:10px 12px}
+.frow{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.dot{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-size:13px;font-weight:700;color:var(--paper);margin-top:2px}
+.dot.p{background:var(--ok)} .dot.m{background:var(--no)} .dot.q{background:var(--cat-b)}
+h4{font-family:var(--f-ui);font-size:14px;margin:0;color:var(--ink-2);line-height:1.6}
+ul.plain{margin:0;padding-inline-start:20px;display:flex;flex-direction:column}
+.exs{display:flex;flex-direction:column;gap:6px}
+.exi{display:flex;flex-direction:column;border-inline-start:3px solid var(--card-edge);padding-inline-start:12px;line-height:1.7}
+.exi .a2{color:var(--ink-2);font-size:14px}
+.sig{display:flex;flex-wrap:wrap;gap:6px}
+.sig span{direction:ltr;font-family:var(--f-ui);font-size:13px;line-height:1.5;padding:2px 10px;border-radius:999px;background:var(--gold-wash);color:var(--gold-ink);border:1px solid var(--gold)}
+.sig span.rtl{direction:rtl;font-family:var(--f-body)}
+.cmp-cols{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.cmp-col{border-radius:6px;border:1px solid var(--card-edge);padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.cmp-col.a{background:var(--cat-a-wash)} .cmp-col.b{background:var(--cat-b-wash)} .cmp-col.c{background:var(--cat-c-wash)}
+.cmp-col h4{color:var(--ink);font-size:15px}
+.cmp-title{direction:ltr;text-align:left;font-family:var(--f-ui);font-weight:700;font-size:18px}
+.cl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.cl li{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.cl .m{flex:none;width:22px;text-align:center;font-family:var(--f-ui);font-weight:700}
+.cl .ok .m{color:var(--ok)} .cl .no .m{color:var(--no)} .cl .nt .m{color:var(--cat-c)}
+.cl .no .t{text-decoration:line-through;text-decoration-color:var(--no)}
+.cl .note{display:block;font-size:13px;color:var(--ink-2);line-height:1.6}
+
+/* بحث */
+.search{width:100%;font:inherit;font-family:var(--f-ui);font-size:16px;line-height:1.5;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink)}
+.search::placeholder{color:var(--ink-2)}
+.cnt{font-size:13px;color:var(--ink-2);font-family:var(--f-ui)}
+.empty{padding:16px;color:var(--ink-2)}
+
+/* كويز */
+.quiz{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:16px}
+.prog{height:8px;border-radius:999px;background:var(--line);overflow:hidden;border:1px solid var(--card-edge)}
+.prog i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.qmeta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-ui);font-size:13px;color:var(--ink-2)}
+.qp{font-size:18px;line-height:1.9;font-weight:500}
+.qp .blank{display:inline-block;min-width:80px;border-bottom:2px dashed var(--gold);text-align:center;padding-inline:6px}
+.qp .blank.ok{border-bottom:2px solid var(--ok);color:var(--ok);font-weight:700}
+.qp .blank.no{border-bottom:2px solid var(--no);color:var(--no);font-weight:700}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:start;width:100%;font:inherit;line-height:1.7;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--paper);color:var(--ink);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--gold);background:var(--gold-wash)}
+.opt .L{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-weight:700;font-size:13px;line-height:1;background:var(--line);color:var(--ink);margin-top:2px}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--ok-wash);border-color:var(--ok)}
+.opt.wrongpick{background:var(--no-wash);border-color:var(--no)}
+.fb{display:flex;flex-direction:column;gap:10px;border-radius:8px;padding:12px 16px;background:var(--gold-wash);border:1px dashed var(--gold)}
+.fb .v{font-weight:700;font-family:var(--f-ui)}
+.fb .v.ok{color:var(--ok)} .fb .v.no{color:var(--no)}
+.fb ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:4px}
+.fb li.picked{font-weight:700}
+.btn{align-self:flex-start;font-family:var(--f-ui);font-weight:600;font-size:15px;line-height:1.4;padding:10px 20px;border-radius:8px;border:0;background:var(--head-bg);color:var(--head-ink);cursor:pointer}
+.res{display:flex;flex-direction:column;gap:12px}
+.score{font-family:var(--f-display);font-size:40px;line-height:1.4}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(90px,140px) 1fr 44px;gap:10px;align-items:center;font-size:14px;line-height:1.5}
+.bar .pb{height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar .pb i{display:block;height:100%;background:var(--cat-b)}
+.bar.weak .pb i{background:var(--no)}
+.srcl{font-family:var(--f-ui);font-size:12px;line-height:1.6;color:var(--ink-2);margin:0}
+.foot{font-size:14px;color:var(--ink-2)}
+@media (max-width:600px){
+  body{padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+  .sheet{padding-block:22px 32px;padding-inline-start:26px;padding-inline-end:14px;gap:38px}
+  .sheet::before{inset-inline-start:16px}
+  .sheet::after{display:none}
+  .card{padding:14px}
+  section>h2{font-size:25px}
+  .bar{grid-template-columns:84px 1fr 40px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.prog i{transition:none}}
+</style>
+
+<div class="wrap">
+  <nav class="nav" aria-label="أقسام المذكرة">
+    <div class="chips" id="chips"></div>
+    <button type="button" class="themeb" id="themeb" aria-label="المظهر">
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+    </button>
+  </nav>
+  <main class="sheet" id="sheet" dir="rtl" lang="ar"></main>
+</div>
+
+<script>
+/* ===== المحتوى ===== */
+const NOTE = {
+  title:"الباب الرابع: فتح الحسابات والتعامل عليها",
+  subtitle:"الإيداع والصرف والتوكيلات وتبسيط الإجراءات والتركات – دور الفرع (أعمال الفروع الإسلامية + دليل فتح الحسابات + منشورات 5409 و5453 و5589)",
+  stamp:"مذكرة · Chapter 4",
+  categories:{a:"الإيداع والصرف", b:"التوكيلات والشخصيات الاعتبارية", c:"المستندات والتركات"},
+  summary:{
+    lead:"الباب الرابع = **الإيداع** و**الصرف** من الحسابات. القاعدة: **الإيداع حقه يوم العمل التالي** إلا لو طلب حق اليوم بعمولة، و**الصرف** بعد هوية وتوقيع ورصيد وعدم موانع. اللي فوق حد التلر بيروح لـ **المصرّح**. وكل حركة ليها **مسئول** محدد في الفرع.",
+    colHeaders:["إيه هو","المفتاح","رقم أو مثال"],
+    rows:[
+      {head:"الإيداع", sub:"نقدي",
+       cells:[{main:"الأصل **حق يوم العمل التالي**", ex:"حق اليوم بشاشة **1401** للجنيه فقط وعمولة آلية", cat:"a"},
+              {main:"**المشروط ممنوع** دائمًا، **المسبب** مسموح بشروط", ex:"طلب صاحب الحساب أو موافقته أو تعليمات", cat:"a"},
+              {main:"المودع يوقّع على **نسختين**", ex:"اسم ورقم الحساب قبل القيد", cat:"a"}]},
+      {head:"الصرف", sub:"من الحسابات",
+       cells:[{main:"هوية + توقيع + رصيد + **لا موانع**", ex:"إيصال سحب آلي أو شيك أو إذن 19 ح ج", cat:"a"},
+              {main:"فوق حد التلر: **المصرّح** يطابق التوقيع", ex:"ومسئول الخدمات يتأكد من الرصيد", cat:"a"},
+              {main:"الأمي: **مدير الفرع أو من يفوضه** يراجع معه", ex:"أوامر الصرف الخطية للاعتباريين بس", cat:"a"}]},
+      {head:"التوكيلات", sub:"والشركات",
+       cells:[{main:"الأصل: الوكلاء المتعددين **مجتمعين**", ex:"إلا لو التوكيل نص على الانفراد", cat:"b"},
+              {main:"وكالة الشركات **6 شهور** وسجل تجاري حديث", ex:"على الحسابات **الدائنة** فقط", cat:"b"},
+              {main:"الوكيل الداخلي **ما يوكلش غيره**", ex:"", cat:"b"}]},
+      {head:"المستندات", sub:"5409 والتركات",
+       cells:[{main:"عملية واحدة بلا سلسلة: **المنفذ فقط**", ex:"تحويل بين حسابات العميل، شراء شهادات", cat:"c"},
+              {main:"تعاقدي أو له سلسلة: **المنفذ + المصرّح**", ex:"توكيلات وعقود مديونية: **ختم الفرع والمدير**", cat:"c"},
+              {main:"وفاة: الحسابات **No Debit**", ex:"والتصفية مركزية (منشور 5589)", cat:"c"}]}
+    ],
+    legend:"الأحمر = الإيداع والصرف · الأزرق = التوكيلات والشخصيات الاعتبارية · الذهبي = المستندات والتركات.",
+    goldenRule:"اسأل دايمًا: **مين ينفذ؟ مين يصرّح؟ وفين يتحفظ المستند؟** نص أسئلة الباب الرابع بتختبر توزيع الأدوار في الفرع."
+  },
+  sections:[
+    {type:"concepts", id:"concepts", title:"المفاهيم الأساسية", items:[
+      {nameEn:"Cash Deposit", nameAr:"الإيداع النقدي", cat:"a",
+       formula:[{sign:"+",text:"قبل القيد خد من المودع **اسم صاحب الحساب ورقمه**"},
+                {sign:"+",text:"**مسئول الخدمات المصرفية** يستلم ويعد ويحدد الفئات، والمودع يوقّع على **نسختين** من الإيداع"},
+                {sign:"+",text:"الأصل **حق يوم العمل التالي** لكل الحسابات (جاري دائن أو مدين أو توفير)"},
+                {sign:"+",text:"حق نفس اليوم: شاشة **1401** للحسابات **بالجنيه فقط**، والعمولة **تتحصل آليًا** ويجوز تعديلها أو الإعفاء منها (التصريح مطلوب عند تعديل العمولة فقط)"},
+                {sign:"+",text:"إعفاء من عمولة حق اليوم: الإيداع لـ **إصدار شيك مصرفي** أو **مصروفات فتح الحساب** أو **إصدار دفتر شيكات**"}],
+       uses:["أي إيداع على الشباك"],
+       examples:[{en:"مبالغ كبيرة ومفيش شباك لها",ar:"تتقبل طرف الخزينة، ومدير الخدمات المصرفية يحدد المختص بالقيد. ونموذج **10 خزينة اتلغى**"},
+                 {en:"حساب مدارس وجامعات حق اليوم",ar:"تظهر **عمولتين**: حق اليوم + عمولة المدارس"},
+                 {en:"النظام عطلان",ar:"الإيداع اليدوي يحرره **مسئول الخدمات المصرفية** مش العميل"}],
+       signals:["يوم العمل التالي","1401","نسختين","10 خزينة اتلغى"],
+       tip:"الأصل **مش** حق اليوم؛ حق اليوم استثناء بعمولة وبالجنيه بس.",
+       src:"أعمال الفروع الإسلامية – الباب الرابع (الفصل الأول)"},
+      {nameEn:"Conditional vs Caused Deposit", nameAr:"الإيداع المشروط والمسبب والتبرعات", cat:"a",
+       formula:[{sign:"-",text:"**المشروط**: صحته معلقة على شرط (مثلًا ما يتصرفش فيه إلا بعد تسليم بضاعة). **ممنوع بأي حال** حتى لو بطلب العميل"},
+                {sign:"+",text:"**المسبب**: المودع عايز يكتب سبب الإيداع. **مسموح** في حالة: طلب من صاحب الحساب، أو موافقة منه مع المودع، أو تعليمات بطلبه على الحساب"},
+                {sign:"+",text:"**التبرعات**: بـ **الإيصال الآلي**، و**مدير الخدمات المصرفية** يتحقق من سريان الموافقة، مع **الاسم الثلاثي** وصورة الهوية ورقم التليفون"}],
+       uses:["لما المودع يطلب شرط أو سبب"],
+       examples:[{en:"'لا يجوز قبول الإيداعات المسببة'",ar:"**خاطئة**: المسبب مسموح بضوابط"},
+                 {en:"'يجوز المشروط بطلب العميل ومثبت بالتعليمات'",ar:"**خاطئة**: المشروط ممنوع دائمًا"}],
+       signals:["معلق على شرط","سبب الإيداع","الإيصال الآلي"],
+       tip:"المشروط بيعلّق حق صاحب الحساب على حاجة خارجه فممنوع. المسبب مجرد بيان فمسموح.",
+       src:"أعمال الفروع الإسلامية – الإيداع"},
+      {nameEn:"Cancellation & Objection", nameAr:"إلغاء الإيداع والاعتراض عليه", cat:"a",
+       formula:[{sign:"+",text:"خطأ من **الموظف**: يلغيه **بدون توقيع العميل**"},
+                {sign:"+",text:"خطأ من **العميل**: يلغيه **بعد توقيعه** على سبب الإلغاء، **إلا** لو الإلغاء لـ**تعديل التاريخ** (بدون توقيع)"},
+                {sign:"-",text:"**لا يُلغى إلا بموافقة صاحب الحساب**: لو المودع مشي من الشباك، أو اكتُشف الخطأ وأصل الإيصال ضاع"},
+                {sign:"+",text:"**الاعتراض**: صاحب الحساب يقدم طلبًا كتابيًا لـ **مسئول خدمة العملاء**، و**مدير خدمة العملاء** يفحصه ويحتفظ بالطلب، و**منسق الأعمال المالية والإدارية** يستخرج الإيصال"}],
+       uses:["أي تصحيح على إيداع"],
+       examples:[{en:"المودع رجع بعد ما مشي بسبب رقم حساب غلط",ar:"يتعرض على **مدير الفرع**، وما يتلغيش إلا بموافقة صاحب الحساب"},
+                 {en:"رصيد المعترض مش كفاية لتجنيب المبلغ",ar:"يُطلب منه **يستكمل المبلغ** أولًا"},
+                 {en:"المودع ما حضرش خلال **أسبوعين** لاسترداد المعترض عليه",ar:"إخطار **موصى عليه بعلم الوصول**"}],
+       signals:["خطأ موظف","تعديل التاريخ","مغادرة الشباك","مدير خدمة العملاء"],
+       tip:"بمجرد ما الفلوس دخلت حساب حد وصاحبه ممكن يعترض، **موافقته** هي الأساس في أي إلغاء متأخر.",
+       src:"أعمال الفروع الإسلامية – الإيداع + دليل فتح الحسابات ص61"},
+      {nameEn:"Withdrawals", nameAr:"الصرف من الحسابات", cat:"a",
+       formula:[{sign:"+",text:"وسائل الصرف: **إيصال السحب الآلي** أو **الشيك** أو **إذن 19 ح ج**"},
+                {sign:"+",text:"تحقق من **الهوية** (على **جهاز كشف التزوير** حتى للعميل المسجل)، و**التوقيع**، و**سماح الرصيد**، و**عدم وجود موانع**"},
+                {sign:"+",text:"**داخل حد التلر**: مسئول الخدمات المصرفية يطابق ويراجع ويستوفي الفئات، **ولا يروح للمصرّح**"},
+                {sign:"+",text:"**فوق حد التلر**: **المصرّح** يطابق التوقيع ويتأكد من حضور العميل، و**مسئول الخدمات** يتأكد من الرصيد ويستوفي **الفئات على ظهر المستند**"},
+                {sign:"+",text:"التعامل النقدي بين العميل و**مسئول الخدمات المصرفية أو مسئول الخزينة** من غير تدخل باقي الزملاء"}],
+       uses:["أي سحب نقدي"],
+       examples:[{en:"العميل ما بيعرفش يقرا ويكتب",ar:"**مدير الفرع أو من يفوضه** يراجع معه المبلغ والرصيد، و**مدير الخدمات المصرفية** يتأكد من توقيعه على المستند"},
+                 {en:"أمر صرف خطي",ar:"**للشخصيات الاعتبارية فقط**، ويوقّع المستفيد على **19 ح ج فروع**، ويتصرف من **شاشة السحب النقدي** ومن **فرع الحساب**"},
+                 {en:"شيك بالحروف بس ومن غير أرقام",ar:"**عدم قبول الشيك**"},
+                 {en:"توقيع العميل بقلمه الخاص",ar:"**غير مسموح** (يوقع بأقلام البنك)"}],
+       signals:["حد التلر","المصرّح","ظهر المستند","19 ح ج"],
+       tip:"**داخل** الحد = مسئول الخدمات لوحده. **فوق** الحد = المصرّح للتوقيع، ومسئول الخدمات للرصيد والفئات.",
+       src:"أعمال الفروع الإسلامية – الباب الرابع (الفصل الثاني)"},
+      {nameEn:"Dormant & Trust Accounts", nameAr:"الحسابات الراكدة والأمانات", cat:"a",
+       formula:[{sign:"+",text:"الراكد: **مدير الخدمات المصرفية** يتحقق من أسباب الركود، ويطبع **مصادقة بالرصيد**، ويتابع تقرير الحسابات الراكدة"},
+                {sign:"+",text:"التحويل من الراكد: **بحضور العميل أو وكيله**، أو لو العميل برّه بطلب **مصدق من قنصلية أو سفارة**"},
+                {sign:"+",text:"الأمانات: **من له حق التوقيع الثاني** يتحقق من الشخصية ويصدّق 'تم أمامي'، والصرف **بتوقيعين** أول وثانٍ"},
+                {sign:"-",text:"**لا صرف جزئي** من الأمانات إلا بموافقة **الإدارة القانونية كتابة**"},
+                {sign:"+",text:"أمانات الأستاذ العام: بـ **إذن الصرف الآلي**، و**منسق الأعمال المالية والإدارية** يعتمد ويؤشر"}],
+       uses:["حسابات بلا حركة أو أمانات"],
+       examples:[{en:"عميل مسافر عايز يحول من حساب راكد",ar:"أمر تحويل **مصدق من القنصلية أو السفارة**"}],
+       signals:["أسباب الركود","مصادقة","توقيعين","الإدارة القانونية"],
+       tip:"الراكد احتمال استغلاله أعلى، فالتشديد على **حضور صاحبه**.",
+       src:"أعمال الفروع الإسلامية + دليل التحويلات"},
+      {nameEn:"Capacity & POA Types", nameAr:"الأهلية وأنواع التوكيلات", cat:"b",
+       formula:[{sign:"+",text:"**الأهلية**: صلاحية الشخص لكسب الحقوق والتحمل بالواجبات وإبرام التصرفات القانونية"},
+                {sign:"+",text:"**أهلية الوجوب**: صلاحية **كسب** الحقوق والالتزام بالواجبات · **أهلية الأداء**: صلاحية **مباشرة** التصرفات"},
+                {sign:"+",text:"**رسمي** (عام أو خاص، ومنه اللي أمام القنصليات والسفارات ولازم يتصدق من **الخارجية المصرية**) · **عرفي** (من غير توثيق) · **داخلي** (نموذج البنك)"},
+                {sign:"+",text:"**الموكل** = عميل البنك · **الوكيل** = المأذون له بالتعامل"}],
+       uses:["قبل اعتماد أي توكيل"],
+       examples:[{en:"توكيل من الخارج فيه تعديل",ar:"مقبول لو التعديل **مزيّل بختم الجهة المصدرة**"},
+                 {en:"توكيل لعملية واحدة",ar:"يتحفظ **الأصل** بعد إعطائه **رقم وارد**"},
+                 {en:"توكيل عام",ar:"تتاخد **صورة في كل مرة** تعامل برقم وارد"}],
+       signals:["الوجوب = كسب","الأداء = مباشرة","الخارجية","رقم وارد"],
+       tip:"**وجوب** بيتولد مع الإنسان (يكسب حقوق)، **أداء** محتاج تمييز (يتصرف).",
+       src:"أعمال الفروع الإسلامية – تعليمات التوكيلات"},
+      {nameEn:"POA Rules", nameAr:"قواعد التعامل بالتوكيلات", cat:"b",
+       formula:[{sign:"+",text:"أكتر من وكيل: الأصل **مجتمعين**، والانفراد لازم **نص صريح**"},
+                {sign:"+",text:"رقم تعريفي للوكيل: لو التوكيل بيدّيه **التوقيع على الشيكات**"},
+                {sign:"+",text:"التوكيل الداخلي على **الرقم التعريفي** = كل الحسابات الحالية والمستقبلية (حتى الودائع والشهادات)؛ على **رقم حساب** = الحساب ده بس، وما ينفعش تجمع الاتنين"},
+                {sign:"-",text:"الوكيل الداخلي **ما يوكلش غيره**"},
+                {sign:"+",text:"ينتهي التوكيل بـ: **الوفاة**، **انتهاء العملية**، **انتهاء السريان**، أو **خطاب إلغاء** أو **إنذار على يد محضر**"},
+                {sign:"+",text:"الولي أو الوصي يوكّل على حسابات القُصّر بشرط التوكيل **يحمل صفته** (ولي/وصي)"}],
+       uses:["التعامل اليومي بتوكيل"],
+       examples:[{en:"توكيل من الأب على 'كل حساباته في كل البنوك' للصرف من حساب ابنه القاصر",ar:"لازم يكون فيه **صفة الوالد كولي**"},
+                 {en:"التوكيلات المنفذة",ar:"تتحفظ عند **مدير خدمة العملاء**، والرقم الوارد **بعد** التنفيذ على النظام"},
+                 {en:"توكيل صرف المعاش",ar:"يسري على **منتج 5 (حساب المعاش) بس**"}],
+       signals:["مجتمعين","الرقم التعريفي","صفة الولي","إنذار على يد محضر"],
+       tip:"السكوت في التوكيل = **مجتمعين**.",
+       src:"أعمال الفروع الإسلامية – تعليمات التوكيلات"},
+      {nameEn:"Legal Entities", nameAr:"الشخصيات الاعتبارية والوكالة عليها", cat:"b",
+       formula:[{sign:"+",text:"**شركات أشخاص**: التضامن، التوصية البسيطة · **شركات أموال**: المساهمة، ذات المسئولية المحدودة، التوصية بالأسهم، **الشخص الواحد**"},
+                {sign:"+",text:"مستند الوكالة: **منشأة فردية** سجل تجاري ≤ **3 شهور** · **شركات أشخاص** **عقد الشركة** · **شركات أموال** **النظام الأساسي**"},
+                {sign:"+",text:"الوكالة على **الحسابات الدائنة فقط** (مش المدينة)، وتتربط من **فرع الحساب** بس، وصورة العقد على النظام"},
+                {sign:"+",text:"صلاحية عقد الوكالة **6 شهور** من إنشاء العلاقة (شاشة **JOINT HOLDERS**)، وسجل تجاري حديث كل **6 شهور**"},
+                {sign:"+",text:"بعد الـ 6 شهور من غير سجل حديث: **حركة واحدة بتصريح مدير الفرع**"}],
+       uses:["حسابات الشركات"],
+       examples:[{en:"مرور 6 شهور بس من غير تغيير",ar:"التحديث **بطلب** من غير عقد وكالة جديد"},
+                 {en:"تغيير الموكل أو الوكيل أو الحدود",ar:"عقد وكالة **جديد**"},
+                 {en:"انتهى السريان",ar:"حذف العلاقة وإثبات **تعليمات تشغيل**"}],
+       signals:["أشخاص/أموال","3 شهور","6 شهور","JOINT HOLDERS"],
+       tip:"**الشخص الواحد** و**المحدودة** شركات **أموال** رغم إنها ممكن تبان صغيرة.",
+       src:"أعمال الفروع الإسلامية – التوكيلات"},
+      {nameEn:"Document Simplification 5409", nameAr:"تبسيط الإجراءات (منشور 5409)", cat:"c",
+       formula:[{sign:"+",text:"الهدف: **توفير الوقت والجهد** و**خفض التكاليف التشغيلية**"},
+                {sign:"+",text:"**عملية واحدة بلا سلسلة** (تحويل بين حسابات العميل، شراء شهادات أو ودائع): **ختم وتوقيع المنفذ فقط**"},
+                {sign:"+",text:"**تعاقدية** (طلب فتح الحساب، الإضافي، الإنترنت البنكي، بطاقة الخصم) و**عملية بسلسلة** (شيك مصرفي، دفتر شيكات، حفظ مراسلات، تحويل للغير) و**بين الفروع**: **المنفذ + المصرّح**"},
+                {sign:"+",text:"**ختم البنك وتوقيع مدير الفرع أو أحد نائبيه**: الموافقات الائتمانية، **التوكيلات المصرفية**، عقود المديونية، طلبات البطاقات الائتمانية، والمراسلات مع **جهات خارجية**"},
+                {sign:"+",text:"المذكرات الداخلية: المنفذ + **اعتماد المسئول عن الصرف**"}],
+       uses:["أي ورقة تتوقع في الفرع"],
+       examples:[{en:"طلب تحويل بين حسابات العميل",ar:"المنفذ بس، والمسئولية على **المنفذ**"},
+                 {en:"طلب تحويل لطرف تاني",ar:"المنفذ + المصرّح (بيترتب عليه سلسلة)"},
+                 {en:"مراسلة بين فرعين",ar:"**من غير** ختم البنك وتوقيعات الفرع"},
+                 {en:"أصول المستندات من فرع التعامل",ar:"الفرع الأصلي يتابع وصولها خلال **10 أيام عمل**"}],
+       signals:["عملية واحدة","تعاقدية","سلسلة","جهات خارجية"],
+       tip:"كل ما المستند يرتّب **التزام أكبر** على البنك، التوقيعات تزيد.",
+       src:"منشور 5409 – تبسيط الإجراءات"},
+      {nameEn:"Death & Estates", nameAr:"الوفاة والتركات", cat:"c",
+       formula:[{sign:"+",text:"من **تاريخ العلم الرسمي** بالوفاة: وقف التعامل وتعديل الحالة لـ **No Debit** ومذكرة مرتفعة"},
+                {sign:"+",text:"**إعلام الوراثة** هو المستند الدال على الميراث"},
+                {sign:"-",text:"لا توزيع إلا بعد **سداد كل المديونيات**"},
+                {sign:"+",text:"منشور **5453**: إلغاء دفتر أمانات التركات، وحسابات أمانات **باسم كل وريث تحت الرقم التعريفي للمتوفى** من **1 يوليو 2021**، والتحويل بـ **مذكرة تصفية التركة**"},
+                {sign:"+",text:"منشور **5589**: تصفية التركات بقت **مركزية** في الإدارة العامة لمركز بيانات العملاء"}],
+       uses:["أي حساب لعميل متوفى"],
+       examples:[{en:"شيك مؤرخ قبل الوفاة واتقدم بعد العلم",ar:"يتصرف للحامل الشرعي لو مفيش اعتراض"},
+                 {en:"شيك **غير مسطر** مؤرخ بعد الوفاة",ar:"يترفض بعبارة '**الحساب مجمد**'"},
+                 {en:"وعاء ادخاري الورثة عايزين يكملوه",ar:"يرتبط بحساب أمانات **باسم المتوفى** من غير ما يتقفل لحد الاستحقاق"},
+                 {en:"مصروفات غلق أمانات الورثة",ar:"**لا تستحق**"}],
+       signals:["No Debit","إعلام الوراثة","5453","5589"],
+       tip:"دور الفرع بعد 5589: **يثبت الوفاة ويوقف الحساب ويستلم المستندات**، والتصفية مركزية.",
+       src:"منشور 5453 + منشور 5589 + أعمال الفروع الإسلامية"}
+    ]},
+    {type:"compare", id:"compare", title:"الفروقات", items:[
+      {title:"Conditional vs Caused", cols:[
+        {name:"المشروط", cat:"a", when:"معلق على شرط",
+         ex:["ممنوع بأي حال","حتى لو بطلب العميل"]},
+        {name:"المسبب", cat:"a", when:"مذكور سببه",
+         ex:["مسموح بطلب أو موافقة صاحب الحساب","أو تعليمات على الحساب"]}],
+       golden:"الشرط **بيقيد** صاحب الحساب، والسبب **بيوضح** بس."},
+      {title:"Within vs Above Teller Limit", cols:[
+        {name:"داخل حد التلر", cat:"a", when:"مسئول الخدمات المصرفية",
+         ex:["يطابق التوقيع ويستوفي الفئات","ما يروحش للمصرّح"]},
+        {name:"فوق حد التلر", cat:"a", when:"المصرّح",
+         ex:["يطابق التوقيع ويتأكد من حضور العميل","مسئول الخدمات: الرصيد والفئات"]}],
+       golden:"المصرّح بيدخل **فوق الحد بس**."},
+      {title:"Persons vs Capital Companies", cols:[
+        {name:"شركات أشخاص", cat:"b", when:"قائمة على الشركاء",
+         ex:["التضامن","التوصية البسيطة","المستند: عقد الشركة"]},
+        {name:"شركات أموال", cat:"b", when:"قائمة على رأس المال",
+         ex:["المساهمة، المحدودة، التوصية بالأسهم، الشخص الواحد","المستند: النظام الأساسي"]}],
+       golden:"لو فيها **أسهم أو مسئولية محدودة أو شخص واحد** = أموال."}
+    ]},
+    {type:"confusing", id:"confusing", title:"حالات بتلخبط", items:[
+      {title:"إلغاء الإيداع: محتاج توقيع ولا موافقة؟",
+       explain:"فرّق بين مين غلط وإمتى اتكشف.",
+       examples:[{text:"الموظف غلط",note:"يلغي من غير توقيع العميل",correct:true},
+                 {text:"العميل غلط في التاريخ",note:"من غير توقيعه",correct:true},
+                 {text:"العميل غلط في المبلغ أو الاسم",note:"بعد توقيعه على السبب",correct:true},
+                 {text:"المودع مشي أو الإيصال ضاع",note:"بموافقة صاحب الحساب",correct:true}]},
+      {title:"'و' ولا 'أو'؟",
+       explain:"نفس السؤال اتسأل بصيغتين بإجابتين.",
+       examples:[{text:"التعامل النقدي بين العميل ومسئول الخدمات **و** مسئول الخزينة",note:"خاطئة",correct:false},
+                 {text:"التعامل النقدي بين العميل ومسئول الخدمات **أو** مسئول الخزينة",note:"صحيحة",correct:true}]},
+      {title:"الشيك المصرفي",
+       explain:"قواعد بتتسأل كصح وغلط.",
+       examples:[{text:"إصدار شيك مصرفي لغير عميل البنك",note:"لا، إلا لو وافق يفتح حساب",correct:false},
+                 {text:"إصدار شيك مصرفي قابل للتظهير بطلب العميل",note:"غير مسموح",correct:false},
+                 {text:"اعتماد شيكات العملاء العادية",note:"غير مسموح",correct:false},
+                 {text:"الساحب يوقف صرف الشيك في أي وقت بدون سبب",note:"خاطئة",correct:false}]}
+    ]},
+    {type:"conflicts", id:"conflicts", title:"تنبيهات على المصادر", items:[
+      {title:"التركات بعد منشور 5589",
+       text:"أسئلة 2022 بتدي **مسئول خدمة العملاء بالفرع** دور فتح الأمانات وتوزيع التركة (منشور 5453). منشور **5589** نقل تصفية التركات لـ**الإدارة العامة لمركز بيانات العملاء**. لو السؤال عن 'الجهة المسئولة عن مركزية التصفية' فهي المركز. ولو عن قواعد الحسابات (No Debit، الشيكات، الأوعية) فالقواعد ثابتة."},
+      {title:"نموذج 10 خزينة",
+       text:"في أسئلة قديمة بتسأل عن تحرير وحفظ نموذج 10 خزينة، والإجابة المعتمدة إن **العمل بالنموذج اتلغى**."}
+    ]},
+    {type:"reference", id:"ref", title:"مين بيعمل إيه في الفرع؟", tables:[
+      {id:"roles", title:"توزيع الأدوار", headers:["المهمة","المسئول"],
+       rows:[["استلام وعد النقدية والقيد","مسئول الخدمات المصرفية"],["مطابقة التوقيع فوق حد التلر","المصرّح"],
+             ["سماح الرصيد فوق حد التلر","مسئول الخدمات المصرفية"],["مراجعة المستندات فنيًا ومستنديًا (داخل وفوق الحد)","مدير الخدمات المصرفية"],
+             ["مراجعة المبلغ مع الأمي","مدير الفرع أو من يفوضه"],["التحقق من أسباب ركود الحساب","مدير الخدمات المصرفية"],
+             ["سريان موافقة التبرعات","مدير الخدمات المصرفية"],["فحص طلب الاعتراض على إيداع","مدير خدمة العملاء"],
+             ["استلام طلب الاعتراض","مسئول خدمة العملاء"],["استخراج إيصال الإيداع المعترض عليه","منسق الأعمال المالية والإدارية"],
+             ["اعتماد أذون صرف المصروفات","مدير الفرع"],["تقرير الإيداعات الملغاة وأسعار العملات غير المتوافقة","مدير الفرع أو من ينوب عنه"],
+             ["تقرير الحركات الملغاة","مدير الخدمات المصرفية"],["استلام المستندات البيضاء لخدمة العملاء","مدير خدمة العملاء"],
+             ["حفظ التوكيلات والتفويضات المستديمة","مدير خدمة العملاء"],["اعتماد التفويضات","مديرو الأقسام كل في اختصاصه"]]},
+      {id:"nums", title:"أرقام", headers:["البند","القيمة"],
+       rows:[["شاشة الإيداع حق اليوم","1401 (جنيه فقط)"],["إذن الصرف اليدوي","19 ح ج"],["سجل تجاري المنشأة الفردية","≤ 3 شهور"],
+             ["صلاحية وكالة الشركات","6 شهور"],["متابعة أصول المستندات من فرع التعامل","10 أيام عمل"],
+             ["عدم حضور المودع المعترض عليه","أسبوعين ← إخطار موصى عليه"],["بداية أمانات الورثة (5453)","1 يوليو 2021"]]}
+    ]},
+    {type:"lookup", id:"lookup", title:"دوّر على دليل", rows:[
+      {signal:"حق نفس اليوم", target:"شاشة 1401 بعمولة", note:"جنيه فقط"},
+      {signal:"معلق على شرط", target:"إيداع مشروط: ممنوع", note:""},
+      {signal:"سبب الإيداع", target:"إيداع مسبب: مسموح بضوابط", note:""},
+      {signal:"تبرعات", target:"إيصال آلي + موافقة سارية", note:""},
+      {signal:"فوق حد التلر", target:"المصرّح", note:""},
+      {signal:"لا يجيد القراءة", target:"مدير الفرع أو من يفوضه", note:""},
+      {signal:"أمر صرف خطي", target:"شخصيات اعتبارية فقط", note:""},
+      {signal:"راكد", target:"حضور العميل أو وكيله", note:""},
+      {signal:"صرف جزئي من الأمانات", target:"ممنوع إلا بموافقة قانونية", note:""},
+      {signal:"أهلية الوجوب", target:"كسب الحقوق", note:""},
+      {signal:"أهلية الأداء", target:"مباشرة التصرفات", note:""},
+      {signal:"توكيل عرفي", target:"بدون توثيق", note:""},
+      {signal:"أكتر من وكيل", target:"مجتمعين", note:"إلا بنص"},
+      {signal:"JOINT HOLDERS", target:"صلاحية وكالة الشركات 6 شهور", note:""},
+      {signal:"الشخص الواحد", target:"شركة أموال", note:""},
+      {signal:"تحويل بين حسابات العميل", target:"توقيع المنفذ فقط", note:"5409"},
+      {signal:"توكيلات وعقود مديونية", target:"ختم الفرع وتوقيع المدير", note:"5409"},
+      {signal:"No Debit", target:"حساب متوفى", note:""},
+      {signal:"الحساب مجمد", target:"شيك غير مسطر بعد الوفاة", note:""}
+    ]}
+  ]
+};
+
+const QUIZ = {
+  sections:[{id:"s1",title:"الإيداع"},{id:"s2",title:"الصرف"},{id:"s3",title:"التوكيلات والشركات"},{id:"s4",title:"المستندات والتركات"}],
+  questions:[
+   {id:"q1",section:"s1",prompt:"يكون الإيداع حق نفس اليوم في حسابات:",answer:"لا شيء مما سبق",clue:"الأصل إيه؟",
+    why:"الأصل في كل الحسابات إن الإيداع النقدي حقه يوم العمل التالي. حق نفس اليوم استثناء بيطلبه العميل ويدفع عليه عمولة، مش ميزة لنوع حساب معين.",
+    wrong:[{option:"الجاري الدائن",why:"الأصل برضه يوم العمل التالي."},{option:"الجاري المدين",why:"نفس القاعدة."},{option:"التوفير",why:"نفس القاعدة."}]},
+   {id:"q2",section:"s1",prompt:"يجوز قبول الإيداع المشروط في حالة:",answer:"ليس مما سبق",clue:"المشروط مختلف عن المسبب.",
+    why:"الإيداع المشروط بيخلي حق صاحب الحساب في الفلوس معلق على شرط خارجه، وده بيعرّض البنك لنزاعات. علشان كده ممنوع حتى لو صاحب الحساب طلبه.",
+    wrong:[{option:"طلب من صاحب الحساب",why:"ده بيبيح المسبب مش المشروط."},{option:"موافقة صاحب الحساب مع المودع",why:"نفس الشيء."},{option:"تعليمات على الحساب",why:"نفس الشيء."}]},
+   {id:"q3",section:"s1",prompt:"يجوز قبول الإيداع المسبب في حالة:",answer:"أي مما سبق (طلب أو موافقة صاحب الحساب أو تعليمات بذلك)",clue:"السبب بيان مش قيد.",
+    why:"السبب مجرد بيان بيوضح الإيداع ده ليه، فمش بيقيد حق صاحب الحساب. يكفي إن صاحب الحساب يكون راضي بأي صورة من الثلاثة.",
+    wrong:[{option:"طلب صاحب الحساب فقط",why:"ناقص."},{option:"لا يجوز إطلاقًا",why:"المسبب مسموح بضوابط."},{option:"بموافقة مدير الفرع فقط",why:"المعيار رضا صاحب الحساب."}]},
+   {id:"q4",section:"s1",prompt:"يتم إعفاء العميل من عمولة الإيداع حق اليوم في حالة:",answer:"جميع ما سبق (إصدار شيك مصرفي، مصروفات فتح الحساب، إصدار دفتر شيكات)",clue:"الإيداع لخدمة من البنك نفسه.",
+    why:"في الحالات دي الإيداع غرضه تغطية خدمة بيقدمها البنك فورًا، فمش منطقي يدفع العميل عمولة إضافية عشان البنك يخلّص خدمته.",
+    wrong:[{option:"إصدار شيك مصرفي فقط",why:"ناقص."},{option:"مصروفات فتح الحساب فقط",why:"ناقص."},{option:"دفتر شيكات فقط",why:"ناقص."}]},
+   {id:"q5",section:"s1",prompt:"إذا قيد إيداع بالخطأ من قبل الموظف فإنه يجوز له إلغاؤه بدون توقيع العميل:",answer:"العبارة صحيحة",clue:"مين غلط؟",
+    why:"الخطأ خطأ الموظف، والعميل مالوش دخل فيه، فمفيش داعي لتوقيعه على سبب الإلغاء. الإلغاء بيتم بصلاحيات البنك الداخلية.",
+    wrong:[{option:"العبارة خاطئة",why:"توقيع العميل مطلوب لما الخطأ يكون منه."}]},
+   {id:"q6",section:"s1",prompt:"من الحالات التي لا يجوز فيها إلغاء الإيداع إلا بموافقة صاحب الحساب:",answer:"اكتشاف الخطأ في نفس اليوم وفقد مستند الإيداع",clue:"مفيش إثبات في إيد المودع.",
+    why:"لما أصل الإيصال يضيع، ما بقاش فيه دليل في إيد المودع على العملية، والفلوس بقت في حساب حد تاني. فالإلغاء ما ينفعش غير بموافقة صاحب الحساب.",
+    wrong:[{option:"اكتشاف الخطأ قبل مغادرة المودع",why:"لسه على الشباك، فيتلغى عادي."},{option:"الإلغاء لتعديل تاريخ لاحق",why:"تعديل التاريخ مش بيمس حق صاحب الحساب."},{option:"لا شيء مما سبق",why:"الإجابة موجودة."}]},
+   {id:"q7",section:"s1",prompt:"يتم تقديم طلب الاعتراض على إيداع من الغير إلى:",answer:"مسئول خدمة العملاء",clue:"والفحص عند مديره.",
+    why:"الاعتراض طلب كتابي من صاحب الحساب، فبيستلمه مسئول خدمة العملاء اللي بيتعامل مع طلبات العملاء، وبعدين مدير خدمة العملاء يفحصه.",
+    wrong:[{option:"مسئول الخدمات المصرفية",why:"دوره النقدية على الشباك."},{option:"مدير الخدمات المصرفية",why:"مش جهة استلام الاعتراض."},{option:"مدير خدمة العملاء",why:"هو اللي يفحص بعد الاستلام."}]},
+   {id:"q8",section:"s2",prompt:"المسئول عن مطابقة توقيع العميل على مستند الصرف للمبالغ التي تفوق حد التلر:",answer:"المصرّح",clue:"فوق الحد.",
+    why:"فوق حد التلر المبلغ أكبر من صلاحية مسئول الخدمات، فالمستند بيروح للمصرّح يراجع التوقيع ويتأكد من حضور العميل قبل ما يصرّح على النظام، كرقابة إضافية.",
+    wrong:[{option:"مسئول الخدمات المصرفية",why:"دوره هنا الرصيد والفئات."},{option:"كلاهما",why:"فوق الحد المطابقة على المصرّح."},{option:"ليس مما سبق",why:"الإجابة المصرّح."}]},
+   {id:"q9",section:"s2",prompt:"المسئول عن سماح رصيد العميل للسحب للمبالغ التي تفوق حد التلر:",answer:"مسئول الخدمات المصرفية",clue:"تقسيم العمل.",
+    why:"حتى فوق الحد، مسئول الخدمات هو اللي بيسجل العملية على النظام فبيتأكد من الرصيد، والمصرّح بيركز على التوقيع والحضور. ده فصل مهام يقلل الخطأ.",
+    wrong:[{option:"المصرّح",why:"دوره التوقيع والحضور."},{option:"مسئول الاستقبال",why:"مالوش دور في الصرف."},{option:"العميل",why:"مش مسئولية العميل."}]},
+   {id:"q10",section:"s2",prompt:"في حالة الصرف في حدود التيلر:",answer:"لا يتم تسليم المستند للمصرّح",clue:"صلاحية مين؟",
+    why:"المبلغ في حدود صلاحية مسئول الخدمات، فهو بيطابق ويصرف بنفسه. إرسال كل مستند للمصرّح هيعطّل الشغل من غير داعي.",
+    wrong:[{option:"يُسلّم المستند للمصرّح للتوقيع",why:"ده فوق الحد بس."},{option:"يُرسل المستند للخزينة",why:"مش الإجراء."},{option:"لا شيء مما سبق",why:"الإجابة موجودة."}]},
+   {id:"q11",section:"s2",prompt:"المسئول عن مراجعة المبلغ والرصيد مع العميل الذي لا يجيد القراءة أو الكتابة:",answer:"مدير الفرع أو من يفوضه",clue:"حماية العميل.",
+    why:"العميل مش هيقدر يقرأ المستند بنفسه، فلازم مستوى إداري أعلى يراجع معاه المبلغ والرصيد ويوقّع بكده، عشان نتأكد إنه فاهم ومحدش يستغله.",
+    wrong:[{option:"مدير الفرع أو من ينوب عنه",why:"الصياغة المعتمدة 'من يفوضه'."},{option:"نائب مدير الفرع للخدمات المصرفية",why:"مش المحدد."},{option:"أي مما سبق",why:"إجابة واحدة محددة."}]},
+   {id:"q12",section:"s2",prompt:"يجوز الصرف بموجب أوامر الصرف الخطية:",answer:"صحيحة فقط للشخصيات الاعتبارية",clue:"الأفراد ليهم شيكات وإيصالات.",
+    why:"الأمر الخطي استثناء للشركات اللي ممكن تحتاج صرف قبل استخراج دفتر الشيكات، وبيعامل معاملة الشيك. الفرد الطبيعي عنده إيصال السحب الآلي.",
+    wrong:[{option:"صحيحة",why:"مطلقة وده غلط."},{option:"غير صحيحة",why:"مسموح للاعتباريين."},{option:"صحيحة فقط للأشخاص الطبيعيين",why:"معكوس."}]},
+   {id:"q13",section:"s2",prompt:"في حالة قيام أحد عملاء البنك المسجل لهم رقم تعريفي، لا يلزم تمرير بطاقة الرقم القومي على ماكينة كشف التزوير:",answer:"العبارة خاطئة",clue:"البطاقة نفسها ممكن تتزور.",
+    why:"وجود رقم تعريفي معناه إن العميل مسجل، لكن اللي قدامك ممكن يكون حد معاه بطاقة مزورة باسمه. الفحص على الماكينة بيحمي من انتحال الشخصية.",
+    wrong:[{option:"العبارة صحيحة",why:"بتلغي فحص مهم ضد التزوير."}]},
+   {id:"q14",section:"s2",prompt:"يجوز الصرف من حسابات الأمانات جزئيًا عدا ما يتم صرفه بموافقة الإدارة القانونية كتابة:",answer:"العبارة خاطئة",clue:"اقلب القاعدة.",
+    why:"القاعدة العكس: الصرف الجزئي من الأمانات **ممنوع**، والاستثناء بموافقة الإدارة القانونية كتابة. الأمانات بتكون مرتبطة بحقوق محددة فتجزئتها ممكن تضر أطراف.",
+    wrong:[{option:"العبارة صحيحة",why:"بتخلي الأصل الجواز."}]},
+   {id:"q15",section:"s2",prompt:"تقدم عميل بشيك مستوفى المبلغ بالحروف وغير مستوفى بالأرقام:",answer:"عدم قبول الشيك",clue:"مستند ناقص.",
+    why:"الفرع بيشترط المطابقة بين الأرقام والحروف كإجراء صرف. الشيك ناقص بيان، فما يتقبلش لحد ما يتستكمل.",
+    wrong:[{option:"رفض الشيك",why:"الرفض الرسمي له أسباب محددة، وهنا الإجراء عدم القبول."},{option:"صرف الشيك",why:"ناقص بيان."},{option:"الاتصال بالساحب",why:"مش الإجراء."}]},
+   {id:"q16",section:"s3",prompt:"صلاحية الشخص لكسب الحقوق والالتزام بالواجبات:",answer:"أهلية الوجوب",clue:"كسب.",
+    why:"أهلية الوجوب بتثبت لأي إنسان من ولادته: يكسب حقوق (يرث مثلًا) ويتحمل التزامات. أما مباشرة التصرفات بنفسه فدي أهلية الأداء.",
+    wrong:[{option:"أهلية الأداء",why:"مباشرة التصرفات القانونية."},{option:"الوكالة",why:"عقد نيابة."},{option:"شكل الوكالة",why:"غير متعلق."}]},
+   {id:"q17",section:"s3",prompt:"الأصل عند توكيل أكثر من شخص للتعامل على حسابات الموكل أن يعملوا:",answer:"مجتمعين",clue:"السكوت.",
+    why:"الموكل لما يختار أكتر من وكيل غالبًا عايزهم يراقبوا بعض، فالأصل الاجتماع. الانفراد استثناء محتاج نص صريح.",
+    wrong:[{option:"منفردين",why:"محتاج نص."},{option:"حسب رغبة الوكلاء",why:"الإرادة للموكل."},{option:"حسب رأي الفرع",why:"مش قرار الفرع."}]},
+   {id:"q18",section:"s3",prompt:"من ضمن بنود التوكيل الداخلي أنه يجوز للوكيل أن يوكل غيره:",answer:"العبارة خاطئة",clue:"الثقة شخصية.",
+    why:"الموكل اختار الوكيل بشخصه، فما ينفعش الوكيل ينقل الثقة دي لحد تاني من غير إذن الموكل.",
+    wrong:[{option:"العبارة صحيحة",why:"بيتعدى إرادة الموكل."}]},
+   {id:"q19",section:"s3",prompt:"إذا كان التوكيل الداخلي منشأ على الرقم التعريفي، يحق للوكيل التعامل على كافة الحسابات الحالية والمستقبلية بما فيها الودائع والشهادات:",answer:"العبارة صحيحة",clue:"الرقم التعريفي = كل حسابات العميل.",
+    why:"الرقم التعريفي بيمثل العميل نفسه، فأي حساب يتفتح تحته (حاليًا أو بعدين) بيدخل في التوكيل. لو التوكيل على رقم حساب، يقتصر على الحساب ده.",
+    wrong:[{option:"العبارة خاطئة",why:"ده بالظبط معنى ربطه بالرقم التعريفي."}]},
+   {id:"q20",section:"s3",prompt:"شركات الشخص الواحد تعد من ضمن:",answer:"شركات الأموال",clue:"المسئولية محدودة برأس المال.",
+    why:"شركة الشخص الواحد ذات مسئولية محدودة، يعني مسئولية صاحبها محدودة برأس المال المخصص، ودي سمة شركات الأموال حتى لو المالك فرد واحد.",
+    wrong:[{option:"منشآت الأفراد",why:"المنشأة الفردية صاحبها مسئول في كل ماله."},{option:"شركات الأشخاص",why:"قائمة على الاعتبار الشخصي كالتضامن."},{option:"ليس مما سبق",why:"هي شركة أموال."}]},
+   {id:"q21",section:"s3",prompt:"من المستندات المطلوبة عند إنشاء علاقة وكالة على حسابات المنشأة الفردية:",answer:"سجل تجاري لم يمض على استخراجه أكثر من 3 شهور",clue:"مفيش عقد شركة.",
+    why:"المنشأة الفردية مالهاش عقد شركة ولا نظام أساسي، فالدليل على وجودها وسلطة صاحبها هو السجل التجاري الحديث.",
+    wrong:[{option:"النظام الأساسي للشركة",why:"لشركات الأموال."},{option:"عقد الشركة",why:"لشركات الأشخاص."},{option:"جميع ما سبق",why:"المنشأة ملهاش عقد ولا نظام."}]},
+   {id:"q22",section:"s3",prompt:"يجوز للشركات أن تصرح لوكلائها التعامل على حساباتها المدينة بموجب عقود وكالة:",answer:"العبارة خاطئة",clue:"مدين = تمويل.",
+    why:"الحساب المدين معناه سحب على تسهيل ائتماني، يعني الوكيل هيرتب مديونية على الشركة، وده محتاج موافقات ائتمانية مش عقد وكالة. الوكالة مسموحة على الحسابات الدائنة.",
+    wrong:[{option:"العبارة صحيحة",why:"المسموح الحسابات الدائنة."}]},
+   {id:"q23",section:"s4",prompt:"المستندات التي تمثل تنفيذ عملية واحدة فقط ولا يترتب عليها سلسلة من المعاملات (مثل التحويل بين حسابات العميل) تستلزم:",answer:"ختم وتوقيع المنفذ فقط",clue:"تبسيط الإجراءات.",
+    why:"العملية بتخلص مرة واحدة ومش بيترتب عليها التزامات تانية، والفلوس متنقلة بين حسابات نفس العميل، فالخطر قليل وتوقيع المنفذ كفاية.",
+    wrong:[{option:"المنفذ + المصرّح",why:"للتعاقدي واللي له سلسلة."},{option:"المنفذ + مسئول الالتزام",why:"مش مطلوب."},{option:"ختم البنك وتوقيع المدير",why:"للتوكيلات والعقود."}]},
+   {id:"q24",section:"s4",prompt:"طلب إصدار شيك مصرفي يعد من ضمن مستندات:",answer:"تنفيذ عملية يترتب عليها سلسلة من المعاملات",clue:"الشيك بيتداول بعد كده.",
+    why:"إصدار الشيك المصرفي مش بيخلص عند الفرع: الشيك هيتقدم للصرف أو التحصيل بعدين، يعني سلسلة معاملات، فمحتاج منفذ ومصرّح.",
+    wrong:[{option:"تعاقدية مع البنك",why:"دي زي طلب فتح الحساب."},{option:"عملية واحدة بلا سلسلة",why:"الشيك له مراحل بعدها."},{option:"جميع ما سبق",why:"تصنيف واحد."}]},
+   {id:"q25",section:"s4",prompt:"من المستندات التي يلزم استيفاء ختم البنك وتوقيعات الفرع عليها:",answer:"جميع ما سبق (الموافقات الائتمانية، التوكيلات المصرفية، عقود المديونية)",clue:"التزامات كبيرة.",
+    why:"المستندات دي بترتب التزامات قانونية ومالية كبيرة على البنك أو العميل، فلازم تكون بأعلى مستوى توثيق: ختم البنك وتوقيع مدير الفرع أو أحد نائبيه.",
+    wrong:[{option:"الموافقة الائتمانية فقط",why:"ناقص."},{option:"التوكيلات المصرفية فقط",why:"ناقص."},{option:"عقود المديونية فقط",why:"ناقص."}]},
+   {id:"q26",section:"s4",prompt:"علم البنك رسميًا بوفاة عميل. القاعدة العامة:",answer:"وقف التعامل وتعديل الحالة إلى No Debit",clue:"حماية التركة.",
+    why:"من لحظة الوفاة فلوس الحساب بقت تركة تخص الورثة، فلازم الصرف منها يقف لحد ما الحقوق تتحدد. No Debit بتمنع أي خصم وتسيب الإيداعات.",
+    wrong:[{option:"الاستمرار حتى تقديم إعلام الوراثة",why:"ممكن حد يصرف فلوس الورثة."},{option:"غلق الحساب فورًا",why:"الحساب بيفضل لحد التصفية."},{option:"صرف المعاش فقط",why:"مش القاعدة."}]},
+   {id:"q27",section:"s4",prompt:"شيك غير مسطر، تاريخه بعد وفاة الساحب، قُدم للصرف:",answer:"يرفض بعبارة الحساب مجمد",clue:"غير مسطر = صرف نقدي.",
+    why:"الشيك المؤرخ بعد الوفاة اتكتب أو اتقدم بعد ما الحساب بقى تركة. وغير المسطر بيتصرف نقدًا لأي حامل، فخطر صرفه لغير مستحق عالي، فيترفض.",
+    wrong:[{option:"يُصرف لأن الشيك أداة وفاء",why:"تاريخه بعد الوفاة."},{option:"يُصرف بموافقة أحد الورثة",why:"وريث واحد ما يتصرفش في التركة."},{option:"يُحول للتحصيل",why:"مش الإجراء."}]},
+   {id:"q28",section:"s4",prompt:"في حالة وجود أوعية ادخارية يرغب الورثة في استمرارها لحين الاستحقاق:",answer:"ربطها بحساب أمانات باسم المتوفى وعدم غلقه",clue:"الوعاء لسه شغال.",
+    why:"الشهادة أو الوديعة لسه ما استحقتش، فلازم حساب يستقبل عائدها وقيمتها لما تستحق. الحساب ده بيفضل باسم المتوفى لحد الاستحقاق ويتوزع بعدها.",
+    wrong:[{option:"استمرار الحساب الجاري المرتبط",why:"الجاري اتوقف بـ No Debit."},{option:"ربطها بحسابات الورثة كل حسب نصيبه",why:"التوزيع بعد الاستحقاق."},{option:"كسرها فورًا",why:"الورثة عايزين يكملوها."}]}
+  ]
+};
+
+/* ===== أدوات ===== */
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<mark>$1</mark>').replace(/\[\[(.+?)\]\]/g,'<bdi class="en" dir="ltr">$1</bdi>');
+const $=(s,r=document)=>r.querySelector(s);
+const CAT=NOTE.categories;
+
+const plain=s=>String(s).replace(/\*\*|\[\[|\]\]/g,'');
+const lab=h=>` data-l="${esc(plain(h)).replace(/"/g,'&quot;')}"`;
+function table(t){
+  const n=t.headers.length;
+  return `<div class="stack">${t.title?`<h3>${inl(t.title)}</h3>`:''}
+  <div class="tscroll ${n>=3?'stk':'w2'}"><table><thead><tr>${t.headers.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead>
+  <tbody>${t.rows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0?' class="first"':''}${lab(t.headers[i]||'')}>${inl(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+  ${t.tip?`<div class="tip"><b>انتبه:</b> ${inl(t.tip)}</div>`:''}</div>`;
+}
+function summary(){
+  const s=NOTE.summary;
+  return `<section id="summary"><h2>الخلاصة</h2><div class="stack">
+   <p>${inl(s.lead)}</p>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">البند</th>${s.colHeaders.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead><tbody>
+   ${s.rows.map(r=>`<tr><td class="first">${inl(r.head)}${r.sub?`<small>${inl(r.sub)}</small>`:''}</td>${r.cells.map((c,i)=>`<td class="c-${c.cat}"${lab(s.colHeaders[i]||'')}>${inl(c.main)}${c.ex?`<span class="ex">${inl(c.ex)}</span>`:''}</td>`).join('')}</tr>`).join('')}
+   </tbody></table></div>
+   <p class="legend">${inl(s.legend)}</p>
+   <div class="golden"><b>القاعدة الذهبية:</b> ${inl(s.goldenRule)}</div></div></section>`;
+}
+function concepts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="grid">${sec.items.map(c=>`
+   <article class="card">
+    <span class="tag ${c.cat}">${CAT[c.cat]}</span>
+    <div class="cname"><span class="en">${esc(c.nameEn)}</span><span class="ar">${esc(c.nameAr)}</span></div>
+    <div class="formula">${c.formula.map(f=>`<div class="frow"><span class="dot ${f.sign==='+'?'p':f.sign==='-'?'m':'q'}">${f.sign==='+'?'✓':f.sign==='-'?'−':'?'}</span><span>${inl(f.text)}</span></div>`).join('')}</div>
+    <div><h4>بنستخدمه في</h4><ul class="plain">${c.uses.map(u=>`<li>${inl(u)}</li>`).join('')}</ul></div>
+    <div><h4>أمثلة</h4><div class="exs">${c.examples.map(e=>`<div class="exi"><span>${inl(e.en)}</span><span class="a2">${inl(e.ar)}</span></div>`).join('')}</div></div>
+    <div><h4>دلائل</h4><div class="sig">${c.signals.map(x=>`<span class="rtl">${esc(x)}</span>`).join('')}</div></div>
+    <div class="tip"><b>انتبه:</b> ${inl(c.tip)}</div>
+    ${c.src?`<p class="srcl">المصدر: ${esc(c.src)}</p>`:''}
+   </article>`).join('')}</div></section>`;
+}
+function compare(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><div class="cmp-title">${esc(c.title)}</div>
+    <div class="cmp-cols">${c.cols.map(col=>`<div class="cmp-col ${col.cat}"><h4>${esc(col.name)}</h4><p>${inl(col.when)}</p>
+      <ul class="plain">${col.ex.map(e=>`<li>${inl(e)}</li>`).join('')}</ul></div>`).join('')}</div>
+    <div class="golden"><b>القاعدة الذهبية:</b> ${inl(c.golden)}</div></article>`).join('')}</div></section>`;
+}
+function confusing(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.explain)}</p>
+    <ul class="cl">${c.examples.map(e=>{const k=e.correct===true?'ok':e.correct===false?'no':'nt';const m=k==='ok'?'✓':k==='no'?'✗':'•';
+      return `<li class="${k}"><span class="m">${m}</span><span><span class="t">${inl(e.text)}</span>${e.note?`<span class="note">${inl(e.note)}</span>`:''}</span></li>`}).join('')}</ul>
+   </article>`).join('')}</div></section>`;
+}
+function conflicts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`<article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.text)}</p></article>`).join('')}</div></section>`;
+}
+function reference(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.tables.map(table).join('')}</div></section>`;
+}
+function lookup(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">
+   <input class="search" id="lq" type="search" placeholder="اكتب كلمة دالة، مثلًا: رب المال أو الفلتر أو 1975" autocomplete="off" aria-label="بحث في الدلائل">
+   <div class="cnt" id="lcnt"></div>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">الدليل</th><th scope="col">المفهوم</th><th scope="col">ملاحظة</th></tr></thead><tbody id="lb"></tbody></table></div></div></section>`;
+}
+function fillLookup(rows){
+  const lb=$('#lb'),inp=$('#lq'),cnt=$('#lcnt');
+  const norm=s=>s.replace(/[ً-ْـ]/g,'').replace(/[إأآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').toLowerCase();
+  const draw=()=>{
+    const q=norm(inp.value.trim());
+    const r=rows.filter(x=>!q||norm(x.signal+' '+x.target+' '+x.note).includes(q));
+    lb.innerHTML=r.length?r.map(x=>`<tr><td class="first">${esc(x.signal)}</td><td data-l="المفهوم">${esc(x.target)}</td><td data-l="ملاحظة">${esc(x.note)}</td></tr>`).join(''):`<tr><td colspan="3" class="empty">مفيش نتيجة للكلمة دي.</td></tr>`;
+    cnt.textContent=r.length+' من '+rows.length;
+  };
+  inp.addEventListener('input',draw);draw();
+}
+
+/* ===== الكويز ===== */
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const LET=['A','B','C','D'];
+let QS={i:0,order:[],picks:[],opts:[]};
+function quizStart(){
+  QS={i:0,order:shuffle(QUIZ.questions.map((_,i)=>i)),picks:[],opts:{}};
+  quizDraw();
+}
+function quizDraw(){
+  const root=$('#quiz');
+  const n=QUIZ.questions.length;
+  if(QS.i>=n){return quizResult(root)}
+  const qi=QS.order[QS.i],q=QUIZ.questions[qi];
+  const sec=QUIZ.sections.find(s=>s.id===q.section).title;
+  const opts=QS.opts[qi]||(QS.opts[qi]=shuffle([{t:q.answer,ok:true},...q.wrong.map(w=>({t:w.option,ok:false,why:w.why}))]));
+  const pick=QS.picks[QS.i];
+  const answered=pick!==undefined;
+  const promptHtml=esc(q.prompt).replace('___',`<span class="blank${answered?(opts[pick].ok?' ok':' no'):''}">${answered?esc(q.answer):'&nbsp;&nbsp;&nbsp;&nbsp;'}</span>`);
+  root.innerHTML=`
+   <div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${QS.i+(answered?1:0)}"><i style="width:${(QS.i+(answered?1:0))/n*100}%"></i></div>
+   <div class="qmeta"><span>سؤال ${QS.i+1} من ${n}</span><span>${esc(sec)}</span></div>
+   <p class="qp">${promptHtml}</p>
+   <div class="opts">${opts.map((o,k)=>`<button type="button" class="opt${answered?(o.ok?' right':(k===pick?' wrongpick':'')):''}" data-k="${k}" ${answered?'disabled':''}><span class="L">${LET[k]}</span><span>${esc(o.t)}</span></button>`).join('')}</div>
+   ${answered?`<div class="fb" aria-live="polite">
+     <div class="v ${opts[pick].ok?'ok':'no'}">${opts[pick].ok?'صح.':'مش دقيق.'}</div>
+     <p><b>ليه الإجابة دي:</b> ${esc(q.why)}</p>
+     ${q.clue?`<p><b>الدليل:</b> ${esc(q.clue)}</p>`:''}
+     <div><b>ليه الباقي غلط:</b><ul>${opts.map((o,k)=>o.ok?'':`<li class="${k===pick?'picked':''}">${esc(o.t)}: ${esc(o.why)}${k===pick?' (اختيارك)':''}</li>`).join('')}</ul></div>
+    </div>
+    <button type="button" class="btn" id="qnext">${QS.i+1<n?'السؤال التالي':'شوف النتيجة'}</button>`:''}`;
+  root.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{QS.picks[QS.i]=+b.dataset.k;quizDraw();const nb=$('#qnext');if(nb)nb.focus({preventScroll:true})}));
+  const nb=$('#qnext');if(nb)nb.addEventListener('click',()=>{QS.i++;quizDraw();root.scrollIntoView({block:'nearest'})});
+}
+function quizResult(root){
+  const n=QUIZ.questions.length;let total=0;const per={};
+  QUIZ.sections.forEach(s=>per[s.id]={t:0,c:0});
+  QS.order.forEach((qi,i)=>{const q=QUIZ.questions[qi];const ok=QS.opts[qi][QS.picks[i]].ok;per[q.section].t++;if(ok){per[q.section].c++;total++}});
+  const rows=QUIZ.sections.filter(s=>per[s.id].t).map(s=>({s,p:Math.round(per[s.id].c/per[s.id].t*100)}));
+  const weak=rows.slice().sort((a,b)=>a.p-b.p)[0];
+  root.innerHTML=`<div class="res">
+   <div class="prog"><i style="width:100%"></i></div>
+   <div class="score"><bdi class="ltr" dir="ltr">${total} / ${n}</bdi></div>
+   <div class="bars">${rows.map(r=>`<div class="bar${r===weak&&r.p<100?' weak':''}"><span>${esc(r.s.title)}</span><span class="pb"><i style="width:${r.p}%"></i></span><span class="ltr">${r.p}%</span></div>`).join('')}</div>
+   <p>${weak.p<100?`أضعف قسم: <mark>${esc(weak.s.title)}</mark>. ارجع له في المذكرة وحاول تاني.`:'كل الأقسام 100%. ممتاز.'}</p>
+   <button type="button" class="btn" id="qrestart">ابدأ من جديد</button></div>`;
+  $('#qrestart').addEventListener('click',quizStart);
+}
+
+/* ===== التجميع ===== */
+// كل الأقسام بتترسم بترتيبها في الملف حسب نوعها (type)، حتى لو الـid مش من الأسماء الافتراضية
+const R={concepts,compare,confusing,conflicts,reference,lookup};
+const SHORT={concepts:'المفاهيم',compare:'الفروقات',confusing:'حالات بتلخبط',conflicts:'تعارضات',reference:'أرقام وجداول',lookup:'دوّر على دليل'};
+function chipName(sec){
+  const nConcepts=NOTE.sections.filter(x=>(x.type||x.id)==='concepts').length;
+  const t=(sec.type||sec.id);
+  if(t==='concepts'&&nConcepts>1){const c=String(sec.title||'').replace(/^\d+[\.\-\s]*/,'').split(/[:(،]/)[0].trim();return c.length>22?c.slice(0,21)+'…':c}
+  return SHORT[t]||sec.title;
+}
+function build(){
+  const secs=NOTE.sections.filter(x=>R[x.type||x.id]);
+  $('#sheet').innerHTML=`
+   <header class="hero"><span class="stamp">${esc(NOTE.stamp)}</span><h1>${esc(NOTE.title)}</h1><p class="sub">${esc(NOTE.subtitle)}</p></header>
+   ${summary()}${secs.map(x=>R[x.type||x.id](x)).join('')}
+   <section id="quiz-sec"><h2 id="quiz-h">اختبر نفسك</h2><div class="quiz" id="quiz"></div></section>
+   <p class="foot">ملخص مذاكرة لامتحان مصرفي أول G3</p>`;
+  $('#chips').innerHTML=[['summary','الخلاصة'],...secs.map(x=>[x.id,chipName(x)]),['quiz-sec','اختبر نفسك']]
+    .map(([id,l])=>`<a class="chip" href="#${id}" data-id="${id}">${esc(l)}</a>`).join('');
+  const lk=secs.find(x=>(x.type||x.id)==='lookup');if(lk)fillLookup(lk.rows);
+  quizStart();
+  const links=[...document.querySelectorAll('.chip')],bar=$('#chips');
+  const center=l=>{const a=l.getBoundingClientRect(),c=bar.getBoundingClientRect();bar.scrollBy({left:(a.left+a.width/2)-(c.left+c.width/2),behavior:'smooth'})};
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>{const on=l.dataset.id===e.target.id;if(on&&!l.classList.contains('on'))center(l);l.classList.toggle('on',on)})})},{rootMargin:'-80px 0px -65% 0px'});
+    links.forEach(l=>{const t=document.getElementById(l.dataset.id);if(t)io.observe(t)});
+  }
+}
+/* المظهر: زرار واحد شمس/قمر، ومحفوظ في kk-theme المشترك مع التطبيق */
+const themeBtn=$('#themeb');
+function curTheme(){try{return localStorage.getItem('kk-theme')||'system'}catch(e){return 'system'}}
+const isDark=()=>{const m=curTheme();return m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)};
+function setTheme(m){
+  const r=document.documentElement;
+  if(m==='light'||m==='dark')r.setAttribute('data-theme',m);else r.removeAttribute('data-theme');
+  try{localStorage.setItem('kk-theme',m)}catch(e){}
+  const d=isDark();themeBtn.classList.toggle('dark',d);themeBtn.setAttribute('aria-label',d?'الوضع الداكن. دوس للفاتح':'الوضع الفاتح. دوس للداكن');
+}
+themeBtn.addEventListener('click',()=>setTheme(isDark()?'light':'dark'));
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>setTheme(curTheme()));
+build();setTheme(curTheme());
+</script>
+
+<style>
+.bg3-home{position:fixed;left:max(14px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;
+ display:flex;align-items:center;gap:6px;padding:9px 16px 9px 14px;border-radius:999px;background:var(--head-bg);color:var(--head-ink);
+ font-family:var(--f-ui);font-weight:700;font-size:14px;line-height:1.3;text-decoration:none;box-shadow:var(--shadow)}
+.bg3-home svg{width:18px;height:18px}
+.bg3-home:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+</style>
+<a class="bg3-home" href="../index.html#notes" aria-label="رجوع لقائمة الملخصات">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>الملخصات</a>
+<script>
+(function(){var K="chapter4";
+function g(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var all=g('bg3:notes',{}),me=all[K]||{};me.last=Date.now();all[K]=me;s('bg3:notes',all);s('bg3:lastNote',K);
+if(location.hash==='#resume'){history.replaceState(null,'',location.pathname);
+ if(me.y)requestAnimationFrame(function(){setTimeout(function(){window.scrollTo({top:me.y,behavior:'instant'})},80)})}
+var t;addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(function(){
+ var a=g('bg3:notes',{}),m=a[K]||{},h=document.documentElement.scrollHeight-innerHeight,p=h>0?Math.round(scrollY/h*100):100;
+ m.y=Math.round(scrollY);m.pct=Math.max(m.pct||0,Math.min(100,p));a[K]=m;s('bg3:notes',a)},250)},{passive:true});
+})();
+</script>

@@ -1,0 +1,1019 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c1f3f">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<title>ملخص المرابحة بالوكالة</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: ورقة كشكول واحدة في النص، هامش أحمر، شريط أقسام ثابت فوق */
+:root{
+  --bg:#e6ebf3; --paper:#fbfcfe; --card:#ffffff; --card-edge:#cbd6e8;
+  --ink:#0c1f3f; --ink-2:#44577a; --line:#dbe3f0;
+  --gold:#c9a13b; --gold-ink:#7d5f0c; --gold-wash:#faf2d8; --hl:rgba(201,161,59,.38);
+  --margin:#d4584c;
+  --cat-a:#a23d35; --cat-a-wash:#fbebe9;
+  --cat-b:#1f4f9a; --cat-b-wash:#e6eefb;
+  --cat-c:#7d5f0c; --cat-c-wash:#faf2d8;
+  --ok:#1d7a4d; --no:#b3382e; --ok-wash:#e4f4ec; --no-wash:#fbebe9;
+  --head-bg:#0c1f3f; --head-ink:#f3f6fc;
+  --shadow:0 1px 0 rgba(12,31,63,.06),0 10px 28px rgba(12,31,63,.10);
+  --f-display:'Aref Ruqaa','Amiri',serif;
+  --f-body:'Tajawal','Cairo',system-ui,sans-serif;
+  --f-ui:'Cairo','Tajawal',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+    --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+    --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+    --margin:#e5675c;
+    --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+    --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+    --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+    --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+    --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+  --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+  --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+  --margin:#e5675c;
+  --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+  --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+  --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+  --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+  --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.95;margin:0;
+  padding-block:0 72px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));
+  -webkit-text-size-adjust:100%;text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+bdi.en,.ltr{font-family:var(--f-ui);unicode-bidi:isolate}
+.ltr{direction:ltr;text-align:left}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+
+/* شريط الأقسام */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);display:flex;gap:10px;align-items:center;padding-block:8px;border-bottom:1px solid var(--card-edge)}
+.chips{display:flex;gap:6px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none;padding-block:2px;
+  -webkit-mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);padding-inline-end:20px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-family:var(--f-ui);font-size:13.5px;font-weight:600;line-height:1.4;padding:6px 13px;border-radius:999px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chip:hover,.chip.on{background:var(--head-bg);border-color:var(--head-bg);color:var(--head-ink)}
+.themeb{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--card-edge);background:var(--card);color:var(--gold-ink);cursor:pointer;padding:0}
+.themeb svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.themeb .i-moon{display:none}
+.themeb.dark .i-sun{display:none}
+.themeb.dark .i-moon{display:block;fill:currentColor}
+
+/* الورقة */
+.sheet{position:relative;width:100%;background-color:var(--paper);
+  border-radius:6px;box-shadow:var(--shadow);padding-block:28px 40px;padding-inline-start:44px;padding-inline-end:28px;
+  display:flex;flex-direction:column;gap:44px;min-width:0}
+.sheet::before{content:"";position:absolute;inset-block:0;inset-inline-start:30px;width:0;border-inline-start:1.5px solid var(--margin);opacity:.55;pointer-events:none}
+.sheet::after{content:"";position:absolute;inset-block:0;inset-inline-start:9px;width:10px;pointer-events:none;
+  background:radial-gradient(circle at center,var(--bg) 0 3.5px,transparent 4px) center 36px/10px 96px repeat-y}
+.sheet>*{min-width:0}
+.sheet{overflow-wrap:anywhere}
+mark{background:none;color:inherit;box-shadow:inset 0 -.5em 0 var(--hl);padding-inline:1px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,6vw,42px);line-height:1.5;margin:0;text-decoration:underline wavy var(--gold);text-decoration-thickness:2px;text-underline-offset:12px;text-wrap:balance}
+section>h2{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.6;margin:0 0 16px;display:inline-block;box-shadow:inset 0 -.32em 0 var(--hl)}
+h3{font-family:var(--f-ui);font-size:17.5px;margin:0;line-height:1.6}
+p{margin:0}
+.lead{color:var(--ink-2)}
+.hero{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.stamp{display:inline-block;transform:rotate(-2deg);font-family:var(--f-ui);font-weight:600;font-size:13px;line-height:1.5;color:var(--gold-ink);background:var(--gold-wash);border:2px solid var(--gold);border-radius:6px;padding:2px 12px}
+.sub{color:var(--ink-2);font-size:17px}
+
+/* الجداول: جدول عادي على الشاشات الواسعة، وكروت مرصوصة على الموبايل (كل خانة معاها اسم العمود) */
+.tscroll{overflow-x:auto;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.75;table-layout:auto}
+th{background:var(--head-bg);color:var(--head-ink);font-family:var(--f-ui);font-weight:700;font-size:14px;padding:10px 14px;text-align:start;vertical-align:bottom;line-height:1.5}
+td{padding:11px 14px;vertical-align:top;text-align:start;border-top:1px solid var(--card-edge);font-variant-numeric:tabular-nums}
+tbody tr:nth-child(even) td:not([class]){background:color-mix(in srgb,var(--paper) 55%,transparent)}
+td.first{background:var(--gold-wash);font-weight:700;min-width:7.5em}
+td.first small{display:block;font-weight:400;color:var(--ink-2);font-size:13px;line-height:1.5}
+td.c-a{background:var(--cat-a-wash)} td.c-b{background:var(--cat-b-wash)} td.c-c{background:var(--cat-c-wash)}
+td .ex{display:block;color:var(--ink-2);font-size:13.5px;line-height:1.6;margin-top:4px}
+.tscroll.w2 table td.first{width:38%}
+@media (max-width:700px){
+  .tscroll.stk{overflow:visible;border:0;background:none;border-radius:0}
+  .tscroll.stk table,.tscroll.stk tbody,.tscroll.stk tr,.tscroll.stk td{display:block;width:100%}
+  .tscroll.stk thead{display:none}
+  .tscroll.stk tr{border:1px solid var(--card-edge);border-radius:10px;overflow:hidden;background:var(--card);margin-bottom:10px}
+  .tscroll.stk tr:last-child{margin-bottom:0}
+  .tscroll.stk td{border-top:1px solid var(--line);padding:9px 14px;background:none}
+  .tscroll.stk td.first{border-top:0;background:var(--gold-wash);font-size:16.5px;min-width:0}
+  .tscroll.stk td.c-a{background:var(--cat-a-wash)} .tscroll.stk td.c-b{background:var(--cat-b-wash)} .tscroll.stk td.c-c{background:var(--cat-c-wash)}
+  .tscroll.stk td[data-l]:not(.first)::before{content:attr(data-l);display:block;font-family:var(--f-ui);font-size:12.5px;font-weight:700;color:var(--ink-2);line-height:1.5;margin-bottom:1px}
+  .tscroll.stk td.empty::before{display:none}
+}
+.legend{font-size:14px;color:var(--ink-2);margin-top:12px}
+.legend .k{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-inline:4px 4px}
+
+/* مربعات */
+.golden,.tip,.formula{border:2px dashed var(--gold);background:var(--gold-wash);border-radius:8px;padding:10px 16px;line-height:1.9}
+.golden b{color:var(--gold-ink)}
+.tip{border-color:var(--margin);background:var(--card)}
+.tip b{color:var(--margin)}
+.stack{display:flex;flex-direction:column;gap:16px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.card{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tag{align-self:flex-start;font-family:var(--f-ui);font-size:12px;font-weight:700;line-height:1.5;padding:1px 10px;border-radius:999px}
+.tag.a{background:var(--cat-a-wash);color:var(--cat-a)} .tag.b{background:var(--cat-b-wash);color:var(--cat-b)} .tag.c{background:var(--cat-c-wash);color:var(--cat-c)}
+.cname{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.cname .en{font-family:var(--f-ui);font-weight:700;font-size:18px;direction:ltr}
+.cname .ar{font-size:16px;color:var(--ink-2)}
+.formula{display:flex;flex-direction:column;gap:6px;padding:10px 12px}
+.frow{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.dot{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-size:13px;font-weight:700;color:var(--paper);margin-top:2px}
+.dot.p{background:var(--ok)} .dot.m{background:var(--no)} .dot.q{background:var(--cat-b)}
+h4{font-family:var(--f-ui);font-size:14px;margin:0;color:var(--ink-2);line-height:1.6}
+ul.plain{margin:0;padding-inline-start:20px;display:flex;flex-direction:column}
+.exs{display:flex;flex-direction:column;gap:6px}
+.exi{display:flex;flex-direction:column;border-inline-start:3px solid var(--card-edge);padding-inline-start:12px;line-height:1.7}
+.exi .a2{color:var(--ink-2);font-size:14px}
+.sig{display:flex;flex-wrap:wrap;gap:6px}
+.sig span{direction:ltr;font-family:var(--f-ui);font-size:13px;line-height:1.5;padding:2px 10px;border-radius:999px;background:var(--gold-wash);color:var(--gold-ink);border:1px solid var(--gold)}
+.sig span.rtl{direction:rtl;font-family:var(--f-body)}
+.cmp-cols{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.cmp-col{border-radius:6px;border:1px solid var(--card-edge);padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.cmp-col.a{background:var(--cat-a-wash)} .cmp-col.b{background:var(--cat-b-wash)} .cmp-col.c{background:var(--cat-c-wash)}
+.cmp-col h4{color:var(--ink);font-size:15px}
+.cmp-title{direction:ltr;text-align:left;font-family:var(--f-ui);font-weight:700;font-size:18px}
+.cl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.cl li{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.cl .m{flex:none;width:22px;text-align:center;font-family:var(--f-ui);font-weight:700}
+.cl .ok .m{color:var(--ok)} .cl .no .m{color:var(--no)} .cl .nt .m{color:var(--cat-c)}
+.cl .no .t{text-decoration:line-through;text-decoration-color:var(--no)}
+.cl .note{display:block;font-size:13px;color:var(--ink-2);line-height:1.6}
+
+/* بحث */
+.search{width:100%;font:inherit;font-family:var(--f-ui);font-size:16px;line-height:1.5;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink)}
+.search::placeholder{color:var(--ink-2)}
+.cnt{font-size:13px;color:var(--ink-2);font-family:var(--f-ui)}
+.empty{padding:16px;color:var(--ink-2)}
+
+/* كويز */
+.quiz{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:16px}
+.prog{height:8px;border-radius:999px;background:var(--line);overflow:hidden;border:1px solid var(--card-edge)}
+.prog i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.qmeta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-ui);font-size:13px;color:var(--ink-2)}
+.qp{font-size:18px;line-height:1.9;font-weight:500}
+.qp .blank{display:inline-block;min-width:80px;border-bottom:2px dashed var(--gold);text-align:center;padding-inline:6px}
+.qp .blank.ok{border-bottom:2px solid var(--ok);color:var(--ok);font-weight:700}
+.qp .blank.no{border-bottom:2px solid var(--no);color:var(--no);font-weight:700}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:start;width:100%;font:inherit;line-height:1.7;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--paper);color:var(--ink);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--gold);background:var(--gold-wash)}
+.opt .L{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-weight:700;font-size:13px;line-height:1;background:var(--line);color:var(--ink);margin-top:2px}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--ok-wash);border-color:var(--ok)}
+.opt.wrongpick{background:var(--no-wash);border-color:var(--no)}
+.fb{display:flex;flex-direction:column;gap:10px;border-radius:8px;padding:12px 16px;background:var(--gold-wash);border:1px dashed var(--gold)}
+.fb .v{font-weight:700;font-family:var(--f-ui)}
+.fb .v.ok{color:var(--ok)} .fb .v.no{color:var(--no)}
+.fb ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:4px}
+.fb li.picked{font-weight:700}
+.btn{align-self:flex-start;font-family:var(--f-ui);font-weight:600;font-size:15px;line-height:1.4;padding:10px 20px;border-radius:8px;border:0;background:var(--head-bg);color:var(--head-ink);cursor:pointer}
+.res{display:flex;flex-direction:column;gap:12px}
+.score{font-family:var(--f-display);font-size:40px;line-height:1.4}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(90px,140px) 1fr 44px;gap:10px;align-items:center;font-size:14px;line-height:1.5}
+.bar .pb{height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar .pb i{display:block;height:100%;background:var(--cat-b)}
+.bar.weak .pb i{background:var(--no)}
+.srcl{font-family:var(--f-ui);font-size:12px;line-height:1.6;color:var(--ink-2);margin:0}
+.foot{font-size:14px;color:var(--ink-2)}
+@media (max-width:600px){
+  body{padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+  .sheet{padding-block:22px 32px;padding-inline-start:26px;padding-inline-end:14px;gap:38px}
+  .sheet::before{inset-inline-start:16px}
+  .sheet::after{display:none}
+  .card{padding:14px}
+  section>h2{font-size:25px}
+  .bar{grid-template-columns:84px 1fr 40px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.prog i{transition:none}}
+</style>
+
+<div class="wrap">
+  <nav class="nav" aria-label="أقسام المذكرة">
+    <div class="chips" id="chips"></div>
+    <button type="button" class="themeb" id="themeb" aria-label="المظهر">
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+    </button>
+  </nav>
+  <main class="sheet" id="sheet" dir="rtl" lang="ar"></main>
+</div>
+
+<script>
+/* ===== المحتوى ===== */
+const NOTE = {
+  title:"المرابحة بالوكالة",
+  subtitle:"منتج المرابحة بالوكالة ومنشور 5561 والسياسة الائتمانية للتجزئة، مع التركيز على دور الفرع. (نسب العائد مستبعدة لأنها بتتغير)",
+  stamp:"مذكرة · Murabaha by Wakala",
+  categories:{a:"المنتج والقواعد", b:"دور الفرع والمستندات", c:"البرامج والحدود"},
+  summary:{
+    lead:"البنك **بيوكّل العميل** إنه يشتري بنفسه اللي محتاجه (تشطيب، علاج، فرح، صيانة عربية...) لما يكون **صعب يجيب عرض سعر**. الفرع بيصرف القيمة **نقدًا** للعميل مقابل **إقرار المرابحة بالوكالة** إنه استلم المبلغ وهيصرفه في الغرض.",
+    colHeaders:["إيه هو","المفتاح","رقم أو مثال"],
+    rows:[
+      {head:"الفكرة", sub:"صيغة المنتج",
+       cells:[{main:"مرابحة **مشمولة بالوكالة**: البنك يوكّل العميل في الشراء", ex:"الغرض وفق **بيان العميل نفسه** في الطلب", cat:"a"},
+              {main:"لما **يتعذر عرض السعر**", ex:"سيراميك، بويات، علاج، نادي، فرح، صيانة عربية، رسوم تأمين", cat:"a"},
+              {main:"**مش** للأجهزة الكهربائية والأثاث والمستلزمات التجارية", ex:"دي لها **مرابحة السلع المعمرة**", cat:"a"}]},
+      {head:"الموافقة", sub:"مين يوافق؟",
+       cells:[{main:"**بدون ضمان عيني**: مركزيًا (الإدارة المركزية لإصدار ومنح الائتمان)", ex:"صلاحية الموافقة **45 يوم**", cat:"a"},
+              {main:"**بضمان عيني (أوعية)**: **لجان الائتمان بالفروع**", ex:"", cat:"a"},
+              {main:"العقد يوقّعه **مدير الفرع أو من ينوب عنه** كطرف أول", ex:"عقد معتمد شرعيًا وقانونيًا", cat:"b"}]},
+      {head:"دور الفرع", sub:"الدورة المستندية",
+       cells:[{main:"مرحلة 1: استلام المستندات ومطابقة التوقيع و**صورة طبق الأصل**", ex:"تسجيل على **Loan Origination**", cat:"b"},
+              {main:"مرحلة 2: العقد + سند لأمر أو شيكات + تقرير الموافقة", ex:"**Credit Decision LN_ORG_01**", cat:"b"},
+              {main:"مرحلة 3: **إيصالات السداد للمورد** لو العميل أقر بتوفرها", ex:"", cat:"b"}]},
+      {head:"البرامج", sub:"الشرائح",
+       cells:[{main:"**تعهد جهة العمل** · **إثبات دخل** · **معاشات**", ex:"", cat:"c"},
+              {main:"**دخل افتراضي**: أطباء، أساتذة جامعات، هيئات قضائية، أصحاب أوعية", ex:"", cat:"c"},
+              {main:"**بضمان أوعية ادخارية** (شهري / ربع سنوي)", ex:"مصريين وأجانب", cat:"c"}]}
+    ],
+    legend:"الأحمر = المنتج والقواعد · الأزرق = دور الفرع والمستندات · الذهبي = البرامج والحدود.",
+    goldenRule:"الوكالة معناها إن **العميل هو اللي بيشتري** نيابة عن البنك. عشان كده الصرف **نقدي للعميل**، بعد **إقرار** باستلام القيمة وصرفها في **الغرض المذكور في الطلب**."
+  },
+  sections:[
+    {type:"concepts", id:"concepts", title:"المفاهيم الأساسية", items:[
+      {nameEn:"Murabaha by Wakala", nameAr:"تعريف المنتج والغرض", cat:"a",
+       formula:[{sign:"+",text:"تمويل احتياجات العميل النقدية بصيغة **المرابحة المشمولة بالوكالة**"},
+                {sign:"+",text:"الأغراض: **مستلزمات البناء والتشييد والترميم**، وأي **مستلزمات منزلية أو شخصية** مش داخلة في منتجات إسلامية تانية، **لما يتعذر الحصول على عرض سعر**"},
+                {sign:"+",text:"أمثلة: أدوات صحية، سيراميك، بويات، مستلزمات طبية وعلاج، اشتراك نادي، صيانة عربية، تجديد المنزل، حفلات الزواج، رسوم التأمين، وأي غرض **مباح شرعًا**"},
+                {sign:"-",text:"**مستثنى**: المستلزمات التجارية والأجهزة الكهربائية والأثاث المنزلي، ودول ليهم **مرابحة السلع المعمرة**"},
+                {sign:"+",text:"البنك **يوكّل العميل** في الصرف على الأغراض **وفق بيان العميل نفسه** في طلب المرابحة"}],
+       uses:["تحديد هل الغرض يدخل المنتج ولا يروح لمنتج تاني"],
+       examples:[{en:"عميل عايز يشطب شقته",ar:"مستلزمات بناء وترميم ← **مرابحة بالوكالة**"},
+                 {en:"عميل عايز ثلاجة وغسالة",ar:"أجهزة كهربائية ← **مرابحة السلع المعمرة**"},
+                 {en:"عميل عايز يدفع مصاريف فرح",ar:"غرض مباح ومفيش عرض سعر ← **بالوكالة**"}],
+       signals:["تعذر عرض السعر","وكالة","غرض مباح شرعًا"],
+       tip:"لو الحاجة ليها **فاتورة وعرض سعر واضح** (جهاز، أثاث، عربية)، فغالبًا ليها منتج مرابحة تاني. الوكالة للحاجات **المتفرقة** اللي صعب يتعمل لها عرض سعر واحد.",
+       src:"تعريف المنتج"},
+      {nameEn:"Target Segments", nameAr:"الفئات المستهدفة", cat:"a",
+       formula:[{sign:"+",text:"العاملين في **الحكومة والقطاع العام وقطاع الأعمال العام**"},
+                {sign:"+",text:"العاملين **بالقطاع الخاص والاستثماري** حسب **سياسة التكويد**"},
+                {sign:"+",text:"**أصحاب المهن الحرة** والأنشطة التجارية والصناعية والخدمية"},
+                {sign:"+",text:"عملاء البنك **أصحاب الأوعية الادخارية**"},
+                {sign:"+",text:"**أصحاب المعاشات** اللي بيصرفوا معاشهم من البنك (صاحب معاش أو مستفيد)"}],
+       uses:["اختيار البرنامج المناسب للعميل"],
+       examples:[{en:"موظف شركة خاصة غير مكوّدة",ar:"لازم **تكويد الجهة** الأول قبل التعامل"},
+                 {en:"صاحب معاش بيصرف من بنك تاني",ar:"مش مستهدف لحد ما **يحوّل المعاش** علينا"}],
+       signals:["حكومي","خاص مكوّد","مهن حرة","أوعية","معاشات"],
+       tip:"القطاع الخاص دايمًا مربوط **بتكويد وتصنيف الجهة** (A+ لـ D)، إلا برامج الدخل الافتراضي، فبيتعمل فيها **تكويد للجهة بس من غير تصنيف**.",
+       src:"الفئات المستهدفة"},
+      {nameEn:"General Rules", nameAr:"القواعد العامة للمنتج", cat:"a",
+       formula:[{sign:"+",text:"الرجوع **للشروط العامة لمنح التسهيلات** لمنتجات التجزئة، والاستعلام عن العميل حسبها (إلا **برنامج الأوعية الادخارية**)"},
+                {sign:"+",text:"**بدون ضمان عيني** ← موافقة **مركزية** من الإدارة المركزية لإصدار ومنح الائتمان"},
+                {sign:"+",text:"**بضمان عيني** ← **لجان الائتمان بالفروع** حسب السياسة الائتمانية والضوابط الشرعية"},
+                {sign:"+",text:"المراجعة والتنفيذ وحفظ المستندات **مركزيًا** في مركز عمليات قروض الأفراد"},
+                {sign:"+",text:"البنك يصرف القيمة **بالكامل نقدًا** للعميل، مقابل **تعهد** باستخدامها في الغرض"},
+                {sign:"+",text:"**مدير الفرع أو من ينوب عنه** يوقّع عقد المرابحة (من إعداد الشئون القانونية ومعتمد شرعيًا)"},
+                {sign:"+",text:"**لا يشترط ضامن**"}],
+       uses:["فهم مين بيعمل إيه"],
+       examples:[{en:"مرابحة بضمان شهادة",ar:"الموافقة من **لجنة الائتمان بالفرع**"},
+                 {en:"مرابحة بتعهد جهة عمل",ar:"الموافقة **مركزية**"}],
+       signals:["مركزي","لجان الفروع","نقدًا","مدير الفرع"],
+       tip:"اربط الموافقة **بالخطر**: من غير ضمان عيني الخطر أعلى، فالقرار **مركزي**. مع الوعاء المجمد الخطر مغطى، فالقرار **في الفرع**.",
+       src:"القواعد العامة"},
+      {nameEn:"Approval Validity & Changes", nameAr:"صلاحية الموافقة والتعديل عليها", cat:"b",
+       formula:[{sign:"+",text:"صلاحية الموافقة الائتمانية **45 يوم** من تاريخها"},
+                {sign:"+",text:"لو عدّت الـ45 يوم: **مسئول النظام بالفرع** يعيد إرسالها لإدارة إصدار ومنح الائتمان، وتتعمل دراسة جديدة **باستعلام جديد** وتُلغى الموافقة القديمة"},
+                {sign:"+",text:"**تخفيض القيمة** عند التنفيذ بطلب من العميل **من غير الرجوع** للإدارة المركزية، مع **ثبات المدة**"},
+                {sign:"+",text:"عند التخفيض: طلب من العميل، ويتحسب **القسط الجديد** من الشاشة المخصصة، ويتكتب القسط والقيمة الجديدة في العقد"},
+                {sign:"-",text:"**تغيير المدة** أو **زيادة القيمة** أو التجديد ← يتبعت الطلب تاني على نظام تداول مستندات القروض مع تسجيل السبب"}],
+       uses:["عميل جه بعد مدة يصرف","عميل عايز مبلغ أقل أو أكتر"],
+       examples:[{en:"العميل عايز 150 ألف بدل 200 ألف بنفس المدة",ar:"الفرع ينفذ **بدون رجوع للمركز**"},
+                 {en:"العميل عايز يزوّد المدة",ar:"**إعادة إرسال** للدراسة"},
+                 {en:"العميل رجع بعد 50 يوم",ar:"الموافقة **انتهت** ← إعادة دراسة باستعلام جديد"}],
+       signals:["45 يوم","تخفيض","زيادة","تغيير المدة"],
+       tip:"التخفيض مع ثبات المدة **بيقلل الخطر**، فمش محتاج موافقة جديدة. أي زيادة في القيمة أو المدة **بتزوّد الخطر**، فلازم ترجع للمركز.",
+       src:"منشور 5561"},
+      {nameEn:"Installments", nameAr:"الأقساط ومواعيدها", cat:"a",
+       formula:[{sign:"+",text:"أقساط **شهرية متساوية**، والاستحقاق **يوم 5** من الشهر"},
+                {sign:"+",text:"**القسط الأول**: يوم 5 من **الشهر بعد التالي** لشهر التنفيذ، وبيشمل **عائد شهر التنفيذ** كمان"},
+                {sign:"+",text:"**الربع سنوي** (بضمان أوعية): أول قسط يوم 5 من **الشهر الرابع** بعد شهر التنفيذ"},
+                {sign:"+",text:"عملاء **تحويل القسط فقط**: عائد شهر الصرف يتحصل **نقدًا** عند الصرف ويتضاف لحساب سداد الأقساط"},
+                {sign:"+",text:"العائد بيتحسب على **الرصيد المتناقص**"}],
+       uses:["الرد على العميل: أول قسط إمتى؟"],
+       examples:[{en:"تنفيذ في مارس (شهري)",ar:"أول قسط **5 مايو**"},
+                 {en:"تنفيذ في مارس (ربع سنوي)",ar:"أول قسط **5 يوليو**"}],
+       signals:["يوم 5","الشهر بعد التالي","الشهر الرابع"],
+       tip:"في الشهري العميل بياخد **شهر كامل سماح** تقريبًا، وعشان كده أول قسط بيشيل **عائد شهر التنفيذ** زيادة.",
+       src:"منشور 5561"},
+      {nameEn:"Complementary Murabaha", nameAr:"المرابحة التكميلية", cat:"a",
+       formula:[{sign:"+",text:"مرابحة بالوكالة **جديدة** لعميل عنده مرابحة قائمة، **من غير ما تأثر** على مدة أو عائد المرابحة القائمة"},
+                {sign:"+",text:"حسب **العبء الشهري** وبنفس إجراءات المنح"},
+                {sign:"+",text:"بعد **3 شهور** على الأقل من المنح أو آخر زيادة، و**6 شهور** لأصحاب الأعمال والمهن الحرة والدخل الافتراضي"},
+                {sign:"+",text:"**تعهد جهة العمل**: من غير مدة بينية **في المرة الأولى بس**، وبعدها 3 شهور من آخر صرف"},
+                {sign:"+",text:"لو إجمالي المرابحات (التكميلية الجديدة + القائم) **أكبر من 3 مليون** ← **كشف طبي**"},
+                {sign:"-",text:"**ممنوع** تقديم تكميلية لعميل **تابع لفرع تاني**"}],
+       uses:["عميل عايز مبلغ إضافي"],
+       examples:[{en:"موظف حكومي أخد مرابحة بتعهد من شهر",ar:"ينفع تكميلية **فورًا** (أول مرة)"},
+                 {en:"صاحب نشاط أخد من 4 شهور",ar:"**لسه**؛ لازم 6 شهور"}],
+       signals:["تكميلية","3 شهور","6 شهور","3 مليون"],
+       tip:"التكميلية **مش زيادة على القديمة**. هي عقد جديد مستقل، عشان كده القديمة **مدتها وعائدها زي ما هم**.",
+       src:"منشور 5561 والعرض التدريبي"},
+      {nameEn:"Takaful Insurance", nameAr:"التأمين على العميل", cat:"b",
+       formula:[{sign:"+",text:"تأمين ضد **الوفاة والعجز الكلي** مع شركة متعاقدة، و**البنك يتحمل** المصاريف"},
+                {sign:"+",text:"**الاستبيان الطبي**: مش مطلوب لحد **300 ألف**، ومطلوب **لكل ذوي الهمم** أيًا كان المبلغ (تغطية **حياة فقط** من غير عجز)"},
+                {sign:"+",text:"**كشف طبي** لو الموافقة **أكبر من 3 مليون** (من 3,000,001 ج)، أو فيه حالات مرضية في الاستبيان"},
+                {sign:"+",text:"حالة صحية غير عادية: الفرع **يبعت إيميل** بصورة الاستبيان والبطاقة للإدارة التخصصية للتأمين على المنتجات المصرفية"},
+                {sign:"+",text:"لو شركة التأمين **رفضت**: العميل يجيب **وثيقة من شركة تأمين كبرى** بمعرفته، والفرع يبعتها بالإيميل للمراجعة"},
+                {sign:"+",text:"الوثيقة الخارجية: **سارية طول المدة**، **لصالح البنك**، تغطي وفاة وعجز كلي مستديم، **مسددة بالكامل**، ومفيش إلغاء أو تعديل غير بموافقة كتابية من البنك"},
+                {sign:"+",text:"لو الشركة الخارجية مش متعاقد معها البنك: **المستشار التأميني** يراجع، و**العميل يتحمل** تكلفة المراجعة"}],
+       uses:["عميل عنده مرض مزمن","مبلغ كبير"],
+       examples:[{en:"عميل 250 ألف وحالته عادية",ar:"**مش محتاج** استبيان"},
+                 {en:"عميل من ذوي الهمم بـ 50 ألف",ar:"**لازم** استبيان، وتغطية حياة فقط"},
+                 {en:"شركة التأمين طلبت سعر إضافي",ar:"العميل يورّد **الفرق نقدًا** (مستند توريد ضمن المرحلة 2)"}],
+       signals:["300 ألف","3 مليون","ذوي الهمم","وثيقة خارجية"],
+       tip:"الوثيقة لازم تبقى **لصالح البنك**؛ لأن الهدف إن التعويض يسدد رصيد المرابحة لو حصل وفاة أو عجز.",
+       src:"منشور 5561 – التأمين"},
+      {nameEn:"Prepayment & Fees", nameAr:"المصاريف والسداد المعجل", cat:"a",
+       formula:[{sign:"+",text:"المصاريف الإدارية **3%** من القيمة (بتشمل ID والاستعلام الائتماني وحصة العميل من الدمغة) لبرامج الضمان الشخصي"},
+                {sign:"+",text:"بضمان أوعية: **1%** (شاملة I-Score)، و**0.5%** للعاملين الحاليين والسابقين مع **إعفائهم من رسوم السداد المعجل**"},
+                {sign:"+",text:"السداد المعجل (كلي أو جزئي) في الضمان الشخصي: **7%** من الرصيد لو العميل بنفسه، و**12%** لو عن طريق بنك تاني، و**معفي** في الوفاة أو العجز الكلي"},
+                {sign:"+",text:"بضمان أوعية: **5%** عن طريق العميل و**7%** عن طريق بنك تاني"},
+                {sign:"+",text:"**غرامة الضرر 24%** سنويًا على المتأخر من القسط، و**سماح 5 أيام** (الأوعية: **بدون سماح**)"},
+                {sign:"+",text:"السداد الجزئي في الضمان الشخصي: بعد **12 قسط** على الأقل، وبضمان أوعية بعد **6 أقساط**، ويتحدد طلب العميل (**تخفيض القسط أو المدة**)"},
+                {sign:"-",text:"بضمان أوعية: **ممنوع** السداد الجزئي أو الكلي خلال **شهر الصرف** ولحد يوم 5 من الشهر التالي"}],
+       uses:["عميل عايز يقفل بدري"],
+       examples:[{en:"عميل هيقفل المرابحة بقرض من بنك تاني",ar:"**12%** من الرصيد"},
+                 {en:"ورثة عميل متوفى",ar:"**معفي** (والتأمين بيغطي)"}],
+       signals:["3%","1%","7%","12%","24%","5 أيام"],
+       tip:"الرسوم أعلى لما السداد **عن طريق بنك تاني**؛ لأن البنك بيخسر العميل لصالح منافس، مش بس بيخسر العائد.",
+       src:"محددات البرامج"},
+      {nameEn:"Credit Policy Basics", nameAr:"بنود السياسة الائتمانية", cat:"c",
+       formula:[{sign:"+",text:"العميل **مصري** (فيه استثناءات لبعض المنتجات، زي بضمان الأوعية: مصريين وأجانب)"},
+                {sign:"+",text:"السن: **21 سنة** على الأقل (**25** لأصحاب الأعمال والمهن الحرة)، ولا يزيد عن **65** في نهاية المدة"},
+                {sign:"+",text:"**مرابحة المعاشات**: الحد الأقصى بقى **70 سنة** في نهاية المدة (تحديث)"},
+                {sign:"+",text:"**عبء الدين الشهري DBR ≤ 50%** من متوسط صافي الدخل"},
+                {sign:"+",text:"العميل **منتظم** وسجله الائتماني مُرضٍ عندنا وعند البنوك التانية"},
+                {sign:"+",text:"مدة الخدمة: **3 شهور** مع تحويل الراتب، **6 شهور** من غير تحويل، **سنتين** للمهن الحرة وأصحاب الأعمال"},
+                {sign:"+",text:"الموظف اللي هيعدّي سن المعاش في نهاية المدة يجيب **خطاب من جهة العمل** بتاريخ خروجه على المعاش"}],
+       uses:["الفلترة الأولى للعميل في الفرع"],
+       examples:[{en:"صاحب ورشة سنه 23 سنة",ar:"**مرفوض**؛ الحد الأدنى 25 لأصحاب الأعمال"},
+                 {en:"صاحب معاش 62 سنة عايز 8 سنين",ar:"62 + 8 = 70 ← **مقبول** بالتحديث"}],
+       signals:["21 / 25","65","70 معاشات","50%"],
+       tip:"اجمع **سن العميل + مدة المرابحة** وقارن بالحد الأقصى. ده أسرع اختبار تعمله في الفرع.",
+       src:"السياسة الائتمانية"},
+      {nameEn:"Company Classification", nameAr:"تكويد وتصنيف شركات القطاع الخاص", cat:"c",
+       formula:[{sign:"+",text:"التصنيفات **A+ / A / B / C / D**، وكل الأشكال القانونية **ما عدا النقابات والجمعيات الخيرية**"},
+                {sign:"+",text:"**A+ من غير معايير ولا مستندات**: البنوك، الاتصالات، المتعددة الجنسيات، شركات يساهم فيها بنك مصر، الشركات المصرية المعروفة، **إنتاج** البترول والبتروكيماويات (مش الخدمات البترولية)"},
+                {sign:"+",text:"**A مباشرة**: الهيئات الدبلوماسية، الجامعات الخاصة، الشركات الكبيرة والمتوسطة اللي بيمولها البنك"},
+                {sign:"+",text:"**B مباشرة**: **المدارس الدولية للغات**"},
+                {sign:"+",text:"مستندات A–D: **سجل تجاري حديث (≤ 3 شهور)**، **استعلام ميداني** بصور للمنشأة، **نموذج 14 تجزئة** (طلب تصنيف)"},
+                {sign:"+",text:"غير المتعاقدة كمان: **تقرير CBE** للتأكد إن الجهة مش تحت إجراءات قضائية. والمتعاقدة: **بيان تحويل مرتبات**"},
+                {sign:"+",text:"**D**: لازم كشف حساب بتحويل مرتبات **آخر 3 شهور**"},
+                {sign:"+",text:"جهات المال العام فيها **51% فأكثر** أو تابعة لجهة حكومية ← **تعامل معاملة الحكومة** من غير تصنيف، بصورة **صحيفة الاستثمار** أو خطاب بشعار الجمهورية (**صورة طبق الأصل**)"}],
+       uses:["عميل شغال في شركة خاصة"],
+       examples:[{en:"موظف في مدرسة دولية",ar:"الجهة تتكود **B** مباشرة"},
+                 {en:"موظف في شركة خدمات بترولية",ar:"**مش A+** تلقائي؛ تتصنف بالمعايير"}],
+       signals:["A+","نموذج 14","51%","صحيفة الاستثمار"],
+       tip:"التصنيف بيحدد **أقصى مبلغ وأقصى مدة**. كل ما الشركة أقوى (رأس مال، عمر، عمالة)، كل ما التمويل المتاح لموظفيها أكبر.",
+       src:"السياسة الائتمانية"}
+    ]},
+    {type:"concepts", id:"branch", title:"دور الفرع خطوة بخطوة", items:[
+      {nameEn:"Stage 1 – Intake", nameAr:"المرحلة الأولى: الاستلام والتسجيل", cat:"b",
+       formula:[{sign:"+",text:"**مسئول خدمة العملاء** يستلم مستندات المرحلة الأولى، و**يعتمد توقيع العميل** (مطابق أو اتعمل أمامه)، و**يعتمد الصور طبق الأصل**"},
+                {sign:"+",text:"يستوفي **النموذج الطبي** حسب البرنامج والمبلغ"},
+                {sign:"+",text:"يسجّل الطلب على **نظام تداول مستندات القروض (Loan Origination)** بالكود الصح، وأصحاب الأعمال **حسب الفئة**"},
+                {sign:"+",text:"يبعت مستندات المرحلة الأولى على النظام **للإدارة المركزية لإصدار ومنح الائتمان**"},
+                {sign:"-",text:"يتأكد إن العميل الجديد **مش واخد نفس المرابحة من فرع تاني**، ومفيش **تكرار** لتسجيل الطلب"}],
+       uses:["أول ما العميل يقدّم"],
+       examples:[{en:"المستندات الأساسية",ar:"طلب المرابحة، صورة بطاقة سارية، مستند إثبات دخل، **إيصال مرافق ≤ 3 شهور**، الاستبيان الطبي لو مطلوب"},
+                 {en:"برنامج تعهد جهة العمل",ar:"+ **إقرار جهة العمل**"}],
+       signals:["طبق الأصل","Loan Origination","مرافق 3 شهور"],
+       tip:"توقيعك على **'طبق الأصل'** و**'تم التوقيع أمامي'** معناه إنك مسئول شخصيًا عن صحة المستند.",
+       src:"الإجراءات التنفيذية"},
+      {nameEn:"Decision Notice", nameAr:"إخطار العميل بالقرار", cat:"b",
+       formula:[{sign:"+",text:"**الرفض**: يتبلغ العميل **بالسبب**"},
+                {sign:"+",text:"**الاستكمال**: يستوفي المطلوب ويعيد الإرسال لو عايز"},
+                {sign:"+",text:"**الموافقة**: يتطلب العميل يوقّع **العقد ومستندات المديونية** (المرحلة 2)، معتمدة وموقعة من الفرع"},
+                {sign:"+",text:"الملف يتبعت **للإدارة العامة لعمليات قروض الأفراد** على النظام عشان المراجعة والتنفيذ"}],
+       uses:["بعد صدور القرار"],
+       examples:[{en:"القرار طلع موافقة",ar:"اتصل بالعميل ييجي يوقّع المرحلة الثانية"}],
+       signals:["رفض","استكمال","موافقة"],
+       tip:"الفرع هو **وش البنك** قدام العميل في الحالات التلاتة؛ حتى الرفض لازم يتوضح سببه.",
+       src:"الإجراءات التنفيذية"},
+      {nameEn:"Stage 2 – Debt Documents", nameAr:"المرحلة الثانية: العقد ومستندات المديونية", cat:"b",
+       formula:[{sign:"+",text:"**عقد المرابحة** + صورة **تقرير الموافقة الائتمانية Credit Decision LN_ORG_01**"},
+                {sign:"+",text:"**تعهد جهة حكومية بالراتب والمستحقات** ← **سند لأمر** + **تفويض بملء السند**"},
+                {sign:"+",text:"**بدون مستحقات** أو **قطاع خاص** أو **إثبات دخل** أو **معاشات** ← **شيكات** حسب الآلية الموحدة (منشور 5030)"},
+                {sign:"+",text:"**خطاب مطابقة توقيعات** العميل على الشيكات من رقم كذا لرقم كذا، موجه لقطاع العمليات المصرفية، **بختم وتوقيعات الفرع على الخطاب**، و**من غير أختام على الشيكات**"},
+                {sign:"+",text:"**كشف حساب** يثبت تحويل الراتب أو القسط أو المعاش (أو خطاب من الفرع لو مش واضح)"},
+                {sign:"+",text:"لو التأمين طلب **سعر إضافي**: صورة **إيصال إيداع نقدي** بالنسبة المطلوبة"}],
+       uses:["يوم توقيع العميل"],
+       examples:[{en:"موظف حكومي بتعهد بالراتب والمستحقات",ar:"**سند لأمر** وتفويض"},
+                 {en:"موظف شركة خاصة",ar:"**شيكات** + خطاب مطابقة توقيعات"}],
+       signals:["سند لأمر","شيكات","LN_ORG_01","بدون أختام على الشيكات"],
+       tip:"الحكومة بتضمن **المستحقات** فالسند كفاية. لما المستحقات **مش مضمونة** أو الجهة **خاصة**، البنك محتاج **شيكات** كضمان أقوى.",
+       src:"مستندات المرحلة الثانية"},
+      {nameEn:"Disbursement", nameAr:"الصرف", cat:"b",
+       formula:[{sign:"+",text:"الفرع **يصرف القيمة نقدًا** للعميل مقابل **إقرار المرابحة بالوكالة**: استلام القيمة الممولة واستخدامها في **الغرض المذكور في الطلب**"},
+                {sign:"+",text:"**تعهد جهة العمل / جهات متعاقدة**: **بعد التأكد من تحويل الراتب أو القسط**، وإن المبلغ المحول **مش أقل من القسط**"},
+                {sign:"+",text:"**صرف فوري** بعد الموافقة لو الجهة ليها **نماذج توقيعات** للمسئولين عن التعهدات (الفرع يشير إن الجهة مفعّل لها **آلية الصرف الفوري**)"},
+                {sign:"+",text:"**إثبات الدخل**: الصرف **فور الموافقة**"},
+                {sign:"+",text:"**المعاشات**: **بعد تحويل أول معاش** على البنك"},
+                {sign:"+",text:"**حساب خدمة الدين**: نفس حساب العميل لو موجود، ولعملاء بطاقة المرتبات أو تحويل القسط حساب خاص **ما يتعاملش عليه غير مسئول الخدمات المصرفية**"}],
+       uses:["ميعاد الصرف حسب البرنامج"],
+       examples:[{en:"صاحب معاش جديد محوّل معاشه الشهر الجاي",ar:"**يستنى أول معاش** يتحوّل"},
+                 {en:"موظف خاص بإثبات دخل",ar:"**فور الموافقة**"}],
+       signals:["إقرار المرابحة بالوكالة","أول معاش","تحويل الراتب"],
+       tip:"الصرف مربوط **بمصدر السداد**: لو السداد من الراتب أو المعاش المحوّل، يبقى لازم يتحول الأول.",
+       src:"منشور 5561"},
+      {nameEn:"Stage 3 & After", nameAr:"المرحلة الثالثة وما بعد الصرف", cat:"b",
+       formula:[{sign:"+",text:"**إيصالات السداد للمورد/الموردين**، بس **لو العميل أقر** في نموذج الإقرار إنها متوفرة"},
+                {sign:"+",text:"مستندات **الوثيقة الخارجية** (موافقات، نموذج طبي، ما يفيد السداد) تتحفظ في ملف العميل"},
+                {sign:"+",text:"**المخالصة النهائية** بعد السداد الكامل لو العميل طلبها"},
+                {sign:"+",text:"وفاة أو عجز (وثيقة خارجية): الفرع يبعت **إخطار مطالبة**، شهادة الوفاة أو تقرير العجز، **كشف حساب معتمد**، صورة البطاقة، وأصل الوثيقة"}],
+       uses:["متابعة بعد الصرف"],
+       examples:[{en:"عميل قال إن الصنايعي مش بيدي إيصالات",ar:"**مش مطلوب** إيصالات (ما أقرش بتوفرها)"}],
+       signals:["إيصالات المورد","مخالصة","تعويض"],
+       tip:"المرحلة التالتة **مش إلزامية دايمًا**؛ بتعتمد على **إقرار العميل** إن الإيصالات متوفرة.",
+       src:"مستندات المرحلة الثالثة"},
+      {nameEn:"Above-Max & Exceptions", nameAr:"أكبر من الحد الأقصى والاستثناءات", cat:"b",
+       formula:[{sign:"+",text:"**أكبر من الحد الأقصى** والدخل يسمح: الفرع **يرفع الطلب على النظام** بالمبلغ، ويبعت إيميل **للإدارة التخصصية لمنتجات الصيرفة الإسلامية** بمستندات الدخل و**خطاب مبررات** عن العميل وتعاملاته"},
+                {sign:"+",text:"**استثناء في العائد أو المصاريف** لجهة أو عميل: **خطاب معتمد من الفرع والمنطقة** بالمبررات للإدارة التخصصية"},
+                {sign:"+",text:"الجهات اللي اتوافق لها على استثناء بتتنشر على **شبكة البنك** عشان كل الفروع تشوفها"},
+                {sign:"+",text:"**تعديل شرط من شروط المنح** ← **لجان الاستثناء**"}],
+       uses:["عميل كبير أو جهة مميزة"],
+       examples:[{en:"جهة كبيرة عايز تقدم لها عرض",ar:"خطاب **فرع + منطقة** بالمبررات"}],
+       signals:["خطاب مبررات","الصيرفة الإسلامية","لجان الاستثناء"],
+       tip:"أي استثناء بيبدأ **بخطاب مبررات** من الفرع؛ لأن الفرع هو اللي عارف العميل وقيمته.",
+       src:"منشور 5561 – الاستثناءات"}
+    ]},
+    {type:"concepts", id:"programs", title:"البرامج", items:[
+      {nameEn:"Employer Undertaking", nameAr:"بضمان تعهد جهة العمل", cat:"c",
+       formula:[{sign:"+",text:"**8 برامج**: (حكومي / خاص) × (متعاقدة / غير متعاقدة) × (**بالمستحقات** / **بدون مستحقات**)"},
+                {sign:"+",text:"التعهد لازم يتضمن: تحويل الراتب أو القسط و**عدم قطعه إلا بموافقة كتابية من البنك**، تحويل **المستحقات** عند ترك الخدمة لغير الوفاة أو العجز، و**إخطار البنك** لو العميل ساب الشغل"},
+                {sign:"+",text:"لو الجهة رفضت بند المستحقات ← العميل يتسجل في برنامج **بدون مستحقات**"},
+                {sign:"+",text:"**حكومي**: التعهد **مختوم بختم الجهة** وتوقيعات المسئولين. **خاص**: توقيع المسئول المعتمد لدى البنوك + الختم + **التحقق من صحة التوقيعات قبل الإرسال**"},
+                {sign:"+",text:"تعهدات القروض النمطية ممكن تتقبل بعد تعديل صياغتها شرعيًا (زي تغيير كلمة **قرض** بـ**مرابحة**)"},
+                {sign:"+",text:"لو الجهة طلبت **ضامن**: تحويل **راتب العميل والضامن بالكامل**، وصورة بطاقة الضامن مكتوب عليها (ضامن للمرابحة بناءً على رغبة جهة العمل)"},
+                {sign:"+",text:"خبرة **3 شهور**، **إجازة بدون مرتب** لحد سنة، والحد الأدنى للمدة **12 شهر** للقطاع الخاص"}],
+       uses:["موظف جهته بتمضي تعهد"],
+       examples:[{en:"الجهة مضت تعهد بالراتب بس من غير المستحقات",ar:"برنامج **بدون مستحقات** ← **شيكات**"}],
+       signals:["تعهد","مستحقات","متعاقدة","سند لأمر"],
+       tip:"**المستحقات** هي اللي بتفرق: لو مضمونة، البنك عنده مصدر سداد لو العميل ساب الشغل.",
+       src:"منشور 5561 والعرض التدريبي"},
+      {nameEn:"Income Proof", nameAr:"بإثبات الدخل (بدون تعهد)", cat:"c",
+       formula:[{sign:"+",text:"**بدون تعهد جهة عمل** و**بدون ضامن**، لجهات **متعاقدة أو غير متعاقدة** على تحويل الرواتب"},
+                {sign:"+",text:"خاص متعاقد: **A+ / A / B / C**. خاص غير متعاقد: **A+ / A / B** بس"},
+                {sign:"+",text:"**البترول والبتروكيماويات**: الجهات **المتعاقدة بس**"},
+                {sign:"+",text:"التأمين ضد الوفاة والعجز، والكشف الطبي لو المبلغ **أكبر من 3 مليون**"},
+                {sign:"+",text:"المرحلة 2: **شيكات مسطرة**"},
+                {sign:"+",text:"برنامج **موظفي البنوك والشركات المميزة**: خبرة **6 شهور**، ودخل أدنى **7,000** عام و**10,000** خاص، وأقصى **1.5 مليون**"}],
+       uses:["جهة مش بتمضي تعهدات"],
+       examples:[{en:"موظف في شركة C غير متعاقدة",ar:"**مرفوض**؛ غير المتعاقدة لحد B"}],
+       signals:["إثبات دخل","شيكات مسطرة","A+ لـ C"],
+       tip:"من غير تعهد، البنك بيعتمد على **قوة الجهة**؛ عشان كده غير المتعاقدة بتقف عند **B**.",
+       src:"العرض التدريبي"},
+      {nameEn:"Business Owners & Professionals", nameAr:"أصحاب الأعمال والمهن الحرة", cat:"c",
+       formula:[{sign:"+",text:"**3 فئات** حسب حجم العلاقة: **1** حسابات عادية، **2** و**3** عملاء مميزين (أوعية من مليون فأكثر، أو تسهيلات شركات، أو تعاملات POS كبيرة)"},
+                {sign:"+",text:"الحد الأقصى: **1.5 / 3.5 / 7 مليون** للفئات 1 / 2 / 3"},
+                {sign:"+",text:"مدة النشاط **سنتين**، والعلاقة مع البنك **6 شهور** لأصحاب الحسابات، والتكميلية بعد **6 شهور**"},
+                {sign:"+",text:"إثبات الدخل: **كشف حساب آخر 6 شهور** باسمه أو باسم شركته، أو **شهادة ضرائب** بوعاء الدخل لآخر سنة"},
+                {sign:"+",text:"**المهن الحرة**: تصريح مزاولة المهنة. **أصحاب الأعمال**: سجل تجاري حديث (≤ 6 شهور)، والبطاقة الضريبية للاتنين"},
+                {sign:"+",text:"مراكز التجميل اللي بتقدم خدمات طبية: **ترخيص مزاولة النشاط**، ويتعاملوا **كأصحاب أعمال**"}],
+       uses:["عميل صاحب نشاط أو مهنة"],
+       examples:[{en:"محامي",ar:"**مهن حرة** ← تصريح مزاولة المهنة"},
+                 {en:"صاحب محل",ar:"**أصحاب أعمال** ← سجل تجاري"}],
+       signals:["فئة 1/2/3","كشف 6 شهور","سنتين نشاط"],
+       tip:"السن الأدنى هنا **25** مش 21، وأي مدة (تكميلية، استعاضة) بتبقى **6 شهور**؛ لأن دخلهم متغير.",
+       src:"العرض التدريبي"},
+      {nameEn:"Pensioners", nameAr:"مرابحة أصحاب المعاشات", cat:"c",
+       formula:[{sign:"+",text:"كل عملاء المعاشات **ما عدا النقابات**، للعميل **الأساسي أو المستفيد**"},
+                {sign:"+",text:"معاشات **القوات المسلحة** و**عادية**، و**العاملين السابقين** بالبنك"},
+                {sign:"+",text:"الحد الأقصى للسن **70 سنة** في نهاية المدة (تحديث)"},
+                {sign:"+",text:"**الابن الذكر المستفيد** لغير العجز: أقصى سن في نهاية المدة **26 سنة**. ولو بسبب العجز: **حالة بحالة** على شركة التأمين"},
+                {sign:"+",text:"معاش أدنى **500 ج**، قيمة أدنى **5,000 ج**، ومدة من **6 شهور** لحد **120 شهر** حسب الشريحة"},
+                {sign:"+",text:"المستندات: **بيان معاش معتمد** (أو تفصيلي يوضح القرابة والنصيب)، والعميل **الأصلي معفي** منه في **التكميلية**"},
+                {sign:"+",text:"**الصرف بعد تحويل أول معاش**، والمرحلة 2: **شيكات مسطرة**"}],
+       uses:["عميل معاش"],
+       examples:[{en:"ابن مستفيد سنه 22 عايز 5 سنين",ar:"22 + 5 = 27 > 26 ← **مرفوض** (لو مش عاجز)"},
+                 {en:"صاحب معاش أصلي عايز تكميلية",ar:"**معفي** من بيان المعاش"}],
+       signals:["70 سنة","26 سنة","500 ج معاش","أول معاش"],
+       tip:"معاش الابن الذكر **بيقف** لما يكبر (إلا لو عاجز)، عشان كده المرابحة لازم تخلص قبل سن 26.",
+       src:"العرض التدريبي + تحديث السن"},
+      {nameEn:"Surrogate (Virtual) Income", nameAr:"الدخل الافتراضي", cat:"c",
+       formula:[{sign:"+",text:"لفئات **صعب تثبت دخلها**: **الأطباء** بسنوات الخبرة، **أساتذة الجامعات** بالدرجة، **الهيئات القضائية** ببدل العلاج، **أصحاب الأوعية**"},
+                {sign:"+",text:"**مصريين** شغالين في مصر، **بدون ضامن**، والبنك بيتحمل التأمين"},
+                {sign:"-",text:"اللي **راتبه محوّل علينا** أو دخله **مسجل على النظام** **مستبعد**، **إلا** الأطباء والمدرسين وأساتذة الجامعة (ليهم مصادر دخل تانية)"},
+                {sign:"-",text:"**ممنوع الجمع** بين أكتر من برنامج دخل افتراضي (قروض، مرابحة، بطاقات)"},
+                {sign:"+",text:"البنك بياخد **الأقل**: الدخل المحسوب أو الدخل في الإقرار أو الاستعلام الميداني"},
+                {sign:"+",text:"القاهرة والجيزة وإسكندرية بالجدول، و**باقي المحافظات** الدخل **ينقص 25%**"},
+                {sign:"+",text:"لو الإجمالي **أكبر من 3 مليون** ← **كشف طبي**"}],
+       uses:["دكتور عنده عيادة","أستاذ جامعة"],
+       examples:[{en:"دكتور عيادة في قنا",ar:"الدخل الافتراضي **ناقص 25%**"},
+                 {en:"دكتور راتبه محوّل علينا",ar:"**مسموح** (استثناء الأطباء)"}],
+       signals:["سنوات الخبرة","الدرجة الوظيفية","بدل العلاج","-25%"],
+       tip:"الدخل الافتراضي بيفترض دخل **بالمتوسط**، وعشان كده البنك دايمًا بياخد **الأقل** ويحتاط في المحافظات.",
+       src:"الشروط العامة للدخل الافتراضي"},
+      {nameEn:"Virtual Income Programs", nameAr:"تفاصيل برامج الدخل الافتراضي", cat:"c",
+       formula:[{sign:"+",text:"**الأطباء** (بشريين وأسنان أصحاب عيادات): خبرة **3 سنين**، سن **25–65**، من **50 ألف** لـ**1.3 مليون**، من **12** لـ**84 شهر**، دخل أدنى **10,000**. المستندات: رخصة العيادة وكارنيه النقابة"},
+                {sign:"+",text:"**أساتذة الجامعات**: الدخل بالدرجة (معيد ← أستاذ)، **الخاصة × 1.3**، سن أدنى **23**، أقصى **مليون**"},
+                {sign:"+",text:"**الهيئات القضائية**: **بدل العلاج محوّل علينا**، **القسط ما يعديش البدل**، ومن غير تسهيل تاني بضمان البدل. سن **26**، أقصى **500 ألف**، **120 شهر**. والمستند: **كشف حساب بطاقة المرتبات**"},
+                {sign:"+",text:"**أصحاب الأوعية**: وعاء قائم **6 شهور على الأقل**، والدخل بيتحسب من **عائد الوعاء**، أقصى **4 مليون**. ولو الأوعية **أكتر من 30 مليون**: **نموذج إفادة باستمرار النشاط**"}],
+       uses:["حساب الحد لكل فئة"],
+       examples:[{en:"قاضي عايز قسط أكبر من بدل العلاج",ar:"**مرفوض**؛ القسط ≤ البدل"},
+                 {en:"أستاذ في جامعة خاصة",ar:"الدخل **× 1.3**"}],
+       signals:["1.3","بدل العلاج","30 مليون","6 شهور"],
+       tip:"كل برنامج ليه **مقياس** بيفترض بيه الدخل: خبرة، درجة، بدل، أو عائد وعاء.",
+       src:"برامج الدخل الافتراضي"},
+      {nameEn:"Secured by Savings", nameAr:"بضمان الأوعية الادخارية", cat:"c",
+       formula:[{sign:"+",text:"بالعملة المحلية، **لكل العملاء (مصريين وأجانب)**، والموافقة من **لجان الائتمان بالفروع**"},
+                {sign:"+",text:"الأوعية لازم تكون **صادرة من بنك مصر** (نمطية أو إسلامية)، وممكن **أوعية عميل تاني** مع مستندات العميل والضامن"},
+                {sign:"+",text:"التمويل لحد **90%** من القيمة الاسمية للوعاء الإسلامي، و**80%** في **الربع سنوي** بضمان شهادات **عائدها شهري**"},
+                {sign:"+",text:"قيمة من **10 آلاف** لـ**100 مليون**، ومدة من **6 شهور** لـ**10 سنين**، وسن **21 في البداية بدون حد أقصى**"},
+                {sign:"+",text:"حساب العميل (استثماري / جاري / توفير) هو **حساب خدمة الدين والصرف**، و**حساب مساعد** بيتفتح بس عند **التسييل** أو **استرداد الضمانة**"},
+                {sign:"-",text:"**ممنوع تغيير نوع الضمانة** قبل استحقاق الوعاء الضامن"},
+                {sign:"+",text:"**شهادات نمطية ضامنة**: الفرع يعمل **مذكرة منخفضة** على حساب الشهادة، ويشيل **مؤشر التجديد التلقائي**، ويتابع **تقرير الاستحقاق يوميًا**، وعند الاستحقاق يختار **أعلى عائد** للوعاء الجديد ويحافظ على **هامش المرابحة**"},
+                {sign:"+",text:"**العاملين**: مصاريف **0.5%** و**إعفاء من رسوم السداد المعجل**، وممكن بضمان أوعية **أسرتهم** (زوج/ة، أب، أم، أخوات، أبناء بالغين)"},
+                {sign:"+",text:"مستندات المرحلة 1 و2: الطلب، **مذكرة منح** بتوقيعات لجنة المنح، البطاقة أو **باسبور للأجانب**، **شهادة ميلاد القاصر** لو الوعاء باسم قاصر، **إقرار صلة القرابة** لو فيه ضامن، والعقد"}],
+       uses:["عميل عنده شهادات وعايز سيولة"],
+       examples:[{en:"أجنبي عنده وديعة في بنك مصر",ar:"**ينفع** (الأوعية للمصريين والأجانب)"},
+                 {en:"عميل عنده شهادة في بنك تاني",ar:"**لا**؛ لازم صادرة من بنك مصر"}],
+       signals:["90% / 80%","لجان الفروع","مذكرة منخفضة","ربع سنوي"],
+       tip:"الوعاء **المجمد** هو الضمان، عشان كده القرار في الفرع، والفرع لازم **يمنع** إن الشهادة تتسترد أو تتجدد بشكل يضيّع الضمان.",
+       src:"منشور 5561 – الأوعية الادخارية"}
+      ,{nameEn:"Codes & Rates 2026", nameAr:"المنتجات والأكواد والعائد (يناير 2026)", cat:"c",
+       formula:[{sign:"+",text:"**تعهد جهة العمل**: حكومي **3025** · خاص **3026** (متعاقدة / غير متعاقدة، بالمستحقات / بدونها)"},
+                {sign:"+",text:"**إثبات الدخل**: شيكات جهات متعاقدة **3027** · حكومي غير متعاقد **1012** · خاص غير متعاقد **1013** · البنوك والأنشطة المميزة **1014** · أصحاب الأعمال والمهن الحرة **3028**"},
+                {sign:"+",text:"**المعاشات**: قوات مسلحة **1015** · عملاء وموظفين سابقين (صاحب) **1016** · مستفيد **1017**"},
+                {sign:"+",text:"**الدخل الافتراضي**: سنوات خبرة **1051** · أصحاب الأوعية **1049** · أساتذة الجامعات **1050** · الهيئات القضائية **1046**"},
+                {sign:"+",text:"**مرابحة السلع المعمرة** أكوادها **38xx** (3802 خاص، 3803 حكومي، 3807 إثبات دخل، 3809 مهن حرة، 3804 / 3806 معاشات)، و**مرابحة السيارات** زي 3815 / 3816 / 3820"},
+                {sign:"?",text:"العائد بيقل كل ما **المدة تطول**، وكل ما **الضمان يقوى** (متعاقدة أقل من غير متعاقدة، تعهد أقل من إثبات دخل، صاحب المعاش أقل من المستفيد)"}],
+       uses:["تسجيل الطلب على Loan Origination والنظام البنكي"],
+       examples:[{en:"موظف حكومي جهته متعاقدة لـ5 سنين",ar:"**3025**، والعائد **22.75%**"},
+                 {en:"صاحب عمل لـسنتين",ar:"**3028**، والعائد **27%** (الأعلى)"},
+                 {en:"صاحب معاش (قوات مسلحة) ولا مستفيد؟",ar:"المستفيد عائده **أعلى** (24% مقابل 22.5%)"}],
+       signals:["3025 حكومي","3026 خاص","1016 معاشات","مدة أطول = عائد أقل"],
+       tip:"مش لازم تحفظ كل النسب. افهم **النمط**: الضمان الأقوى والمدة الأطول = عائد أقل. والأكواد المهمة: **3025 / 3026 / 3027 / 3028 / 1016**.",
+       src:"جدول منتجات المرابحة بالوكالة 25-01-2026"}
+    ]},
+    {type:"compare", id:"compare", title:"الفروقات", items:[
+      {title:"Promissory Note vs Cheques", cols:[
+        {name:"سند لأمر + تفويض", cat:"b", when:"جهة حكومية ضامنة المستحقات",
+         ex:["تعهد حكومي بالراتب أو القسط **والمستحقات**","متعاقدة أو غير متعاقدة"]},
+        {name:"شيكات", cat:"b", when:"مصدر السداد أضعف",
+         ex:["تعهد **بدون مستحقات**","**كل** القطاع الخاص","إثبات الدخل","المعاشات","الدخل الافتراضي"]}],
+       golden:"المستحقات المضمونة من الحكومة ← **سند**. أي حاجة تانية ← **شيكات** + خطاب مطابقة توقيعات."},
+      {title:"Central vs Branch Approval", cols:[
+        {name:"مركزي", cat:"a", when:"بدون ضمان عيني",
+         ex:["تعهد جهة العمل","إثبات الدخل","المعاشات","الدخل الافتراضي"]},
+        {name:"لجان الفروع", cat:"a", when:"بضمان عيني",
+         ex:["بضمان أوعية ادخارية (شهري / ربع سنوي)"]}],
+       golden:"الضمان العيني **بيغطي الخطر**، فالقرار ينزل **للفرع**."},
+      {title:"Disbursement Timing", cols:[
+        {name:"بعد التحويل", cat:"b", when:"السداد من دخل محوّل",
+         ex:["تعهد جهة العمل / جهات متعاقدة: بعد تحويل الراتب أو القسط","المعاشات: بعد **أول معاش**"]},
+        {name:"فور الموافقة", cat:"b", when:"مفيش انتظار لتحويل",
+         ex:["إثبات الدخل","جهة مفعّل لها **الصرف الفوري**"]}],
+       golden:"لو القسط هيتسدد من **فلوس هتتحوّل**، يبقى **استنى التحويل الأول**."}
+    ]},
+    {type:"confusing", id:"confusing", title:"حالات بتلخبط", items:[
+      {title:"مدد بتتقارب",
+       explain:"كل رقم ليه حاجة.",
+       examples:[{text:"45 يوم",note:"صلاحية الموافقة الائتمانية",correct:true},
+                 {text:"3 شهور",note:"التكميلية للموظفين، والخبرة في تعهد جهة العمل، وعمر إيصال المرافق والسجل التجاري للتصنيف",correct:true},
+                 {text:"6 شهور",note:"التكميلية لأصحاب الأعمال والدخل الافتراضي، وعمر السجل التجاري لأصحاب الأعمال، وعمر الوعاء في الدخل الافتراضي",correct:true},
+                 {text:"12 قسط",note:"أقل عدد قبل السداد الجزئي (ضمان شخصي)",correct:true},
+                 {text:"6 أقساط",note:"أقل عدد قبل السداد الجزئي (بضمان أوعية)",correct:true}]},
+      {title:"المبالغ اللي بتشغّل التأمين",
+       explain:"تلات حدود مختلفة.",
+       examples:[{text:"حتى 300 ألف",note:"من غير استبيان طبي (إلا ذوي الهمم)",correct:true},
+                 {text:"أكبر من 3 مليون",note:"كشف طبي",correct:true},
+                 {text:"الاستبيان لذوي الهمم فوق 300 ألف بس",note:"غلط؛ مطلوب **أيًا كان المبلغ**",correct:false}]},
+      {title:"مين يتخصم منه",
+       explain:"مين بيدفع التأمين ومراجعة الوثيقة.",
+       examples:[{text:"وثيقة الشركة المتعاقدة",note:"البنك يتحمل",correct:true},
+                 {text:"سعر تأمين إضافي",note:"العميل يورّد الفرق",correct:true},
+                 {text:"مراجعة المستشار التأميني لوثيقة خارجية",note:"العميل يتحمل",correct:true}]},
+      {title:"السن",
+       explain:"حدود مختلفة لكل فئة.",
+       examples:[{text:"21",note:"الحد الأدنى العام",correct:true},
+                 {text:"23",note:"أساتذة الجامعات",correct:true},
+                 {text:"25",note:"أصحاب الأعمال والمهن الحرة والأطباء",correct:true},
+                 {text:"26",note:"الهيئات القضائية (أدنى)، والابن المستفيد من المعاش (أقصى في النهاية)",correct:true},
+                 {text:"65 / 70",note:"أقصى عام / المعاشات بعد التحديث",correct:true}]}
+    ]},
+    {type:"conflicts", id:"conflicts", title:"تنبيهات", items:[
+      {title:"نسب العائد",
+       text:"النسب المكتوبة هنا من **جدول يناير 2026** (أحدث نسخة). النسب بتتغير مع قرارات العائد، فالأهم تفهم **ترتيبها**: الضمان الأقوى والمدة الأطول = عائد أقل."},
+      {title:"سن المعاشات",
+       text:"العرض التدريبي فيه الحد العام 65 سنة، لكن **مرابحة المعاشات اتعدلت لـ70 سنة** في نهاية المدة. لو السؤال عن المعاشات، جاوب بـ70."},
+      {title:"السداد الجزئي: 12 قسط ولا 6؟",
+       text:"المنشور حدد **12 قسط** (سنة كاملة) لبرامج الضمان الشخصي، و**6 أقساط** لبرنامج الأوعية الادخارية. لو السؤال مش محدد، شوف هو بيتكلم عن أنهي برنامج."},
+      {title:"حد الأوعية في الدخل الافتراضي",
+       text:"الشرط مكتوب ألا تقل الأوعية عن **2 مليون**، والجدول بيبدأ من مليون، وفيه كود منفصل لـ**أقل من 2 مليون**. احفظ إن البرنامج الأساسي من 2 مليون، وإن فيه شريحة أقل منه."}
+    ]},
+    {type:"reference", id:"ref", title:"أرقام", tables:[
+      {id:"t1", title:"تعهد جهة العمل", headers:["البند","حكومي / عام","خاص واستثماري"],
+       rows:[["أقصى مدة","12 سنة (تحويل الراتب كامل) · 10 (القسط بس)","A+ والمميزة: 10 سنين · A/B/C: 7"],
+             ["أدنى مدة","6 شهور","12 شهر"],
+             ["أدنى صافي دخل","1,000 ج","2,500 ج"],
+             ["أدنى قيمة","5,000 ج","5,000 ج"],
+             ["أقصى قيمة","3 مليون","A+ والمميزة: 1.5 مليون · A/B: مليون · C: 750 ألف"],
+             ["أقصى تمويل","100% من بيان المستلزمات في حدود العبء","نفس الشيء"]],
+       tip:"الحكومي **أطول مدة وأعلى مبلغ**؛ لأن الجهة أضمن."},
+      {id:"t2", title:"إثبات الدخل", headers:["البند","حكومي","خاص"],
+       rows:[["أقصى مدة","120 شهر","A+: 120 · A/B/C: 84"],
+             ["أدنى دخل","1,000 ج","2,500 ج"],
+             ["أدنى قيمة","10,000 ج","10,000 ج"],
+             ["أقصى قيمة","3 مليون","A+: 1.5 مليون · A/B: مليون · C: 750 ألف"],
+             ["الخبرة","3 شهور","3 شهور"]]},
+      {id:"t3", title:"الدخل الافتراضي", headers:["البرنامج","السن","القيمة","المدة"],
+       rows:[["الأطباء (سنوات الخبرة)","25 – 65","50 ألف – 1.3 مليون","12 – 84 شهر"],
+             ["أصحاب الأوعية","21 (25 لأصحاب الأعمال) – 65","50 ألف – 4 مليون","12 – 84 شهر"],
+             ["أساتذة الجامعات","23 – 65","50 ألف – مليون","12 – 84 شهر"],
+             ["الهيئات القضائية","26 – 65","50 ألف – 500 ألف","12 – 120 شهر"]]},
+      {id:"t4", title:"تصنيف الشركات", headers:["المعيار","A","B","C","D"],
+       rows:[["رأس المال","5 مليون","2 مليون","500 ألف","100 ألف"],
+             ["حجم المبيعات","50 مليون","40 مليون","20 مليون","10 مليون"],
+             ["مدة النشاط","5 سنين","3 سنين","سنتين","سنتين"],
+             ["العمالة المؤمن عليها","75","40","20","10"]],
+       tip:"A+ **من غير معايير**: بنوك، اتصالات، متعددة الجنسيات، إنتاج بترول، شركات معروفة."},
+      {id:"t5", title:"عامة", headers:["البند","القيمة"],
+       rows:[["صلاحية الموافقة","45 يوم"],["DBR","50%"],["مصاريف إدارية (ضمان شخصي)","3%"],["مصاريف إدارية (أوعية)","1% · العاملين 0.5%"],
+             ["سداد معجل (شخصي)","7% العميل · 12% بنك تاني · معفي في الوفاة"],["سداد معجل (أوعية)","5% · 7%"],
+             ["غرامة الضرر","24% سنويًا"],["سماح","5 أيام (الأوعية: لا يوجد)"],["استبيان طبي","فوق 300 ألف + كل ذوي الهمم"],["كشف طبي","أكبر من 3 مليون"],
+             ["تمويل الأوعية","90% (80% ربع سنوي بشهادات عائدها شهري)"],["معاش أدنى","500 ج"]]},
+      {id:"t6", title:"العائد: المرابحة بالوكالة (يناير 2026)", headers:["البرنامج","الكود","حتى 5 سنين","5 – 8","أكتر من 8"],
+       rows:[["تعهد حكومي متعاقدة (بالمستحقات أو بدونها)","3025","22.75%","22.25%","21.75%"],
+             ["تعهد حكومي غير متعاقدة","3025","23%","23%","22.5%"],
+             ["تعهد خاص متعاقدة A و A+","3026","22.75%","22.25%","21.75% (A+)"],
+             ["تعهد خاص متعاقدة B","3026","22.75%","22.25%","—"],
+             ["تعهد خاص متعاقدة C","3026","23%","23%","—"],
+             ["تعهد خاص غير متعاقدة B و C","3026","23.25%","23.25%","—"],
+             ["تعهد خاص غير متعاقدة A و A+","3026","23%","23%","22.5% (A+)"],
+             ["شيكات جهات متعاقدة (حكومي / خاص A)","3027","22.75%","22.25%","21.75%"],
+             ["إثبات دخل حكومي غير متعاقد","1012","25%","24%","—"],
+             ["إثبات دخل خاص B","1013","25%","25%","—"],
+             ["البنوك والأنشطة المميزة","1014","22.5%","21.75%","21.5%"],
+             ["معاشات قوات مسلحة: صاحب","1015","22.5%","22%","21.5%"],
+             ["معاشات قوات مسلحة: مستفيد","1015","24%","22.5%","22%"],
+             ["معاشات عملاء / موظفين سابقين: صاحب","1016","22.5%","22%","—"],
+             ["معاشات: مستفيد","1017","24%","22.5%","—"],
+             ["دخل افتراضي: أصحاب أوعية","1049","24%","22.75%","—"],
+             ["دخل افتراضي: أوعية أقل من 2 مليون","1049","25%","23.75%","—"],
+             ["دخل افتراضي: خبرة / أساتذة / قضائية","1051 / 1050 / 1046","25.5%","25.5%","—"]],
+       tip:"شوف الترتيب: **متعاقدة < غير متعاقدة** · **تعهد < إثبات دخل** · **صاحب < مستفيد** · **مدة أطول < مدة أقصر**."},
+      {id:"t7", title:"أصحاب الأعمال والمهن الحرة (3028)", headers:["البرنامج","حتى سنتين","2 – 4","أكتر من 4"],
+       rows:[["أصحاب الأعمال","27%","25.5%","25%"],["المهن الحرة","27%","25.5%","25.25%"]],
+       tip:"شرايح المدة هنا **بالسنتين** مش بالـ5 سنين، والعائد **الأعلى** لأن الدخل متغير."},
+      {id:"t8", title:"مرابحة السلع المعمرة والسيارات", headers:["البرنامج","الكود","العائد"],
+       rows:[["سلع معمرة: موظفين حكومي بتعهد","3803","23%"],["سلع معمرة: موظفين خاص بتعهد","3802","23.75%"],
+             ["سلع معمرة: إثبات دخل","3807","25.25%"],["سلع معمرة: مهن حرة","3809","25.75%"],
+             ["سلع معمرة: معاشات بتعهد / بدون","3804 / 3806","23.25% / 23.5%"],["سلع معمرة: دخل افتراضي","1100 – 1102","24.25%"],
+             ["سيارات: تعهد جهة العمل","3815","29.75% سنة · 25.75% لحد 4 · 23.25% من 4"],
+             ["سيارات: إثبات دخل","3816","31% · 27% · 24.5%"],["سيارات: مهن حرة وأنشطة","3820","31.5% · 27.5% · 25%"],
+             ["سيارات: معاشات بتعهد","3841 / 3842","30% · 26% · 23.5%"]],
+       tip:"في السيارات العائد **بيقل جدًا** مع طول المدة، وبدون تأمين أو مستعملة **أعلى شوية**."}
+    ]},
+    {type:"lookup", id:"lookup", title:"دوّر على دليل", rows:[
+      {signal:"تعذر عرض السعر", target:"مرابحة بالوكالة", note:""},
+      {signal:"أجهزة كهربائية / أثاث", target:"مرابحة السلع المعمرة", note:"مش الوكالة"},
+      {signal:"إقرار المرابحة بالوكالة", target:"الصرف النقدي للعميل", note:""},
+      {signal:"Loan Origination", target:"تسجيل الطلب وتداول مستنداته", note:""},
+      {signal:"LN_ORG_01", target:"تقرير الموافقة الائتمانية (المرحلة 2)", note:""},
+      {signal:"سند لأمر + تفويض", target:"تعهد حكومي بالمستحقات", note:""},
+      {signal:"شيكات + خطاب مطابقة", target:"خاص / بدون مستحقات / إثبات دخل / معاشات", note:"منشور 5030"},
+      {signal:"نموذج 14 تجزئة", target:"طلب تصنيف الجهة", note:""},
+      {signal:"51% مال عام", target:"معاملة حكومية بدون تصنيف", note:""},
+      {signal:"أول معاش", target:"شرط صرف مرابحة المعاشات", note:""},
+      {signal:"26 سنة", target:"الابن المستفيد من المعاش", note:"لغير العجز"},
+      {signal:"بدل العلاج", target:"الهيئات القضائية", note:"القسط ≤ البدل"},
+      {signal:"-25%", target:"الدخل الافتراضي خارج القاهرة والجيزة وإسكندرية", note:""},
+      {signal:"مذكرة منخفضة", target:"شهادة نمطية ضامنة", note:""},
+      {signal:"لجان الائتمان بالفروع", target:"بضمان عيني", note:""},
+      {signal:"3025", target:"تعهد جهة العمل حكومي", note:""},
+      {signal:"3026", target:"تعهد جهة العمل خاص", note:""},
+      {signal:"3028", target:"أصحاب الأعمال والمهن الحرة", note:"أعلى عائد"},
+      {signal:"1016", target:"معاشات عملاء وموظفين سابقين", note:""},
+      {signal:"38xx", target:"مرابحة السلع المعمرة", note:""}
+    ]}
+  ]
+};
+
+const QUIZ = {
+  sections:[{id:"s1",title:"المنتج والقواعد"},{id:"s2",title:"دور الفرع والمستندات"},{id:"s3",title:"البرامج والحدود"}],
+  questions:[
+   {id:"q1",section:"s1",prompt:"عميل عايز تمويل لشراء ثلاجة وغسالة وتليفزيون. المنتج المناسب:",answer:"مرابحة السلع المعمرة",clue:"الوكالة لما يتعذر عرض السعر.",
+    why:"الأجهزة الكهربائية ليها **عرض سعر وفاتورة واضحة**، فالبنك يقدر يشتريها بنفسه ويبيعها للعميل مرابحة عادية. الوكالة معمولة للحاجات المتفرقة اللي **صعب يتعمل لها عرض سعر**.",
+    wrong:[{option:"مرابحة بالوكالة",why:"المستلزمات الكهربائية والأثاث مستثناة منها صراحة لأن ليها منتج مخصوص."},{option:"قرض شخصي نمطي",why:"العميل في فرع إسلامي، والمنتج الإسلامي موجود."},{option:"بطاقة ائتمان",why:"مش منتج تمويل سلعة محددة بأقساط مرابحة."}]},
+   {id:"q2",section:"s1",prompt:"أي غرض من دول يناسب المرابحة بالوكالة؟",answer:"مصاريف حفلة زواج",clue:"غرض مباح من غير عرض سعر واحد.",
+    why:"مصاريف الفرح موزعة على حاجات كتير ومن غير مورد واحد يدي عرض سعر، وده بالظبط سبب وجود الوكالة: العميل **يشتري بنفسه** نيابة عن البنك.",
+    wrong:[{option:"أثاث منزلي",why:"ليه منتج السلع المعمرة."},{option:"بضاعة لمحل العميل",why:"المستلزمات التجارية مستثناة."},{option:"أجهزة كهربائية",why:"ليها منتج السلع المعمرة."}]},
+   {id:"q3",section:"s1",prompt:"الموافقة على مرابحة بالوكالة بضمان شهادات ادخار بتكون من:",answer:"لجان الائتمان بالفروع",clue:"فيه ضمان عيني.",
+    why:"الشهادة المجمدة **بتغطي المديونية**، فالخطر قليل والقرار ممكن يتاخد في الفرع. المرابحات من غير ضمان عيني الخطر فيها أعلى، فبتتدرس مركزيًا.",
+    wrong:[{option:"الإدارة المركزية لإصدار ومنح الائتمان",why:"دي للمرابحات بدون ضمان عيني."},{option:"الهيئة الشرعية",why:"بتعتمد صيغة العقد، مش القرار الائتماني."},{option:"مدير المنطقة",why:"مش جهة المنح هنا."}]},
+   {id:"q4",section:"s2",prompt:"مين يوقّع عقد المرابحة كطرف أول نيابة عن البنك؟",answer:"مدير الفرع أو من ينوب عنه",clue:"في الفرع.",
+    why:"العقد بيتوقع في الفرع قدام العميل، والطرف الأول هو البنك. فالشخص اللي له صلاحية تمثيل البنك في الفرع هو **المدير أو نائبه**.",
+    wrong:[{option:"مسئول خدمة العملاء",why:"بيستلم ويعتمد التوقيعات، لكن مش بيمثل البنك في العقد."},{option:"مدير عام المنتج",why:"العقد بيتوقع في الفرع."},{option:"العميل بس",why:"العقد فيه طرفين."}]},
+   {id:"q5",section:"s2",prompt:"عميل رجع يصرف بعد 50 يوم من الموافقة الائتمانية. الإجراء:",answer:"إعادة إرسال الطلب لإدارة إصدار ومنح الائتمان لإعادة الدراسة باستعلام جديد",clue:"الموافقة صالحة مدة محددة.",
+    why:"الموافقة صالحة **45 يوم** بس؛ لأن ظروف العميل الائتمانية ممكن تتغير. بعد كده لازم **استعلام جديد** ودراسة جديدة، والموافقة القديمة تتلغي.",
+    wrong:[{option:"الصرف عادي",why:"الموافقة انتهت."},{option:"رفض الطلب نهائيًا",why:"ممكن يتعاد دراسته."},{option:"تمديد الموافقة من الفرع",why:"الفرع ما يقدرش يمد الموافقة، بيعيد إرسالها."}]},
+   {id:"q6",section:"s2",prompt:"عند التنفيذ طلب العميل تخفيض قيمة المرابحة الموافق عليها بنفس المدة:",answer:"ينفذ الفرع من غير رجوع للإدارة المركزية، مع طلب من العميل وحساب القسط الجديد",clue:"التخفيض بيقلل الخطر.",
+    why:"تخفيض المبلغ مع ثبات المدة بيقلل القسط والخطر، فمش محتاج دراسة جديدة. الفرع ياخد **طلب** من العميل، ويحسب القسط من الشاشة، ويكتب القيمة والقسط الجديد في العقد.",
+    wrong:[{option:"لازم موافقة جديدة",why:"ده للزيادة أو تغيير المدة."},{option:"ممنوع التخفيض",why:"مسموح بطلب العميل."},{option:"يتخفض والمدة تقل تلقائيًا",why:"المدة بتفضل زي الموافقة."}]},
+   {id:"q7",section:"s2",prompt:"عميل عايز يزوّد مدة المرابحة الموافق عليها:",answer:"يتبعت الطلب تاني على نظام تداول مستندات القروض للإدارة المركزية مع تسجيل السبب",clue:"تعديل الموافقة نفسها.",
+    why:"تغيير المدة بيغيّر **القسط والخطر ومدة التعرض**، فده تعديل في القرار الائتماني نفسه، ولازم الجهة اللي أصدرته تعيد النظر.",
+    wrong:[{option:"الفرع يعدّل في العقد",why:"الفرع يقدر يخفض القيمة بس."},{option:"مسموح لحد سنة زيادة",why:"مفيش سماح بالشكل ده."},{option:"يقدم مرابحة تكميلية",why:"التكميلية لمبلغ إضافي، مش لتغيير المدة."}]},
+   {id:"q8",section:"s1",prompt:"اتنفذت مرابحة شهرية في شهر مارس. أول قسط يستحق:",answer:"5 مايو، ويشمل قسط الشهر وعائد شهر التنفيذ",clue:"الشهر بعد التالي.",
+    why:"الاستحقاق يوم 5 من **الشهر بعد التالي** لشهر التنفيذ. والعميل بيستفيد بالفلوس من مارس، فعائد شهر مارس بيتضاف على أول قسط.",
+    wrong:[{option:"5 أبريل",why:"ده الشهر التالي، مش بعد التالي."},{option:"آخر مارس",why:"الاستحقاق بقى يوم 5 بدل آخر الشهر."},{option:"5 يوليو",why:"ده أول قسط في الربع سنوي."}]},
+   {id:"q9",section:"s1",prompt:"موظف حكومي بتعهد جهة العمل أخد مرابحة من 20 يوم ومحتاج مبلغ إضافي لأول مرة:",answer:"ينفع ياخد تكميلية من غير مدة بينية، لأنها أول تكميلية في برنامج تعهد جهة العمل",clue:"استثناء المرة الأولى.",
+    why:"برنامج تعهد جهة العمل سداده مضمون من الراتب المحوّل، فالمنشور سمح بأول تكميلية **من غير مدة بينية**. بعد كده لازم **3 شهور** من آخر صرف.",
+    wrong:[{option:"لازم 3 شهور",why:"دي من التانية وبعدها."},{option:"لازم 6 شهور",why:"دي لأصحاب الأعمال والمهن الحرة."},{option:"ممنوع وعنده مرابحة قائمة",why:"التكميلية معمولة للحالة دي."}]},
+   {id:"q10",section:"s1",prompt:"صاحب ورشة أخد مرابحة بالوكالة من 4 شهور وعايز تكميلية:",answer:"لا يجوز قبل 6 شهور",clue:"دخل متغير.",
+    why:"دخل أصحاب الأعمال والمهن الحرة **متغير**، فالبنك محتاج فترة أطول يتأكد فيها من انتظام السداد قبل ما يزود المديونية. عشان كده المدة **6 شهور** بدل 3.",
+    wrong:[{option:"ينفع لأنه عدّى 3 شهور",why:"الـ3 شهور للموظفين."},{option:"ينفع في أي وقت",why:"لازم مدة بينية."},{option:"لازم سنة",why:"المدة 6 شهور."}]},
+   {id:"q11",section:"s2",prompt:"عميل طالب 250 ألف وحالته الصحية عادية. الاستبيان الطبي:",answer:"مش مطلوب",clue:"التغطية التلقائية لحد مبلغ معين.",
+    why:"شركة التأمين بتقبل **تغطية تلقائية** لحد **300 ألف** من غير استبيان؛ لأن الخطر في المبالغ الصغيرة محدود. فوق كده لازم الاستبيان.",
+    wrong:[{option:"مطلوب",why:"المبلغ أقل من 300 ألف."},{option:"مطلوب كشف طبي",why:"الكشف فوق 3 مليون."},{option:"العميل يجيب وثيقة خارجية",why:"ده بس لو الشركة رفضت."}]},
+   {id:"q12",section:"s2",prompt:"عميل من ذوي الهمم طالب 60 ألف:",answer:"لازم يستوفي الاستبيان الطبي، والتغطية حياة فقط من غير عجز",clue:"استثناء من حد الـ300 ألف.",
+    why:"حالة العميل الصحية مؤثرة في تقييم شركة التأمين **أيًا كان المبلغ**. وبما إن عنده إعاقة قائمة، فالتغطية بتبقى **للحياة** بس، لأن العجز ممكن يكون مرتبط بحالته الحالية.",
+    wrong:[{option:"مش محتاج استبيان لأنه أقل من 300 ألف",why:"ذوي الهمم مستثنيين من الحد."},{option:"مرفوض",why:"مستحق ومتغطي حياة."},{option:"تغطية وفاة وعجز كاملة",why:"التغطية حياة فقط."}]},
+   {id:"q13",section:"s2",prompt:"إجمالي مرابحات العميل بعد التكميلية هيبقى 3.2 مليون:",answer:"يتعمل كشف طبي",clue:"حد الـ3 مليون.",
+    why:"المبلغ الكبير معناه **تعرض كبير** على شركة التأمين، فبتطلب **كشف طبي فعلي** فوق 3 مليون. والحد بيتحسب على **الإجمالي** (الجديدة + القائم)، عشان ما يتقسمش المبلغ لتفادي الكشف.",
+    wrong:[{option:"استبيان بس",why:"الاستبيان فوق 300 ألف، لكن فوق 3 مليون لازم كشف."},{option:"مفيش حاجة لأن التكميلية لوحدها صغيرة",why:"الحساب على الإجمالي."},{option:"رفض",why:"ممكن المنح بعد الكشف."}]},
+   {id:"q14",section:"s2",prompt:"شركة التأمين المتعاقدة رفضت التأمين على العميل:",answer:"يقدر العميل يجيب وثيقة من شركة تأمين كبرى بمعرفته وتتراجع قبل التنفيذ",clue:"مش رفض نهائي.",
+    why:"البنك محتاج **غطاء** يسدد الرصيد لو حصل وفاة أو عجز. فلو شركته رفضت، ينفع أي وثيقة بديلة بشروط: **لصالح البنك**، **سارية طول المدة**، و**مسددة بالكامل**.",
+    wrong:[{option:"الطلب يترفض تلقائيًا",why:"فيه بديل الوثيقة الخارجية."},{option:"يتنفذ من غير تأمين",why:"التأمين شرط."},{option:"البنك يدفع سعر أعلى",why:"الوثيقة الخارجية على حساب العميل."}]},
+   {id:"q15",section:"s2",prompt:"وثيقة خارجية من شركة مش متعاقد معها البنك. مين يراجعها ومين يدفع المراجعة؟",answer:"المستشار التأميني للبنك، والعميل يتحمل التكلفة",clue:"الشركة غريبة على البنك.",
+    why:"البنك ما يعرفش شروط الشركة دي، فمحتاج **خبير** يتأكد إن الوثيقة بتحمي البنك. وبما إن ده بسبب اختيار العميل، فهو اللي **يتحمل** التكلفة، والفرع يخصمها من حسابه.",
+    wrong:[{option:"الفرع يراجعها والبنك يدفع",why:"الفرع مش جهة فنية لمراجعة الوثائق."},{option:"شركة التأمين المتعاقدة",why:"هي اللي رفضت أصلًا."},{option:"مش محتاجة مراجعة",why:"لازم تتأكد إنها لصالح البنك."}]},
+   {id:"q16",section:"s2",prompt:"موظف حكومي بتعهد بتحويل الراتب والمستحقات. مستند المديونية في المرحلة الثانية:",answer:"سند لأمر وتفويض بملء السند",clue:"الحكومة ضامنة المستحقات.",
+    why:"لو العميل ساب الشغل، جهة العمل الحكومية **ملتزمة تحوّل مستحقاته** للبنك، فمصدر السداد مضمون والسند كفاية.",
+    wrong:[{option:"شيكات سنوية",why:"دي لبرامج بدون مستحقات والقطاع الخاص."},{option:"ضامن",why:"مش شرط."},{option:"رهن شهادة",why:"ده للضمان العيني."}]},
+   {id:"q17",section:"s2",prompt:"عند استيفاء شيكات العميل في المرحلة الثانية:",answer:"خطاب مطابقة توقيعات بختم الفرع على الخطاب، ومن غير أختام على الشيكات",clue:"الختم على الخطاب.",
+    why:"الشيك ورقة تجارية، وأي ختم عليه ممكن **يعيبه** عند التقديم. فالفرع بيثبت صحة التوقيع في **خطاب منفصل** بأرقام الشيكات، وده اللي بيتختم.",
+    wrong:[{option:"ختم الفرع على كل شيك",why:"ممنوع وضع أختام على الشيكات."},{option:"من غير خطاب",why:"الخطاب مطلوب."},{option:"توقيع مدير الفرع على الشيكات",why:"الشيكات بتوقيع العميل بس."}]},
+   {id:"q18",section:"s2",prompt:"صرف مرابحة المعاشات بيكون:",answer:"بعد تحويل أول معاش على البنك",clue:"مصدر السداد.",
+    why:"القسط هيتسدد من المعاش، فلازم البنك يتأكد إن المعاش **فعلًا بيتحوّل** عليه قبل ما يصرف الفلوس.",
+    wrong:[{option:"فور الموافقة",why:"ده لإثبات الدخل."},{option:"بعد 3 شهور من التحويل",why:"مفيش شرط مدة."},{option:"بعد سداد أول قسط",why:"القسط بييجي بعد الصرف."}]},
+   {id:"q19",section:"s2",prompt:"إزاي الفرع بيصرف قيمة المرابحة بالوكالة؟",answer:"نقدًا للعميل مقابل إقرار المرابحة بالوكالة باستلام القيمة واستخدامها في الغرض",clue:"العميل وكيل.",
+    why:"في الوكالة العميل هو **وكيل البنك** في الشراء، فالفلوس بتروح له. والإقرار هو اللي بيثبت إنه استلم وهيلتزم بالغرض، وده أساس صحة المرابحة شرعًا.",
+    wrong:[{option:"شيك باسم المورد",why:"ده في المرابحة العادية بعرض سعر."},{option:"تحويل للمورد مباشرة",why:"مفيش مورد محدد."},{option:"على دفعات حسب الفواتير",why:"الصرف بالكامل."}]},
+   {id:"q20",section:"s2",prompt:"العميل ما أقرش في نموذج الإقرار إن إيصالات السداد للموردين متوفرة. المرحلة الثالثة:",answer:"مش مطلوب منه إيصالات",clue:"مربوطة بالإقرار.",
+    why:"المنتج معمول للحاجات اللي **صعب** فيها فواتير. فالبنك بيطلب الإيصالات **بس لو العميل نفسه قال** إنها متوفرة.",
+    wrong:[{option:"لازم إيصالات خلال شهر",why:"مش مطلوبة في الحالة دي."},{option:"يتلغى العقد",why:"ده مش سبب."},{option:"يقدم عروض أسعار",why:"تعذّر عرض السعر هو أساس المنتج."}]},
+   {id:"q21",section:"s3",prompt:"موظف في شركة خاصة مصنفة C غير متعاقدة على تحويل الرواتب، عايز مرابحة بإثبات الدخل:",answer:"لا يتم التعامل؛ غير المتعاقدة لحد B",clue:"من غير تعهد ولا تحويل راتب.",
+    why:"من غير تعهد ومن غير تحويل راتب، البنك ما عندوش غير **قوة الجهة**. عشان كده غير المتعاقدة مسموحة لحد **B**، والمتعاقدة لحد **C**.",
+    wrong:[{option:"يتعامل عادي",why:"C مسموحة للمتعاقدة بس."},{option:"يتعامل بضامن",why:"الضامن مش هو الحل للتصنيف."},{option:"يتعامل بحد أقصى أقل",why:"الفئة نفسها غير مقبولة."}]},
+   {id:"q22",section:"s3",prompt:"موظف في شركة إنتاج بترول غير متعاقدة على تحويل الرواتب:",answer:"لا يتم المنح؛ البترول ضمن الجهات المتعاقدة فقط",clue:"شرط خاص بالقطاع.",
+    why:"رغم إن الشركات دي قوية، لكن البنك اشترط **تحويل الراتب** عليه علشان يضمن مصدر السداد، ولو الجهة غير متعاقدة ما ينفعش المنح.",
+    wrong:[{option:"يتمنح لأنها A+",why:"الشرط هنا مرتبط بالتعاقد، مش التصنيف."},{option:"يتمنح بموافقة لجنة الفرع",why:"الموافقة مركزية ومفيش استثناء هنا."},{option:"يتمنح بنص الحد",why:"غير وارد."}]},
+   {id:"q23",section:"s3",prompt:"شركة القطاع العام مساهم فيها بنسبة 55%:",answer:"تتعامل معاملة الجهات الحكومية من غير تصنيف، بصورة صحيفة الاستثمار أو خطاب بشعار الجمهورية",clue:"51% فأكثر.",
+    why:"لو المال العام **51% أو أكتر** الجهة فعليًا تحت سيطرة الدولة، فخطرها زي الحكومة. والفرع بس محتاج **مستند** يثبت النسبة أو التبعية.",
+    wrong:[{option:"تتصنف بمعايير القطاع الخاص",why:"مستثناة من التصنيف."},{option:"تتعامل A+ تلقائيًا",why:"بتتعامل كحكومة مش كخاص مصنف."},{option:"مش مقبولة",why:"مقبولة بشروط الحكومة."}]},
+   {id:"q24",section:"s3",prompt:"ابن ذكر مستفيد من معاش أبوه (مش بسبب عجز) سنه 21 سنة، عايز مرابحة 6 سنين:",answer:"مرفوض؛ أقصى سن في نهاية المدة 26 سنة",clue:"21 + 6.",
+    why:"معاش الابن الذكر **بيقف** في سن معينة لو مش عاجز، فلازم المرابحة **تخلص قبل** ما مصدر السداد يقف. 21 + 6 = 27، وده أكبر من 26.",
+    wrong:[{option:"مقبول لأن الحد 70",why:"70 لصاحب المعاش، مش للابن المستفيد."},{option:"مقبول لأن الحد 65",why:"الحد الخاص بالابن 26."},{option:"يتعرض على شركة التأمين",why:"ده بس في حالة العجز."}]},
+   {id:"q25",section:"s3",prompt:"صاحب معاش أصلي سنه 63 سنة عايز مرابحة 6 سنين:",answer:"مقبول؛ هيبقى 69 والحد الأقصى بقى 70",clue:"بعد التحديث.",
+    why:"الحد الأقصى لسن عميل المعاشات في نهاية المدة بقى **70 سنة**. 63 + 6 = 69، فهو في الحدود.",
+    wrong:[{option:"مرفوض لأنه هيعدي 65",why:"حد الـ65 اتعدل للمعاشات لـ70."},{option:"مرفوض لأن سنه فوق 60",why:"مفيش حد كده."},{option:"مقبول بضامن بس",why:"مش شرط."}]},
+   {id:"q26",section:"s3",prompt:"دكتور عنده عيادة في قنا عايز مرابحة بالدخل الافتراضي بسنوات الخبرة:",answer:"يتطبق البرنامج مع تخفيض الدخل الافتراضي 25%",clue:"خارج المحافظات الكبيرة.",
+    why:"الجدول معمول على دخول **القاهرة والجيزة وإسكندرية**، والدخل في باقي المحافظات **أقل** في المتوسط، فالبنك بيحتاط ويخفض الدخل المفترض 25%.",
+    wrong:[{option:"البرنامج مش متاح خارج القاهرة والجيزة وإسكندرية",why:"متاح بتخفيض."},{option:"نفس الجدول من غير تعديل",why:"لازم التخفيض."},{option:"الدخل يزيد 30%",why:"الـ1.3 خاصة بالجامعات الخاصة."}]},
+   {id:"q27",section:"s3",prompt:"موظف راتبه محوّل على بنك مصر وطالب مرابحة بالدخل الافتراضي. الأصل:",answer:"يتم استبعاده، إلا لو دكتور أو مدرس أو أستاذ جامعة",clue:"دخله معروف أصلًا.",
+    why:"الدخل الافتراضي معمول لناس **صعب تثبت دخلها**. اللي راتبه محوّل دخله **معروف**، فيروح للبرامج العادية. الأطباء والمدرسين والأساتذة مستثنيين لأن ليهم **دخول تانية** صعب إثباتها.",
+    wrong:[{option:"يتقبل عادي",why:"مستبعد كأصل."},{option:"يتقبل بنص الحد",why:"غير وارد."},{option:"يتقبل لو معاه ضامن",why:"البرنامج من غير ضامن، والاستبعاد بسبب الدخل المعروف."}]},
+   {id:"q28",section:"s3",prompt:"عضو هيئة قضائية بدل علاجه المحوّل علينا 8,000 ج شهريًا، والقسط المطلوب 9,000 ج:",answer:"مرفوض؛ القسط ما يعديش بدل العلاج المحوّل",clue:"مصدر السداد.",
+    why:"البرنامج كله قايم على إن البدل المحوّل هو **مصدر السداد**. لو القسط أكبر منه، البنك ما يبقاش عنده مصدر مضمون للفرق.",
+    wrong:[{option:"مقبول لو الدخل الافتراضي يسمح",why:"الشرط على البدل نفسه."},{option:"مقبول بضامن",why:"البرنامج من غير ضامن."},{option:"مقبول لحد 120 شهر",why:"المدة مش حل لشرط القسط."}]},
+   {id:"q29",section:"s3",prompt:"أجنبي عنده شهادة ادخار في بنك مصر وعايز مرابحة بالوكالة بضمانها:",answer:"مقبول؛ برنامج الأوعية متاح للمصريين والأجانب",clue:"الضمان عيني.",
+    why:"لما يكون فيه **وعاء مجمد** بيغطي المديونية، الجنسية مش مهمة في تقييم الخطر، فالمنتج مفتوح **للمصريين والأجانب**.",
+    wrong:[{option:"مرفوض لأنه أجنبي",why:"شرط الجنسية في برامج الضمان الشخصي."},{option:"مقبول بضامن مصري",why:"مش شرط."},{option:"مقبول بالدولار بس",why:"التمويل بالعملة المحلية."}]},
+   {id:"q30",section:"s3",prompt:"عميل عنده شهادة بنك مصر النمطية ضامنة لمرابحة بالوكالة. دور الفرع بعد الموافقة:",answer:"مذكرة منخفضة على حساب الشهادة، وإلغاء مؤشر التجديد التلقائي، ومتابعة تقرير الاستحقاق يوميًا",clue:"الحفاظ على الضمان.",
+    why:"الشهادة هي الضمان. المذكرة **بتمنع استردادها**، وإلغاء التجديد التلقائي بيدّي الفرع فرصة **يختار وعاء جديد** يحافظ على هامش المرابحة، والمتابعة اليومية عشان ما يفوتش الاستحقاق.",
+    wrong:[{option:"تسييل الشهادة فورًا",why:"التسييل بس عند التعثر."},{option:"مفيش دور على الفرع",why:"الفرع مسئول عن متابعة الضمان."},{option:"تغيير نوع الضمانة قبل الاستحقاق",why:"ممنوع."}]},
+   {id:"q31",section:"s1",prompt:"عميل عايز يقفل مرابحته (ضمان شخصي) بتمويل من بنك تاني:",answer:"رسوم 12% من الرصيد",clue:"أعلى من السداد من العميل نفسه.",
+    why:"لما السداد ييجي من **بنك منافس**، البنك بيخسر العميل نفسه. عشان كده الرسوم **12%** بدل **7%** لما العميل يسدد بنفسه.",
+    wrong:[{option:"7%",why:"ده لما العميل يسدد بنفسه."},{option:"معفي",why:"الإعفاء في الوفاة أو العجز."},{option:"5%",why:"ده في برنامج الأوعية."}]},
+   {id:"q32",section:"s2",prompt:"قبل تسجيل طلب مرابحة جديد لعميل جديد، الفرع يتأكد من:",answer:"إن العميل مش واخد نفس المرابحة من فرع تاني، ومفيش تكرار للتسجيل",clue:"منع الازدواج.",
+    why:"لو العميل قدم في أكتر من فرع ممكن ياخد **تمويل مكرر** فوق قدرته على السداد. فالفرع بيراجع على **نظام تداول مستندات القروض** والنظام البنكي قبل التسجيل.",
+    wrong:[{option:"إن العميل معاه ضامن",why:"الضامن مش شرط."},{option:"إن العميل عنده شهادة",why:"مش شرط إلا في برنامج الأوعية."},{option:"إن العميل فتح حساب من سنة",why:"مش شرط عام."}]}
+   ,{id:"q33",section:"s3",prompt:"موظف حكومي جهته متعاقدة، هيمول نفس المبلغ مرة على 4 سنين ومرة على 10 سنين. العائد:",answer:"على 10 سنين أقل",clue:"الشرايح.",
+    why:"المرابحات الطويلة بتتسعّر بنسبة أقل في كل شريحة (22.75% ثم 22.25% ثم 21.75%) لأن البنك بيحصّل عائد على مدة أطول، فبيقدر يدّي نسبة سنوية أقل ويفضل منافس.",
+    wrong:[{option:"على 4 سنين أقل",why:"العكس، الشريحة الأقصر أعلى."},{option:"نفس العائد",why:"فيه شرايح حسب المدة."},{option:"المدة مش بتفرق غير في القطاع الخاص",why:"الشرايح موجودة في الحكومي كمان."}]},
+   {id:"q34",section:"s3",prompt:"أي عميل عائده أعلى؟",answer:"موظف بإثبات دخل بدون تعهد من جهة العمل",clue:"الضمان الأضعف.",
+    why:"التعهد معناه إن جهة العمل بتحوّل الراتب أو القسط للبنك، فالسداد شبه مضمون. من غير تعهد البنك معتمد على العميل نفسه، فالمخاطرة أعلى والعائد أعلى (25% مقابل 22.75%).",
+    wrong:[{option:"موظف حكومي بتعهد جهة متعاقدة",why:"ده أقوى ضمان فعائده من الأقل."},{option:"صاحب معاش بتعهد",why:"المعاش دخل ثابت ومحوّل."},{option:"موظف بنك (أنشطة مميزة)",why:"ده من أقل العوائد."}]},
+   {id:"q35",section:"s3",prompt:"مرابحة لصاحب المعاش مقارنة بالمستفيد من المعاش:",answer:"صاحب المعاش عائده أقل",clue:"مين أضمن.",
+    why:"صاحب المعاش دخله مستمر طول حياته. المستفيد (زي ابن أو بنت) معاشه ممكن يوقف بالسن أو الجواز أو الشغل، فالمخاطرة أعلى والعائد أعلى (24% مقابل 22.5%).",
+    wrong:[{option:"المستفيد عائده أقل",why:"العكس."},{option:"نفس العائد",why:"فيه فرق في المخاطرة."},{option:"المستفيد ما ينفعش ياخد مرابحة",why:"ينفع وليه برنامج."}]},
+   {id:"q36",section:"s3",prompt:"أصحاب الأعمال والمهن الحرة بإثبات الدخل، شرايح المدة في العائد بتكون:",answer:"حتى سنتين، ومن سنتين لـ4، وأكتر من 4",clue:"مش 5 و8.",
+    why:"دخلهم متغير ومش مضمون زي الموظف، فالبنك بيقسّم المدة لشرايح أقصر وبيسعّر أعلى (27% لحد سنتين)، وبيقل كل ما المدة تطول.",
+    wrong:[{option:"حتى 5 سنين، ومن 5 لـ8، وأكتر من 8",why:"دي شرايح الموظفين."},{option:"عائد واحد لكل المدد",why:"فيه شرايح."},{option:"سنة، و3 سنين",why:"مش الشرايح المحددة."}]},
+   {id:"q37",section:"s3",prompt:"كود المرابحة بالوكالة لموظف حكومي بضمان تعهد جهة العمل:",answer:"3025",clue:"الحكومي قبل الخاص.",
+    why:"البرامج اتقسمت بالكود حسب نوع الجهة: 3025 لكل تعهدات القطاع الحكومي (متعاقدة وغير متعاقدة، بالمستحقات وبدونها)، و3026 لنفس التقسيمة في الخاص.",
+    wrong:[{option:"3026",why:"ده تعهد القطاع الخاص."},{option:"3027",why:"ده الشيكات للجهات المتعاقدة."},{option:"1016",why:"ده المعاشات."}]},
+   {id:"q38",section:"s3",prompt:"أعلى عائد في المرابحة بالوكالة بيكون لـ:",answer:"أصحاب الأعمال والمهن الحرة لمدة قصيرة",clue:"دخل متغير.",
+    why:"دخلهم مش ثابت ومفيش جهة عمل بتضمن السداد، والمدة القصيرة بتتسعّر أعلى كمان. عشان كده عائدهم 27% وهو الأعلى.",
+    wrong:[{option:"موظفي البنوك والأنشطة المميزة",why:"من أقل العوائد لأن دخلهم مستقر."},{option:"الموظفين الحكوميين بتعهد",why:"ضمان قوي فعائد أقل."},{option:"أصحاب المعاشات",why:"دخل ثابت ومحوّل."}]}
+  ]
+};
+
+/* ===== أدوات ===== */
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<mark>$1</mark>').replace(/\[\[(.+?)\]\]/g,'<bdi class="en" dir="ltr">$1</bdi>');
+const $=(s,r=document)=>r.querySelector(s);
+const CAT=NOTE.categories;
+
+const plain=s=>String(s).replace(/\*\*|\[\[|\]\]/g,'');
+const lab=h=>` data-l="${esc(plain(h)).replace(/"/g,'&quot;')}"`;
+function table(t){
+  const n=t.headers.length;
+  return `<div class="stack">${t.title?`<h3>${inl(t.title)}</h3>`:''}
+  <div class="tscroll ${n>=3?'stk':'w2'}"><table><thead><tr>${t.headers.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead>
+  <tbody>${t.rows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0?' class="first"':''}${lab(t.headers[i]||'')}>${inl(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+  ${t.tip?`<div class="tip"><b>انتبه:</b> ${inl(t.tip)}</div>`:''}</div>`;
+}
+function summary(){
+  const s=NOTE.summary;
+  return `<section id="summary"><h2>الخلاصة</h2><div class="stack">
+   <p>${inl(s.lead)}</p>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">البند</th>${s.colHeaders.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead><tbody>
+   ${s.rows.map(r=>`<tr><td class="first">${inl(r.head)}${r.sub?`<small>${inl(r.sub)}</small>`:''}</td>${r.cells.map((c,i)=>`<td class="c-${c.cat}"${lab(s.colHeaders[i]||'')}>${inl(c.main)}${c.ex?`<span class="ex">${inl(c.ex)}</span>`:''}</td>`).join('')}</tr>`).join('')}
+   </tbody></table></div>
+   <p class="legend">${inl(s.legend)}</p>
+   <div class="golden"><b>القاعدة الذهبية:</b> ${inl(s.goldenRule)}</div></div></section>`;
+}
+function concepts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="grid">${sec.items.map(c=>`
+   <article class="card">
+    <span class="tag ${c.cat}">${CAT[c.cat]}</span>
+    <div class="cname"><span class="en">${esc(c.nameEn)}</span><span class="ar">${esc(c.nameAr)}</span></div>
+    <div class="formula">${c.formula.map(f=>`<div class="frow"><span class="dot ${f.sign==='+'?'p':f.sign==='-'?'m':'q'}">${f.sign==='+'?'✓':f.sign==='-'?'−':'?'}</span><span>${inl(f.text)}</span></div>`).join('')}</div>
+    <div><h4>بنستخدمه في</h4><ul class="plain">${c.uses.map(u=>`<li>${inl(u)}</li>`).join('')}</ul></div>
+    <div><h4>أمثلة</h4><div class="exs">${c.examples.map(e=>`<div class="exi"><span>${inl(e.en)}</span><span class="a2">${inl(e.ar)}</span></div>`).join('')}</div></div>
+    <div><h4>دلائل</h4><div class="sig">${c.signals.map(x=>`<span class="rtl">${esc(x)}</span>`).join('')}</div></div>
+    <div class="tip"><b>انتبه:</b> ${inl(c.tip)}</div>
+    ${c.src?`<p class="srcl">المصدر: ${esc(c.src)}</p>`:''}
+   </article>`).join('')}</div></section>`;
+}
+function compare(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><div class="cmp-title">${esc(c.title)}</div>
+    <div class="cmp-cols">${c.cols.map(col=>`<div class="cmp-col ${col.cat}"><h4>${esc(col.name)}</h4><p>${inl(col.when)}</p>
+      <ul class="plain">${col.ex.map(e=>`<li>${inl(e)}</li>`).join('')}</ul></div>`).join('')}</div>
+    <div class="golden"><b>القاعدة الذهبية:</b> ${inl(c.golden)}</div></article>`).join('')}</div></section>`;
+}
+function confusing(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.explain)}</p>
+    <ul class="cl">${c.examples.map(e=>{const k=e.correct===true?'ok':e.correct===false?'no':'nt';const m=k==='ok'?'✓':k==='no'?'✗':'•';
+      return `<li class="${k}"><span class="m">${m}</span><span><span class="t">${inl(e.text)}</span>${e.note?`<span class="note">${inl(e.note)}</span>`:''}</span></li>`}).join('')}</ul>
+   </article>`).join('')}</div></section>`;
+}
+function conflicts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`<article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.text)}</p></article>`).join('')}</div></section>`;
+}
+function reference(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.tables.map(table).join('')}</div></section>`;
+}
+function lookup(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">
+   <input class="search" id="lq" type="search" placeholder="اكتب كلمة دالة، مثلًا: رب المال أو الفلتر أو 1975" autocomplete="off" aria-label="بحث في الدلائل">
+   <div class="cnt" id="lcnt"></div>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">الدليل</th><th scope="col">المفهوم</th><th scope="col">ملاحظة</th></tr></thead><tbody id="lb"></tbody></table></div></div></section>`;
+}
+function fillLookup(rows){
+  const lb=$('#lb'),inp=$('#lq'),cnt=$('#lcnt');
+  const norm=s=>s.replace(/[ً-ْـ]/g,'').replace(/[إأآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').toLowerCase();
+  const draw=()=>{
+    const q=norm(inp.value.trim());
+    const r=rows.filter(x=>!q||norm(x.signal+' '+x.target+' '+x.note).includes(q));
+    lb.innerHTML=r.length?r.map(x=>`<tr><td class="first">${esc(x.signal)}</td><td data-l="المفهوم">${esc(x.target)}</td><td data-l="ملاحظة">${esc(x.note)}</td></tr>`).join(''):`<tr><td colspan="3" class="empty">مفيش نتيجة للكلمة دي.</td></tr>`;
+    cnt.textContent=r.length+' من '+rows.length;
+  };
+  inp.addEventListener('input',draw);draw();
+}
+
+/* ===== الكويز ===== */
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const LET=['A','B','C','D'];
+let QS={i:0,order:[],picks:[],opts:[]};
+function quizStart(){
+  QS={i:0,order:shuffle(QUIZ.questions.map((_,i)=>i)),picks:[],opts:{}};
+  quizDraw();
+}
+function quizDraw(){
+  const root=$('#quiz');
+  const n=QUIZ.questions.length;
+  if(QS.i>=n){return quizResult(root)}
+  const qi=QS.order[QS.i],q=QUIZ.questions[qi];
+  const sec=QUIZ.sections.find(s=>s.id===q.section).title;
+  const opts=QS.opts[qi]||(QS.opts[qi]=shuffle([{t:q.answer,ok:true},...q.wrong.map(w=>({t:w.option,ok:false,why:w.why}))]));
+  const pick=QS.picks[QS.i];
+  const answered=pick!==undefined;
+  const promptHtml=esc(q.prompt).replace('___',`<span class="blank${answered?(opts[pick].ok?' ok':' no'):''}">${answered?esc(q.answer):'&nbsp;&nbsp;&nbsp;&nbsp;'}</span>`);
+  root.innerHTML=`
+   <div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${QS.i+(answered?1:0)}"><i style="width:${(QS.i+(answered?1:0))/n*100}%"></i></div>
+   <div class="qmeta"><span>سؤال ${QS.i+1} من ${n}</span><span>${esc(sec)}</span></div>
+   <p class="qp">${promptHtml}</p>
+   <div class="opts">${opts.map((o,k)=>`<button type="button" class="opt${answered?(o.ok?' right':(k===pick?' wrongpick':'')):''}" data-k="${k}" ${answered?'disabled':''}><span class="L">${LET[k]}</span><span>${esc(o.t)}</span></button>`).join('')}</div>
+   ${answered?`<div class="fb" aria-live="polite">
+     <div class="v ${opts[pick].ok?'ok':'no'}">${opts[pick].ok?'صح.':'مش دقيق.'}</div>
+     <p><b>ليه الإجابة دي:</b> ${esc(q.why)}</p>
+     ${q.clue?`<p><b>الدليل:</b> ${esc(q.clue)}</p>`:''}
+     <div><b>ليه الباقي غلط:</b><ul>${opts.map((o,k)=>o.ok?'':`<li class="${k===pick?'picked':''}">${esc(o.t)}: ${esc(o.why)}${k===pick?' (اختيارك)':''}</li>`).join('')}</ul></div>
+    </div>
+    <button type="button" class="btn" id="qnext">${QS.i+1<n?'السؤال التالي':'شوف النتيجة'}</button>`:''}`;
+  root.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{QS.picks[QS.i]=+b.dataset.k;quizDraw();const nb=$('#qnext');if(nb)nb.focus({preventScroll:true})}));
+  const nb=$('#qnext');if(nb)nb.addEventListener('click',()=>{QS.i++;quizDraw();root.scrollIntoView({block:'nearest'})});
+}
+function quizResult(root){
+  const n=QUIZ.questions.length;let total=0;const per={};
+  QUIZ.sections.forEach(s=>per[s.id]={t:0,c:0});
+  QS.order.forEach((qi,i)=>{const q=QUIZ.questions[qi];const ok=QS.opts[qi][QS.picks[i]].ok;per[q.section].t++;if(ok){per[q.section].c++;total++}});
+  const rows=QUIZ.sections.filter(s=>per[s.id].t).map(s=>({s,p:Math.round(per[s.id].c/per[s.id].t*100)}));
+  const weak=rows.slice().sort((a,b)=>a.p-b.p)[0];
+  root.innerHTML=`<div class="res">
+   <div class="prog"><i style="width:100%"></i></div>
+   <div class="score"><bdi class="ltr" dir="ltr">${total} / ${n}</bdi></div>
+   <div class="bars">${rows.map(r=>`<div class="bar${r===weak&&r.p<100?' weak':''}"><span>${esc(r.s.title)}</span><span class="pb"><i style="width:${r.p}%"></i></span><span class="ltr">${r.p}%</span></div>`).join('')}</div>
+   <p>${weak.p<100?`أضعف قسم: <mark>${esc(weak.s.title)}</mark>. ارجع له في المذكرة وحاول تاني.`:'كل الأقسام 100%. ممتاز.'}</p>
+   <button type="button" class="btn" id="qrestart">ابدأ من جديد</button></div>`;
+  $('#qrestart').addEventListener('click',quizStart);
+}
+
+/* ===== التجميع ===== */
+// كل الأقسام بتترسم بترتيبها في الملف حسب نوعها (type)، حتى لو الـid مش من الأسماء الافتراضية
+const R={concepts,compare,confusing,conflicts,reference,lookup};
+const SHORT={concepts:'المفاهيم',compare:'الفروقات',confusing:'حالات بتلخبط',conflicts:'تعارضات',reference:'أرقام وجداول',lookup:'دوّر على دليل'};
+function chipName(sec){
+  const nConcepts=NOTE.sections.filter(x=>(x.type||x.id)==='concepts').length;
+  const t=(sec.type||sec.id);
+  if(t==='concepts'&&nConcepts>1){const c=String(sec.title||'').replace(/^\d+[\.\-\s]*/,'').split(/[:(،]/)[0].trim();return c.length>22?c.slice(0,21)+'…':c}
+  return SHORT[t]||sec.title;
+}
+function build(){
+  const secs=NOTE.sections.filter(x=>R[x.type||x.id]);
+  $('#sheet').innerHTML=`
+   <header class="hero"><span class="stamp">${esc(NOTE.stamp)}</span><h1>${esc(NOTE.title)}</h1><p class="sub">${esc(NOTE.subtitle)}</p></header>
+   ${summary()}${secs.map(x=>R[x.type||x.id](x)).join('')}
+   <section id="quiz-sec"><h2 id="quiz-h">اختبر نفسك</h2><div class="quiz" id="quiz"></div></section>
+   <p class="foot">ملخص مذاكرة لامتحان مصرفي أول G3</p>`;
+  $('#chips').innerHTML=[['summary','الخلاصة'],...secs.map(x=>[x.id,chipName(x)]),['quiz-sec','اختبر نفسك']]
+    .map(([id,l])=>`<a class="chip" href="#${id}" data-id="${id}">${esc(l)}</a>`).join('');
+  const lk=secs.find(x=>(x.type||x.id)==='lookup');if(lk)fillLookup(lk.rows);
+  quizStart();
+  const links=[...document.querySelectorAll('.chip')],bar=$('#chips');
+  const center=l=>{const a=l.getBoundingClientRect(),c=bar.getBoundingClientRect();bar.scrollBy({left:(a.left+a.width/2)-(c.left+c.width/2),behavior:'smooth'})};
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>{const on=l.dataset.id===e.target.id;if(on&&!l.classList.contains('on'))center(l);l.classList.toggle('on',on)})})},{rootMargin:'-80px 0px -65% 0px'});
+    links.forEach(l=>{const t=document.getElementById(l.dataset.id);if(t)io.observe(t)});
+  }
+}
+/* المظهر: زرار واحد شمس/قمر، ومحفوظ في kk-theme المشترك مع التطبيق */
+const themeBtn=$('#themeb');
+function curTheme(){try{return localStorage.getItem('kk-theme')||'system'}catch(e){return 'system'}}
+const isDark=()=>{const m=curTheme();return m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)};
+function setTheme(m){
+  const r=document.documentElement;
+  if(m==='light'||m==='dark')r.setAttribute('data-theme',m);else r.removeAttribute('data-theme');
+  try{localStorage.setItem('kk-theme',m)}catch(e){}
+  const d=isDark();themeBtn.classList.toggle('dark',d);themeBtn.setAttribute('aria-label',d?'الوضع الداكن. دوس للفاتح':'الوضع الفاتح. دوس للداكن');
+}
+themeBtn.addEventListener('click',()=>setTheme(isDark()?'light':'dark'));
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>setTheme(curTheme()));
+build();setTheme(curTheme());
+</script>
+
+<style>
+.bg3-home{position:fixed;left:max(14px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;
+ display:flex;align-items:center;gap:6px;padding:9px 16px 9px 14px;border-radius:999px;background:var(--head-bg);color:var(--head-ink);
+ font-family:var(--f-ui);font-weight:700;font-size:14px;line-height:1.3;text-decoration:none;box-shadow:var(--shadow)}
+.bg3-home svg{width:18px;height:18px}
+.bg3-home:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+</style>
+<a class="bg3-home" href="../index.html#notes" aria-label="رجوع لقائمة الملخصات">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>الملخصات</a>
+<script>
+(function(){var K="murabaha";
+function g(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var all=g('bg3:notes',{}),me=all[K]||{};me.last=Date.now();all[K]=me;s('bg3:notes',all);s('bg3:lastNote',K);
+if(location.hash==='#resume'){history.replaceState(null,'',location.pathname);
+ if(me.y)requestAnimationFrame(function(){setTimeout(function(){window.scrollTo({top:me.y,behavior:'instant'})},80)})}
+var t;addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(function(){
+ var a=g('bg3:notes',{}),m=a[K]||{},h=document.documentElement.scrollHeight-innerHeight,p=h>0?Math.round(scrollY/h*100):100;
+ m.y=Math.round(scrollY);m.pct=Math.max(m.pct||0,Math.min(100,p));a[K]=m;s('bg3:notes',a)},250)},{passive:true});
+})();
+</script>

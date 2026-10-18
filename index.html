@@ -1,0 +1,99 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>ملخصات مصرفي أول G3</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="fonts/fonts.css">
+<script>try{var m=localStorage.getItem('kk-theme');if(m==='light'||m==='dark')document.documentElement.setAttribute('data-theme',m)}catch(e){}</script>
+<style>
+/* Layout: navy notebook header, one reading column of note "tabs" with a red margin line, grouped mandatory / technical */
+:root{
+  --bg:#e6ebf3; --paper:#fbfcfe; --edge:#cbd6e8; --line:#dbe3f0;
+  --ink:#0c1f3f; --ink-2:#44577a; --navy:#0c1f3f; --on-navy:#eaf0fb; --on-navy-2:#a9b8d3;
+  --gold:#c9a13b; --gold-ink:#7d5f0c; --gold-wash:#faf2d8; --margin:#d4584c;
+  --m:#a23d35; --m-wash:#fbebe9; --t:#1f4f9a; --t-wash:#e6eefb;
+  --shadow:0 1px 0 rgba(12,31,63,.06),0 8px 22px rgba(12,31,63,.08);
+  --f-display:'Aref Ruqaa','Amiri',serif; --f-body:'Tajawal','Cairo',system-ui,sans-serif; --f-ui:'Cairo','Tajawal',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#07142b; --paper:#132a52; --edge:#2a4577; --line:rgba(255,255,255,.08);
+  --ink:#eaf0fb; --ink-2:#a9b8d3; --navy:#050e20; --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --margin:#e5675c;
+  --m:#f19189; --m-wash:rgba(241,145,137,.13); --t:#8fb8f4; --t-wash:rgba(143,184,244,.13); --shadow:0 8px 22px rgba(0,0,0,.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#07142b; --paper:#132a52; --edge:#2a4577; --line:rgba(255,255,255,.08);
+  --ink:#eaf0fb; --ink-2:#a9b8d3; --navy:#050e20; --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --margin:#e5675c;
+  --m:#f19189; --m-wash:rgba(241,145,137,.13); --t:#8fb8f4; --t-wash:rgba(143,184,244,.13); --shadow:0 8px 22px rgba(0,0,0,.35); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.8;direction:rtl}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--navy)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--navy);color:var(--on-navy);border-bottom:3px solid var(--gold)}
+.top-in,.main{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.brand{display:flex;flex-direction:column;line-height:1.25}
+.brand b{font-family:var(--f-ui);font-weight:800;font-size:20px}
+.brand b i{font-style:normal;color:var(--gold)}
+.brand span{font-family:var(--f-ui);font-size:12px;color:var(--on-navy-2)}
+.round{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:var(--gold);cursor:pointer;padding:0;flex:none}
+.round svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.round .i-moon{display:none}.round.dark .i-sun{display:none}.round.dark .i-moon{display:block;fill:currentColor}
+.main{padding-block:22px 40px;display:flex;flex-direction:column;gap:22px}
+h1{font-family:var(--f-display);font-weight:700;font-size:32px;line-height:1.5;margin:0;text-wrap:balance}
+.lead{margin:0;color:var(--ink-2);font-size:15.5px}
+.resume{display:flex;align-items:center;justify-content:space-between;gap:12px;text-decoration:none;color:inherit;background:var(--gold-wash);border:1px solid var(--gold);border-radius:12px;padding:12px 16px}
+.resume .k{font-family:var(--f-ui);font-size:12.5px;font-weight:700;color:var(--gold-ink)}
+.resume .t{font-family:var(--f-ui);font-weight:700;font-size:16px}
+.resume .go{font-family:var(--f-ui);font-weight:700;color:var(--gold-ink);white-space:nowrap}
+.grp{display:flex;flex-direction:column;gap:10px}
+.grp h2{margin:0;font-family:var(--f-ui);font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px}
+.grp h2 .n{font-weight:600;color:var(--ink-2);font-size:13px}
+.grp h2 .dot{width:10px;height:10px;border-radius:3px;background:var(--t)}
+.grp.m h2 .dot{background:var(--m)}
+.list{display:flex;flex-direction:column;gap:8px}
+.note{position:relative;display:flex;flex-direction:column;gap:4px;text-decoration:none;color:inherit;background:var(--paper);border:1px solid var(--edge);
+  border-radius:6px 12px 12px 6px;padding:13px 32px 13px 16px;box-shadow:var(--shadow);min-width:0}
+.note::before{content:"";position:absolute;inset-block:0;inset-inline-start:16px;border-inline-start:1.5px solid var(--margin);opacity:.55}
+.note:hover{border-color:var(--gold)}
+.note:focus-visible,.round:focus-visible,.resume:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.nt{font-family:var(--f-ui);font-weight:700;font-size:16.5px;line-height:1.5}
+.ns{font-size:13.5px;color:var(--ink-2);line-height:1.65}
+.nm{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;font-family:var(--f-ui);font-size:12.5px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.prog{display:inline-flex;align-items:center;gap:6px}
+.prog i{display:inline-block;width:64px;height:5px;border-radius:3px;background:var(--line);overflow:hidden}
+.prog i b{display:block;height:100%;background:var(--gold)}
+.foot{display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--f-ui);font-size:12.5px;color:var(--ink-2);text-align:center;padding-top:8px}
+.dev{font-weight:700;letter-spacing:.03em;color:var(--gold-ink)}
+</style>
+<header class="top"><div class="top-in">
+  <div class="brand"><b dir="ltr">Banker <i>G3</i></b><span>ملخصات مصرفي أول · إسلامي</span></div>
+  <button type="button" class="round" id="themeb" aria-label="المظهر">
+    <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+    <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+  </button>
+</div></header>
+<main class="main">
+  <div><h1>الملخصات</h1><p class="lead">ملخصات امتحان مصرفي أول <bdi dir="ltr">G3</bdi>، فيها 4 مواضيع إلزامية و11 موضوع فني. كل ملخص فيه الشرح والجداول واختبار قصير في آخره، وبيفتح على آخر مكان وقفت عنده.</p></div>
+  <div id="resume"></div>
+  <section class="grp m"><h2><span class="dot"></span>الإلزامي <span class="n">(15 سؤال في الامتحان)</span></h2><div class="list" id="lm"></div></section>
+  <section class="grp t"><h2><span class="dot"></span>الفني الإسلامي <span class="n">(35 سؤال في الامتحان)</span></h2><div class="list" id="lt"></div></section>
+  <footer class="foot"><span>ملخصات للمذاكرة. راجع آخر تحديث رسمي قبل الاعتماد على أي رقم.</span><span class="dev" dir="ltr">Developed By Mohamed Sayed</span></footer>
+</main>
+<script>
+const NOTES=[{"key": "risk", "name": "مخاطر التشغيل", "g": "m", "secs": ["المفاهيم والخسائر", "الأدوات", "السياسات", "الاستمرارية والتكنولوجيا"], "q": 35}, {"key": "infosec", "name": "أمن المعلومات", "g": "m", "secs": ["المبادئ والبيانات", "كلمات المرور", "الهجمات", "الإبلاغ"], "q": 24}, {"key": "aml", "name": "الالتزام وغسل الأموال", "g": "m", "secs": ["غسل الأموال والتمويل", "اعرف عميلك", "الإخطار وحسابات الموظفين", "العقوبات وFATF"], "q": 21}, {"key": "charter", "name": "الميثاق والقيم", "g": "m", "secs": ["القيم والمبادئ", "الهدايا والمصالح", "الإبلاغ والسرية", "صح ولا غلط"], "q": 26}, {"key": "basics", "name": "المصرفية الإسلامية", "g": "t", "secs": ["الأساسيات", "المقارنات", "الدلائل", "حالات بتلخبط"], "q": 13}, {"key": "sharia", "name": "الالتزام الشرعي", "g": "t", "secs": ["الحوكمة والهيئة", "المخاطر والفرع", "الصيغ والضوابط"], "q": 30}, {"key": "murabaha", "name": "المرابحة بالوكالة", "g": "t", "secs": ["المنتج والقواعد", "دور الفرع والمستندات", "البرامج والحدود"], "q": 38}, {"key": "cards", "name": "البطاقات الائتمانية", "g": "t", "secs": ["الائتمانية وكنانة", "الإصدار والخصم الفوري والمدفوعة"], "q": 33}, {"key": "chapter4", "name": "الباب الرابع", "g": "t", "secs": ["الإيداع", "الصرف", "التوكيلات والشركات", "المستندات والتركات"], "q": 28}, {"key": "c5547", "name": "منشور 5547", "g": "t", "secs": ["المنتج والشروط", "دور الفرع والزيارة", "الفحص والقرار"], "q": 18}, {"key": "payments", "name": "التحويلات والمدفوعات", "g": "t", "secs": ["التحويلات", "الحوالات", "المدفوعات الحكومية", "حالات بتلخبط"], "q": 33}, {"key": "checks", "name": "الشيكات", "g": "t", "secs": ["الأساسيات", "المقارنات", "الأرقام والدلائل", "حالات بتلخبط"], "q": 26}, {"key": "circulars", "name": "تعميمات الفروع", "g": "t", "secs": ["البيانات والحسابات", "الصرف والفحص والشيكات", "الانضباط والمخالفات"], "q": 32}, {"key": "c5557", "name": "منشور 5557", "g": "t", "secs": ["التنفيذ في الفرع", "المراجعة والتسوية", "معالجة الأخطاء"], "q": 20}, {"key": "c5589", "name": "منشور 5589", "g": "t", "secs": ["القواعد العامة", "دور الفرع", "التوزيع والصرف"], "q": 20}];
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function g(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+const st=g('bg3:notes',{}),last=g('bg3:lastNote',null);
+const href=n=>'notes/'+n.key+'.html'+((st[n.key]||{}).y?'#resume':'');
+const card=n=>{const s=st[n.key]||{};return `<a class="note" href="${href(n)}"><span class="nt">${esc(n.name)}</span>
+  <span class="ns">${n.secs.map(esc).join(' · ')}</span>
+  <span class="nm"><span>${n.q} سؤال في الاختبار</span>${s.pct?`<span class="prog"><i><b style="width:${s.pct}%"></b></i>${s.pct}%</span>`:''}</span></a>`};
+document.getElementById('lm').innerHTML=NOTES.filter(n=>n.g==='m').map(card).join('');
+document.getElementById('lt').innerHTML=NOTES.filter(n=>n.g!=='m').map(card).join('');
+const ln=last&&NOTES.find(n=>n.key===last);
+if(ln)document.getElementById('resume').innerHTML=`<a class="resume" href="${href(ln)}"><span><span class="k">كمّل من حيث وقفت</span><br><span class="t">${esc(ln.name)}</span></span><span class="go">كمّل ←</span></a>`;
+const tb=document.getElementById('themeb');
+const cur=()=>{try{return localStorage.getItem('kk-theme')||'system'}catch(e){return 'system'}};
+const dark=()=>{const m=cur();return m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)};
+function setT(m){const r=document.documentElement;if(m==='light'||m==='dark')r.setAttribute('data-theme',m);else r.removeAttribute('data-theme');
+  try{localStorage.setItem('kk-theme',m)}catch(e){}const d=dark();tb.classList.toggle('dark',d);tb.setAttribute('aria-label',d?'الوضع الداكن. دوس للفاتح':'الوضع الفاتح. دوس للداكن')}
+tb.addEventListener('click',()=>setT(dark()?'light':'dark'));setT(cur());
+</script>
+
+</body></html>

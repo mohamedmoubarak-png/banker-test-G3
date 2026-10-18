@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c1f3f">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<title>ملخص البطاقات الائتمانية</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: ورقة كشكول واحدة في النص، هامش أحمر، شريط أقسام ثابت فوق */
+:root{
+  --bg:#e6ebf3; --paper:#fbfcfe; --card:#ffffff; --card-edge:#cbd6e8;
+  --ink:#0c1f3f; --ink-2:#44577a; --line:#dbe3f0;
+  --gold:#c9a13b; --gold-ink:#7d5f0c; --gold-wash:#faf2d8; --hl:rgba(201,161,59,.38);
+  --margin:#d4584c;
+  --cat-a:#a23d35; --cat-a-wash:#fbebe9;
+  --cat-b:#1f4f9a; --cat-b-wash:#e6eefb;
+  --cat-c:#7d5f0c; --cat-c-wash:#faf2d8;
+  --ok:#1d7a4d; --no:#b3382e; --ok-wash:#e4f4ec; --no-wash:#fbebe9;
+  --head-bg:#0c1f3f; --head-ink:#f3f6fc;
+  --shadow:0 1px 0 rgba(12,31,63,.06),0 10px 28px rgba(12,31,63,.10);
+  --f-display:'Aref Ruqaa','Amiri',serif;
+  --f-body:'Tajawal','Cairo',system-ui,sans-serif;
+  --f-ui:'Cairo','Tajawal',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+    --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+    --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+    --margin:#e5675c;
+    --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+    --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+    --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+    --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+    --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+  --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+  --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+  --margin:#e5675c;
+  --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+  --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+  --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+  --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+  --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.95;margin:0;
+  padding-block:0 72px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));
+  -webkit-text-size-adjust:100%;text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+bdi.en,.ltr{font-family:var(--f-ui);unicode-bidi:isolate}
+.ltr{direction:ltr;text-align:left}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+
+/* شريط الأقسام */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);display:flex;gap:10px;align-items:center;padding-block:8px;border-bottom:1px solid var(--card-edge)}
+.chips{display:flex;gap:6px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none;padding-block:2px;
+  -webkit-mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);padding-inline-end:20px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-family:var(--f-ui);font-size:13.5px;font-weight:600;line-height:1.4;padding:6px 13px;border-radius:999px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chip:hover,.chip.on{background:var(--head-bg);border-color:var(--head-bg);color:var(--head-ink)}
+.themeb{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--card-edge);background:var(--card);color:var(--gold-ink);cursor:pointer;padding:0}
+.themeb svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.themeb .i-moon{display:none}
+.themeb.dark .i-sun{display:none}
+.themeb.dark .i-moon{display:block;fill:currentColor}
+
+/* الورقة */
+.sheet{position:relative;width:100%;background-color:var(--paper);
+  border-radius:6px;box-shadow:var(--shadow);padding-block:28px 40px;padding-inline-start:44px;padding-inline-end:28px;
+  display:flex;flex-direction:column;gap:44px;min-width:0}
+.sheet::before{content:"";position:absolute;inset-block:0;inset-inline-start:30px;width:0;border-inline-start:1.5px solid var(--margin);opacity:.55;pointer-events:none}
+.sheet::after{content:"";position:absolute;inset-block:0;inset-inline-start:9px;width:10px;pointer-events:none;
+  background:radial-gradient(circle at center,var(--bg) 0 3.5px,transparent 4px) center 36px/10px 96px repeat-y}
+.sheet>*{min-width:0}
+.sheet{overflow-wrap:anywhere}
+mark{background:none;color:inherit;box-shadow:inset 0 -.5em 0 var(--hl);padding-inline:1px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,6vw,42px);line-height:1.5;margin:0;text-decoration:underline wavy var(--gold);text-decoration-thickness:2px;text-underline-offset:12px;text-wrap:balance}
+section>h2{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.6;margin:0 0 16px;display:inline-block;box-shadow:inset 0 -.32em 0 var(--hl)}
+h3{font-family:var(--f-ui);font-size:17.5px;margin:0;line-height:1.6}
+p{margin:0}
+.lead{color:var(--ink-2)}
+.hero{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.stamp{display:inline-block;transform:rotate(-2deg);font-family:var(--f-ui);font-weight:600;font-size:13px;line-height:1.5;color:var(--gold-ink);background:var(--gold-wash);border:2px solid var(--gold);border-radius:6px;padding:2px 12px}
+.sub{color:var(--ink-2);font-size:17px}
+
+/* الجداول: جدول عادي على الشاشات الواسعة، وكروت مرصوصة على الموبايل (كل خانة معاها اسم العمود) */
+.tscroll{overflow-x:auto;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.75;table-layout:auto}
+th{background:var(--head-bg);color:var(--head-ink);font-family:var(--f-ui);font-weight:700;font-size:14px;padding:10px 14px;text-align:start;vertical-align:bottom;line-height:1.5}
+td{padding:11px 14px;vertical-align:top;text-align:start;border-top:1px solid var(--card-edge);font-variant-numeric:tabular-nums}
+tbody tr:nth-child(even) td:not([class]){background:color-mix(in srgb,var(--paper) 55%,transparent)}
+td.first{background:var(--gold-wash);font-weight:700;min-width:7.5em}
+td.first small{display:block;font-weight:400;color:var(--ink-2);font-size:13px;line-height:1.5}
+td.c-a{background:var(--cat-a-wash)} td.c-b{background:var(--cat-b-wash)} td.c-c{background:var(--cat-c-wash)}
+td .ex{display:block;color:var(--ink-2);font-size:13.5px;line-height:1.6;margin-top:4px}
+.tscroll.w2 table td.first{width:38%}
+@media (max-width:700px){
+  .tscroll.stk{overflow:visible;border:0;background:none;border-radius:0}
+  .tscroll.stk table,.tscroll.stk tbody,.tscroll.stk tr,.tscroll.stk td{display:block;width:100%}
+  .tscroll.stk thead{display:none}
+  .tscroll.stk tr{border:1px solid var(--card-edge);border-radius:10px;overflow:hidden;background:var(--card);margin-bottom:10px}
+  .tscroll.stk tr:last-child{margin-bottom:0}
+  .tscroll.stk td{border-top:1px solid var(--line);padding:9px 14px;background:none}
+  .tscroll.stk td.first{border-top:0;background:var(--gold-wash);font-size:16.5px;min-width:0}
+  .tscroll.stk td.c-a{background:var(--cat-a-wash)} .tscroll.stk td.c-b{background:var(--cat-b-wash)} .tscroll.stk td.c-c{background:var(--cat-c-wash)}
+  .tscroll.stk td[data-l]:not(.first)::before{content:attr(data-l);display:block;font-family:var(--f-ui);font-size:12.5px;font-weight:700;color:var(--ink-2);line-height:1.5;margin-bottom:1px}
+  .tscroll.stk td.empty::before{display:none}
+}
+.legend{font-size:14px;color:var(--ink-2);margin-top:12px}
+.legend .k{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-inline:4px 4px}
+
+/* مربعات */
+.golden,.tip,.formula{border:2px dashed var(--gold);background:var(--gold-wash);border-radius:8px;padding:10px 16px;line-height:1.9}
+.golden b{color:var(--gold-ink)}
+.tip{border-color:var(--margin);background:var(--card)}
+.tip b{color:var(--margin)}
+.stack{display:flex;flex-direction:column;gap:16px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.card{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tag{align-self:flex-start;font-family:var(--f-ui);font-size:12px;font-weight:700;line-height:1.5;padding:1px 10px;border-radius:999px}
+.tag.a{background:var(--cat-a-wash);color:var(--cat-a)} .tag.b{background:var(--cat-b-wash);color:var(--cat-b)} .tag.c{background:var(--cat-c-wash);color:var(--cat-c)}
+.cname{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.cname .en{font-family:var(--f-ui);font-weight:700;font-size:18px;direction:ltr}
+.cname .ar{font-size:16px;color:var(--ink-2)}
+.formula{display:flex;flex-direction:column;gap:6px;padding:10px 12px}
+.frow{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.dot{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-size:13px;font-weight:700;color:var(--paper);margin-top:2px}
+.dot.p{background:var(--ok)} .dot.m{background:var(--no)} .dot.q{background:var(--cat-b)}
+h4{font-family:var(--f-ui);font-size:14px;margin:0;color:var(--ink-2);line-height:1.6}
+ul.plain{margin:0;padding-inline-start:20px;display:flex;flex-direction:column}
+.exs{display:flex;flex-direction:column;gap:6px}
+.exi{display:flex;flex-direction:column;border-inline-start:3px solid var(--card-edge);padding-inline-start:12px;line-height:1.7}
+.exi .a2{color:var(--ink-2);font-size:14px}
+.sig{display:flex;flex-wrap:wrap;gap:6px}
+.sig span{direction:ltr;font-family:var(--f-ui);font-size:13px;line-height:1.5;padding:2px 10px;border-radius:999px;background:var(--gold-wash);color:var(--gold-ink);border:1px solid var(--gold)}
+.sig span.rtl{direction:rtl;font-family:var(--f-body)}
+.cmp-cols{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.cmp-col{border-radius:6px;border:1px solid var(--card-edge);padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.cmp-col.a{background:var(--cat-a-wash)} .cmp-col.b{background:var(--cat-b-wash)} .cmp-col.c{background:var(--cat-c-wash)}
+.cmp-col h4{color:var(--ink);font-size:15px}
+.cmp-title{direction:ltr;text-align:left;font-family:var(--f-ui);font-weight:700;font-size:18px}
+.cl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.cl li{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.cl .m{flex:none;width:22px;text-align:center;font-family:var(--f-ui);font-weight:700}
+.cl .ok .m{color:var(--ok)} .cl .no .m{color:var(--no)} .cl .nt .m{color:var(--cat-c)}
+.cl .no .t{text-decoration:line-through;text-decoration-color:var(--no)}
+.cl .note{display:block;font-size:13px;color:var(--ink-2);line-height:1.6}
+
+/* بحث */
+.search{width:100%;font:inherit;font-family:var(--f-ui);font-size:16px;line-height:1.5;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink)}
+.search::placeholder{color:var(--ink-2)}
+.cnt{font-size:13px;color:var(--ink-2);font-family:var(--f-ui)}
+.empty{padding:16px;color:var(--ink-2)}
+
+/* كويز */
+.quiz{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:16px}
+.prog{height:8px;border-radius:999px;background:var(--line);overflow:hidden;border:1px solid var(--card-edge)}
+.prog i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.qmeta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-ui);font-size:13px;color:var(--ink-2)}
+.qp{font-size:18px;line-height:1.9;font-weight:500}
+.qp .blank{display:inline-block;min-width:80px;border-bottom:2px dashed var(--gold);text-align:center;padding-inline:6px}
+.qp .blank.ok{border-bottom:2px solid var(--ok);color:var(--ok);font-weight:700}
+.qp .blank.no{border-bottom:2px solid var(--no);color:var(--no);font-weight:700}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:start;width:100%;font:inherit;line-height:1.7;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--paper);color:var(--ink);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--gold);background:var(--gold-wash)}
+.opt .L{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-weight:700;font-size:13px;line-height:1;background:var(--line);color:var(--ink);margin-top:2px}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--ok-wash);border-color:var(--ok)}
+.opt.wrongpick{background:var(--no-wash);border-color:var(--no)}
+.fb{display:flex;flex-direction:column;gap:10px;border-radius:8px;padding:12px 16px;background:var(--gold-wash);border:1px dashed var(--gold)}
+.fb .v{font-weight:700;font-family:var(--f-ui)}
+.fb .v.ok{color:var(--ok)} .fb .v.no{color:var(--no)}
+.fb ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:4px}
+.fb li.picked{font-weight:700}
+.btn{align-self:flex-start;font-family:var(--f-ui);font-weight:600;font-size:15px;line-height:1.4;padding:10px 20px;border-radius:8px;border:0;background:var(--head-bg);color:var(--head-ink);cursor:pointer}
+.res{display:flex;flex-direction:column;gap:12px}
+.score{font-family:var(--f-display);font-size:40px;line-height:1.4}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(90px,140px) 1fr 44px;gap:10px;align-items:center;font-size:14px;line-height:1.5}
+.bar .pb{height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar .pb i{display:block;height:100%;background:var(--cat-b)}
+.bar.weak .pb i{background:var(--no)}
+.srcl{font-family:var(--f-ui);font-size:12px;line-height:1.6;color:var(--ink-2);margin:0}
+.foot{font-size:14px;color:var(--ink-2)}
+@media (max-width:600px){
+  body{padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+  .sheet{padding-block:22px 32px;padding-inline-start:26px;padding-inline-end:14px;gap:38px}
+  .sheet::before{inset-inline-start:16px}
+  .sheet::after{display:none}
+  .card{padding:14px}
+  section>h2{font-size:25px}
+  .bar{grid-template-columns:84px 1fr 40px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.prog i{transition:none}}
+</style>
+
+<div class="wrap">
+  <nav class="nav" aria-label="أقسام المذكرة">
+    <div class="chips" id="chips"></div>
+    <button type="button" class="themeb" id="themeb" aria-label="المظهر">
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+    </button>
+  </nav>
+  <main class="sheet" id="sheet" dir="rtl" lang="ar"></main>
+</div>
+
+<script>
+/* ===== المحتوى ===== */
+const NOTE = {
+  title:"البطاقات: الائتمانية وكنانة والخصم الفوري والمدفوعة مقدمًا",
+  subtitle:"أحدث تعليمات البطاقات: الأنواع والحدود والشروط العامة، وكنانة الإسلامية، والإصدار والإيقاف والإلغاء، والخصم الفوري والمدفوعة مقدمًا والمرتبات، مع التركيز على دور الفرع",
+  stamp:"مذكرة · Cards 2026",
+  categories:{a:"الائتمانية وكنانة", b:"الإصدار والإيقاف والإلغاء", c:"الخصم الفوري والمدفوعة مقدمًا"},
+  summary:{
+    lead:"البطاقة الائتمانية **حد ائتماني** بضمان **عيني** (وعاء) أو **شخصي** (مرتب)، بيتسدد لحد **يوم 26** من الشهر اللي بعد الكشف ويرجع متاح. **كنانة** هي الإسلامية، شغالة **بالمرابحة** وبتتصدر من **الفروع الإسلامية بس**. أما **الخصم الفوري** فبيسحب من **حساب العميل** نفسه.",
+    colHeaders:["إيه هو","المفتاح","رقم أو مثال"],
+    rows:[
+      {head:"الحدود", sub:"الأنواع",
+       cells:[{main:"**إسلامية كلاسيك**: 2,000 – 4,999", ex:"النمطي كلاسيك 2,000 – 2,999", cat:"a"},
+              {main:"**إسلامية تيتانيوم**: من 5,000 لحد **مليون** بضمان عيني، و**800 ألف** من غيره", ex:"", cat:"a"},
+              {main:"**إسلامية ذهبية**: 3,000 – 9,999 بس **إصدارها اتلغى**", ex:"", cat:"a"}]},
+      {head:"الاستخدام", sub:"الائتمانية",
+       cells:[{main:"الشراء **أكتر من مرة** لو بيسدد · السحب النقدي **مرة واحدة في الشهر**", ex:"حتى لو سدد", cat:"a"},
+              {main:"الإيداع لحد **130%** من الحد", ex:"الزيادة **تترفض**", cat:"a"},
+              {main:"تجاوز **5%** للشراء لما الحد يخلص", ex:"**ماعدا الكلاسيك والجولد والتيتانيوم**", cat:"a"}]},
+      {head:"كنانة", sub:"المرابحة",
+       cells:[{main:"المشتريات والسحب **بيتجمعوا آخر الشهر** في مرابحة", ex:"مدة **12 / 24 / 36**", cat:"a"},
+              {main:"سدد **الإجمالي** قبل يوم **26** ← **مفيش مرابحة**", ex:"سدد أكتر من القسط ← يرجعله **60%** من العائد", cat:"a"},
+              {main:"**مفيش ترقية**، والتقسيط من **التجار بس**", ex:"ومش على الخدمة الصوتية", cat:"a"}]},
+      {head:"الخصم الفوري", sub:"والمدفوعة",
+       cells:[{main:"من سن **15**، وأقل منه عن طريق **الأب بس**", ex:"**بطاقة أساسية واحدة** لكل عميل", cat:"c"},
+              {main:"**موقوف بالخارج** دلوقتي", ex:"ماعدا الخصم الفوري بالعملة الأجنبية", cat:"c"},
+              {main:"المدفوعة: رصيد فوق **200 ألف** ← **Hot Exceed Deposit**", ex:"تشغيل تاني **مرة واحدة**", cat:"c"}]}
+    ],
+    legend:"الأحمر = الائتمانية وكنانة · الأزرق = الإصدار والإيقاف والإلغاء · الذهبي = الخصم الفوري والمدفوعة مقدمًا.",
+    goldenRule:"**السحب النقدي مرة في الشهر**، و**الإيداع لحد 130%**، و**كنانة ما بتترقاش**. والإلغاء العادي من **مركز الاتصال**، والفرع في **4 حالات** بس."
+  },
+  sections:[
+    {type:"concepts", id:"credit", title:"الائتمانية: الأنواع والحدود والاستخدام", items:[
+      {nameEn:"Credit Card Basics", nameAr:"تعريف البطاقة الائتمانية وأنواعها", cat:"a",
+       formula:[{sign:"+",text:"حد ائتماني بضمان **عيني** (حساب توفير، وديعة، شهادة) أو **شخصي** (مرتب)، للشراء من التجار والإنترنت أو السحب النقدي"},
+                {sign:"+",text:"المستخدم بيتسدد لحد **يوم 26** من الشهر التالي لصدور الكشف، ويرجع **متاح** تاني"},
+                {sign:"+",text:"**النمطية**: كلاسيك، جولد، تيتانيوم، بلاتينوم، Visa Signature، World، World Elite، Visa Infinite، Visa Infinite Private"},
+                {sign:"+",text:"**الإسلامية (كنانة)**: كلاسيك، ذهبية، تيتانيوم · **التقسيط**: ماستر قسطها، توشيبا العربي · وبطاقات بالتعاون مع **هيئة البريد**"},
+                {sign:"+",text:"عدد البطاقات للعميل: **مفيش حد أقصى** بشرط تكون **من فئات مختلفة**، والإضافية **مفيش ليها حد أقصى**"}],
+       uses:["شرح المنتج"],
+       examples:[{en:"عميل عايز بطاقتين تيتانيوم",ar:"**لأ**؛ لازم فئات مختلفة"}],
+       signals:["عيني / شخصي","يوم 26","فئات مختلفة"],
+       tip:"",
+       src:"أنواع البطاقات والحدود"},
+      {nameEn:"Credit Limits", nameAr:"الحدود الائتمانية لكل نوع", cat:"a",
+       formula:[{sign:"+",text:"**كلاسيك** 2,000 – 2,999 · **إسلامية كلاسيك** 2,000 – **4,999**"},
+                {sign:"+",text:"**الذهبية** 3,000 – 9,999 · **الإسلامية الذهبية** نفس الحد **لكن إصدارها اتلغى**"},
+                {sign:"+",text:"**تيتانيوم** 10,000 – 24,999 · **إسلامية تيتانيوم** من **5,000** لحد **1,000,000** بضمان عيني و**800,000** من غيره"},
+                {sign:"+",text:"**بلاتينية** 25,000 – 99,999 · **Signature** و**World** 100,000 – 299,999"},
+                {sign:"+",text:"**World Elite** و**Visa Infinite**: من 300,000 لحد **3 مليون** بضمان عيني و**1.5 مليون** من غيره"},
+                {sign:"?",text:"لو **نوع البطاقة مش مكتوب** في الطلب والحد من 300 ألف لـ1.5 مليون ← بتتصدر **Visa Infinite تلقائيًا**"},
+                {sign:"+",text:"**Infinite Private**: **مفيش حد أدنى**، بس العميل لازم يكون تصنيفه **Private**"}],
+       uses:["اختيار النوع حسب الحد"],
+       examples:[{en:"فرع إسلامي، حد 4,500",ar:"**إسلامية كلاسيك**"},{en:"فرع إسلامي، حد 8,000",ar:"**إسلامية تيتانيوم** (الذهبية اتلغت)"}],
+       signals:["4,999","مليون / 800 ألف","الذهبية اتلغت","Infinite تلقائي"],
+       tip:"في الإسلامي فيه **نوعين بس** بيتصدروا دلوقتي: **كلاسيك تحت 5,000** و**تيتانيوم من 5,000**.",
+       src:"الحدود الائتمانية"},
+      {nameEn:"Usage Rules", nameAr:"قواعد استخدام الحد", cat:"a",
+       formula:[{sign:"+",text:"**الشراء**: الحد يتستخدم **أكتر من مرة** في الشهر لو العميل بيسدد، من غير حد أقصى (في حدود الاستخدام الدولي لكل نوع)"},
+                {sign:"-",text:"**السحب النقدي**: **مرة واحدة بس في الشهر**، حتى لو سدد والرصيد رجع متاح"},
+                {sign:"+",text:"**الإيداع**: أكتر من مرة، بشرط **الإجمالي ما يعديش 130%** من الحد، و**الإيداع الواحد** كمان ما يعديش 130%"},
+                {sign:"-",text:"أي إيداع يخلي الرصيد يعدي **130%** **يترفض**، ولو رصيد الأساسية عدّى **الحد + 30%** الإيداع ما يتقبلش"},
+                {sign:"+",text:"**تجاوز 5%**: لو الحد خلص، يقدر يشتري بـ**5% زيادة** (الرصيد يبقى سالب) **ماعدا الكلاسيك والجولد والتيتانيوم**"},
+                {sign:"?",text:"ما يتقالش للعميل إن الأنواع التانية ليها 5%، و**Ledger Balance** في الـ Authorization List بيظهر **من غير الـ5%**"},
+                {sign:"+",text:"**الإضافية**: الأساسي يحدد حدها (جزء أو كل حده)، والحد المخصص ليها يتستخدم **مرة واحدة في الشهر**"}],
+       uses:["عميل بيسأل ليه السحب اترفض"],
+       examples:[{en:"سحب كاش، سدد، وعايز يسحب تاني نفس الشهر",ar:"**مرفوض**؛ السحب مرة في الشهر"},
+                 {en:"حد 10 آلاف وعايز يودع 15 ألف",ar:"**يترفض**؛ أكتر من 130% (13 ألف)"}],
+       signals:["مرة في الشهر","130%","5% ماعدا كلاسيك وجولد وتيتانيوم"],
+       tip:"البطاقة معمولة **للشراء**، فالسحب النقدي محدود. وسقف الإيداع بيمنع إن البطاقة تتحول **لحساب** يتحط فيه فلوس.",
+       src:"ملاحظات على الاستخدام"},
+      {nameEn:"Usage Limits", nameAr:"حدود الاستخدام", cat:"a",
+       formula:[{sign:"+",text:"سحب ATM داخل مصر: **30,000 ج يوميًا**"},
+                {sign:"+",text:"سحب من **POS الفروع**: لحد **250,000 ج يوميًا** في حدود المسموح للنوع"},
+                {sign:"+",text:"**Contactless** من غير رقم سري: **600 ج** للحركة داخل مصر"},
+                {sign:"+",text:"كنانة: السحب النقدي **50% من الحد** (النمطي **100%** مرة في الشهر)"},
+                {sign:"+",text:"كنانة بالخارج: شراء **بإبلاغ السفر** كلاسيك 50,000 · تيتانيوم 150,000 ج/شهر، و**من غير إبلاغ** 10,000 · 50,000"},
+                {sign:"+",text:"السحب النقدي بالخارج: **3,000 ج/شهر** بإبلاغ، و**صفر** من غير إبلاغ"}],
+       uses:["عميل مسافر","عميل عايز كاش كبير"],
+       examples:[{en:"كنانة تيتانيوم حدها 100 ألف",ar:"أقصى سحب نقدي **50 ألف**"}],
+       signals:["30,000","250,000","600","50% كنانة"],
+       tip:"إبلاغ السفر **بيرفع** الحدود الخارجية لأن البنك بيبقى عارف إن الاستخدام بالخارج مش احتيال.",
+       src:"حدود الاستخدام"},
+      {nameEn:"External Use", nameAr:"تفعيل الاستخدام الخارجي", cat:"a",
+       formula:[{sign:"+",text:"التفعيل **بمجرد تواصل العميل** (مركز الاتصال أو الفرع) **من غير مستندات سفر**، والعميل يحتفظ **بأختام الدخول والخروج** لو اتطلبت"},
+                {sign:"+",text:"لو العميل استفسر عن الرسالة: الفرع يرفع مستندات السفر على **تاسك سيبل**"},
+                {sign:"+",text:"**الإضافية بالخارج**: مجموعها **50%** من الحد الخارجي للأصلية: 1 ← 50% · 2 ← 50/50 · 3 ← 50/25/25 · 4 ← 25×4 · 5 ← 20×5"},
+                {sign:"-",text:"لو المتاح للإضافيات مستخدم وما يسمحش بإعادة التقسيم ← **رفض**، ويعيد الطلب **الشهر الجاي**"}],
+       uses:["عميل مسافر بإضافيات"],
+       examples:[{en:"أصلية حدها الخارجي 100 ألف + إضافيتين",ar:"الإضافيات **50 ألف**، لكل واحدة **25 ألف**"}],
+       signals:["من غير مستندات","50%","أختام"],
+       tip:"اعتبر الإضافيات **خزنة واحدة** حجمها **نص** الحد الخارجي للأصلية.",
+       src:"تعميم الاستخدام الخارجي"},
+      {nameEn:"Fees, Commissions & Rates", nameAr:"الرسوم والعمولات والعائد (للحفظ)", cat:"a",
+       formula:[{sign:"+",text:"**الإصدار والتجديد** سنويًا: كلاسيك والذهبية **250** · تيتانيوم **350** · بلاتينية **500** · Signature وWorld **2,500** · Infinite وWorld Elite **8,000** · Private **مجانًا مدى الحياة**"},
+                {sign:"+",text:"**الإضافية**: 100 · 150 · 200 · 300 · 500 · 500 · 1,000 · (Private: أول 2 مجانًا ومن التالتة 1,000)"},
+                {sign:"+",text:"**بدل فاقد/تالف**: 100 (كلاسيك وذهبية) · 250 (تيتانيوم وبلاتينية) · 500 (الأعلى) · التقسيط 75"},
+                {sign:"+",text:"**الصلاحية 3 سنين** (التقسيط **سنتين**)، والمصاريف **شاملة I-Score**، و**موظفين البنك معفيين**، وفيه **خصم 50%** لكبار العملاء"},
+                {sign:"+",text:"**السحب النقدي**: نمطي **2% حد أدنى 15 ج** · إسلامي **5% حد أدنى 50 ج** · التقسيط مفيش · الموظفين على ماكينات بنك مصر **من غير عمولة**"},
+                {sign:"+",text:"**بالخارج**: الاستخدام **3%** · السحب نمطي **6% + 50** (3+3) · إسلامي **8% + 50** (5+3) · التقسيط 3% + 50"},
+                {sign:"+",text:"**العائد**: النمطي **4% شهريًا** (موظفين **2.5%**) · كنانة **20.55%** سنة، **41.10%** سنتين، **61.65%** 3 سنين (ثابت) · التقسيط **3% شهريًا متناقصة**"},
+                {sign:"+",text:"غرامة التأخير **75** · اعتراض بدون وجه حق **50** · بيان عمليات من الشهر التاني **20/شهر** · مخالصة أو شهادة مديونية **50** · استعلام ATM بنك مصر بإيصال **50 قرش**، بنوك تانية **1 ج**، بالخارج **3 ج**"}],
+       uses:["للحفظ، مش للأسئلة"],
+       examples:[],
+       signals:["250 / 350","5% / 50","8% + 50","20.55%"],
+       tip:"الأرقام دي للحفظ. ركّز في الأسئلة على **الحدود والشروط**.",
+       src:"رسوم الإصدار والعمولات"},
+      {nameEn:"Approvals & FX", nameAr:"قيد الموافقات والعملة", cat:"a",
+       formula:[{sign:"+",text:"الموافقات (سحب، شراء، Refund) بتتقيد **خلال 30 يوم** من المعاملة، ولو ما اتقيدتش ترجع **للمتاح تلقائيًا**"},
+                {sign:"+",text:"أي معاملة بالخارج بتتعادل **بالدولار كعملة وسيطة** ثم تتخصم **بالجنيه** بسعر **يوم القيد** مش يوم الحركة"},
+                {sign:"+",text:"عمولة السحب والاستخدام بالخارج بتتحسب **عند القيد** مش الموافقة"},
+                {sign:"+",text:"**Refund** من الخارج: بسعر يوم الرد **مع رد** عمولة الاستخدام بالخارج · **Chargeback**: **بدون** العمولة وتتعمل شكوى لردها"},
+                {sign:"+",text:"الـ Refund لازم يتعمل **على نفس البطاقة**، ولو التاجر عمله على بطاقة تانية يتوجه العميل **للتاجر**"}],
+       uses:["عميل بيسأل عن مبلغ معلق"],
+       examples:[{en:"مبلغ محجوز من 35 يوم وما اتقيدش",ar:"المفروض **رجع للمتاح** تلقائي"}],
+       signals:["30 يوم","سعر يوم القيد","نفس البطاقة"],
+       tip:"المدد بتختلف: ائتمانية **30**، خصم فوري **12**، مدفوعة مقدمًا ومرتبات **14** يوم.",
+       src:"قيد الموافقات"},
+      {nameEn:"Online, SMS & Stops", nameAr:"الإنترنت والرسائل وحالات الإيقاف", cat:"a",
+       formula:[{sign:"+",text:"**الشراء أونلاين**: رقم الكارت + تاريخ الانتهاء + **CVV**. لو الموقع **3D Secured** بيطلب **OTP** من **5 أرقام صالح لمدة دقيقتين** على الموبايل المسجل على **Oasis**"},
+                {sign:"+",text:"مفيش موبايل مرتبط أو عايز يغيره ← **يتوجه للفرع** يستوفي النموذج"},
+                {sign:"+",text:"**SMS مجانًا** باللغة العربية: الإصدار، التجديد، الإيقاف، التنشيط، كل حركة، رسالة المديونية أول الشهر، وتذكير من **يوم 20**. تغيير اللغة من **19888**"},
+                {sign:"-",text:"**خدمة فوري غير متاحة** للبطاقات الائتمانية"},
+                {sign:"+",text:"أسباب الإيقاف: Abusive (تحصيل/مخاطر/سوء استخدام) · Cancel · Converted · Fraud · Lost · Stolen · Decrease Limit · **Undelivered (عدم التنشيط)** · Counterfeit"},
+                {sign:"+",text:"**إيقاف المخاطر**: النهائي **ما يترفعش** والإدارة تطلب **بطاقة بديلة مجانًا**، والمؤقت يترفع بعد تأكيد العميل للمعاملات"}],
+       uses:["عميل بيشتكي إن الـOTP ما وصلش"],
+       examples:[{en:"العميل غيّر رقمه ومش بيوصله OTP",ar:"**الفرع** يحدّث الموبايل"}],
+       signals:["OTP 5 أرقام دقيقتين","Oasis","فوري لأ"],
+       tip:"",
+       src:"ملخصات البطاقات"}
+    ]},
+    {type:"concepts", id:"kenana", title:"كنانة الإسلامية", items:[
+      {nameEn:"Kenana Murabaha", nameAr:"فكرة كنانة والمرابحة", cat:"a",
+       formula:[{sign:"+",text:"منتج وفقًا للشريعة قائم على **المرابحة**، وبيتصدر من **الفروع الإسلامية فقط**، والتسليم عن طريق **شركات الشحن**"},
+                {sign:"+",text:"التنشيط: **19888**، **تطبيق الموبايل البنكي**، **ATM**"},
+                {sign:"+",text:"آخر كل شهر بيتجمع **المشتريات والسحب النقدي بس** في قيمة واحدة، ويتحمّل عليها **عائد مرابحة**، وتتقسم على المدة اللي العميل اختارها"},
+                {sign:"-",text:"**مفيش مرابحة** على العمولات والمصاريف، ولا بتتقسط"},
+                {sign:"+",text:"المدة **12 / 24 / 36** شهر في طلب الإصدار، و**تتغير بطلب كتابي من أي فرع إسلامي** وتسري على **المرابحات الجديدة بس**"},
+                {sign:"+",text:"التقسيط من **التجار المتعاقدين بس** (بيظهر كمعاملة شراء)، ومش من 19888"}],
+       uses:["شرح المنتج"],
+       examples:[{en:"عميل عايز يغير المدة من 12 لـ36",ar:"**طلب كتابي** في فرع إسلامي، ويسري على **الجديد**"}],
+       signals:["الفروع الإسلامية","آخر الشهر","12/24/36","طلب كتابي"],
+       tip:"المرابحة القديمة **عقد اتعمل خلاص**، فتغيير المدة ما يقدرش يعدّلها.",
+       src:"بطاقات كنانة"},
+      {nameEn:"Statement Terms", nameAr:"مصطلحات كشف كنانة", cat:"a",
+       formula:[{sign:"+",text:"**Recon Amount**: مشتريات وسحب **شهر الكشف** بس"},
+                {sign:"+",text:"**Murabha Amount**: الـ Recon + عائد المرابحة · **First Inst.**: قسط المرابحة الجديدة"},
+                {sign:"+",text:"**Minimum Due**: قسط مرابحة الشهر + أقساط الشهور السابقة + أي مصروفات أو عمولات أو غرامات (دمغة، إصدار، غرامة ضرر)"},
+                {sign:"+",text:"**Total Due**: معاملات الشهر + **المتبقي** من المرابحات السابقة + المصروفات والغرامات"},
+                {sign:"+",text:"**Late Payment fees**: **غرامة ضرر** لو الحد الأدنى ما اتسددش قبل نهاية **يوم 26**"},
+                {sign:"+",text:"**Murabha adjust**: رد العائد لما يسدد **كامل** المديونية، بيزود **المتاح بس** آخر الشهر ومش بيسدد مديونية"},
+                {sign:"+",text:"**Murabha Repeated**: رد **60%** من العائد لما يسدد **أكتر من الأقساط وأقل من الإجمالي**، وبيأثر على المديونية كأنه **إيداع**"},
+                {sign:"+",text:"شاشة **Loan List**: المسددة **Amortized**، والقائمة **Occurred**"}],
+       uses:["عميل بيسأل عن كشفه"],
+       examples:[],
+       signals:["Recon","Minimum Due","adjust","Repeated 60%"],
+       tip:"**adjust** = سدد **كله** · **Repeated** = سدد **زيادة** من غير ما يكمّل.",
+       src:"بطاقات كنانة"},
+      {nameEn:"Payment Cases", nameAr:"حالات السداد ونتيجتها", cat:"a",
+       formula:[{sign:"+",text:"**سدد الإجمالي** قبل يوم 26: **ما يدخلش مرابحة**، ويرجعله العائد (**Murabha adjust**) + Repeated للمرابحات السابقة"},
+                {sign:"+",text:"**سدد الحد الأدنى بس**: معاملات الشهر كلها **تدخل مرابحة جديدة**"},
+                {sign:"+",text:"**سدد بين الحد الأدنى والإجمالي**: الحد الأدنى يتغطى الأول، والباقي يغطي **الـ Recon** (فمعاملات الشهر ما تدخلش مرابحة)، واللي يفضل يسدد **أقساط قديمة من الأحدث للأقدم** ويرجعله **60%**"},
+                {sign:"+",text:"لو الباقي أقل من قسط قديم: يتطالب **بالقسط كامل** والفرق يتضاف للـ Minimum (قسط 1000 سدد منه 600 ← 400 تتضاف)"},
+                {sign:"-",text:"**سدد أقل من الحد الأدنى أو ما سددش**: معاملات الشهر تدخل مرابحة، و**غرامة ضرر**، ويبقى **متأخر شهر**"},
+                {sign:"+",text:"عايز **يكمّل القديم من غير مرابحة جديدة**: يسدد **Min + Recon − First Inst**"}],
+       uses:["عميل عايز يقلل العائد"],
+       examples:[{en:"عميل سدد الحد الأدنى + كل مشتريات الشهر",ar:"معاملات الشهر **ما تدخلش مرابحة**"}],
+       signals:["Min + Recon − First Inst","من الأحدث للأقدم","غرامة ضرر"],
+       tip:"أي مبلغ فوق الحد الأدنى بيروح الأول **لمعاملات الشهر** عشان يمنع مرابحة جديدة، وبعدين للقديم.",
+       src:"حالات السداد"},
+      {nameEn:"Kenana Payment Channels", nameAr:"طرق سداد كنانة", cat:"a",
+       formula:[{sign:"+",text:"**ATM** · **POS** · التحويل من **الإنترنت والموبايل البنكي** و**التحويل اللحظي**"},
+                {sign:"+",text:"**ربط حساب العميل** لخصم **كامل المديونية أو الحد الأدنى**"},
+                {sign:"+",text:"**ربط بطاقة المرتبات** لخصم **الحد الأدنى**"},
+                {sign:"-",text:"**مفيش طلب سداد معجل** للمرابحات من مركز الاتصال؛ السداد المعجل **تلقائي** بمجرد الإيداع"}],
+       uses:["عميل عايز يسدد بدري"],
+       examples:[],
+       signals:["تلقائي بمجرد الإيداع","بطاقة المرتبات = الحد الأدنى"],
+       tip:"",
+       src:"بطاقات كنانة"}
+    ]},
+    {type:"concepts", id:"issue", title:"الإصدار والإيقاف", items:[
+      {nameEn:"Secured Issuance", nameAr:"الإصدار بضمان أوعية ادخارية", cat:"b",
+       formula:[{sign:"+",text:"بضمان أوعية **موهوبة** أو **بأسماء مشتركة**: العرض على **الشئون القانونية** حالة بحالة"},
+                {sign:"+",text:"بضمان أوعية **باسم الغير**: **إقرار كفالة تضامنية**، **إلا القُصّر**"},
+                {sign:"+",text:"**الولي الطبيعي** بضمان أوعية **القاصر**: بشرط إن **مصدر الوعاء هو الولي**. ولما القاصر يبلغ، **يوقّع مصادقة بالأرصدة** فيها الوعاء المجمد (منشور 5452)"},
+                {sign:"+",text:"في كل حالات المنح بضمان أموال الغير: **إقرار صفة العلاقة أو القرابة** (منشور 5639)، ويتحقق بالمستندات (بطاقة، شهادة ميلاد، قسيمة زواج)"},
+                {sign:"+",text:"**وعاء مشترك**: العميل يوقّع **طلب الإصدار**، وأصحاب الوعاء يوقّعوا **إقرار رهن الوعاء** (مجتمعين أو منفردين حسب التعليمات)"}],
+       uses:["عميل عايز بطاقة بشهادة حد تاني"],
+       examples:[{en:"عميل بضمان شهادة أخوه",ar:"**كفالة تضامنية** + **إقرار القرابة**"},
+                 {en:"أب بضمان شهادة ابنه القاصر اللي جدّه عملها له",ar:"**مرفوض**؛ لازم المصدر يكون الولي"}],
+       signals:["كفالة تضامنية","5639","5452","إقرار رهن"],
+       tip:"صاحب الوعاء هو اللي **بيتحمل الخطر**، فلازم يكون **موافق بإقرار**. والقاصر **ما ينفعش يكفل**، عشان كده حالته ليها شروط خاصة.",
+       src:"تعميمات الاستفسارات – البطاقات"},
+      {nameEn:"Issuance Controls", nameAr:"ضوابط الإصدار في الفرع", cat:"b",
+       formula:[{sign:"-",text:"العميل **مطلوب تحديث بياناته** ← **ما يتقدمش أي طلب** بطاقات قبل التحديث"},
+                {sign:"+",text:"**PEP** (أو له علاقة بيه) أو **أجنبي** ← مستنداته لقطاع **الالتزام والحوكمة** لموافقة **مسبقة** (sanctionscreeninggroup)"},
+                {sign:"+",text:"الحد ينفع لأكتر من نوع ← **تحديد نوع البطاقة** في الطلب"},
+                {sign:"+",text:"**حساب مشترك**: البطاقة الائتمانية تتصدر على **الرقم التعريفي المشترك**"},
+                {sign:"+",text:"**الرفض**: يتبلغ العميل، و**أصل الطلب يتحفظ في الفرع** في ملف مخصص"},
+                {sign:"+",text:"**المتابعة اليومية**: تقرير **Shadow_Account_By_Agreement_Date_V3_01** على info view، أو **Rep_Credit_Card_Issuance** على Siebel CRM"}],
+       uses:["قبل رفع الطلب"],
+       examples:[{en:"عميل على حسابه رسالة تحديث بيانات",ar:"**حدّث الأول** وبعدين البطاقة"},
+                 {en:"طلب اترفض",ar:"بلّغ العميل و**احفظ الأصل** في الفرع"}],
+       signals:["تحديث بيانات","PEP","نوع البطاقة","info view"],
+       tip:"البطاقة **تسهيل ائتماني**، فلازم **KYC** يكون محدّث، والعملاء عاليين المخاطر محتاجين **موافقة الالتزام** قبل أي تعامل.",
+       src:"تعميمات الاستفسارات"},
+      {nameEn:"Stopping Cards", nameAr:"إيقاف البطاقات", cat:"b",
+       formula:[{sign:"+",text:"**طلب تخفيض الحد** ← البطاقة تتوقف، والإيقاف يترفع **لما التخفيض يخلص**"},
+                {sign:"+",text:"**الفقد أو السرقة** ← الإيقاف من **مركز الاتصال**"},
+                {sign:"+",text:"**كل الإضافيات بتتوقف** في أي حالة بتوقف الأصلية (إلغاء، تخفيض، عدم تجديد)"}],
+       uses:["عميل فقد البطاقة"],
+       examples:[{en:"العميل طالب تخفيض الحد",ar:"الأصلية والإضافيات **تتوقف مؤقتًا**"}],
+       signals:["تخفيض","فقد","الإضافيات"],
+       tip:"الإضافية **فرع من الأصلية**: أي حاجة بتحصل للأصلية بتحصل لها.",
+       src:"تعميمات الاستفسارات"},
+      {nameEn:"Repayment Method", nameAr:"طريقة السداد لبعض البرامج", cat:"b",
+       formula:[{sign:"+",text:"البطاقات **بدون ضمان عيني** لبرامج **تحويل الراتب** و**قرض وبطاقة** و**الموظفين** و**بريمير سيرفيس**: السداد **خصم من الحساب الجاري أو بطاقة المرتبات**"},
+                {sign:"-",text:"**ما ينفعش** تتحول طريقة السداد **لنقدي**"}],
+       uses:["عميل عايز يسدد كاش"],
+       examples:[{en:"عميل بطاقة تحويل راتب عايز يسدد نقدي",ar:"**مش مسموح** تغيير الطريقة"}],
+       signals:["خصم تلقائي","بدون ضمان"],
+       tip:"البطاقة اتمنحت **بناءً على الراتب المحوّل**، فالسداد لازم يفضل مربوط بيه.",
+       src:"تعميمات الاستفسارات"},
+      {nameEn:"Paying Without Card", nameAr:"سداد مديونية بطاقة من غير البطاقة", cat:"b",
+       formula:[{sign:"+",text:"إيداع المبلغ في حساب **عمليات إيداع نقدي آلات بيع إلكتروني رقم 203500082**"},
+                {sign:"+",text:"إيميل لمجموعة **Credit Cards Settlement Operations**، والـ subject: **سداد مديونية بطاقة ائتمانية بدون بطاقة**"},
+                {sign:"+",text:"البيانات في **جدول جوه الإيميل** من غير مرفقات: رقم الشادو، الرقم القومي، اسم العميل، رقم البطاقة **مشفر**، المبلغ، رقم الفرع"},
+                {sign:"+",text:"متابعة التسوية **خلال 48 ساعة عمل**، و**ما تبعتش تذكير** قبلها"}],
+       uses:["عميل جاي يسدد والبطاقة مش معاه"],
+       examples:[{en:"العميل نسي البطاقة وعايز يسدد",ar:"إيداع على **203500082** + إيميل"}],
+       signals:["203500082","48 ساعة","مشفر"],
+       tip:"رقم البطاقة **مشفر** في الإيميل؛ لأن بيانات البطاقة الكاملة **ما تتبعتش أبدًا** في إيميل.",
+       src:"تعميم 2026-02-08"}
+    ]},
+    {type:"concepts", id:"cancel", title:"الإلغاء ورفع التحفظ", items:[
+      {nameEn:"Cancellation via Call Center", nameAr:"الإلغاء من مركز الاتصال", cat:"b",
+       formula:[{sign:"+",text:"من **1/7/2025** الإلغاء من **مركز الاتصال** بدل الفرع"},
+                {sign:"+",text:"الطلب من **صاحب البطاقة الأصلية** (للأصلية أو الإضافية)، ومن **التليفون المسجل**"},
+                {sign:"-",text:"**ما يتقدمش** للأصلية في حالة **الوفاة** أو **وجود مديونية** (يتبلغ بيها يسددها الأول)"},
+                {sign:"+",text:"المديونية بتشمل: **حركات لسه ما اتقيدتش**، و**أقساط** على HPS أو عند التجار"},
+                {sign:"+",text:"العميل **يحتفظ بالبطاقة**؛ مش هتتوقف إلا لما **إدارة الحفاظ على العملاء** تكلمه خلال **يومين عمل**"},
+                {sign:"+",text:"رصيد دائن **أكبر من 10 ج** ← رقم حساب أو بطاقة مرتبات أو مدفوعة مقدمًا لتحويله"},
+                {sign:"+",text:"عايز يسدد **من الضمانة** ← **يتوجه للفرع**"}],
+       uses:["عميل جه الفرع عايز يلغي"],
+       examples:[{en:"عميل في الفرع عايز يلغي ومفيش مديونية",ar:"وجّهه **لمركز الاتصال**"},
+                 {en:"عليه أقساط عند تاجر",ar:"**سداد معجل** الأول، وبعدين يطلب الإلغاء"}],
+       signals:["1/7/2025","التليفون المسجل","يومين عمل","10 ج"],
+       tip:"الإلغاء بيروح **لفريق الحفاظ على العملاء** عشان يحاولوا **يحتفظوا بالعميل** قبل ما البطاقة تتلغي.",
+       src:"إلغاء البطاقة من مركز الاتصال"},
+      {nameEn:"Branch Cancellation Cases", nameAr:"حالات الإلغاء من الفرع", cat:"b",
+       formula:[{sign:"+",text:"**وفاة صاحب البطاقة** ← تداول المستندات على **Account Opening Center** حسب تعليمات عملاء الوفاة"},
+                {sign:"+",text:"**السداد من قرض ممنوح للعميل** ← **إدارة تنفيذ البطاقات**، Subject: **سداد مديونية البطاقة من القرض**"},
+                {sign:"+",text:"**السداد من الضمانة** ← **Retention**، Subject: **C.C Cancellation-Debit From CD**"},
+                {sign:"+",text:"**عدم استلام البطاقة** ← **Retention**، Subject: **إعدام لعدم استلام البطاقة**"},
+                {sign:"+",text:"الفرع يقدر **يلغي البطاقات اللي العملاء ما جوش يستلموها**، **من غير ما ينشّطها**"}],
+       uses:["حالة استثنائية في الفرع"],
+       examples:[{en:"ورثة عميل متوفى",ar:"طلب على **Account Opening Center**"},
+                 {en:"عميل عايز يقفل البطاقة من وديعته",ar:"**Retention** – C.C Cancellation-Debit From CD"}],
+       signals:["وفاة","قرض","ضمانة","عدم استلام"],
+       tip:"الحالات الأربعة دي محتاجة **مستند أو إجراء مالي** في الفرع، عشان كده ما بتتعملش بالتليفون.",
+       src:"تعميمات الاستفسارات"},
+      {nameEn:"Timing & Collateral", nameAr:"المواعيد ورفع التحفظ", cat:"b",
+       formula:[{sign:"+",text:"الإلغاء **قبل التجديد بـ45 يوم على الأقل** من تاريخ الانتهاء، ولو مصاريف التجديد اتخصمت في الفترة دي يتعمل **SR لردها**"},
+                {sign:"+",text:"ينفع الإلغاء **قبل التنشيط**، و**ما يتجبرش** العميل ينشّط"},
+                {sign:"+",text:"فريق الحفاظ بيحاول يكلم العميل **14 يوم**، ولو ما ردّش يتحوّل الطلب للإلغاء **يوم 14**"},
+                {sign:"+",text:"**المخالصة النهائية** بعد **30 يوم** من الإلغاء على النظام"},
+                {sign:"+",text:"**رفع التحفظ عن الضمانة** (كلي أو جزئي) بعد **14 يوم** من الإلغاء أو تخفيض الحد، **من غير طلب** من العميل"},
+                {sign:"+",text:"البطاقة **غير منشطة** ← رفع التحفظ **نفس اليوم**"},
+                {sign:"+",text:"عدّى 14 يوم والتحفظ ما اترفعش ← اتأكد من تاريخ الإلغاء، وبعدين **شكوى 'تأخر رفع تحفظ عن الضمانة'**"},
+                {sign:"-",text:"لو اتضافت مصاريف أو فوائد معلقة أو دمغة أثناء الإلغاء، الطلب **يتقفل** لحد ما العميل يسدد ويقدّم تاني"}],
+       uses:["عميل عايز وديعته ترجع حرة"],
+       examples:[{en:"البطاقة اتلغت من 10 أيام",ar:"**لسه**؛ استنى 14 يوم"},
+                 {en:"بطاقة اتلغت ما اتنشطتش خالص",ar:"رفع التحفظ **النهارده**"}],
+       signals:["45","14","30","نفس اليوم"],
+       tip:"الـ14 يوم بتغطي **حركات ممكن تتقيد متأخر**. لو البطاقة **ما اتنشطتش** أصلًا، مفيش حركات، فالرفع **فوري**.",
+       src:"إلغاء البطاقة"}
+    ]},
+    {type:"concepts", id:"debit", title:"الخصم الفوري", items:[
+      {nameEn:"Debit Issuance", nameAr:"إصدار الخصم الفوري", cat:"c",
+       formula:[{sign:"+",text:"على الحسابات **الدائنة أو المدينة بالجنيه أو الدولار** للأفراد، من **أي فرع** أو **تطبيق الموبايل البنكي**"},
+                {sign:"+",text:"من سن **15**. أقل من 15: عن طريق **الولي الطبيعي (الأب فقط)**، وتتكتب **Minor** قبل اسم القاصر في Name for Embossing، واسم الأب في Extension Name"},
+                {sign:"+",text:"من **17-07-2024**: **بطاقة أساسية واحدة** على الرقم التعريفي، وممكن **أساسية تانية على حساب دولاري**"},
+                {sign:"-",text:"**ما تتصدرش** على: حسابات القروض **0155**، **التركات**، **النيابة الحسبية**، **الأحوال الشخصية**"},
+                {sign:"+",text:"حسابات الشباب (في الإسلامي **0285 – 0288**) **ما تترتبطش** غير ببطاقات الشباب، وعميل الشباب يحتفظ ببطاقة الشباب + **واحدة تانية بس**"},
+                {sign:"+",text:"لو فيه بطاقات **موقوفة HOT** على الرقم التعريفي، **تتلغي الأول** قبل أي إصدار جديد"},
+                {sign:"+",text:"دور الفرع للعميل اللي **له رقم تعريفي**: يتأكد إن مفيش تعليمات تمنع، **من غير بحث قوائم ولا صورة هوية**"}],
+       uses:["عميل طالب كارت"],
+       examples:[{en:"أم عايزة كارت لابنها 12 سنة",ar:"**لأ**؛ تحت 15 عن طريق **الأب بس**"},
+                 {en:"عميل عايز كارت على حساب تركة",ar:"**ممنوع**"}],
+       signals:["15 سنة","الأب فقط","Minor","بطاقة أساسية واحدة","0155 / تركات / حسبي"],
+       tip:"الحسابات اللي فلوسها **مش حرة** للعميل (تركة، حسبي، قرض) ما ينفعش يتعمل عليها كارت يسحب منها.",
+       src:"ملخص الخصم الفوري"},
+      {nameEn:"Supplementary & Joint", nameAr:"الإضافية والحسابات المشتركة", cat:"c",
+       formula:[{sign:"+",text:"لحد **7 بطاقات إضافية** باسم أشخاص تانيين"},
+                {sign:"+",text:"الإضافي من **15 سنة** بشرط الأساسي **21 سنة أو أكتر**، و**الاتنين يحضروا** ببطاقات رقم قومي سارية"},
+                {sign:"+",text:"الإضافية **نفس مزايا ومصاريف** الأساسية، والأساسي يتصرف في **الكل**، والإضافي في **بطاقته بس**"},
+                {sign:"+",text:"**الحساب المشترك**: التوقيع **منفرد** ← لصاحب حق التوقيع · **منفردين أو مجتمعين** ← **إقرار موافقة** من **كل** الشركاء، وواحدة **أساسية** والباقي **إضافية**"}],
+       uses:["أب عايز كارت لابنه على حسابه"],
+       examples:[{en:"حساب مشترك بـ3 شركاء منفردين أو مجتمعين",ar:"**إقرار** يوقّعه **الكل**"}],
+       signals:["7 إضافية","15 و21","الاتنين يحضروا","إقرار الشركاء"],
+       tip:"",
+       src:"ملخص الخصم الفوري"},
+      {nameEn:"Linking & ATM Transfers", nameAr:"ربط الحسابات والتحويل على ATM", cat:"c",
+       formula:[{sign:"+",text:"ربط لحد **7 حسابات** (الأساسي + **6**) من أي فرع، وتغيير الحساب الأساسي، و**BM Online** وبعض الـATM بيعملوا الربط والإلغاء"},
+                {sign:"+",text:"**Auto Swapping** (يتفعل من الفرع): النظام يدوّر على أي حساب مرتبط فيه **رصيد دائن** وقت الشراء أو السحب السريع"},
+                {sign:"+",text:"تحويل على ATM من بنك مصر لبنك مصر: **30 ألف** (كلاسيك، جولد، ميزة، تيتانيوم) · **40 ألف** بلاتينيوم VIP · **50 ألف** World · **75 ألف** World Elite"},
+                {sign:"-",text:"رقم الحساب المحوّل له (**16 رقم**) **مسئولية العميل**: لو غلط ويخص عميل تاني، التحويل **بيتم ومش بيترد**"},
+                {sign:"+",text:"بين حسابات العميل نفسه بنفس العملة: **من غير حد** ويتقيد **نفس اليوم**، ومن الدولاري للجنيه **متاح**"}],
+       uses:["عميل حوّل غلط"],
+       examples:[{en:"عميل حوّل على ATM لرقم غلط",ar:"**مسئوليته**، ومش بيترد"}],
+       signals:["7 حسابات","Auto Swapping","30 / 40 / 50 / 75 ألف","مسئولية العميل"],
+       tip:"",
+       src:"ملخص الخصم الفوري"},
+      {nameEn:"Debit Limits", nameAr:"حدود الخصم الفوري", cat:"c",
+       formula:[{sign:"+",text:"الشراء اليومي/الشهري داخل مصر: ميزة **300 ألف / مليون** · كلاسيك والشباب **350 ألف / مليون** · جولد **400 ألف / 1.5 مليون** · تيتانيوم **500 ألف / 1.75 مليون** · بلاتينية **500 ألف / 2 مليون** · VIP بلاتينية وورلد **750 ألف / 2 مليون** · وورلد إيليت وإنفينت **مليون / 3 مليون**"},
+                {sign:"+",text:"السحب من ATM: **30,000 ج يوميًا** (ميزة **100 ألف شهريًا**)، وعدد المرات بيختلف (5 / 10 / 12 / 15)"},
+                {sign:"+",text:"السحب من POS: **250,000 ج يوميًا** · Contactless **600 ج** للحركة و**7 حركات متتالية**"},
+                {sign:"-",text:"**الاستخدام بالخارج موقوف** ماعدا **البلاتينية الدولارية** (شراء 20 ألف$/يوم، سحب 2 ألف$/يوم)"},
+                {sign:"+",text:"الإنترنت داخل مصر: ميزة **15 ألف/يوم**، الباقي **200 ألف كل 15 يوم**، وشهري 300 / 400 / 800 ألف. ومواقع Facebook وGoogle وApple من غير OTP: فيزا **5 أسبوعيًا / 20 شهريًا**، ماستر **15 شهريًا**"},
+                {sign:"+",text:"العمولات: ATM وPOS بنك مصر **مجانًا** · ATM بنك تاني **5 ج** · POS بنك تاني **10 ج + 0.33%** (ميزة 5 ج) · استعلام بإيصال **50 قرش**، بنك تاني **2 ج** · تحيا مصر **1%** تبرع"}],
+       uses:["عميل خصم فوري مسافر"],
+       examples:[{en:"عميل كلاسيك مسافر",ar:"**موقوف** بالخارج"}],
+       signals:["30,000 ATM","موقوف بالخارج","200 ألف كل 15 يوم"],
+       tip:"",
+       src:"حدود الخصم الفوري"},
+      {nameEn:"Debit Rules", nameAr:"قواعد تانية للخصم الفوري", cat:"c",
+       formula:[{sign:"+",text:"الصلاحية **5 سنين** وتتجدد تلقائي قبل الانتهاء **بشهرين** (Youth1 فيزا جولد ما تتجددش، GO Youth2 ماستر تيتانيوم تتجدد **مرة**)"},
+                {sign:"+",text:"التجديد **بدري** بطلب في الفرع **قبل 45 يوم** على الأقل، والإلغاء من **أي فرع** ومفيش مصاريف تجديد لو **قبلها بـ45 يوم**"},
+                {sign:"+",text:"أي فرع **يتعامل** على أي كارت: إصدار، بدل فاقد/تالف، تعديل بيانات، رقم سري جديد، **رفع إيقاف**"},
+                {sign:"+",text:"البدل **فاقد**: **رقم وCVV جديد**، وصلاحية 5 سنين من البدل"},
+                {sign:"+",text:"البطاقة اللي **ما اتسلمتش** بتتحفظ **3 شهور** وبعدها **تتعدم** (ومفيش شكاوى بعدها)"},
+                {sign:"+",text:"قيد الموافقات **12 يوم** · الرقم السري المنسي ← **إعادة تعيين من الفرع** · تحديث البيانات (موبايل، SMS، عنوان) **من الفرع** مش 19888"},
+                {sign:"-",text:"ما بتتجددش لو: موقوفة فقد/سرقة/مخاطر/رقم سري غلط، أو **ما اتنشطتش من الإصدار**"},
+                {sign:"+",text:"**SWIFT على رقم الكارت** بيتقبل ويتضاف للحساب الأساسي **بالجنيه**. ومن 08-06-2023 **PayPal** موقوف"}],
+       uses:["عميل بيسأل عن كارته"],
+       examples:[{en:"كارت اتصدر من 4 شهور وما اتسلمش",ar:"**اتعدم**"}],
+       signals:["5 سنين","3 شهور وتتعدم","12 يوم","45 يوم"],
+       tip:"",
+       src:"ملخص الخصم الفوري"}
+    ]},
+    {type:"concepts", id:"prepaid", title:"المدفوعة مقدمًا والمرتبات", items:[
+      {nameEn:"Prepaid Cards", nameAr:"المدفوعة مقدمًا", cat:"c",
+       formula:[{sign:"+",text:"عميل **له رقم تعريفي**: زي الخصم الفوري · **مالوش**: **بحث قوائم** وصورة مستند تحقيق الشخصية مع الطلب"},
+                {sign:"+",text:"**حد CAP**: الحد اليومي والشهري **واحد للسحب والشراء**، واللي ما اتستخدمش في السحب يتستخدم في **الشراء** (حد 60 ألف = 30 سحب + 30 شراء، سحب 10 بس ← يشتري 50)"},
+                {sign:"-",text:"رصيد شهري فوق **200 ألف** ← البطاقة تتوقف **Hot Exceed Deposit** و**SMS** للعميل. التشغيل تاني بطلب في الفرع **لمرة واحدة بس**"},
+                {sign:"+",text:"الرقم السري أول مرة على **ATM بنك مصر**، ماعدا **فيزا إنترنت** (بتستخدم الـ**CVV**) و**ميزة إيزي كاش**. وتغيير الرقم السري من الفرع **2 ج**"},
+                {sign:"+",text:"**ميزة بكل أنواعها**: إصدار **85 ج**، بدل فاقد **10 ج**، ومحليًا بس · **تحيا مصر المدفوعة إصدارها متوقف**"},
+                {sign:"-",text:"الاستخدام بالخارج **موقوف من 29 مايو 2023**"},
+                {sign:"+",text:"قيد الموافقات **14 يوم** · المنتهية أو الملغية **ما ترجعش تشتغل**، والموقوفة يترفع إيقافها **بعد صرف الرصيد** بس"},
+                {sign:"+",text:"المدفوعة المنتهية في الفرع: **مذكرة** لإعدام جسم البطاقة **من غير إلغاء على النظام** (5662)"}],
+       uses:["عميل عارض"],
+       examples:[{en:"عميل ميزة رصيده عدّى 200 ألف",ar:"**اتوقفت**، والفرع يشغلها **مرة واحدة**"}],
+       signals:["CAP","200 ألف","Hot Exceed Deposit","مرة واحدة"],
+       tip:"المدفوعة **مش حساب توفير**، عشان كده فيه سقف لرصيدها.",
+       src:"ملخص المدفوعة مقدمًا"},
+      {nameEn:"Payroll Cards", nameAr:"بطاقات المرتبات", cat:"c",
+       formula:[{sign:"+",text:"الكارت **فقد أو انتهى** ولسه ما اتصدرش جديد: الصرف من **أي فرع** و**من غير حد لعدد المرات** لحد ما يتصدر"},
+                {sign:"+",text:"كارت جديد: **القطاع الخاص** طلب من **المفوض بجهة العمل** لإدارة **نظم الأجور Payroll** · **القطاع العام** بطاقة **ميزة المرتبات** من أي فرع"},
+                {sign:"-",text:"**موقوف استخدامها بالخارج**"},
+                {sign:"+",text:"موظفي القطاع العام (**فرع 999**) معفيين من مصاريف كشف الحساب المختصر وإيصال الاستعلام"}],
+       uses:["موظف كارته ضاع"],
+       examples:[{en:"موظف قطاع خاص كارته ضاع",ar:"يصرف من الفرع، والكارت الجديد بطلب **جهة العمل**"}],
+       signals:["أي فرع بدون حد مرات","المفوض بجهة العمل","ميزة المرتبات"],
+       tip:"",
+       src:"ملخص بطاقات المرتبات"}
+    ]},
+    {type:"compare", id:"compare", title:"الفروقات", items:[
+      {title:"Standard vs Kenana", cols:[
+        {name:"النمطية", cat:"a", when:"فايدة",
+         ex:["سحب نقدي 100% مرة في الشهر","2% حد أدنى 15","فايدة 4% شهريًا","ممكن تترقى","تقسيط من التجار و19888 (3 لـ36 شهر)","الحد الأدنى 5%","متاحة على الخدمة الصوتية"]},
+        {name:"كنانة", cat:"a", when:"مرابحة",
+         ex:["سحب 50% من الحد","5% حد أدنى 50","مفيش فوائد، مرابحة","ما بتترقاش","تقسيط من التجار بس (12/24/36)","الحد الأدنى = أقساط المرابحات + المصاريف","مش على الخدمة الصوتية"]}],
+       golden:"كنانة **أضيق**: سحب أقل، مفيش ترقية، تقسيط من التجار بس."},
+      {title:"Call Center vs Branch", cols:[
+        {name:"مركز الاتصال", cat:"b", when:"الإلغاء العادي",
+         ex:["من صاحب الأصلية","من التليفون المسجل","مفيش مديونية"]},
+        {name:"الفرع (تداول المستندات)", cat:"b", when:"4 حالات",
+         ex:["الوفاة","السداد من قرض","السداد من الضمانة","عدم الاستلام"]}],
+       golden:"لو فيه **مستند أو ضمانة أو قرض** ← **الفرع**."},
+      {title:"Approval Posting", cols:[
+        {name:"الائتمانية", cat:"a", when:"30 يوم",
+         ex:["Refund من الخارج مع رد العمولة","Chargeback من غيرها"]},
+        {name:"الخصم الفوري / المدفوعة", cat:"c", when:"12 / 14 يوم",
+         ex:["ATM بنك مصر بيتقيد في نفس اللحظة"]}],
+       golden:"ائتمانية **30** · خصم فوري **12** · مدفوعة ومرتبات **14**."}
+    ]},
+    {type:"confusing", id:"confusing", title:"حالات بتلخبط", items:[
+      {title:"مرة واحدة في الشهر",
+       explain:"",
+       examples:[{text:"السحب النقدي بالائتمانية",note:"مرة في الشهر حتى لو سدد",correct:true},
+                 {text:"حد الإضافية المخصص",note:"مرة في الشهر",correct:true},
+                 {text:"الشراء",note:"أكتر من مرة لو بيسدد",correct:false},
+                 {text:"تشغيل المدفوعة بعد Hot Exceed Deposit",note:"مرة واحدة بس",correct:true}]},
+      {title:"نسب بتتلخبط",
+       explain:"",
+       examples:[{text:"130%",note:"سقف الإيداع على الائتمانية",correct:true},
+                 {text:"5%",note:"تجاوز الشراء (ماعدا كلاسيك وجولد وتيتانيوم)",correct:true},
+                 {text:"50%",note:"سحب كنانة، ومجموع الإضافيات بالخارج",correct:true},
+                 {text:"60%",note:"العائد اللي بيرجع في Murabha Repeated",correct:true}]},
+      {title:"السن",
+       explain:"",
+       examples:[{text:"15",note:"الخصم الفوري، والإضافية بتاعته",correct:true},
+                 {text:"21",note:"الأساسي في إضافية الخصم الفوري",correct:true},
+                 {text:"16",note:"إضافية كنانة",correct:true}]}
+    ]},
+    {type:"conflicts", id:"conflicts", title:"تنبيهات", items:[
+      {title:"حد كنانة تيتانيوم",
+       text:"النسخة القديمة كانت **لحد 3 مليون**. الأحدث: **مليون بضمان عيني** و**800 ألف من غيره**."},
+      {title:"السحب النقدي بالخارج لكنانة",
+       text:"الأحدث **8% + 50 ج** (5% سحب + 3% استخدام خارجي)، مش 5% + 50."},
+      {title:"الماتريال القديمة 2020",
+       text:"الحدود والمصاريف اللي فيها اتغيرت. المعتمد هنا هو التحديثات."}
+    ]},
+    {type:"reference", id:"ref", title:"أرقام", tables:[
+      {id:"lim", title:"الحدود الائتمانية", headers:["البطاقة","الحد"],
+       rows:[["كلاسيك","2,000 – 2,999"],["إسلامية كلاسيك","2,000 – 4,999"],["الذهبية / الإسلامية الذهبية","3,000 – 9,999 (الإسلامية اتلغت)"],
+             ["تيتانيوم","10,000 – 24,999"],["إسلامية تيتانيوم","5,000 – مليون (عيني) / 800 ألف"],["بلاتينية","25,000 – 99,999"],
+             ["Signature / World","100,000 – 299,999"],["World Elite / Visa Infinite","300,000 – 3 مليون (عيني) / 1.5 مليون"],["Infinite Private","بدون حد أدنى، تصنيف Private"]]},
+      {id:"fee", title:"رسوم الإصدار (عملاء)", headers:["البطاقة","سنويًا","الإضافية","بدل فاقد"],
+       rows:[["كلاسيك / إسلامية","250","100","100"],["ذهبية / إسلامية","250","150","100"],["تيتانيوم / إسلامية","350","200","250"],["بلاتينية","500","300","250"],
+             ["Signature","2,500","500","500"],["World","2,500","500","500"],["Infinite / World Elite","8,000","1,000","500"],["Infinite Private","مجانًا","2 مجانًا ثم 1,000","500"],["التقسيط","150 ثم 75 (قسطها) / 50 (العربي)","50","75"]]},
+      {id:"rates", title:"عمولات وعائد", headers:["البند","نمطي","كنانة"],
+       rows:[["السحب النقدي داخل مصر","2% حد أدنى 15","5% حد أدنى 50"],["السحب بالخارج","6% + 50","8% + 50"],["الاستخدام بالخارج","3%","3%"],
+             ["العائد","4% شهريًا (موظفين 2.5%)","20.55% / 41.10% / 61.65%"],["غرامة التأخير","75","75 (غرامة ضرر)"]]},
+      {id:"days", title:"مدد", headers:["البند","المدة"],
+       rows:[["قيد موافقات الائتمانية","30 يوم"],["قيد موافقات الخصم الفوري","12 يوم"],["قيد موافقات المدفوعة والمرتبات","14 يوم"],["OTP","5 أرقام، دقيقتين"],
+             ["حفظ الخصم الفوري غير المستلم","3 شهور"],["الإلغاء قبل التجديد","45 يوم"],["رفع التحفظ عن الضمانة","14 يوم (غير منشطة: نفس اليوم)"],["المخالصة","30 يوم"]]}
+    ]},
+    {type:"lookup", id:"lookup", title:"دوّر على دليل", rows:[
+      {signal:"130%", target:"سقف الإيداع على الائتمانية", note:""},
+      {signal:"5% تجاوز", target:"الشراء بعد خلوص الحد", note:"ماعدا كلاسيك وجولد وتيتانيوم"},
+      {signal:"Murabha Repeated", target:"رد 60% من العائد", note:""},
+      {signal:"Murabha adjust", target:"سداد كامل المديونية", note:""},
+      {signal:"Min + Recon − First Inst", target:"تكملة القديم من غير مرابحة جديدة", note:""},
+      {signal:"Hot Exceed Deposit", target:"مدفوعة رصيدها فوق 200 ألف", note:""},
+      {signal:"Minor", target:"خصم فوري لقاصر تحت 15", note:""},
+      {signal:"Auto Swapping", target:"البحث عن حساب دائن مرتبط", note:""},
+      {signal:"C.C Cancellation-Debit From CD", target:"السداد من الضمانة", note:"من الفرع"},
+      {signal:"203500082", target:"سداد بطاقة بدون البطاقة", note:""},
+      {signal:"sanctionscreeninggroup", target:"موافقة مسبقة لـ PEP / أجنبي", note:""},
+      {signal:"5639", target:"إقرار صلة القرابة", note:""},
+      {signal:"5662", target:"إعدام المدفوعة المنتهية", note:""}
+    ]}
+  ]
+};
+
+const QUIZ = {
+  sections:[{id:"s1",title:"الائتمانية وكنانة"},{id:"s2",title:"الإصدار والخصم الفوري والمدفوعة"}],
+  questions:[
+   {id:"q1",section:"s1",prompt:"بطاقة ائتمان بنك مصر الإسلامية (كنانة) شغالة بصيغة:",answer:"المرابحة بالوكالة",clue:"العميل بيشتري بنفسه.",
+    why:"العميل بيشتري من التجار **كوكيل** عن البنك، والبنك بعدها بيبيعله إجمالي العمليات **مرابحة** مقسطة.",
+    wrong:[{option:"المضاربة",why:"مفيش استثمار مال."},{option:"الإجارة",why:"مفيش انتفاع بأصل."},{option:"القرض الحسن",why:"البنك بياخد ربح على اللي بيتقسط."}]},
+   {id:"q2",section:"s1",prompt:"عميل سدد إجمالي المستحق في كشف كنانة يوم 22 من الشهر التالي للكشف:",answer:"مفيش ربح مرابحة",clue:"قبل يوم 26.",
+    why:"الربح بيتحسب بس على اللي **بيتحول لمرابحة مقسطة**. لو سدد كل حاجة قبل يوم **26**، مفيش رصيد يتقسط، فمفيش ربح.",
+    wrong:[{option:"ربح على كل المشتريات",why:"الربح على المقسط بس."},{option:"ربح على السحب النقدي بس",why:"لو سدد الكل مفيش ربح."},{option:"غرامة تأخير",why:"سدد في الميعاد."}]},
+   {id:"q3",section:"s1",prompt:"عميل عايز كنانة بحد 4,500 ج. النوع:",answer:"كلاسيك",clue:"الفاصل 5,000.",
+    why:"كلاسيك من **2,000 لـ4,999**، وتيتانيوم من **5,000**. فـ4,500 بتقع في نطاق كلاسيك.",
+    wrong:[{option:"تيتانيوم",why:"أقل من 5,000."},{option:"بلاتينيوم",why:"مش من أنواع كنانة."},{option:"أي نوع",why:"الحد بيحدد النوع."}]},
+   {id:"q4",section:"s1",prompt:"أقصى سحب نقدي ببطاقة كنانة من POS الفروع:",answer:"50% من الحد الائتماني، وبحد أقصى 250,000 ج يوميًا",clue:"نص الحد.",
+    why:"البطاقة معمولة **للشراء**، والسحب النقدي **للطوارئ** بس، فالبنك بيحدّه بنص الحد عشان ما يتحولش لقرض نقدي.",
+    wrong:[{option:"100% من الحد",why:"السحب محدود بالنص."},{option:"30,000 ج",why:"ده سحب الـATM اليومي."},{option:"مش مسموح",why:"مسموح للطوارئ."}]},
+   {id:"q5",section:"s1",prompt:"عميل تيتانيوم سافر من غير ما يبلّغ البنك. السحب النقدي بالخارج:",answer:"صفر",clue:"من غير إبلاغ.",
+    why:"السحب النقدي بالخارج من غير إبلاغ هو **أعلى خطر احتيال**؛ لو البطاقة اتسرقت، الفلوس بتطلع كاش ومتختفيش. عشان كده الحد **صفر** لحد ما العميل يبلّغ.",
+    wrong:[{option:"3,000 ج",why:"ده بإبلاغ."},{option:"50,000 ج",why:"ده حد الشراء من غير إبلاغ."},{option:"50% من الحد",why:"ده داخل مصر."}]},
+   {id:"q8",section:"s1",prompt:"عميل طالب تفعيل الاستخدام الخارجي لبطاقته الائتمانية:",answer:"يتفعل بمجرد تواصله، من غير مستندات سفر، ويحتفظ بأختام الدخول والخروج",clue:"تعليمات البنك المركزي.",
+    why:"البنك المركزي سهّل الإجراء: البنك **مش هيطلب مستندات** قبل السفر، لكن ممكن يطلبها **بعدين** لو احتاج يتأكد. فالعميل لازم يحتفظ بالأختام.",
+    wrong:[{option:"لازم يقدم تذكرة الطيران والتأشيرة",why:"مش مطلوب."},{option:"يقدم المستندات بعد الرجوع",why:"مش ضروري إلا لو اتطلبت."},{option:"من الفرع بس",why:"من الفرع أو مركز الاتصال."}]},
+   {id:"q9",section:"s1",prompt:"أصلية حدها الخارجي 200,000، وعليها 3 إضافيات اتطلب تفعيلها بالخارج. حد الإضافية الأولى:",answer:"50,000 (50% من 100,000)",clue:"الإضافيات = نص الأصلية.",
+    why:"مجموع الإضافيات **50%** من حد الأصلية = **100,000**، ومع 3 إضافيات بيتقسم **50/25/25**. فالأولى = **50,000**.",
+    wrong:[{option:"100,000",why:"ده مجموع الإضافيات كلها."},{option:"33,333",why:"التقسيم مش بالتساوي في 3."},{option:"200,000",why:"الإضافية ما تاخدش حد الأصلية كله."}]},
+   {id:"q10",section:"s2",prompt:"عميل عايز بطاقة ائتمانية بضمان شهادة باسم أخوه:",answer:"يتم الإصدار بإقرار كفالة تضامنية وإقرار صلة القرابة",clue:"أموال الغير.",
+    why:"صاحب الشهادة هو اللي **هيتحمل** لو العميل ما سددش، فلازم **يكفله تضامنيًا** بإقرار. والقرابة بتتثبت **بالمستندات** عشان نتأكد من العلاقة.",
+    wrong:[{option:"ممنوع",why:"مسموح بشروط."},{option:"العرض على الشئون القانونية",why:"ده للأوعية الموهوبة أو المشتركة."},{option:"موافقة الأخ شفهي",why:"لازم إقرار مكتوب."}]},
+   {id:"q11",section:"s2",prompt:"أب عايز بطاقة ائتمانية بضمان شهادة باسم ابنه القاصر، والجد هو اللي اشتراها للحفيد:",answer:"لا يجوز؛ لازم مصدر الوعاء يكون الولي الطبيعي نفسه",clue:"فلوس مين؟",
+    why:"القاصر **ما ينفعش يكفل**، فالاستثناء الوحيد إن الفلوس تكون **أصلًا من الأب**. لو من حد تاني، تبقى ملك القاصر فعلًا، والأب ما يقدرش يرهنها لمصلحته.",
+    wrong:[{option:"يجوز بكفالة تضامنية من القاصر",why:"الكفالة التضامنية مش متاحة للقُصّر."},{option:"يجوز بموافقة الجد",why:"الوعاء بقى ملك القاصر."},{option:"يجوز لأن الأب ولي",why:"بشرط إن المصدر يكون هو."}]},
+   {id:"q13",section:"s2",prompt:"عميل عليه رسالة 'مطلوب تحديث بيانات' وطالب بطاقة ائتمانية:",answer:"ما يتقدمش الطلب إلا بعد تحديث البيانات",clue:"KYC.",
+    why:"البطاقة **تسهيل ائتماني**، والبنك محتاج يعرف العميل **بآخر بياناته** قبل ما يمنحه. فالتحديث شرط قبل أي طلب بطاقات.",
+    wrong:[{option:"يتقدم ويحدّث بعدين",why:"التحديث الأول."},{option:"يتقدم لو بضمان",why:"الشرط على كل الطلبات."},{option:"يتقدم من مركز الاتصال",why:"نفس الشرط."}]},
+   {id:"q14",section:"s2",prompt:"عميل بيشغل منصب عام رفيع وطالب بطاقة ائتمانية:",answer:"مستنداته تتبعت لقطاع الالتزام والحوكمة لموافقة مسبقة قبل التعامل",clue:"عالي المخاطر.",
+    why:"أصحاب المناصب العامة **مخاطرهم أعلى** (فساد واستغلال نفوذ)، فالقطاع المتخصص لازم يوافق **قبل** ما الفرع يبدأ.",
+    wrong:[{option:"يتصدر عادي",why:"محتاج موافقة."},{option:"يتصدر بضمان بس",why:"الضمان مش هو المعيار."},{option:"يترفض",why:"مش رفض، موافقة مسبقة."}]},
+   {id:"q16",section:"s2",prompt:"عميل طلب تخفيض حد بطاقته الائتمانية وعنده بطاقتين إضافيتين:",answer:"الأصلية والإضافيات تتوقف لحد ما التخفيض يخلص",clue:"الإضافية تابعة.",
+    why:"الإيقاف بيمنع إن العميل **يستخدم الحد القديم** أثناء التعديل. والإضافيات بتسحب من **نفس الحد**، فلازم تتوقف هي كمان.",
+    wrong:[{option:"الأصلية بس",why:"الإضافيات من نفس الحد."},{option:"مفيش إيقاف",why:"الإيقاف شرط أثناء التخفيض."},{option:"الإضافيات تتلغي",why:"إيقاف مؤقت بس."}]},
+   {id:"q20",section:"s2",prompt:"عميل جه الفرع عايز يلغي بطاقته الائتمانية، ومفيش عليها مديونية:",answer:"يتوجه لمركز الاتصال يقدّم الطلب من تليفونه المسجل",clue:"من 1/7/2025.",
+    why:"الإلغاء العادي اتنقل **لمركز الاتصال**، عشان طلبه يروح **لفريق الحفاظ على العملاء** اللي بيحاول يحتفظ بيه قبل الإلغاء.",
+    wrong:[{option:"الفرع يلغيها على النظام",why:"مش من حالات الفرع."},{option:"يكتب طلب ويسيبه في الفرع",why:"الطلب من مركز الاتصال."},{option:"يقص البطاقة قدام الموظف",why:"مش إجراء إلغاء."}]},
+   {id:"q21",section:"s2",prompt:"أي حالة من دول بيرفعها الفرع على نظام تداول المستندات؟",answer:"إلغاء بطاقة وسداد مديونيتها من الضمانة",clue:"ضمانة = فرع.",
+    why:"السداد من الضمانة محتاج **تسييل وديعة** وتوقيع العميل، وده ما ينفعش بالتليفون. فبيترفع من الفرع على **Retention – C.C Cancellation-Debit From CD**.",
+    wrong:[{option:"إلغاء من غير مديونية",why:"من مركز الاتصال."},{option:"إلغاء إضافية من غير أقساط",why:"من مركز الاتصال."},{option:"إيقاف بسبب الفقد",why:"من مركز الاتصال."}]},
+   {id:"q23",section:"s2",prompt:"بطاقة بضمان وديعة اتلغت النهارده وكانت منشطة. رفع التحفظ عن الوديعة:",answer:"بعد 14 يوم من الإلغاء، من غير طلب من العميل",clue:"حركات متأخرة.",
+    why:"ممكن تيجي **حركات قديمة** تتقيد على البطاقة بعد الإلغاء، والـ14 يوم بتغطيها. بعدها التحفظ بيترفع **تلقائي**.",
+    wrong:[{option:"نفس اليوم",why:"ده لو البطاقة ما اتنشطتش."},{option:"بعد 30 يوم",why:"ده موعد المخالصة."},{option:"بطلب من العميل بعد 45 يوم",why:"مش مطلوب طلب."}]},
+   {id:"q25",section:"s2",prompt:"عميل له رقم تعريفي طالب بطاقة خصم فوري. دور الفرع:",answer:"يتأكد إن مفيش تعليمات تمنع الإصدار، من غير بحث قوائم ومن غير صورة هوية",clue:"مش علاقة جديدة.",
+    why:"العميل **معروف** للبنك، والكارت **أداة على حساب قائم**. فمفيش علاقة جديدة تحتاج فحص، وتبسيط الإجراءات شال الخطوات دي.",
+    wrong:[{option:"بحث في القوائم وصورة هوية",why:"ده للعميل اللي مالوش رقم تعريفي."},{option:"موافقة الالتزام",why:"مش مطلوبة."},{option:"تحديث بيانات إلزامي قبل أي كارت",why:"مش شرط لكارت الخصم."}]},
+   {id:"q26",section:"s2",prompt:"حساب مشترك بـ3 شركاء ليهم حق التوقيع منفردين أو مجتمعين، وواحد طلب كارت خصم فوري:",answer:"إقرار موافقة يوقع عليه كل الشركاء",clue:"فلوس مشتركة.",
+    why:"الكارت بيسحب من **فلوس الكل**، فلازم **كل** الشركاء يوافقوا كتابة على إصداره لشريكهم.",
+    wrong:[{option:"يتصدر له مباشرة",why:"ده لو التوقيع لكل واحد منفرد."},{option:"ما ينفعش",why:"ينفع بالإقرار."},{option:"موافقة شريك واحد",why:"لازم الكل."}]},
+   {id:"n1",section:"s1",prompt:"عميل سحب نقدي ببطاقته الائتمانية، وسدد في نفس الشهر والرصيد رجع متاح، وعايز يسحب تاني:",answer:"مش هينفع؛ الحد يتستخدم في السحب النقدي مرة واحدة بس في الشهر",clue:"السحب غير الشراء.",
+    why:"البطاقة معمولة للشراء، والسحب النقدي استثناء. لو سمحنا يسحب ويسدد ويسحب تاني، البطاقة تتحول لمصدر كاش مفتوح، فالسحب مرة واحدة في الشهر حتى لو سدد.",
+    wrong:[{option:"ينفع لأنه سدد",why:"ده في الشراء بس."},{option:"ينفع لحد 50% بس",why:"المشكلة في عدد المرات مش النسبة."},{option:"ينفع من الفرع بس",why:"القاعدة على البطاقة نفسها."}]},
+   {id:"n2",section:"s1",prompt:"عميل حد بطاقته 20,000 ج وعايز يودع عليها:",answer:"الإيداع مسموح لحد 130% من الحد، يعني 26,000 ج، واللي يعدي يترفض",clue:"130%.",
+    why:"الإيداع فوق الحد بيخلّي البطاقة دائنة. البنك بيسمح بهامش لحد 130% بس، عشان البطاقة ما تتحولش لحساب يتحط فيه فلوس ويتسحب منه.",
+    wrong:[{option:"مفيش حد للإيداع",why:"فيه سقف 130%."},{option:"لحد الحد الائتماني بس",why:"مسموح لحد 130%."},{option:"لحد 200%",why:"السقف 130%."}]},
+   {id:"n3",section:"s1",prompt:"أي بطاقة ائتمانية من دول ما يتاحلهاش تجاوز 5% للشراء بعد ما الحد يخلص؟",answer:"التيتانيوم",clue:"والكلاسيك والجولد.",
+    why:"التجاوز 5% ميزة للفئات الأعلى. الفئات الأساسية (كلاسيك، جولد، تيتانيوم) حدودها أقل ومخاطرها أعلى نسبيًا، فمش متاح لها.",
+    wrong:[{option:"البلاتينية",why:"متاح لها."},{option:"World",why:"متاح لها."},{option:"Visa Infinite",why:"متاح لها."}]},
+   {id:"n4",section:"s1",prompt:"عميل فرع إسلامي عايز كنانة تيتانيوم بضمان شخصي (من غير ضمان عيني). أقصى حد:",answer:"800,000 ج",clue:"من غير ضمان أقل.",
+    why:"الحد الأقصى مرتبط بالضمان: بضمان عيني (وعاء مجمد) البنك مطمّن فيوصل لمليون، ومن غيره المخاطرة أعلى فالحد 800 ألف.",
+    wrong:[{option:"1,000,000 ج",why:"ده بضمان عيني."},{option:"3,000,000 ج",why:"ده الحد القديم وحد World Elite."},{option:"4,999 ج",why:"ده حد الكلاسيك."}]},
+   {id:"n5",section:"s1",prompt:"عميل فرع إسلامي عايز بطاقة ائتمانية بحد 7,000 ج:",answer:"إسلامية تيتانيوم، لأن الإسلامية الذهبية إصدارها اتلغى",clue:"",
+    why:"الإسلامية الذهبية (3,000 – 9,999) اتلغى إصدارها، فالمتاح في الفروع الإسلامية كلاسيك تحت 5,000 وتيتانيوم من 5,000. والـ7,000 تقع في التيتانيوم.",
+    wrong:[{option:"إسلامية ذهبية",why:"إصدارها اتلغى."},{option:"إسلامية كلاسيك",why:"حدها لحد 4,999."},{option:"بلاتينية",why:"نمطية وحدها من 25,000."}]},
+   {id:"n6",section:"s1",prompt:"من الفروق بين كنانة والبطاقة النمطية:",answer:"كنانة ما بتترقاش، والتقسيط فيها من التجار بس",clue:"",
+    why:"كنانة قائمة على عقود مرابحة بمدة محددة، فترقيتها أو تقسيط معاملة منفردة من 19888 بيتعارض مع الصيغة. عشان كده التقسيط بيظهر كمعاملة شراء عند التاجر بس.",
+    wrong:[{option:"كنانة السحب النقدي فيها 100%",why:"كنانة 50%، والنمطي 100%."},{option:"كنانة عليها فوائد 4% شهريًا",why:"دي النمطية."},{option:"كنانة متاحة على الخدمة الصوتية",why:"مش متاحة."}]},
+   {id:"n7",section:"s1",prompt:"عميل كنانة عايز يغير مدة المرابحة من 12 لـ36 شهر:",answer:"طلب كتابي من أي فرع إسلامي، ويسري على المرابحات الجديدة بس",clue:"القديم عقد خلاص.",
+    why:"كل مرابحة قديمة عقد اتعمل بمدته وعائده، فالتغيير ما يقدرش يعدّلها. التغيير بيتطبق من أول مرابحة جديدة بعد الطلب.",
+    wrong:[{option:"من 19888 ويسري على الكل",why:"من فرع إسلامي، وعلى الجديد بس."},{option:"ما ينفعش تتغير",why:"ينفع بطلب كتابي."},{option:"من أي فرع ويسري على القديم",why:"على الجديد بس."}]},
+   {id:"n8",section:"s1",prompt:"عميل كنانة سدد مبلغ أكبر من الحد الأدنى وأقل من إجمالي المديونية، وغطّى معاملات الشهر وجزء من أقساط قديمة:",answer:"معاملات الشهر ما تدخلش مرابحة، ويرجعله 60% من عائد الأقساط القديمة اللي سددها",clue:"Murabha Repeated.",
+    why:"المبلغ بيغطي الحد الأدنى الأول، بعده معاملات الشهر فتتمنع المرابحة الجديدة، والباقي بيسدد أقساط قديمة بدري، فالعميل يستحق رد 60% من العائد على اللي سدده مقدمًا.",
+    wrong:[{option:"كل المبلغ يدخل مرابحة جديدة",why:"المبلغ بيقلل المرابحة مش بيزودها."},{option:"يرجعله 100% من العائد",why:"الرد 60%."},{option:"مفيش أي رد",why:"بيرجعله 60%."}]},
+   {id:"n9",section:"s1",prompt:"معاملة بالبطاقة الائتمانية اتعملت موافقة عليها وما اتقيدتش خلال 30 يوم:",answer:"المبلغ يرجع للمتاح تلقائيًا",clue:"",
+    why:"الموافقة بتحجز المبلغ مؤقتًا لحد ما التاجر يقيد. لو التاجر ما قيدش في المدة، البنك بيفك الحجز تلقائي عشان العميل ما يفضلش حده محجوز من غير معاملة فعلية.",
+    wrong:[{option:"يتخصم نهائي",why:"ما اتقيدش فما يتخصمش."},{option:"العميل يقدم شكوى",why:"بيرجع تلقائي."},{option:"يفضل محجوز لحد التجديد",why:"المدة 30 يوم."}]},
+   {id:"n10",section:"s2",prompt:"أم عايزة تصدر بطاقة خصم فوري لابنها اللي عنده 13 سنة على حسابه:",answer:"لا يجوز؛ تحت 15 سنة الإصدار عن طريق الولي الطبيعي (الأب فقط)",clue:"Minor.",
+    why:"القاصر تحت 15 بيتعامل عن طريق وليه الطبيعي، وده الأب بس، وبيتكتب Minor قبل اسمه واسم الأب في Extension Name.",
+    wrong:[{option:"يجوز بموافقتها",why:"الأم مش الولي الطبيعي."},{option:"يجوز لأن الحساب باسمه",why:"لازم عن طريق الأب."},{option:"لازم يستنى لـ21",why:"الحد 15 لنفسه، وأقل منها بالأب."}]},
+   {id:"n11",section:"s2",prompt:"عميل عنده بطاقة خصم فوري أساسية على حسابه الجاري وطالب أساسية تانية على حساب التوفير:",answer:"مش هينفع؛ بطاقة أساسية واحدة على الرقم التعريفي، ويربط التوفير على نفس البطاقة",clue:"من 17-07-2024.",
+    why:"البنك وحّد العميل على بطاقة أساسية واحدة، وتقدر تربط عليها لحد 7 حسابات. الاستثناء الوحيد أساسية تانية على حساب دولاري.",
+    wrong:[{option:"ينفع بطاقتين",why:"بطاقة أساسية واحدة بس."},{option:"ينفع لو التوفير بالجنيه",why:"الاستثناء للدولاري."},{option:"يتصدر له إضافية باسمه",why:"الإضافية لشخص تاني."}]},
+   {id:"n12",section:"s2",prompt:"عميل طالب بطاقة خصم فوري على حساب أحوال شخصية (حسبي):",answer:"لا يجوز الإصدار على الحساب ده",clue:"فلوس مش حرة.",
+    why:"حسابات التركات والحسبي والأحوال الشخصية وحسابات القروض فلوسها خاضعة لقيود أو مش ملك العميل بالكامل، فما ينفعش يتعمل عليها كارت يسحب منها بحرية.",
+    wrong:[{option:"يجوز بموافقة الولي",why:"الحساب نفسه ممنوع الإصدار عليه."},{option:"يجوز إضافية بس",why:"ممنوع."},{option:"يجوز لو الرصيد دائن",why:"الرصيد مش المعيار."}]},
+   {id:"n13",section:"s2",prompt:"أب عايز بطاقة خصم فوري إضافية لابنه اللي عنده 16 سنة:",answer:"يجوز لو الأب 21 سنة فأكتر، والاتنين يحضروا ببطاقات رقم قومي سارية",clue:"15 و21.",
+    why:"الإضافية بتتصدر من سن 15 لأن الأساسي مسئول عنها، بشرط الأساسي يكون 21. وحضور الاتنين ببطاقات سارية بيثبت الهوية والموافقة.",
+    wrong:[{option:"لا يجوز تحت 18",why:"المسموح من 15."},{option:"يجوز من غير حضور الابن",why:"لازم الاتنين."},{option:"يجوز بشهادة الميلاد بس",why:"لازم رقم قومي ساري."}]},
+   {id:"n14",section:"s2",prompt:"عميل حوّل على ATM بنك مصر لرقم حساب غلط، واتضح إنه بتاع عميل تاني:",answer:"التحويل بيتم ومش بيترد، لأن رقم الحساب مسئولية العميل",clue:"16 رقم.",
+    why:"التحويل لحظي وبيتقيد في نفس اللحظة، والعميل هو اللي كتب الرقم بالكامل. عشان كده الخدمة شرطها إن صحة الرقم على مسئوليته الشخصية.",
+    wrong:[{option:"البنك يرجّع المبلغ",why:"مش بيترد."},{option:"التحويل يترفض تلقائي",why:"بيتم لو الحساب موجود."},{option:"يتعكس بعد 12 يوم",why:"ده قيد الموافقات."}]},
+   {id:"n15",section:"s2",prompt:"عميل بطاقة خصم فوري بالجنيه مسافر وعايز يستخدمها بالخارج:",answer:"الاستخدام بالخارج موقوف حاليًا، ماعدا بطاقات الخصم الفوري بالعملة الأجنبية",clue:"",
+    why:"البنك وقف استخدام الكروت بالجنيه بره مصر، والمتاح بس الكروت المرتبطة بحساب عملة أجنبية زي البلاتينية الدولارية.",
+    wrong:[{option:"يفعّل الاستخدام الخارجي من الفرع",why:"موقوف."},{option:"يستخدمها بالشريط الممغنط",why:"موقوف."},{option:"يسحب لحد 5,000 دولار",why:"ده للدولارية."}]},
+   {id:"n16",section:"s2",prompt:"عميل بطاقة ميزة مدفوعة مقدمًا رصيدها عدّى 200 ألف في الشهر:",answer:"البطاقة تتوقف Hot Exceed Deposit، والفرع يقدر يشغّلها بطلب منه لمرة واحدة بس",clue:"",
+    why:"المدفوعة مقدمًا وسيلة دفع مش حساب ادخار، فالسقف بيمنع تراكم مبالغ كبيرة عليها. والتشغيل مرة واحدة بس عشان ما يتكررش.",
+    wrong:[{option:"تتلغي نهائي",why:"تتوقف ويقدر يشغلها."},{option:"الزيادة تتحول لحسابه تلقائي",why:"البطاقة بتتوقف."},{option:"يتشغل كل مرة بطلب",why:"مرة واحدة بس."}]}
+  ]
+};
+
+/* ===== أدوات ===== */
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<mark>$1</mark>').replace(/\[\[(.+?)\]\]/g,'<bdi class="en" dir="ltr">$1</bdi>');
+const $=(s,r=document)=>r.querySelector(s);
+const CAT=NOTE.categories;
+
+const plain=s=>String(s).replace(/\*\*|\[\[|\]\]/g,'');
+const lab=h=>` data-l="${esc(plain(h)).replace(/"/g,'&quot;')}"`;
+function table(t){
+  const n=t.headers.length;
+  return `<div class="stack">${t.title?`<h3>${inl(t.title)}</h3>`:''}
+  <div class="tscroll ${n>=3?'stk':'w2'}"><table><thead><tr>${t.headers.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead>
+  <tbody>${t.rows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0?' class="first"':''}${lab(t.headers[i]||'')}>${inl(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+  ${t.tip?`<div class="tip"><b>انتبه:</b> ${inl(t.tip)}</div>`:''}</div>`;
+}
+function summary(){
+  const s=NOTE.summary;
+  return `<section id="summary"><h2>الخلاصة</h2><div class="stack">
+   <p>${inl(s.lead)}</p>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">البند</th>${s.colHeaders.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead><tbody>
+   ${s.rows.map(r=>`<tr><td class="first">${inl(r.head)}${r.sub?`<small>${inl(r.sub)}</small>`:''}</td>${r.cells.map((c,i)=>`<td class="c-${c.cat}"${lab(s.colHeaders[i]||'')}>${inl(c.main)}${c.ex?`<span class="ex">${inl(c.ex)}</span>`:''}</td>`).join('')}</tr>`).join('')}
+   </tbody></table></div>
+   <p class="legend">${inl(s.legend)}</p>
+   <div class="golden"><b>القاعدة الذهبية:</b> ${inl(s.goldenRule)}</div></div></section>`;
+}
+function concepts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="grid">${sec.items.map(c=>`
+   <article class="card">
+    <span class="tag ${c.cat}">${CAT[c.cat]}</span>
+    <div class="cname"><span class="en">${esc(c.nameEn)}</span><span class="ar">${esc(c.nameAr)}</span></div>
+    <div class="formula">${c.formula.map(f=>`<div class="frow"><span class="dot ${f.sign==='+'?'p':f.sign==='-'?'m':'q'}">${f.sign==='+'?'✓':f.sign==='-'?'−':'?'}</span><span>${inl(f.text)}</span></div>`).join('')}</div>
+    <div><h4>بنستخدمه في</h4><ul class="plain">${c.uses.map(u=>`<li>${inl(u)}</li>`).join('')}</ul></div>
+    <div><h4>أمثلة</h4><div class="exs">${c.examples.map(e=>`<div class="exi"><span>${inl(e.en)}</span><span class="a2">${inl(e.ar)}</span></div>`).join('')}</div></div>
+    <div><h4>دلائل</h4><div class="sig">${c.signals.map(x=>`<span class="rtl">${esc(x)}</span>`).join('')}</div></div>
+    <div class="tip"><b>انتبه:</b> ${inl(c.tip)}</div>
+    ${c.src?`<p class="srcl">المصدر: ${esc(c.src)}</p>`:''}
+   </article>`).join('')}</div></section>`;
+}
+function compare(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><div class="cmp-title">${esc(c.title)}</div>
+    <div class="cmp-cols">${c.cols.map(col=>`<div class="cmp-col ${col.cat}"><h4>${esc(col.name)}</h4><p>${inl(col.when)}</p>
+      <ul class="plain">${col.ex.map(e=>`<li>${inl(e)}</li>`).join('')}</ul></div>`).join('')}</div>
+    <div class="golden"><b>القاعدة الذهبية:</b> ${inl(c.golden)}</div></article>`).join('')}</div></section>`;
+}
+function confusing(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.explain)}</p>
+    <ul class="cl">${c.examples.map(e=>{const k=e.correct===true?'ok':e.correct===false?'no':'nt';const m=k==='ok'?'✓':k==='no'?'✗':'•';
+      return `<li class="${k}"><span class="m">${m}</span><span><span class="t">${inl(e.text)}</span>${e.note?`<span class="note">${inl(e.note)}</span>`:''}</span></li>`}).join('')}</ul>
+   </article>`).join('')}</div></section>`;
+}
+function conflicts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`<article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.text)}</p></article>`).join('')}</div></section>`;
+}
+function reference(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.tables.map(table).join('')}</div></section>`;
+}
+function lookup(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">
+   <input class="search" id="lq" type="search" placeholder="اكتب كلمة دالة، مثلًا: رب المال أو الفلتر أو 1975" autocomplete="off" aria-label="بحث في الدلائل">
+   <div class="cnt" id="lcnt"></div>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">الدليل</th><th scope="col">المفهوم</th><th scope="col">ملاحظة</th></tr></thead><tbody id="lb"></tbody></table></div></div></section>`;
+}
+function fillLookup(rows){
+  const lb=$('#lb'),inp=$('#lq'),cnt=$('#lcnt');
+  const norm=s=>s.replace(/[ً-ْـ]/g,'').replace(/[إأآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').toLowerCase();
+  const draw=()=>{
+    const q=norm(inp.value.trim());
+    const r=rows.filter(x=>!q||norm(x.signal+' '+x.target+' '+x.note).includes(q));
+    lb.innerHTML=r.length?r.map(x=>`<tr><td class="first">${esc(x.signal)}</td><td data-l="المفهوم">${esc(x.target)}</td><td data-l="ملاحظة">${esc(x.note)}</td></tr>`).join(''):`<tr><td colspan="3" class="empty">مفيش نتيجة للكلمة دي.</td></tr>`;
+    cnt.textContent=r.length+' من '+rows.length;
+  };
+  inp.addEventListener('input',draw);draw();
+}
+
+/* ===== الكويز ===== */
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const LET=['A','B','C','D'];
+let QS={i:0,order:[],picks:[],opts:[]};
+function quizStart(){
+  QS={i:0,order:shuffle(QUIZ.questions.map((_,i)=>i)),picks:[],opts:{}};
+  quizDraw();
+}
+function quizDraw(){
+  const root=$('#quiz');
+  const n=QUIZ.questions.length;
+  if(QS.i>=n){return quizResult(root)}
+  const qi=QS.order[QS.i],q=QUIZ.questions[qi];
+  const sec=QUIZ.sections.find(s=>s.id===q.section).title;
+  const opts=QS.opts[qi]||(QS.opts[qi]=shuffle([{t:q.answer,ok:true},...q.wrong.map(w=>({t:w.option,ok:false,why:w.why}))]));
+  const pick=QS.picks[QS.i];
+  const answered=pick!==undefined;
+  const promptHtml=esc(q.prompt).replace('___',`<span class="blank${answered?(opts[pick].ok?' ok':' no'):''}">${answered?esc(q.answer):'&nbsp;&nbsp;&nbsp;&nbsp;'}</span>`);
+  root.innerHTML=`
+   <div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${QS.i+(answered?1:0)}"><i style="width:${(QS.i+(answered?1:0))/n*100}%"></i></div>
+   <div class="qmeta"><span>سؤال ${QS.i+1} من ${n}</span><span>${esc(sec)}</span></div>
+   <p class="qp">${promptHtml}</p>
+   <div class="opts">${opts.map((o,k)=>`<button type="button" class="opt${answered?(o.ok?' right':(k===pick?' wrongpick':'')):''}" data-k="${k}" ${answered?'disabled':''}><span class="L">${LET[k]}</span><span>${esc(o.t)}</span></button>`).join('')}</div>
+   ${answered?`<div class="fb" aria-live="polite">
+     <div class="v ${opts[pick].ok?'ok':'no'}">${opts[pick].ok?'صح.':'مش دقيق.'}</div>
+     <p><b>ليه الإجابة دي:</b> ${esc(q.why)}</p>
+     ${q.clue?`<p><b>الدليل:</b> ${esc(q.clue)}</p>`:''}
+     <div><b>ليه الباقي غلط:</b><ul>${opts.map((o,k)=>o.ok?'':`<li class="${k===pick?'picked':''}">${esc(o.t)}: ${esc(o.why)}${k===pick?' (اختيارك)':''}</li>`).join('')}</ul></div>
+    </div>
+    <button type="button" class="btn" id="qnext">${QS.i+1<n?'السؤال التالي':'شوف النتيجة'}</button>`:''}`;
+  root.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{QS.picks[QS.i]=+b.dataset.k;quizDraw();const nb=$('#qnext');if(nb)nb.focus({preventScroll:true})}));
+  const nb=$('#qnext');if(nb)nb.addEventListener('click',()=>{QS.i++;quizDraw();root.scrollIntoView({block:'nearest'})});
+}
+function quizResult(root){
+  const n=QUIZ.questions.length;let total=0;const per={};
+  QUIZ.sections.forEach(s=>per[s.id]={t:0,c:0});
+  QS.order.forEach((qi,i)=>{const q=QUIZ.questions[qi];const ok=QS.opts[qi][QS.picks[i]].ok;per[q.section].t++;if(ok){per[q.section].c++;total++}});
+  const rows=QUIZ.sections.filter(s=>per[s.id].t).map(s=>({s,p:Math.round(per[s.id].c/per[s.id].t*100)}));
+  const weak=rows.slice().sort((a,b)=>a.p-b.p)[0];
+  root.innerHTML=`<div class="res">
+   <div class="prog"><i style="width:100%"></i></div>
+   <div class="score"><bdi class="ltr" dir="ltr">${total} / ${n}</bdi></div>
+   <div class="bars">${rows.map(r=>`<div class="bar${r===weak&&r.p<100?' weak':''}"><span>${esc(r.s.title)}</span><span class="pb"><i style="width:${r.p}%"></i></span><span class="ltr">${r.p}%</span></div>`).join('')}</div>
+   <p>${weak.p<100?`أضعف قسم: <mark>${esc(weak.s.title)}</mark>. ارجع له في المذكرة وحاول تاني.`:'كل الأقسام 100%. ممتاز.'}</p>
+   <button type="button" class="btn" id="qrestart">ابدأ من جديد</button></div>`;
+  $('#qrestart').addEventListener('click',quizStart);
+}
+
+/* ===== التجميع ===== */
+// كل الأقسام بتترسم بترتيبها في الملف حسب نوعها (type)، حتى لو الـid مش من الأسماء الافتراضية
+const R={concepts,compare,confusing,conflicts,reference,lookup};
+const SHORT={concepts:'المفاهيم',compare:'الفروقات',confusing:'حالات بتلخبط',conflicts:'تعارضات',reference:'أرقام وجداول',lookup:'دوّر على دليل'};
+function chipName(sec){
+  const nConcepts=NOTE.sections.filter(x=>(x.type||x.id)==='concepts').length;
+  const t=(sec.type||sec.id);
+  if(t==='concepts'&&nConcepts>1){const c=String(sec.title||'').replace(/^\d+[\.\-\s]*/,'').split(/[:(،]/)[0].trim();return c.length>22?c.slice(0,21)+'…':c}
+  return SHORT[t]||sec.title;
+}
+function build(){
+  const secs=NOTE.sections.filter(x=>R[x.type||x.id]);
+  $('#sheet').innerHTML=`
+   <header class="hero"><span class="stamp">${esc(NOTE.stamp)}</span><h1>${esc(NOTE.title)}</h1><p class="sub">${esc(NOTE.subtitle)}</p></header>
+   ${summary()}${secs.map(x=>R[x.type||x.id](x)).join('')}
+   <section id="quiz-sec"><h2 id="quiz-h">اختبر نفسك</h2><div class="quiz" id="quiz"></div></section>
+   <p class="foot">ملخص مذاكرة لامتحان مصرفي أول G3</p>`;
+  $('#chips').innerHTML=[['summary','الخلاصة'],...secs.map(x=>[x.id,chipName(x)]),['quiz-sec','اختبر نفسك']]
+    .map(([id,l])=>`<a class="chip" href="#${id}" data-id="${id}">${esc(l)}</a>`).join('');
+  const lk=secs.find(x=>(x.type||x.id)==='lookup');if(lk)fillLookup(lk.rows);
+  quizStart();
+  const links=[...document.querySelectorAll('.chip')],bar=$('#chips');
+  const center=l=>{const a=l.getBoundingClientRect(),c=bar.getBoundingClientRect();bar.scrollBy({left:(a.left+a.width/2)-(c.left+c.width/2),behavior:'smooth'})};
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>{const on=l.dataset.id===e.target.id;if(on&&!l.classList.contains('on'))center(l);l.classList.toggle('on',on)})})},{rootMargin:'-80px 0px -65% 0px'});
+    links.forEach(l=>{const t=document.getElementById(l.dataset.id);if(t)io.observe(t)});
+  }
+}
+/* المظهر: زرار واحد شمس/قمر، ومحفوظ في kk-theme المشترك مع التطبيق */
+const themeBtn=$('#themeb');
+function curTheme(){try{return localStorage.getItem('kk-theme')||'system'}catch(e){return 'system'}}
+const isDark=()=>{const m=curTheme();return m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)};
+function setTheme(m){
+  const r=document.documentElement;
+  if(m==='light'||m==='dark')r.setAttribute('data-theme',m);else r.removeAttribute('data-theme');
+  try{localStorage.setItem('kk-theme',m)}catch(e){}
+  const d=isDark();themeBtn.classList.toggle('dark',d);themeBtn.setAttribute('aria-label',d?'الوضع الداكن. دوس للفاتح':'الوضع الفاتح. دوس للداكن');
+}
+themeBtn.addEventListener('click',()=>setTheme(isDark()?'light':'dark'));
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>setTheme(curTheme()));
+build();setTheme(curTheme());
+</script>
+
+<style>
+.bg3-home{position:fixed;left:max(14px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;
+ display:flex;align-items:center;gap:6px;padding:9px 16px 9px 14px;border-radius:999px;background:var(--head-bg);color:var(--head-ink);
+ font-family:var(--f-ui);font-weight:700;font-size:14px;line-height:1.3;text-decoration:none;box-shadow:var(--shadow)}
+.bg3-home svg{width:18px;height:18px}
+.bg3-home:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+</style>
+<a class="bg3-home" href="../index.html#notes" aria-label="رجوع لقائمة الملخصات">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>الملخصات</a>
+<script>
+(function(){var K="cards";
+function g(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var all=g('bg3:notes',{}),me=all[K]||{};me.last=Date.now();all[K]=me;s('bg3:notes',all);s('bg3:lastNote',K);
+if(location.hash==='#resume'){history.replaceState(null,'',location.pathname);
+ if(me.y)requestAnimationFrame(function(){setTimeout(function(){window.scrollTo({top:me.y,behavior:'instant'})},80)})}
+var t;addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(function(){
+ var a=g('bg3:notes',{}),m=a[K]||{},h=document.documentElement.scrollHeight-innerHeight,p=h>0?Math.round(scrollY/h*100):100;
+ m.y=Math.round(scrollY);m.pct=Math.max(m.pct||0,Math.min(100,p));a[K]=m;s('bg3:notes',a)},250)},{passive:true});
+})();
+</script>

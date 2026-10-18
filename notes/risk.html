@@ -1,0 +1,890 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c1f3f">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<title>ملخص مخاطر التشغيل</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: ورقة كشكول واحدة في النص، هامش أحمر، شريط أقسام ثابت فوق */
+:root{
+  --bg:#e6ebf3; --paper:#fbfcfe; --card:#ffffff; --card-edge:#cbd6e8;
+  --ink:#0c1f3f; --ink-2:#44577a; --line:#dbe3f0;
+  --gold:#c9a13b; --gold-ink:#7d5f0c; --gold-wash:#faf2d8; --hl:rgba(201,161,59,.38);
+  --margin:#d4584c;
+  --cat-a:#a23d35; --cat-a-wash:#fbebe9;
+  --cat-b:#1f4f9a; --cat-b-wash:#e6eefb;
+  --cat-c:#7d5f0c; --cat-c-wash:#faf2d8;
+  --ok:#1d7a4d; --no:#b3382e; --ok-wash:#e4f4ec; --no-wash:#fbebe9;
+  --head-bg:#0c1f3f; --head-ink:#f3f6fc;
+  --shadow:0 1px 0 rgba(12,31,63,.06),0 10px 28px rgba(12,31,63,.10);
+  --f-display:'Aref Ruqaa','Amiri',serif;
+  --f-body:'Tajawal','Cairo',system-ui,sans-serif;
+  --f-ui:'Cairo','Tajawal',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+    --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+    --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+    --margin:#e5675c;
+    --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+    --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+    --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+    --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+    --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+  --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+  --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+  --margin:#e5675c;
+  --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+  --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+  --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+  --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+  --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.95;margin:0;
+  padding-block:0 72px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));
+  -webkit-text-size-adjust:100%;text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+bdi.en,.ltr{font-family:var(--f-ui);unicode-bidi:isolate}
+.ltr{direction:ltr;text-align:left}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+
+/* شريط الأقسام */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);display:flex;gap:10px;align-items:center;padding-block:8px;border-bottom:1px solid var(--card-edge)}
+.chips{display:flex;gap:6px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none;padding-block:2px;
+  -webkit-mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);padding-inline-end:20px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-family:var(--f-ui);font-size:13.5px;font-weight:600;line-height:1.4;padding:6px 13px;border-radius:999px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chip:hover,.chip.on{background:var(--head-bg);border-color:var(--head-bg);color:var(--head-ink)}
+.themeb{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--card-edge);background:var(--card);color:var(--gold-ink);cursor:pointer;padding:0}
+.themeb svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.themeb .i-moon{display:none}
+.themeb.dark .i-sun{display:none}
+.themeb.dark .i-moon{display:block;fill:currentColor}
+
+/* الورقة */
+.sheet{position:relative;width:100%;background-color:var(--paper);
+  border-radius:6px;box-shadow:var(--shadow);padding-block:28px 40px;padding-inline-start:44px;padding-inline-end:28px;
+  display:flex;flex-direction:column;gap:44px;min-width:0}
+.sheet::before{content:"";position:absolute;inset-block:0;inset-inline-start:30px;width:0;border-inline-start:1.5px solid var(--margin);opacity:.55;pointer-events:none}
+.sheet::after{content:"";position:absolute;inset-block:0;inset-inline-start:9px;width:10px;pointer-events:none;
+  background:radial-gradient(circle at center,var(--bg) 0 3.5px,transparent 4px) center 36px/10px 96px repeat-y}
+.sheet>*{min-width:0}
+.sheet{overflow-wrap:anywhere}
+mark{background:none;color:inherit;box-shadow:inset 0 -.5em 0 var(--hl);padding-inline:1px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,6vw,42px);line-height:1.5;margin:0;text-decoration:underline wavy var(--gold);text-decoration-thickness:2px;text-underline-offset:12px;text-wrap:balance}
+section>h2{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.6;margin:0 0 16px;display:inline-block;box-shadow:inset 0 -.32em 0 var(--hl)}
+h3{font-family:var(--f-ui);font-size:17.5px;margin:0;line-height:1.6}
+p{margin:0}
+.lead{color:var(--ink-2)}
+.hero{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.stamp{display:inline-block;transform:rotate(-2deg);font-family:var(--f-ui);font-weight:600;font-size:13px;line-height:1.5;color:var(--gold-ink);background:var(--gold-wash);border:2px solid var(--gold);border-radius:6px;padding:2px 12px}
+.sub{color:var(--ink-2);font-size:17px}
+
+/* الجداول: جدول عادي على الشاشات الواسعة، وكروت مرصوصة على الموبايل (كل خانة معاها اسم العمود) */
+.tscroll{overflow-x:auto;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.75;table-layout:auto}
+th{background:var(--head-bg);color:var(--head-ink);font-family:var(--f-ui);font-weight:700;font-size:14px;padding:10px 14px;text-align:start;vertical-align:bottom;line-height:1.5}
+td{padding:11px 14px;vertical-align:top;text-align:start;border-top:1px solid var(--card-edge);font-variant-numeric:tabular-nums}
+tbody tr:nth-child(even) td:not([class]){background:color-mix(in srgb,var(--paper) 55%,transparent)}
+td.first{background:var(--gold-wash);font-weight:700;min-width:7.5em}
+td.first small{display:block;font-weight:400;color:var(--ink-2);font-size:13px;line-height:1.5}
+td.c-a{background:var(--cat-a-wash)} td.c-b{background:var(--cat-b-wash)} td.c-c{background:var(--cat-c-wash)}
+td .ex{display:block;color:var(--ink-2);font-size:13.5px;line-height:1.6;margin-top:4px}
+.tscroll.w2 table td.first{width:38%}
+@media (max-width:700px){
+  .tscroll.stk{overflow:visible;border:0;background:none;border-radius:0}
+  .tscroll.stk table,.tscroll.stk tbody,.tscroll.stk tr,.tscroll.stk td{display:block;width:100%}
+  .tscroll.stk thead{display:none}
+  .tscroll.stk tr{border:1px solid var(--card-edge);border-radius:10px;overflow:hidden;background:var(--card);margin-bottom:10px}
+  .tscroll.stk tr:last-child{margin-bottom:0}
+  .tscroll.stk td{border-top:1px solid var(--line);padding:9px 14px;background:none}
+  .tscroll.stk td.first{border-top:0;background:var(--gold-wash);font-size:16.5px;min-width:0}
+  .tscroll.stk td.c-a{background:var(--cat-a-wash)} .tscroll.stk td.c-b{background:var(--cat-b-wash)} .tscroll.stk td.c-c{background:var(--cat-c-wash)}
+  .tscroll.stk td[data-l]:not(.first)::before{content:attr(data-l);display:block;font-family:var(--f-ui);font-size:12.5px;font-weight:700;color:var(--ink-2);line-height:1.5;margin-bottom:1px}
+  .tscroll.stk td.empty::before{display:none}
+}
+.legend{font-size:14px;color:var(--ink-2);margin-top:12px}
+.legend .k{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-inline:4px 4px}
+
+/* مربعات */
+.golden,.tip,.formula{border:2px dashed var(--gold);background:var(--gold-wash);border-radius:8px;padding:10px 16px;line-height:1.9}
+.golden b{color:var(--gold-ink)}
+.tip{border-color:var(--margin);background:var(--card)}
+.tip b{color:var(--margin)}
+.stack{display:flex;flex-direction:column;gap:16px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.card{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tag{align-self:flex-start;font-family:var(--f-ui);font-size:12px;font-weight:700;line-height:1.5;padding:1px 10px;border-radius:999px}
+.tag.a{background:var(--cat-a-wash);color:var(--cat-a)} .tag.b{background:var(--cat-b-wash);color:var(--cat-b)} .tag.c{background:var(--cat-c-wash);color:var(--cat-c)}
+.cname{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.cname .en{font-family:var(--f-ui);font-weight:700;font-size:18px;direction:ltr}
+.cname .ar{font-size:16px;color:var(--ink-2)}
+.formula{display:flex;flex-direction:column;gap:6px;padding:10px 12px}
+.frow{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.dot{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-size:13px;font-weight:700;color:var(--paper);margin-top:2px}
+.dot.p{background:var(--ok)} .dot.m{background:var(--no)} .dot.q{background:var(--cat-b)}
+h4{font-family:var(--f-ui);font-size:14px;margin:0;color:var(--ink-2);line-height:1.6}
+ul.plain{margin:0;padding-inline-start:20px;display:flex;flex-direction:column}
+.exs{display:flex;flex-direction:column;gap:6px}
+.exi{display:flex;flex-direction:column;border-inline-start:3px solid var(--card-edge);padding-inline-start:12px;line-height:1.7}
+.exi .a2{color:var(--ink-2);font-size:14px}
+.sig{display:flex;flex-wrap:wrap;gap:6px}
+.sig span{direction:ltr;font-family:var(--f-ui);font-size:13px;line-height:1.5;padding:2px 10px;border-radius:999px;background:var(--gold-wash);color:var(--gold-ink);border:1px solid var(--gold)}
+.sig span.rtl{direction:rtl;font-family:var(--f-body)}
+.cmp-cols{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.cmp-col{border-radius:6px;border:1px solid var(--card-edge);padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.cmp-col.a{background:var(--cat-a-wash)} .cmp-col.b{background:var(--cat-b-wash)} .cmp-col.c{background:var(--cat-c-wash)}
+.cmp-col h4{color:var(--ink);font-size:15px}
+.cmp-title{direction:ltr;text-align:left;font-family:var(--f-ui);font-weight:700;font-size:18px}
+.cl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.cl li{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.cl .m{flex:none;width:22px;text-align:center;font-family:var(--f-ui);font-weight:700}
+.cl .ok .m{color:var(--ok)} .cl .no .m{color:var(--no)} .cl .nt .m{color:var(--cat-c)}
+.cl .no .t{text-decoration:line-through;text-decoration-color:var(--no)}
+.cl .note{display:block;font-size:13px;color:var(--ink-2);line-height:1.6}
+
+/* بحث */
+.search{width:100%;font:inherit;font-family:var(--f-ui);font-size:16px;line-height:1.5;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink)}
+.search::placeholder{color:var(--ink-2)}
+.cnt{font-size:13px;color:var(--ink-2);font-family:var(--f-ui)}
+.empty{padding:16px;color:var(--ink-2)}
+
+/* كويز */
+.quiz{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:16px}
+.prog{height:8px;border-radius:999px;background:var(--line);overflow:hidden;border:1px solid var(--card-edge)}
+.prog i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.qmeta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-ui);font-size:13px;color:var(--ink-2)}
+.qp{font-size:18px;line-height:1.9;font-weight:500}
+.qp .blank{display:inline-block;min-width:80px;border-bottom:2px dashed var(--gold);text-align:center;padding-inline:6px}
+.qp .blank.ok{border-bottom:2px solid var(--ok);color:var(--ok);font-weight:700}
+.qp .blank.no{border-bottom:2px solid var(--no);color:var(--no);font-weight:700}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:start;width:100%;font:inherit;line-height:1.7;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--paper);color:var(--ink);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--gold);background:var(--gold-wash)}
+.opt .L{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-weight:700;font-size:13px;line-height:1;background:var(--line);color:var(--ink);margin-top:2px}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--ok-wash);border-color:var(--ok)}
+.opt.wrongpick{background:var(--no-wash);border-color:var(--no)}
+.fb{display:flex;flex-direction:column;gap:10px;border-radius:8px;padding:12px 16px;background:var(--gold-wash);border:1px dashed var(--gold)}
+.fb .v{font-weight:700;font-family:var(--f-ui)}
+.fb .v.ok{color:var(--ok)} .fb .v.no{color:var(--no)}
+.fb ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:4px}
+.fb li.picked{font-weight:700}
+.btn{align-self:flex-start;font-family:var(--f-ui);font-weight:600;font-size:15px;line-height:1.4;padding:10px 20px;border-radius:8px;border:0;background:var(--head-bg);color:var(--head-ink);cursor:pointer}
+.res{display:flex;flex-direction:column;gap:12px}
+.score{font-family:var(--f-display);font-size:40px;line-height:1.4}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(90px,140px) 1fr 44px;gap:10px;align-items:center;font-size:14px;line-height:1.5}
+.bar .pb{height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar .pb i{display:block;height:100%;background:var(--cat-b)}
+.bar.weak .pb i{background:var(--no)}
+.srcl{font-family:var(--f-ui);font-size:12px;line-height:1.6;color:var(--ink-2);margin:0}
+.foot{font-size:14px;color:var(--ink-2)}
+@media (max-width:600px){
+  body{padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+  .sheet{padding-block:22px 32px;padding-inline-start:26px;padding-inline-end:14px;gap:38px}
+  .sheet::before{inset-inline-start:16px}
+  .sheet::after{display:none}
+  .card{padding:14px}
+  section>h2{font-size:25px}
+  .bar{grid-template-columns:84px 1fr 40px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.prog i{transition:none}}
+</style>
+
+<div class="wrap">
+  <nav class="nav" aria-label="أقسام المذكرة">
+    <div class="chips" id="chips"></div>
+    <button type="button" class="themeb" id="themeb" aria-label="المظهر">
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+    </button>
+  </nav>
+  <main class="sheet" id="sheet" dir="rtl" lang="ar"></main>
+</div>
+
+<script>
+/* ===== المحتوى ===== */
+const NOTE = {
+  title:"مخاطر التشغيل واستمرارية الأعمال",
+  subtitle:"مادة مخاطر التشغيل واستمرارية الأعمال 2026 (ORM – BCM – TRM) المرسلة للممتحنين، ومعاها المفاهيم الثابتة من المادة السابقة",
+  stamp:"مذكرة · Operational Risk 2026",
+  categories:{a:"المفاهيم والخسائر", b:"الأدوات والسياسات", c:"الاستمرارية والتكنولوجيا"},
+  summary:{
+    lead:"**مخاطر التشغيل** = خسارة من **عدم كفاية أو فشل** الإجراءات أو الأشخاص أو الأنظمة أو **الأحداث الخارجية**، وتشمل **التزوير والغش** و**المخاطر القانونية**، وتستثني **الاستراتيجية والسمعة**. البنك بيديرها بـ**4 خطوط دفاع** و**4 أدوات**، والإبلاغ عن الحدث **فور اكتشافه**.",
+    colHeaders:["إيه هو","المفتاح","رقم أو مثال"],
+    rows:[
+      {head:"الإطار", sub:"5 خطوات · 4 خطوط",
+       cells:[{main:"**تحديد ← تقييم ← قياس ← حد ← مراقبة**", ex:"A ← B ← C ← D ← E", cat:"a"},
+              {main:"خطوط الدفاع **4**", ex:"وحدات الأعمال · الرقابية · المراجعة الداخلية · الخارجيين", cat:"a"},
+              {main:"الخسائر **6** أنواع", ex:"فعلية نهائية · فعلية مؤقتة · محتملة · غير محققة · خطأ أدى لمكسب · غير مباشرة", cat:"a"}]},
+      {head:"الأدوات", sub:"4 أدوات",
+       cells:[{main:"**Incidents** · **RCSA** · **KRIs** · **ORAP**", ex:"والفجوات بتتابع في **Action Plan**", cat:"b"},
+              {main:"RCSA بيتحدث **كل سنتين** على الأقل", ex:"أو عند الحاجة", cat:"b"},
+              {main:"KRIs: **أخضر · أصفر · أحمر**", ex:"Appetite · Tolerance · Breach", cat:"b"}]},
+      {head:"السياسات", sub:"تصعيد وقبول",
+       cells:[{main:"التصعيد لو مفيش رد خلال **5 أيام عمل**", ex:"مدير مباشر ← مدير عام ← رئيس القطاع ← اللجان", cat:"b"},
+              {main:"قبول خطر **متوسط مرتفع**: **المدير العام**", ex:"مع إحاطة رئيس القطاع", cat:"b"},
+              {main:"قبول خطر **مرتفع**: **اللجنة التنفيذية**", ex:"", cat:"b"}]},
+      {head:"الاستمرارية", sub:"BCM 2026",
+       cells:[{main:"أهم مخاطر 2026: **الأنظمة، الكهرباء، الاتصالات، الموردين**", ex:"مثال: حريق سنترال رمسيس", cat:"c"},
+              {main:"البلاغ بالإيميل للفريق المختص مع إخطار **BCMTeam@banquemisr.com**", ex:"", cat:"c"},
+              {main:"الاستمرارية **مسئولية كل موظف**", ex:"مش إدارة واحدة", cat:"c"}]}
+    ],
+    legend:"الأحمر = المفاهيم والخسائر · الأزرق = الأدوات والسياسات · الذهبي = الاستمرارية والتكنولوجيا.",
+    goldenRule:"**الحدث يتبلغ فورًا** حتى لو اتسوّى. **جديد** ← ORAP · **قائم** ← RCSA · **إنذار مبكر** ← KRIs · **حصل خلاص** ← Incident Reporting."
+  },
+  sections:[
+    {type:"concepts", id:"concepts", title:"المفاهيم والخسائر", items:[
+      {nameEn:"Operational Risk", nameAr:"تعريف مخاطر التشغيل", cat:"a",
+       formula:[{sign:"+",text:"مخاطر الخسارة الناتجة عن **عدم كفاية أو فشل**: **الإجراءات** (خلل في الرقابة الداخلية) أو **الأشخاص** (إخفاق العاملين) أو **الأنظمة** (تعطلها) أو **الأحداث الخارجية**"},
+                {sign:"+",text:"يتضمن **عمليات التزوير والغش**، و**المخاطر القانونية**"},
+                {sign:"-",text:"يستثني **المخاطر الاستراتيجية** و**مخاطر السمعة**"},
+                {sign:"+",text:"تنظيم إدارتها: آلية **الإبلاغ** ودراسة الأحداث، مراجعة إجراءات العمل، تقييم مخاطر **المنتجات والخدمات الجديدة**، وتحديد **الضوابط الرقابية**"}],
+       uses:["أساس كل الأسئلة"],
+       examples:[{en:"صراف قبل ورقة مزورة",ar:"**إجراءات / أشخاص**"},
+                 {en:"السيستم وقع والفرع وقف",ar:"**أنظمة**"},
+                 {en:"حريق أو انقطاع كهرباء عام",ar:"**أحداث خارجية**"}],
+       signals:["4 مصادر","يشمل القانونية","يستثني الاستراتيجية والسمعة","التزوير والغش"],
+       tip:"القانونية **جوه** التعريف لأن الغرامات غالبًا بتيجي من خلل في الإجراءات. أما الاستراتيجية والسمعة فمرتبطين بقرارات الإدارة ورأي الناس.",
+       src:"مادة 2026، شريحة 2"},
+      {nameEn:"Risk Types", nameAr:"أنواع المخاطر المصرفية", cat:"a",
+       formula:[{sign:"+",text:"**الائتمان**: تعثر العميل · **السوق**: تحركات الفائدة والصرف والأوراق المالية · **السيولة**: عدم توفير التمويل في الوقت المناسب"},
+                {sign:"+",text:"**الاستراتيجية**: قرارات خاطئة أو متأخرة أو **تحول معاكس في التوقعات والأهداف**"},
+                {sign:"+",text:"**السمعة**: آراء عامة سلبية · **القانونية**: غرامات وعقوبات · **التشغيل**: القاسم المشترك"},
+                {sign:"+",text:"معدل كفاية رأس المال = **القاعدة الرأسمالية ÷ (الائتمان + السوق + التشغيل)**"}],
+       uses:["أسئلة 'اختار نوع الخطر'"],
+       examples:[{en:"التحول المعاكس في التوقعات",ar:"**استراتيجية**"},{en:"لا تخلو منها أي إدارة",ar:"**التشغيل** (القاسم المشترك)"}],
+       signals:["تعثر","أسعار","تمويل","تحول معاكس","القاسم المشترك"],
+       tip:"ده من المادة السابقة ومش متكرر في 2026، بس لسه بيتسأل.",
+       src:"المادة السابقة"},
+      {nameEn:"Framework & Role", nameAr:"إطار العمل ودور إدارة مخاطر التشغيل", cat:"a",
+       formula:[{sign:"+",text:"إطار العمل 5 خطوات: **A تحديد** ← **B تقييم** ← **C قياس** ← **D الحد من المخاطر** ← **E المراقبة**"},
+                {sign:"+",text:"دور الإدارة: **وضع السياسات** وموافقة **مجلس الإدارة** عليها، ووضع الإجراءات والأدوات"},
+                {sign:"+",text:"**التنسيق** لوضع الضوابط لتخفيض المخاطر **للحد المقبول**"},
+                {sign:"+",text:"**مساعدة** وحدات الأعمال بالتدريب والتواصل، و**متابعة** تنفيذ التوصيات"},
+                {sign:"+",text:"عرض **التقارير الدورية** على اللجان المختلفة"}],
+       uses:["ترتيب الخطوات"],
+       examples:[{en:"أول خطوة",ar:"**التحديد**: ما ينفعش تقيس خطر لسه ما عرفتهوش"}],
+       signals:["Identification","Assessment","Measurement","Mitigation","Monitoring"],
+       tip:"الترتيب منطقي: **اعرفه ← قيّمه ← قيسه ← قلّله ← تابعه**.",
+       src:"مادة 2026، شرائح 3–4"},
+      {nameEn:"Four Lines of Defense", nameAr:"خطوط الدفاع الأربعة", cat:"a",
+       formula:[{sign:"+",text:"**الأول: وحدات الأعمال** (والفرع منها): تحدد المخاطر وتقيّمها وتنفذ **الضوابط والإجراءات التصحيحية**"},
+                {sign:"+",text:"**التاني: القطاعات الرقابية** (المخاطر، الالتزام والحوكمة المؤسسية، الرقابة الداخلية): تدعم وحدات الأعمال، **تحدد الصلاحيات**، وتتأكد من الالتزام بالأنظمة والقوانين وميثاق العمل"},
+                {sign:"+",text:"**التالت: المراجعة الداخلية**: تتأكد إن الخط الأول والتاني بيقوموا بدورهم"},
+                {sign:"+",text:"**الرابع: المراجعين الخارجيين، الجهات الرقابية الخارجية، الشركات الاستشارية**: تقييم فعالية أنظمة إدارة المخاطر ودقة التقارير المالية وكفاءة الضوابط"}],
+       uses:["أسئلة الأدوار"],
+       examples:[{en:"البنك المركزي بيفتش",ar:"**الخط الرابع**"},{en:"قطاع الالتزام",ar:"**الخط التاني**"},{en:"الفرع",ar:"**الخط الأول**"}],
+       signals:["4 خطوط","الخارجيين = الرابع","المراجعة الداخلية = التالت"],
+       tip:"كل ما تبعد عن العملية اليومية تعلى في الرقم: اللي بيشتغل ← اللي بيراقب ← اللي بيراجع جوه ← اللي بيراجع من برّه.",
+       src:"مادة 2026، شريحة 5"},
+      {nameEn:"Loss Types", nameAr:"أنواع الخسائر التشغيلية (6)", cat:"a",
+       formula:[{sign:"+",text:"**فعلية نهائية**: تحملها البنك و**اتثبتت في حساباته**"},
+                {sign:"+",text:"**فعلية مؤقتة**: أثرها المالي مؤكد، بتتسجل في **حسابات مؤقتة** لحد تحديد **المتسبب**، وبعدها تتثبت في **مصروفات خسائر أحداث تشغيلية**"},
+                {sign:"+",text:"**محتملة**: ممكن البنك يتحملها بسبب **نزاع مع العميل** (شكوى أو دعوى)، ويتكوّن **مخصص** بقيمتها بعد التأكد من صحتها"},
+                {sign:"+",text:"**غير محققة**: احتمالها انتفى لأن **ضابط رقابي** اكتشف الحدث قبل الخسارة (نقدية مزورة قبل الإيداع، شيك مزور قبل الصرف)"},
+                {sign:"+",text:"**خطأ أدى إلى مكسب**: مبالغ **اتضافت لحسابات البنك** بسبب خطأ من الأفراد أو الأنظمة أو الإجراءات أو أحداث خارجية"},
+                {sign:"+",text:"**مالية غير مباشرة**: **غير ملموسة** وصعب تحديد قيمتها: **السمعة / الالتزام / الميديا / الموظفين**"},
+                {sign:"?",text:"الخسارة الفعلية بتتسجل **بإجماليها قبل خصم المسترد** (اختلاس اتسدد جزء منه يتسجل كله)"}],
+       uses:["تصنيف أي حدث"],
+       examples:[{en:"عجز في الخزينة ولسه بيدوّروا مين السبب",ar:"**فعلية مؤقتة**"},
+                 {en:"عميل رفع قضية",ar:"**محتملة**"},
+                 {en:"عمولة اتحصلت زيادة بالغلط لصالح البنك",ar:"**خطأ أدى إلى مكسب**"},
+                 {en:"خبر سلبي عن البنك في السوشيال ميديا",ar:"**مالية غير مباشرة**"}],
+       signals:["اتثبتت","حسابات مؤقتة","نزاع ومخصص","ضابط اكتشف","اتضافت للبنك","غير ملموسة"],
+       tip:"حتى **المكسب** بالغلط حدث تشغيلي لازم يتبلغ: الخلل اللي ضيف فلوس للبنك ممكن يخصم بكرة.",
+       src:"مادة 2026، شريحة 6"},
+      {nameEn:"Inherent & Residual", nameAr:"المتأصلة، الضوابط، المتبقية", cat:"a",
+       formula:[{sign:"+",text:"**المتأصلة**: مرتبطة **بطبيعة النشاط**، وبتتقيّم **بافتراض عدم وجود ضوابط**"},
+                {sign:"+",text:"**الضابط الرقابي**: يقلل **التكرار والأثر** ويوصل الخطر **للحد المقبول**، لكنه **ما بيمنعهوش**"},
+                {sign:"+",text:"معايير الضابط: **قابل للتطبيق**، **التكلفة والعائد**، **واضح**، **سهل المتابعة**"},
+                {sign:"+",text:"**المتبقية**: اللي بيفضل **بعد** تطبيق الضوابط الحالية"},
+                {sign:"+",text:"مصفوفة المخاطر المعتمدة: **High · Medium High · Medium Low · Low**"}],
+       uses:["التفرقة بين قبل وبعد الضوابط"],
+       examples:[{en:"خزينة الفرع",ar:"المتأصل: مزور وعجز وسطو. الضوابط: كاميرات وتصريح قبل التنفيذ وأجهزة كشف"}],
+       signals:["طبيعة النشاط","بافتراض عدم وجود ضوابط","بعد الضوابط"],
+       tip:"**متأصلة = قبل** الضوابط · **متبقية = بعد** الضوابط.",
+       src:"مادة 2026، شريحة 10 + المادة السابقة"}
+    ]},
+    {type:"concepts", id:"tools", title:"الأدوات والسياسات", items:[
+      {nameEn:"Operational Risk Tools", nameAr:"أدوات مخاطر التشغيل (4)", cat:"b",
+       formula:[{sign:"+",text:"**1. إدارة الأحداث التشغيلية** Incidents Reporting"},
+                {sign:"+",text:"**2. التقييم الذاتي للمخاطر والضوابط** RCSA (Risks & Controls Self Assessment)"},
+                {sign:"+",text:"**3. مؤشرات الخطر الرئيسية** KRIs (Key Risk Indicators)"},
+                {sign:"+",text:"**4. أداة دعم اتخاذ القرار لاعتماد المشروعات الجديدة** ORAP (Other Risk Approval Process)"}],
+       uses:["أسماء الأدوات"],
+       examples:[{en:"منتج جديد هينزل",ar:"**ORAP**"},{en:"مراجعة مخاطر نشاط قائم",ar:"**RCSA**"}],
+       signals:["Incidents","RCSA","KRIs","ORAP"],
+       tip:"الاسم الإنجليزي لـORAP في 2026 = **Other Risk Approval Process**.",
+       src:"مادة 2026، شريحة 7"},
+      {nameEn:"Incidents Reporting", nameAr:"إدارة الأحداث التشغيلية والإبلاغ", cat:"b",
+       formula:[{sign:"+",text:"**الحدث**: خلل أو قصور في العمليات الداخلية أو السلوك البشري أو النظم والبرامج أو العوامل الخارجية"},
+                {sign:"+",text:"**الأثر**: خسائر **مالية أو غير مالية** (السمعة أو **تكلفة الفرصة البديلة**)"},
+                {sign:"+",text:"يتبلغ عن: كل حدث أدى لخسارة **حتى لو اتسددت** · الزيادة في النقدية أو الإيرادات الغلط · تعطيل الأعمال · ما يمس السمعة · أحداث تكنولوجيا المعلومات · الأحداث الخارجية"},
+                {sign:"+",text:"**مين**: مسئولية **كل العاملين**. الفروع والإدارات تبلّغ **الإدارة المركزية لمخاطر التشغيل** بالتنسيق مع **منسق مخاطر التشغيل Risk Champion**"},
+                {sign:"+",text:"**إمتى**: **فور اكتشافه**"}],
+       uses:["أي حدث في الفرع"],
+       examples:[{en:"عجز اتسوّى في نفس اليوم",ar:"**يتبلغ برضه**"},{en:"زيادة في الخزينة",ar:"**يتبلغ** (زيادة في النقدية)"}],
+       signals:["فور اكتشافه","كل العاملين","Risk Champion","حتى لو اتسدد"],
+       tip:"الإبلاغ هدفه **منع التكرار** مش بس حل المشكلة، فالتسوية ما تلغيهوش.",
+       src:"مادة 2026، شريحة 8"},
+      {nameEn:"Root Cause Analysis", nameAr:"تحليل السبب الجذري (5 Whys)", cat:"b",
+       formula:[{sign:"+",text:"أداة لتحليل **المسببات الجذرية** للحدث بسؤال **'ليه؟'** أكتر من مرة لحد ما توصل للأصل"},
+                {sign:"+",text:"المثال: حساب اتفتح ببطاقة **منتهية** ← الموظف ما لاحظش ← ما راجعش المستندات ← **دخّل تاريخ مختلف ليتجاوز المنع الآلي** ← المشرف ما طابقش قبل التصريح"},
+                {sign:"+",text:"**السبب الجذري**: **ضعف الوعي بالمخاطر** واعتبار التعليمات **مجرد روتين**"}],
+       uses:["فهم إن الحل مش في العَرَض"],
+       examples:[{en:"الخطر على البنك في المثال",ar:"**غرامة** لعدم اتباع تعليمات **اعرف عميلك KYC**"}],
+       signals:["Why؟","السبب الجذري","ضعف الوعي"],
+       tip:"لو وقفت عند 'الموظف ما لاحظش' هتعاقبه وبس والمشكلة تتكرر. السبب الجذري هو اللي يتعالج.",
+       src:"مادة 2026، شريحة 9"},
+      {nameEn:"RCSA", nameAr:"التقييم الذاتي للمخاطر والضوابط", cat:"b",
+       formula:[{sign:"+",text:"تحديد وتقييم المخاطر المرتبطة **بالنشاط** في كل الوحدات، والضوابط اللي بتحد منها وفعاليتها، بالتنسيق مع **مسئولي وحدات الأعمال**"},
+                {sign:"+",text:"السجل فيه: المخاطر **بافتراض عدم وجود ضوابط** · الضوابط الحالية · **تصنيفها (آلية/يدوية)** واختبار فعاليتها · المخاطر **المتبقية** · ضوابط مقترحة للمتبقي **High / Medium High**"},
+                {sign:"+",text:"التحديث: **كل سنتين على الأقل** أو عند الحاجة: دليل تعليمات جديد، أحداث متكررة، احتيال داخلي أو خارجي، ملاحظات رقابية متكررة، تغيير جوهري في المهام، نظام جديد"},
+                {sign:"+",text:"**Risk Champion**: يحدد ويقيّم المخاطر، ويختبر الضوابط، وينفذ المقترح منها في مواعيده"},
+                {sign:"+",text:"**الإدارة المركزية**: تراجع النموذج، تتأكد من الضوابط، وتقترح ضوابط لو المتبقي **عالي أو متوسط عالي**"}],
+       uses:["الأنشطة **القائمة**"],
+       examples:[{en:"احتيال حصل في إدارة",ar:"**سبب لتحديث** السجل قبل ميعاده"}],
+       signals:["ذاتي","سنتين","آلية/يدوية","High / Medium High"],
+       tip:"**قائم** ← RCSA · **جديد** ← ORAP.",
+       src:"مادة 2026، شريحة 10"},
+      {nameEn:"KRIs", nameAr:"مؤشرات الخطر الرئيسية", cat:"b",
+       formula:[{sign:"+",text:"مقاييس **تنبؤية** تنبّه وحدات الأعمال لاحتمال تغيّر التعرض للمخاطر في المستقبل"},
+                {sign:"+",text:"لازم تكون **قابلة للقياس** (أرقام ونسب وقيم) وليها **حدود إنذار وتصعيد**"},
+                {sign:"+",text:"**دورية القياس**: شهرية، ربع سنوية، نصف سنوية أو سنوية. وإعادة النظر في المؤشرات **سنويًا على الأقل**"},
+                {sign:"+",text:"وحدات الأعمال: توثق البيانات، توفر النتائج، تقارن بالحدود، **ترفع تقارير عند التجاوز**، وتقترح الإجراءات التصحيحية"}],
+       uses:["إنذار مبكر"],
+       examples:[{en:"نسبة الصرافين خبرتهم أقل من سنة",ar:"مثال مؤشر"},{en:"عدد الشكاوى للمعاملات",ar:"مثال مؤشر"}],
+       signals:["تنبؤية","قابلة للقياس","إنذار وتصعيد","سنويًا"],
+       tip:"أي سؤال فيه **'إنذار مبكر'** أو **'تنبؤية'** إجابته **KRIs**.",
+       src:"مادة 2026، شريحة 11"},
+      {nameEn:"KRI Traffic Lights", nameAr:"إشارات الإنذار والتصعيد", cat:"b",
+       formula:[{sign:"+",text:"**أخضر Safe Zone**: الخطر ضمن **Risk Appetite**، **لا يتطلب أي إجراء**"},
+                {sign:"+",text:"**أصفر Amber**: الخطر **يساوي Risk Appetite** وضمن **Risk Tolerance**، **إنذار مبكر** يستدعي مراجعة دقيقة وزيادة المراقبة وتفعيل خطط تصحيحية"},
+                {sign:"-",text:"**أحمر Breach**: يأثر بشكل كبير على أهداف البنك، يستدعي **إجراءات تصحيحية سريعة** وخطة عمل فورية و**سياسة التصعيد**"}],
+       uses:["تفسير حالة المؤشر"],
+       examples:[{en:"المؤشر وصل حد الإنذار",ar:"**أصفر**: راقب أكتر وفعّل خطة تصحيحية"}],
+       signals:["Appetite","Tolerance","Breach"],
+       tip:"**Appetite** = اللي البنك راضي بيه · **Tolerance** = أقصى سماح قبل الخطر الحقيقي.",
+       src:"مادة 2026، شريحة 12"},
+      {nameEn:"ORAP", nameAr:"اعتماد المشروعات الجديدة ORAP", cat:"b",
+       formula:[{sign:"+",text:"تحديد وتقييم المخاطر المتأصلة في **المنتجات والخدمات الجديدة** **قبل بدء** المشروع أو المنتج"},
+                {sign:"+",text:"**صاحب الأعمال** (الإدارة اللي بتقدم المنتج) بينسق مع كل الأطراف المعنية"},
+                {sign:"+",text:"**مدير المشروع**: يجمع المستندات (خطة، اختبارات، خريطة العمليات)، يحدد الأطراف، يحدد المخاطر ويصنفها، خطة تخفيف للمتبقي، ويستوفي الاعتماد"},
+                {sign:"+",text:"**مندوبو الإدارات**: يحددوا مخاطر المشروع ويقيّموا خطورتها ويحطوا الضوابط **قبل التنفيذ**"},
+                {sign:"+",text:"**الإدارة المركزية**: تتابع تطبيق السياسة وتراجع النموذج"}],
+       uses:["أي منتج أو خدمة أو نظام جديد"],
+       examples:[{en:"البنك هيطلق خدمة على التطبيق",ar:"**ORAP** قبل الإطلاق"}],
+       signals:["قبل بدء المشروع","جديد","صاحب الأعمال"],
+       tip:"علاج الخطر قبل الإطلاق أرخص بكتير من علاجه بعد ما العملاء يستخدموا المنتج.",
+       src:"مادة 2026، شريحة 13"},
+      {nameEn:"Issue & Action Plan", nameAr:"متابعة الفجوات والإجراءات التصحيحية", cat:"b",
+       formula:[{sign:"+",text:"الإجراءات نوعين: **تصحيحية** لمعالجة أسباب الحدوث **حاليًا**، و**وقائية مقترحة** تحد من **التكرار مستقبلًا**"},
+                {sign:"+",text:"الفجوات بتتطلع من **كل الأدوات**: RCSA, KRIs, ORAP, Incident Reports"},
+                {sign:"+",text:"كل إجراء لازم يكون **واضح ومتفق عليه**، وليه **تاريخ مستهدف واقعي**"},
+                {sign:"+",text:"**Action Owner**: المسئول عن التنفيذ، ويفضل **المسئول الأول** عن النتيجة النهائية والمتابعة حتى لو التنفيذ مع أطراف تانية"}],
+       uses:["بعد أي فجوة"],
+       examples:[{en:"منفذ تاني هينفذ جزء",ar:"الـ Action Owner **لسه المسئول الأول**"}],
+       signals:["تصحيحية / وقائية","تاريخ مستهدف","Action Owner"],
+       tip:"المسئولية **ما بتتنقلش** لمجرد إنك طلبت من حد تاني ينفذ.",
+       src:"مادة 2026، شريحة 14"},
+      {nameEn:"Loss Policy", nameAr:"سياسة الخسائر التشغيلية", cat:"b",
+       formula:[{sign:"+",text:"إدارة الخسائر جزء من **الاستدامة المالية**: تحسّن القرارات، **تخفّض رأس المال المطلوب**، وتحافظ على **السمعة والتصنيف الخارجي**"},
+                {sign:"+",text:"أحداث بخسائر (فعلية أو محتملة): الوحدة تنسق للموافقات حسب **جدول الصلاحيات المالية**، مع العرض على **القطاع المالي (في كل الحالات)** و**الشئون القانونية (عند الحاجة)**، وإخطار **الإدارة المركزية لمخاطر التشغيل**"},
+                {sign:"+",text:"إبلاغ الإدارة المركزية بقيمة **المخصص** المجنّب للخسائر المحتملة"}],
+       uses:["اعتماد الخسارة"],
+       examples:[{en:"مين لازم يشوف أي خسارة؟",ar:"**القطاع المالي** دايمًا"}],
+       signals:["جدول الصلاحيات","القطاع المالي دايمًا","القانونية عند الحاجة"],
+       tip:"المالي في **كل** الحالات لأنه اللي بيثبت الخسارة في الحسابات.",
+       src:"مادة 2026، شريحة 15"},
+      {nameEn:"Escalation Policy", nameAr:"سياسة التصعيد", cat:"b",
+       formula:[{sign:"+",text:"التصعيد = **نقل المسئولية والاختصاص للوحدات الأعلى** لاتخاذ القرار"},
+                {sign:"+",text:"**1.** إخطار **المدير المباشر** بالتجاوزات لو مفيش رد خلال **5 أيام عمل**"},
+                {sign:"+",text:"**2.** إخطار **رئيس وحدات الأعمال (المدير العام)** باللي ما اتردش عليه خلال **5 أيام عمل** من آخر تاريخ مستهدف"},
+                {sign:"+",text:"**3.** التصعيد التاني لـ **رئيس القطاع**"},
+                {sign:"+",text:"**4.** إخطار **اللجان العليا** بالموقف النهائي للتجاوزات عالية المخاطر"}],
+       uses:["لو ملاحظة ما اتردش عليها"],
+       examples:[{en:"تجاوز ما اتردش عليه 5 أيام عمل",ar:"يتصعد للمستوى اللي بعده"}],
+       signals:["5 أيام عمل","مدير مباشر ← مدير عام ← رئيس قطاع ← لجان"],
+       tip:"التصعيد مش عقاب، هو ضمان إن الخطر ما يفضلش من غير صاحب قرار.",
+       src:"مادة 2026، شريحة 16"},
+      {nameEn:"Risk Acceptance", nameAr:"قبول الخطر", cat:"b",
+       formula:[{sign:"+",text:"استراتيجية: وحدة الأعمال **تقبل العواقب** بدل التجنب أو النقل أو التخفيف"},
+                {sign:"+",text:"بيعتمد على **التكلفة والفائدة**: لو تكلفة التخفيف **أعلى** من الأثر المحتمل"},
+                {sign:"+",text:"متبقي **متوسط مرتفع**: يقبله **المدير العام** للإدارة صاحبة الأعمال بـ**نموذج قبول الخطر**، مع **إحاطة رئيس القطاع**"},
+                {sign:"+",text:"متبقي **مرتفع**: يتعرض على **اللجنة التنفيذية**"}],
+       uses:["لما الضابط يكون مستحيل أو غالي"],
+       examples:[{en:"خطر مرتفع ومحتاجين ننزل المنتج",ar:"**اللجنة التنفيذية**"}],
+       signals:["تكلفة > أثر","المدير العام","اللجنة التنفيذية"],
+       tip:"كل ما الخطر يعلى، المستوى اللي يقبله يعلى.",
+       src:"مادة 2026، شريحة 17"},
+      {nameEn:"Third Party Risk", nameAr:"مخاطر الأطراف الخارجية", cat:"b",
+       formula:[{sign:"+",text:"مخاطر من تلقي خدمات من **طرف خارجي**، سواء **تعهيد** (نشاط بنكي) أو مزود خدمات/منتجات"},
+                {sign:"+",text:"النطاق: **الموردين، مقدمي الخدمات، الشركاء التجاريين، المؤسسات المالية، مقدمي خدمات التعهيد**"},
+                {sign:"+",text:"المراحل الخمس: **1** تقييم التأهيل الأولي ← **2** تحديد المخاطر والعناية الواجبة (وفيها **اتفاقية الخروج**) ← **3** التعاقد ← **4** المراقبة والتقييم المستمر ← **5** إنهاء التعاقد / **خطة الخروج**"}],
+       uses:["أي تعامل مع جهة خارجية"],
+       examples:[{en:"شركة شحن البطاقات",ar:"طرف خارجي (مقدم خدمة)"}],
+       signals:["تعهيد","5 مراحل","خطة الخروج"],
+       tip:"**خطة الخروج** بتتجهز من أول التعاقد عشان الخدمة ما تقفش لو الطرف اتغير.",
+       src:"مادة 2026، شرائح 18–19"},
+      {nameEn:"GRC System", nameAr:"نظام GRC", cat:"b",
+       formula:[{sign:"+",text:"يربط أدوات مخاطر التشغيل في **قاعدة بيانات واحدة Risk Register**"},
+                {sign:"+",text:"**إنذار مبكر** وتنبيهات فورية للمسئول، و**تصعيد آلي** لو الخطر ما اتعالجش في وقته"},
+                {sign:"+",text:"دعم القرارات بتقارير فورية و**Dashboards**، **رقابة آلية** تقلل المخاطر البشرية"},
+                {sign:"+",text:"ترسيخ **ثقافة الرقابة الذاتية** بمشاركة **منسق مخاطر التشغيل** لكل وحدة"}],
+       uses:["السيستم اللي بيجمع الأدوات"],
+       examples:[{en:"ملاحظة عدّى ميعادها",ar:"GRC **يصعّدها آليًا**"}],
+       signals:["Risk Register","تصعيد آلي","Dashboards"],
+       tip:"",
+       src:"مادة 2026، شريحة 20"}
+    ]},
+    {type:"concepts", id:"bcm", title:"الاستمرارية والأزمات والتكنولوجيا", items:[
+      {nameEn:"BCM & Crisis Management", nameAr:"استمرارية الأعمال وإدارة الأزمات", cat:"c",
+       formula:[{sign:"+",text:"**استمرارية الأعمال**: قدرة المؤسسة على **الاستمرار في تقديم خدماتها الأساسية** أثناء وبعد الحوادث أو الأزمات"},
+                {sign:"+",text:"**إدارة الأزمات**: الإجراءات والقرارات للتعامل مع **الأحداث المفاجئة** اللي تأثر على سير العمل أو السمعة أو **سلامة العاملين**"},
+                {sign:"+",text:"مهم لكل موظف لأن أي أزمة تأثر على الشغل اليومي، وكل موظف ليه دور في **سرعة الاستجابة**"},
+                {sign:"+",text:"أهم مخاطر **2026**: **تعطل الأنظمة**، **انقطاع الكهرباء**، **انقطاع الاتصالات**، **تعطل الموردين الخارجيين**"}],
+       uses:["تعريفات"],
+       examples:[{en:"حريق سنترال رمسيس",ar:"أثر على الاتصالات مؤقتًا، والتنسيق السريع وخطط الطوارئ رجّعوا الخدمة **تاني يوم**"}],
+       signals:["الخدمات الأساسية","أحداث مفاجئة","System / Power / Telecom / Vendor"],
+       tip:"الدروس: خطط طوارئ **محدثة**، سرعة التصعيد، **جاهزية البدائل**، التنسيق، و**الاختبار الدوري** للخطط.",
+       src:"مادة 2026، شرائح 22–24"},
+      {nameEn:"Incident vs Crisis", nameAr:"وقت الأزمة: مين بيدير وإيه المطلوب", cat:"c",
+       formula:[{sign:"+",text:"**Incident**: حادث تشغيلي **محدود** يتحتوى بسرعة · **Crisis**: أزمة **كبيرة** تأثر على الاستمرارية وتحتاج **تدخل إداري موسع**"},
+                {sign:"+",text:"بيديرها **فرق متخصصة**: استمرارية الأعمال، إدارة الأزمات، المخاطر، تكنولوجيا المعلومات، والقطاعات المعنية"},
+                {sign:"+",text:"المطلوب: **الإبلاغ الفوري** للجهة المختصة، **القنوات الرسمية بس**، الالتزام بالتعليمات، و**ما تاخدش قرارات فردية**"},
+                {sign:"+",text:"البدائل: **العمل من المنزل**، **موقع بديل**، **التشغيل اليدوي المؤقت**، **نقل العمل لفرع تاني**"}],
+       uses:["التصرف وقت الأزمة"],
+       examples:[{en:"السيستم وقع في الفرع",ar:"بلّغ فورًا بالقنوات الرسمية واتبع التعليمات، وممكن التشغيل اليدوي أو التحويل لفرع تاني"}],
+       signals:["محدود = Incident","موسع = Crisis","لا قرارات فردية","Manual Workaround"],
+       tip:"القرار الفردي وقت الأزمة ممكن يعمل خطر أكبر من الأزمة نفسها.",
+       src:"مادة 2026، شريحة 25"},
+      {nameEn:"Your Role", nameAr:"دورك كموظف", cat:"c",
+       formula:[{sign:"+",text:"**قبل الأزمة**: الالتزام بالإجراءات، **تحديث بيانات الاتصال**، معرفة خطط الطوارئ الخاصة بإدارتك"},
+                {sign:"+",text:"**أثناء الأزمة**: سرعة الإبلاغ، الالتزام بالتعليمات، **الحفاظ على سرية المعلومات**، التعاون مع فرق الاستجابة"},
+                {sign:"+",text:"**بعد الأزمة**: دعم استعادة العمل، المشاركة في التقييم، تقديم ملاحظات للتحسين"},
+                {sign:"+",text:"الإبلاغ بـ**البريد الإلكتروني** للفريق المختص مع إخطار **BCMTeam@banquemisr.com**"},
+                {sign:"-",text:"**لا تفعل**: نشر معلومات غير مؤكدة، قرارات فردية، تجاهل الحوادث أو تأخيرها"}],
+       uses:["أسئلة 'تعمل إيه'"],
+       examples:[{en:"خبر مش مؤكد عن عطل",ar:"**ما تنشروش**"}],
+       signals:["قبل / أثناء / بعد","BCMTeam","مسئولية كل موظف"],
+       tip:"تحديث بيانات الاتصال **قبل** الأزمة، عشان يعرفوا يوصلولك **أثناءها**.",
+       src:"مادة 2026، شرائح 26–28"},
+      {nameEn:"BCM Previous", nameAr:"من المادة السابقة: BCM والتقارير", cat:"c",
+       formula:[{sign:"+",text:"مسئوليات BCM: الوعي، **تحليل التأثير على الأعمال BIA**، خطط الاستمرارية، **المقرات البديلة**"},
+                {sign:"+",text:"حلقة الوصل مع إدارة الاستمرارية: **منسقو استمرارية الأعمال** في الإدارات"},
+                {sign:"+",text:"الإقرار عن الأحداث **ربع سنوي** خلال **أول 10 أيام عمل** من الفترة التالية، ولا يغني عن الإبلاغ"},
+                {sign:"+",text:"تقرير **ربع سنوي** للجنة **BRCC**"}],
+       uses:["أسئلة قديمة لسه بتتكرر"],
+       examples:[],
+       signals:["BIA","منسقو الاستمرارية","10 أيام عمل","BRCC"],
+       tip:"مش مذكورة في مادة 2026، فاحفظها كأرقام بس.",
+       src:"المادة السابقة + محاكي 2025"},
+      {nameEn:"Technology Risk (TRM)", nameAr:"إدارة مخاطر تكنولوجيا المعلومات", cat:"c",
+       formula:[{sign:"+",text:"التحول الرقمي بيزود الكفاءة بس بيزود التعرض لمخاطر التكنولوجيا و**الأمن السيبراني**"},
+                {sign:"+",text:"إطار العمل: **تقييم** المخاطر ← **معالجتها** (حماية السرية والسلامة والتوافر) ← **مراقبتها وإعداد التقارير** للإدارة العليا"},
+                {sign:"+",text:"تتابع المتطلبات في **مرحلة الاختبار** (سيناريو، **اختبار قبول المستخدم**، طلبات التغيير)"},
+                {sign:"+",text:"تدير **أحداث التكنولوجيا** (انقطاع غير متوقع) وتحدد الأسباب الجذرية و**CAPA** (Corrective And Preventive Action)"},
+                {sign:"+",text:"تطبق **ORAP** على المشروعات التقنية و**الموردين قبل التعاقد**، و**KRIs** و**RCSA** مع قطاعات التكنولوجيا وأمن المعلومات والمشروعات والتحول الرقمي"}],
+       uses:["مخاطر الأنظمة"],
+       examples:[{en:"نظام جديد هيتركب",ar:"TRM تراجعه بـ**ORAP** قبل التشغيل"}],
+       signals:["TRM","CAPA","UAT","الأمن السيبراني"],
+       tip:"**CAPA** = تصحيحي + وقائي، نفس فكرة الـ Action Plan.",
+       src:"مادة 2026، شرائح 29–33"}
+    ]},
+    {type:"compare", id:"compare", title:"الفروقات", items:[
+      {title:"RCSA vs ORAP", cols:[
+        {name:"RCSA", cat:"b", when:"نشاط **قائم**",
+         ex:["تقييم ذاتي للمخاطر والضوابط","يتحدث كل سنتين أو عند الحاجة","Risk Champion"]},
+        {name:"ORAP", cat:"b", when:"منتج **جديد**",
+         ex:["قبل بدء المشروع","صاحب الأعمال ومدير المشروع","يتعمل للموردين قبل التعاقد"]}],
+       golden:"**قائم** ← RCSA · **جديد** ← ORAP."},
+      {title:"Amber vs Breach", cols:[
+        {name:"أصفر Amber", cat:"b", when:"ضمن Tolerance",
+         ex:["إنذار مبكر","زيادة المراقبة","خطط تصحيحية"]},
+        {name:"أحمر Breach", cat:"b", when:"تجاوز",
+         ex:["إجراءات سريعة","خطة فورية","سياسة التصعيد"]}],
+       golden:"الأصفر **راقب**، الأحمر **صعّد**."},
+      {title:"Medium High vs High", cols:[
+        {name:"متوسط مرتفع", cat:"b", when:"قبول الخطر",
+         ex:["المدير العام للإدارة","نموذج قبول الخطر","إحاطة رئيس القطاع"]},
+        {name:"مرتفع", cat:"b", when:"قبول الخطر",
+         ex:["اللجنة التنفيذية"]}],
+       golden:"الخطر أعلى ← المعتمد أعلى."},
+      {title:"Incident vs Crisis", cols:[
+        {name:"Incident", cat:"c", when:"محدود",
+         ex:["يتحتوى بسرعة"]},
+        {name:"Crisis", cat:"c", when:"كبير",
+         ex:["يأثر على الاستمرارية","تدخل إداري موسع"]}],
+       golden:"الفرق في **الحجم والتأثير على الاستمرارية**."}
+    ]},
+    {type:"confusing", id:"confusing", title:"حالات بتلخبط", items:[
+      {title:"إيه نوع الخسارة؟",
+       explain:"اسأل: حصلت؟ اتثبتت ولا مؤقتة؟ فيها نزاع؟ اتمنعت؟ البنك كسب؟ مش ملموسة؟",
+       examples:[{text:"عجز ولسه المتسبب مش معروف",note:"فعلية مؤقتة",correct:true},
+                 {text:"خسارة اتثبتت في الحسابات",note:"فعلية نهائية",correct:true},
+                 {text:"شيك مزور اتكشف قبل الصرف",note:"غير محققة",correct:true},
+                 {text:"مبلغ اتضاف للبنك بالغلط",note:"خطأ أدى إلى مكسب",correct:true},
+                 {text:"ضرر للسمعة في الميديا",note:"مالية غير مباشرة",correct:true}]},
+      {title:"خطوط الدفاع",
+       explain:"بقوا 4 مش 3.",
+       examples:[{text:"المراجع الخارجي والبنك المركزي",note:"الخط الرابع",correct:true},
+                 {text:"المراجعة الداخلية",note:"الخط التالت",correct:true},
+                 {text:"الالتزام والرقابة الداخلية",note:"الخط التاني",correct:true}]},
+      {title:"الإبلاغ",
+       explain:"",
+       examples:[{text:"حدث اتسوى نفس اليوم",note:"يتبلغ",correct:true},
+                 {text:"زيادة في الخزينة",note:"يتبلغ",correct:true},
+                 {text:"أستنى أتأكد الأول وأبلغ آخر الأسبوع",note:"غلط، فور الاكتشاف",correct:false}]}
+    ]},
+    {type:"conflicts", id:"conflicts", title:"تنبيهات على المصادر", items:[
+      {title:"خطوط الدفاع 3 ولا 4؟",
+       text:"المحاكي القديم كان بيقول **3 خطوط**. مادة 2026 بتقول **4 خطوط** بإضافة **المراجعين والجهات الرقابية الخارجية والشركات الاستشارية**. لو السؤال 'الأربعة' أو فيه الخارجيين، جاوب بالـ4. ولو السؤال عن **ترتيب أول تلات**، الترتيب واحد."},
+      {title:"أسماء الأدوات",
+       text:"المادة القديمة: **RSA** و**CLD** وORAP = Operational Risk Approval Policy. مادة 2026: **RCSA** و**Incidents Reporting** وORAP = **Other Risk Approval Process**. الفكرة واحدة، والأحدث هو 2026."},
+      {title:"مهلة الإبلاغ",
+       text:"القديم: **فور الاكتشاف وعلى الأكثر يوم عمل**. 2026: **فور اكتشافه**. الإجابة الأأمن: **فورًا**، ولو الاختيارات فيها 'يوم عمل' بس كحد أقصى اختارها."},
+      {title:"تصنيف الخسائر",
+       text:"القديم 4 (فعلية، محتملة، غير محققة، غير مادية). 2026 بقوا **6**: الفعلية اتقسمت **نهائية ومؤقتة**، واتضاف **خطأ أدى لمكسب**، و'غير المادية' بقت **مالية غير مباشرة**."}
+    ]},
+    {type:"reference", id:"ref", title:"أرقام", tables:[
+      {id:"nums", title:"أرقام لازم تحفظها", headers:["البند","القيمة"],
+       rows:[["مصادر مخاطر التشغيل","4"],["خطوات إطار العمل","5"],["خطوط الدفاع","4"],["أنواع الخسائر","6"],["أدوات مخاطر التشغيل","4"],
+             ["تحديث RCSA","كل سنتين على الأقل"],["مراجعة المؤشرات KRIs","سنويًا على الأقل"],["مهلة التصعيد","5 أيام عمل"],["مراحل التعاقد مع طرف خارجي","5"],
+             ["الإقرار (قديم)","ربع سنوي، أول 10 أيام عمل"],["تقرير BRCC (قديم)","ربع سنوي"],["إيميل BCM","BCMTeam@banquemisr.com"]]}
+    ]},
+    {type:"lookup", id:"lookup", title:"دوّر على دليل", rows:[
+      {signal:"تنبؤية / إنذار مبكر", target:"KRIs", note:""},
+      {signal:"قبل بدء المشروع", target:"ORAP", note:""},
+      {signal:"النشاط القائم / ذاتي", target:"RCSA", note:""},
+      {signal:"Safe Zone", target:"أخضر، ضمن Appetite", note:""},
+      {signal:"Amber", target:"أصفر، ضمن Tolerance", note:""},
+      {signal:"Breach", target:"أحمر، تصعيد", note:""},
+      {signal:"حسابات مؤقتة", target:"خسارة فعلية مؤقتة", note:""},
+      {signal:"نزاع / مخصص", target:"خسارة محتملة", note:""},
+      {signal:"اتضاف للبنك بالغلط", target:"خطأ أدى إلى مكسب", note:""},
+      {signal:"غير ملموسة", target:"مالية غير مباشرة", note:""},
+      {signal:"5 أيام عمل", target:"التصعيد", note:""},
+      {signal:"اللجنة التنفيذية", target:"قبول خطر مرتفع", note:""},
+      {signal:"خطة الخروج", target:"مخاطر الأطراف الخارجية", note:""},
+      {signal:"Risk Register", target:"نظام GRC", note:""},
+      {signal:"CAPA", target:"إجراءات تصحيحية ووقائية", note:"TRM"},
+      {signal:"Manual Workaround", target:"تشغيل يدوي مؤقت", note:"بديل تشغيلي"}
+    ]}
+  ]
+};
+
+const QUIZ = {
+  sections:[{id:"s1",title:"المفاهيم والخسائر"},{id:"s2",title:"الأدوات"},{id:"s3",title:"السياسات"},{id:"s4",title:"الاستمرارية والتكنولوجيا"}],
+  questions:[
+   {id:"q1",section:"s1",prompt:"تعريف مخاطر التشغيل يشمل أي نوع من المخاطر التالية؟",answer:"المخاطر القانونية",clue:"ويستثني نوعين.",
+    why:"الغرامات والجزاءات القانونية بتنتج غالبًا عن قصور في الإجراءات أو تطبيق العقود، يعني من نفس مصادر التشغيل، فدخلت في التعريف. أما الاستراتيجية والسمعة فمرتبطين بقرارات الإدارة ونظرة الجمهور، فاتشالوا برّه.",
+    wrong:[{option:"المخاطر الاستراتيجية",why:"نابعة من قرارات الإدارة وتوقعاتها مش من خلل تشغيلي، فمستثناة."},{option:"مخاطر السمعة",why:"نتيجة لرأي الجمهور، ومستثناة من التعريف."},{option:"مخاطر السوق",why:"مصدرها تقلب الأسعار، فئة مستقلة."}]},
+   {id:"q2",section:"s1",prompt:"تمثل ...... القاسم المشترك مع جميع المخاطر الأخرى حيث لا تخلو منها أي إدارة / نشاط.",answer:"مخاطر التشغيل",clue:"إجراءات وأنظمة وأشخاص في كل مكان.",
+    why:"أي إدارة فيها إجراءات وأنظمة وموظفين وممكن يحصلها حدث خارجي، ودي مصادر مخاطر التشغيل الأربعة، فهي موجودة جوه كل نشاط.",
+    wrong:[{option:"مخاطر السمعة",why:"مش كل نشاط بيأثر على السمعة مباشرة."},{option:"المخاطر القانونية",why:"جزء من مخاطر التشغيل نفسها."},{option:"المخاطر الاستراتيجية",why:"مرتبطة بقرارات الإدارة العليا بس."}]},
+   {id:"q3",section:"s1",prompt:"التحول المعاكس في التوقعات والأهداف التي ترتكز عليها الاستراتيجية:",answer:"المخاطر الاستراتيجية",clue:"الخطة نفسها.",
+    why:"الاستراتيجية مبنية على توقعات. لو التوقعات اتقلبت، الخطة نفسها تبقى غلط، وده تعريف الخطر الاستراتيجي.",
+    wrong:[{option:"مخاطر الائتمان",why:"مرتبطة بتعثر عميل."},{option:"مخاطر السوق",why:"مرتبطة بتحرك الأسعار."},{option:"مخاطر السمعة",why:"مرتبطة بالرأي العام."}]},
+   {id:"q4",section:"s1",prompt:"ترتيب خطوات إطار عمل مخاطر التشغيل:",answer:"تحديد ← تقييم ← قياس ← حد من المخاطر ← مراقبة",clue:"اعرفه الأول.",
+    why:"ما ينفعش تقيّم أو تقيس خطر لسه ما حددتهوش. بعد ما تعرفه وتقيّمه وتقيسه، تحط ضوابط تقلله، وتفضل تراقب إن الضوابط شغالة.",
+    wrong:[{option:"قياس ← تحديد ← حد ← تقييم ← مراقبة",why:"مفيش قياس لخطر لسه ما اتحددش."},{option:"حد ← تحديد ← تقييم ← قياس ← مراقبة",why:"التخفيف قبل ما تعرف الخطر تخمين."},{option:"مراقبة ← تحديد ← تقييم ← قياس ← حد",why:"المراقبة آخر خطوة لأنها بتتابع اللي اتعمل."}]},
+   {id:"q5",section:"s1",prompt:"المراجعين الخارجيين والجهات الرقابية الخارجية والشركات الاستشارية يمثلون:",answer:"خط الدفاع الرابع",clue:"من برّه البنك.",
+    why:"الخطوط بتترتب من الأقرب للعملية للأبعد: وحدات الأعمال، ثم القطاعات الرقابية، ثم المراجعة الداخلية، وأخيرًا الجهات المستقلة من خارج البنك اللي بتقيّم المنظومة كلها.",
+    wrong:[{option:"خط الدفاع الأول",why:"ده وحدات الأعمال اللي بتنفذ الشغل."},{option:"خط الدفاع الثاني",why:"ده قطاعات المخاطر والالتزام والرقابة الداخلية."},{option:"خط الدفاع الثالث",why:"ده المراجعة الداخلية، وهي من جوه البنك."}]},
+   {id:"q6",section:"s1",prompt:"قطاع الالتزام والحوكمة المؤسسية وقطاع الرقابة الداخلية يمثلوا:",answer:"خط الدفاع الثاني",clue:"بيحدد الصلاحيات.",
+    why:"الخط التاني هو القطاعات الرقابية اللي بتدعم وحدات الأعمال وتحدد الصلاحيات وتتأكد من الالتزام بالقوانين والميثاق، من غير ما تنفذ الشغل نفسه.",
+    wrong:[{option:"خط الدفاع الأول",why:"ده اللي بينفذ ويملك الخطر."},{option:"خط الدفاع الثالث",why:"ده المراجعة الداخلية اللي بتراجع الخطين."},{option:"خط الدفاع الرابع",why:"ده الجهات الخارجية."}]},
+   {id:"q7",section:"s1",prompt:"عجز في الخزينة اتسجل في حساب مؤقت لحين تحديد المتسبب:",answer:"خسارة فعلية مؤقتة",clue:"الأثر مؤكد، المتسبب لأ.",
+    why:"الفلوس ناقصة فعلًا، فالأثر المالي مؤكد. لكن لحد ما يتعرف مين المسئول، المبلغ بيتحط في حساب مؤقت، وبعدها يتثبت كمصروف خسائر تشغيلية.",
+    wrong:[{option:"خسارة محتملة",why:"المحتملة فيها نزاع مع عميل وقيمتها مش مؤكدة."},{option:"خسارة غير محققة",why:"غير المحققة اتمنعت، وهنا الفلوس ناقصة فعلًا."},{option:"خسارة فعلية نهائية",why:"النهائية اتثبتت خلاص في حسابات البنك."}]},
+   {id:"q8",section:"s1",prompt:"عند اكتشاف شيك مزور قبل صرفه فإن ذلك يعد:",answer:"خسارة غير محققة",clue:"الضابط اكتشفه.",
+    why:"الحدث وقع فعلًا، لكن ضابط رقابي (مطابقة التوقيع) اكتشفه قبل خروج الفلوس، فاحتمال الخسارة انتفى.",
+    wrong:[{option:"خسارة محتملة",why:"مفيش نزاع ولا خسارة متوقعة."},{option:"خسارة فعلية نهائية",why:"الفلوس ما اتصرفتش."},{option:"خطأ أدى إلى مكسب",why:"البنك ما كسبش حاجة."}]},
+   {id:"q9",section:"s1",prompt:"مبلغ اتضاف لحسابات البنك نتيجة خطأ في النظام:",answer:"خطأ أدى إلى مكسب، ويتبلغ عنه",clue:"حتى المكسب.",
+    why:"الخلل اللي ضيف فلوس للبنك هو نفسه ممكن يخصم من عميل أو يتكرر بالعكس، والمبلغ ده مش حق البنك. فده حدث تشغيلي ليه تصنيف خاص ولازم يتبلغ.",
+    wrong:[{option:"مش حدث لأن البنك ما خسرش",why:"الحدث هو الخلل، مش الخسارة بس."},{option:"خسارة غير محققة",why:"غير المحققة خسارة اتمنعت."},{option:"إيراد عادي للبنك",why:"ده مبلغ بالغلط ولازم يتصحح."}]},
+   {id:"q10",section:"s1",prompt:"عميل رفع شكوى ونزاع مع البنك، والبنك كوّن مخصص بقيمتها بعد التأكد من صحتها:",answer:"خسارة محتملة",clue:"نزاع ومخصص.",
+    why:"البنك ممكن يتحمل الخسارة حسب نتيجة النزاع، فمش مؤكدة ولا نهائية. عشان كده بيتجنب مخصص بقيمتها لحد ما الموضوع يتحسم.",
+    wrong:[{option:"خسارة فعلية نهائية",why:"لسه ما اتحملهاش."},{option:"خسارة غير محققة",why:"مفيش ضابط منعها، النزاع قائم."},{option:"مالية غير مباشرة",why:"ليها قيمة مالية محددة."}]},
+   {id:"q11",section:"s1",prompt:"موظف اختلس مبلغًا وسدد جزءًا منه. مبلغ الخسارة المسجل:",answer:"قيمة المبلغ المختلس بالكامل",clue:"قبل خصم المسترد.",
+    why:"الخسارة بتتسجل بحجم الحدث كله قبل خصم المسترد، عشان قاعدة البيانات تعكس حجم الخطر الحقيقي. المسترد بيتابَع لوحده.",
+    wrong:[{option:"المبلغ غير المسترد",why:"بيقلل حجم الحدث ويخفي خطورته."},{option:"لا توجد خسارة",why:"الاختلاس حصل فعلًا."},{option:"المبلغ المسدد فقط",why:"ده عكس المنطق."}]},
+   {id:"q12",section:"s2",prompt:"أدوات مخاطر التشغيل الأربعة هي:",answer:"إدارة الأحداث، RCSA، KRIs، ORAP",clue:"",
+    why:"كل أداة ليها توقيت: الأحداث بعد ما تحصل، RCSA للنشاط القائم، KRIs إنذار مبكر مستمر، وORAP قبل أي جديد. مع بعض بيغطوا الخطر قبل وأثناء وبعد.",
+    wrong:[{option:"BCM، BIA، KRIs، ORAP",why:"BCM وBIA خاصين بالاستمرارية."},{option:"RCSA، GRC، CAPA، KYC",why:"GRC نظام، وCAPA وKYC مش أدوات المخاطر."},{option:"الإقرار، BRCC، ORAP، RSA",why:"الإقرار والتقرير مش أدوات تقييم."}]},
+   {id:"q13",section:"s2",prompt:"الإبلاغ عن الحدث التشغيلي يتم:",answer:"فور اكتشافه",clue:"",
+    why:"كل دقيقة تأخير ممكن تكبّر الأثر أو تسمح بتكرار الحدث في مكان تاني، فالإدارات المختصة لازم تعرف فورًا.",
+    wrong:[{option:"آخر الأسبوع",why:"التأخير بيكبّر الخسارة."},{option:"بعد تسويته",why:"التسوية مش شرط، ويتبلغ حتى لو اتسوى."},{option:"مع الإقرار الربع سنوي",why:"الإقرار تأكيد دوري ولا يغني عن الإبلاغ."}]},
+   {id:"q14",section:"s2",prompt:"مسئولية الإبلاغ عن الأحداث التشغيلية تقع على:",answer:"كافة العاملين بالبنك",clue:"والإدارات تبلّغ عن طريق منسق المخاطر.",
+    why:"أي موظف ممكن يكون أول واحد يشوف الحدث، فلو المسئولية على شخص واحد هتضيع أحداث كتير. الفروع والإدارات بعد كده بتبلّغ الإدارة المركزية بالتنسيق مع الـ Risk Champion.",
+    wrong:[{option:"مدير الفرع فقط",why:"ممكن ما يعرفش لو الموظف ما قالش."},{option:"الإدارة المركزية لمخاطر التشغيل",why:"دي اللي بتستقبل البلاغ."},{option:"المراجعة الداخلية",why:"دي خط الدفاع التالت."}]},
+   {id:"q15",section:"s2",prompt:"حساب اتفتح ببطاقة رقم قومي منتهية، وبالتحليل اتضح إن الموظفين بيعتبروا التعليمات روتين. ده مثال على:",answer:"تحليل السبب الجذري Root Cause Analysis",clue:"Why؟ أكتر من مرة.",
+    why:"بسؤال 'ليه' أكتر من مرة، وصلنا من العَرَض (بطاقة منتهية) للأصل (ضعف الوعي بالمخاطر). وده اللي لازم يتعالج عشان المشكلة ما تتكررش.",
+    wrong:[{option:"RCSA",why:"تقييم دوري للنشاط، مش تحليل حدث معين."},{option:"KRIs",why:"مؤشرات رقمية مستمرة."},{option:"ORAP",why:"لمنتج جديد قبل إطلاقه."}]},
+   {id:"q16",section:"s2",prompt:"سجل RCSA يتم تحديثه:",answer:"كل سنتين على الأقل أو عند الحاجة",clue:"زي احتيال أو نظام جديد.",
+    why:"الأنشطة بتتغير، فالسجل لازم يتراجع بشكل دوري. ولو حصل حاجة كبيرة زي احتيال أو أحداث متكررة أو نظام جديد، يتحدث قبل ميعاده.",
+    wrong:[{option:"كل شهر",why:"تقييم شامل مش منطقي يتعاد كل شهر."},{option:"مرة واحدة عند إنشاء النشاط",why:"كده يبقى قديم مع أي تغيير."},{option:"كل 5 سنين",why:"مدة طويلة جدًا."}]},
+   {id:"q17",section:"s2",prompt:"مقاييس تنبؤية تنبّه وحدات الأعمال لاحتمال تغيّر درجة التعرض للمخاطر:",answer:"مؤشرات الخطر الرئيسية KRIs",clue:"إنذار مبكر.",
+    why:"المؤشر بيتقاس باستمرار وليه حدود إنذار، فلو قرّب منها الوحدة تتحرك قبل ما الحدث يقع. ودي طبيعة تنبؤية.",
+    wrong:[{option:"إدارة الأحداث",why:"بعد ما الحدث يحصل."},{option:"ORAP",why:"دراسة منتج جديد مرة واحدة."},{option:"نظام GRC",why:"السيستم اللي بيجمع الأدوات."}]},
+   {id:"q18",section:"s2",prompt:"مؤشر خطر حالته Amber يعني:",answer:"الخطر ضمن Risk Tolerance، ويستدعي زيادة المراقبة وخطط تصحيحية",clue:"أصفر.",
+    why:"الأصفر إنذار مبكر: الخطر وصل لمستوى الـ Appetite لكنه لسه في حدود الـ Tolerance. مش وقت تصعيد، لكن لازم تراقب أكتر وتبدأ تصحح قبل ما يبقى أحمر.",
+    wrong:[{option:"لا يتطلب أي إجراء",why:"ده الأخضر."},{option:"Breach ويستدعي التصعيد",why:"ده الأحمر."},{option:"المؤشر يتلغي",why:"المؤشر شغال وبينبهك."}]},
+   {id:"q19",section:"s2",prompt:"أداة تقييم مخاطر المنتجات والخدمات الجديدة قبل بدء المشروع:",answer:"ORAP",clue:"Other Risk Approval Process.",
+    why:"علاج الخطر قبل الإطلاق أرخص وأأمن من علاجه بعد ما العملاء يستخدموا المنتج، عشان كده المخاطر بتتحدد وضوابطها بتتحط قبل البدء.",
+    wrong:[{option:"RCSA",why:"للأنشطة القائمة."},{option:"KRIs",why:"متابعة مستمرة."},{option:"Incident Reporting",why:"بعد وقوع الحدث."}]},
+   {id:"q20",section:"s2",prompt:"الشخص المسئول عن تنفيذ الإجراء التصحيحي ويظل المسئول الأول حتى لو التنفيذ بالتنسيق مع أطراف تانية:",answer:"Action Owner",clue:"",
+    why:"لو المسئولية اتقسمت على كذا حد، كل واحد هيستنى التاني. وجود مسئول واحد عن النتيجة والمتابعة بيضمن إن الإجراء يخلص في ميعاده.",
+    wrong:[{option:"Risk Champion",why:"منسق المخاطر في الوحدة، مش بالضرورة صاحب الإجراء."},{option:"المراجع الداخلي",why:"بيراجع، مش بينفذ."},{option:"الإدارة المركزية",why:"بتتابع، مش بتملك الإجراء."}]},
+   {id:"q21",section:"s3",prompt:"إخطار المدير المباشر بالتجاوزات في حالة عدم وجود رد خلال:",answer:"5 أيام عمل",clue:"أول درجة تصعيد.",
+    why:"5 أيام عمل وقت كافي للرد على ملاحظة. لو عدت من غير رد، الموضوع بيطلع لمستوى أعلى عشان الخطر ما يفضلش معلق.",
+    wrong:[{option:"يوم عمل",why:"قصير جدًا للرد على تجاوز."},{option:"10 أيام عمل",why:"دي مهلة الإقرار القديم."},{option:"30 يوم",why:"طويلة والخطر قائم."}]},
+   {id:"q22",section:"s3",prompt:"مراحل التصعيد بالترتيب:",answer:"المدير المباشر ← المدير العام ← رئيس القطاع ← اللجان العليا",clue:"",
+    why:"كل مستوى بيدّي فرصة للمستوى اللي تحته يحل. لو ما اتحلش، يطلع درجة. واللجان العليا آخر حاجة للتجاوزات عالية المخاطر.",
+    wrong:[{option:"رئيس القطاع ← المدير المباشر ← اللجان",why:"معكوس."},{option:"اللجان ← المدير العام ← المدير المباشر",why:"معكوس."},{option:"المدير المباشر ← اللجان مباشرة",why:"بيتخطى مستويات."}]},
+   {id:"q23",section:"s3",prompt:"مخاطر متبقية تصنيفها مرتفع ومحتاجين نقبلها:",answer:"تتعرض على اللجنة التنفيذية",clue:"المرتفع أعلى مستوى.",
+    why:"كل ما الخطر يعلى، القرار بقبوله يحتاج سلطة أعلى، لأن أثره ممكن يكون على البنك كله. المتوسط المرتفع يقبله المدير العام، أما المرتفع فاللجنة التنفيذية.",
+    wrong:[{option:"يقبلها المدير العام للإدارة",why:"ده للمتوسط المرتفع."},{option:"يقبلها مدير الفرع",why:"مش مستوى قبول مخاطر."},{option:"لا يجوز قبولها أبدًا",why:"ينفع بموافقة اللجنة التنفيذية."}]},
+   {id:"q24",section:"s3",prompt:"قبول الخطر كاستراتيجية بيستند عادة على:",answer:"إن تكلفة التخفيف أعلى من الأثر المحتمل للخطر",clue:"تكلفة وفائدة.",
+    why:"لو الضابط هيكلّف أكتر من الخسارة اللي ممكن تحصل، منطقيًا البنك يقبل الخطر بدل ما يصرف أكتر منه.",
+    wrong:[{option:"إن الخطر مش موجود",why:"لو مش موجود مفيش حاجة تتقبل."},{option:"رغبة الموظف",why:"القرار بموافقات رسمية."},{option:"إن الخطر مرتفع جدًا",why:"المرتفع جدًا أولى إنه يتخفف."}]},
+   {id:"q25",section:"s3",prompt:"أي إدارة لازم تتعرض عليها الخسائر التشغيلية في كل الحالات؟",answer:"القطاع المالي",clue:"والقانونية عند الحاجة.",
+    why:"القطاع المالي هو اللي بيثبت الخسارة في حسابات البنك، فلازم يشوف كل حالة. أما الشئون القانونية فبس لما يكون فيه جانب قانوني.",
+    wrong:[{option:"الشئون القانونية",why:"في الحالات اللي تتطلب بس."},{option:"الموارد البشرية",why:"مش جهة اعتماد خسائر."},{option:"المراجعة الداخلية",why:"خط تالت بيراجع، مش بيعتمد."}]},
+   {id:"q26",section:"s3",prompt:"آخر مرحلة من مراحل التعاقد مع الأطراف الخارجية:",answer:"إنهاء التعاقد وخطة الخروج",clue:"5 مراحل.",
+    why:"البنك لازم يكون جاهز لو الطرف الخارجي وقف أو اتغير، عشان الخدمة تتنقل من غير انقطاع. وعشان كده اتفاقية الخروج بتتحضر من مرحلة العناية الواجبة.",
+    wrong:[{option:"التعاقد",why:"المرحلة التالتة."},{option:"تقييم التأهيل الأولي",why:"المرحلة الأولى."},{option:"المراقبة المستمرة",why:"المرحلة الرابعة."}]},
+   {id:"q27",section:"s4",prompt:"قدرة المؤسسة على الاستمرار في تقديم خدماتها الأساسية أثناء وبعد الحوادث أو الأزمات:",answer:"إدارة استمرارية الأعمال",clue:"BCM.",
+    why:"الكلمة المفتاحية 'الاستمرار في الخدمات الأساسية': BCM بتجهز الخطط والبدائل عشان البنك ما يقفش.",
+    wrong:[{option:"إدارة الأزمات",why:"دي الإجراءات والقرارات وقت الحدث المفاجئ."},{option:"KRIs",why:"إنذار مبكر."},{option:"TRM",why:"مخاطر التكنولوجيا."}]},
+   {id:"q28",section:"s4",prompt:"الفرق بين Incident وCrisis:",answer:"Incident حادث محدود يتحتوى بسرعة، وCrisis تأثر على الاستمرارية وتحتاج تدخل إداري موسع",clue:"الحجم.",
+    why:"المعيار هو الحجم والتأثير: لو الحادث محدود والفرع يقدر يحتويه فده Incident. لو أثر على استمرارية الأعمال واحتاج تدخل إداري كبير فده Crisis.",
+    wrong:[{option:"مفيش فرق",why:"الفرق في الحجم والإدارة."},{option:"Incident أكبر من Crisis",why:"العكس."},{option:"Crisis خاصة بالتكنولوجيا بس",why:"الأزمة ممكن تكون من أي مصدر."}]},
+   {id:"q29",section:"s4",prompt:"وقت حدوث أزمة، أي تصرف غلط؟",answer:"اتخاذ قرارات فردية خارج الإجراءات المعتمدة",clue:"",
+    why:"وقت الأزمة فيه فرق متخصصة بتنسق القرارات. القرار الفردي ممكن يتعارض مع خطتهم ويعمل خطر أكبر من الأزمة نفسها.",
+    wrong:[{option:"الإبلاغ الفوري للجهة المختصة",why:"ده المطلوب."},{option:"استخدام القنوات الرسمية فقط",why:"ده المطلوب."},{option:"الالتزام بالتعليمات الصادرة",why:"ده المطلوب."}]},
+   {id:"q30",section:"s4",prompt:"من البدائل التشغيلية وقت الأزمات:",answer:"العمل من المنزل، الموقع البديل، التشغيل اليدوي المؤقت، ونقل العمل لفرع تاني",clue:"",
+    why:"الهدف إن الخدمات الأساسية تفضل شغالة: لو المكان مش متاح نروح لمكان تاني، ولو السيستم وقف نشتغل يدوي مؤقتًا.",
+    wrong:[{option:"قفل الفرع لحد انتهاء الأزمة",why:"ده عكس الاستمرارية."},{option:"تأجيل كل المعاملات",why:"الخدمات الأساسية لازم تستمر."},{option:"تحويل العملاء لبنك تاني",why:"مش من البدائل."}]},
+   {id:"q31",section:"s4",prompt:"من دورك كموظف قبل الأزمة:",answer:"تحديث بيانات الاتصال ومعرفة خطط الطوارئ الخاصة بإدارتك",clue:"",
+    why:"لو بيانات الاتصال قديمة، الفريق مش هيعرف يوصلك وقت الأزمة. ولو مش عارف الخطة، هتتلخبط ساعتها.",
+    wrong:[{option:"المشاركة في تقييم ما بعد الأزمة",why:"ده دورك بعد الأزمة."},{option:"سرعة الإبلاغ",why:"ده أثناء الأزمة."},{option:"دعم استعادة العمل",why:"ده بعد الأزمة."}]},
+   {id:"q32",section:"s4",prompt:"عند حدوث حدث يمس الاستمرارية، الإبلاغ يكون:",answer:"بالبريد الإلكتروني للفريق المختص مع إخطار فريق BCM",clue:"BCMTeam.",
+    why:"البريد الرسمي بيوثق البلاغ وتوقيته، وإخطار فريق الاستمرارية بيضمن إنهم يتحركوا بالخطط والبدائل فورًا.",
+    wrong:[{option:"على جروب واتساب الفرع",why:"مش قناة رسمية."},{option:"بعد انتهاء الأزمة",why:"الإبلاغ فوري."},{option:"شفهيًا للزملاء",why:"مش موثق ومش للجهة المختصة."}]},
+   {id:"q33",section:"s4",prompt:"أهم المخاطر الحالية لاستمرارية الأعمال في 2026:",answer:"تعطل الأنظمة، انقطاع الكهرباء، انقطاع الاتصالات، تعطل الموردين الخارجيين",clue:"System / Power / Telecom / Vendor.",
+    why:"البنك بقى معتمد بالكامل على الأنظمة والاتصالات والموردين، فأي عطل في واحد منهم بيوقف الخدمة. ومثال سنترال رمسيس وضّح ده.",
+    wrong:[{option:"مخاطر السوق والسيولة",why:"مش مخاطر استمرارية تشغيلية."},{option:"تعثر العملاء",why:"ده خطر ائتمان."},{option:"تغيّر الاستراتيجية",why:"خطر استراتيجي."}]},
+   {id:"q34",section:"s4",prompt:"CAPA في إدارة مخاطر تكنولوجيا المعلومات تعني:",answer:"الإجراءات التصحيحية والوقائية",clue:"Corrective And Preventive Action.",
+    why:"بعد أي عطل تقني، الإدارة بتحدد السبب الجذري، وتصلح المشكلة الحالية (تصحيحي) وتمنع تكرارها (وقائي).",
+    wrong:[{option:"خطة استمرارية الأعمال",why:"دي BCP."},{option:"اختبار قبول المستخدم",why:"ده UAT."},{option:"تقييم مخاطر المشروعات الجديدة",why:"ده ORAP."}]},
+   {id:"q35",section:"s4",prompt:"خطوط الدفاع الأربعة بالترتيب:",answer:"وحدات الأعمال – القطاعات الرقابية – المراجعة الداخلية – الجهات الخارجية",clue:"من الأقرب للعملية.",
+    why:"الأول بيعمل الشغل ويملك الخطر، التاني بيراقبه ويحدد الصلاحيات، التالت مستقل جوه البنك بيقيّم الاتنين، والرابع من برّه البنك بيقيّم المنظومة كلها.",
+    wrong:[{option:"الرقابية – وحدات الأعمال – الخارجية – المراجعة",why:"الرقابية بتراقب وحدات الأعمال فتيجي بعدها."},{option:"المراجعة – الرقابية – وحدات الأعمال – الخارجية",why:"معكوس."},{option:"الخارجية – المراجعة – الرقابية – وحدات الأعمال",why:"معكوس تمامًا."}]}
+  ]
+};
+
+/* ===== أدوات ===== */
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<mark>$1</mark>').replace(/\[\[(.+?)\]\]/g,'<bdi class="en" dir="ltr">$1</bdi>');
+const $=(s,r=document)=>r.querySelector(s);
+const CAT=NOTE.categories;
+
+const plain=s=>String(s).replace(/\*\*|\[\[|\]\]/g,'');
+const lab=h=>` data-l="${esc(plain(h)).replace(/"/g,'&quot;')}"`;
+function table(t){
+  const n=t.headers.length;
+  return `<div class="stack">${t.title?`<h3>${inl(t.title)}</h3>`:''}
+  <div class="tscroll ${n>=3?'stk':'w2'}"><table><thead><tr>${t.headers.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead>
+  <tbody>${t.rows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0?' class="first"':''}${lab(t.headers[i]||'')}>${inl(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+  ${t.tip?`<div class="tip"><b>انتبه:</b> ${inl(t.tip)}</div>`:''}</div>`;
+}
+function summary(){
+  const s=NOTE.summary;
+  return `<section id="summary"><h2>الخلاصة</h2><div class="stack">
+   <p>${inl(s.lead)}</p>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">البند</th>${s.colHeaders.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead><tbody>
+   ${s.rows.map(r=>`<tr><td class="first">${inl(r.head)}${r.sub?`<small>${inl(r.sub)}</small>`:''}</td>${r.cells.map((c,i)=>`<td class="c-${c.cat}"${lab(s.colHeaders[i]||'')}>${inl(c.main)}${c.ex?`<span class="ex">${inl(c.ex)}</span>`:''}</td>`).join('')}</tr>`).join('')}
+   </tbody></table></div>
+   <p class="legend">${inl(s.legend)}</p>
+   <div class="golden"><b>القاعدة الذهبية:</b> ${inl(s.goldenRule)}</div></div></section>`;
+}
+function concepts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="grid">${sec.items.map(c=>`
+   <article class="card">
+    <span class="tag ${c.cat}">${CAT[c.cat]}</span>
+    <div class="cname"><span class="en">${esc(c.nameEn)}</span><span class="ar">${esc(c.nameAr)}</span></div>
+    <div class="formula">${c.formula.map(f=>`<div class="frow"><span class="dot ${f.sign==='+'?'p':f.sign==='-'?'m':'q'}">${f.sign==='+'?'✓':f.sign==='-'?'−':'?'}</span><span>${inl(f.text)}</span></div>`).join('')}</div>
+    <div><h4>بنستخدمه في</h4><ul class="plain">${c.uses.map(u=>`<li>${inl(u)}</li>`).join('')}</ul></div>
+    <div><h4>أمثلة</h4><div class="exs">${c.examples.map(e=>`<div class="exi"><span>${inl(e.en)}</span><span class="a2">${inl(e.ar)}</span></div>`).join('')}</div></div>
+    <div><h4>دلائل</h4><div class="sig">${c.signals.map(x=>`<span class="rtl">${esc(x)}</span>`).join('')}</div></div>
+    <div class="tip"><b>انتبه:</b> ${inl(c.tip)}</div>
+    ${c.src?`<p class="srcl">المصدر: ${esc(c.src)}</p>`:''}
+   </article>`).join('')}</div></section>`;
+}
+function compare(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><div class="cmp-title">${esc(c.title)}</div>
+    <div class="cmp-cols">${c.cols.map(col=>`<div class="cmp-col ${col.cat}"><h4>${esc(col.name)}</h4><p>${inl(col.when)}</p>
+      <ul class="plain">${col.ex.map(e=>`<li>${inl(e)}</li>`).join('')}</ul></div>`).join('')}</div>
+    <div class="golden"><b>القاعدة الذهبية:</b> ${inl(c.golden)}</div></article>`).join('')}</div></section>`;
+}
+function confusing(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.explain)}</p>
+    <ul class="cl">${c.examples.map(e=>{const k=e.correct===true?'ok':e.correct===false?'no':'nt';const m=k==='ok'?'✓':k==='no'?'✗':'•';
+      return `<li class="${k}"><span class="m">${m}</span><span><span class="t">${inl(e.text)}</span>${e.note?`<span class="note">${inl(e.note)}</span>`:''}</span></li>`}).join('')}</ul>
+   </article>`).join('')}</div></section>`;
+}
+function conflicts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`<article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.text)}</p></article>`).join('')}</div></section>`;
+}
+function reference(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.tables.map(table).join('')}</div></section>`;
+}
+function lookup(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">
+   <input class="search" id="lq" type="search" placeholder="اكتب كلمة دالة، مثلًا: رب المال أو الفلتر أو 1975" autocomplete="off" aria-label="بحث في الدلائل">
+   <div class="cnt" id="lcnt"></div>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">الدليل</th><th scope="col">المفهوم</th><th scope="col">ملاحظة</th></tr></thead><tbody id="lb"></tbody></table></div></div></section>`;
+}
+function fillLookup(rows){
+  const lb=$('#lb'),inp=$('#lq'),cnt=$('#lcnt');
+  const norm=s=>s.replace(/[ً-ْـ]/g,'').replace(/[إأآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').toLowerCase();
+  const draw=()=>{
+    const q=norm(inp.value.trim());
+    const r=rows.filter(x=>!q||norm(x.signal+' '+x.target+' '+x.note).includes(q));
+    lb.innerHTML=r.length?r.map(x=>`<tr><td class="first">${esc(x.signal)}</td><td data-l="المفهوم">${esc(x.target)}</td><td data-l="ملاحظة">${esc(x.note)}</td></tr>`).join(''):`<tr><td colspan="3" class="empty">مفيش نتيجة للكلمة دي.</td></tr>`;
+    cnt.textContent=r.length+' من '+rows.length;
+  };
+  inp.addEventListener('input',draw);draw();
+}
+
+/* ===== الكويز ===== */
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const LET=['A','B','C','D'];
+let QS={i:0,order:[],picks:[],opts:[]};
+function quizStart(){
+  QS={i:0,order:shuffle(QUIZ.questions.map((_,i)=>i)),picks:[],opts:{}};
+  quizDraw();
+}
+function quizDraw(){
+  const root=$('#quiz');
+  const n=QUIZ.questions.length;
+  if(QS.i>=n){return quizResult(root)}
+  const qi=QS.order[QS.i],q=QUIZ.questions[qi];
+  const sec=QUIZ.sections.find(s=>s.id===q.section).title;
+  const opts=QS.opts[qi]||(QS.opts[qi]=shuffle([{t:q.answer,ok:true},...q.wrong.map(w=>({t:w.option,ok:false,why:w.why}))]));
+  const pick=QS.picks[QS.i];
+  const answered=pick!==undefined;
+  const promptHtml=esc(q.prompt).replace('___',`<span class="blank${answered?(opts[pick].ok?' ok':' no'):''}">${answered?esc(q.answer):'&nbsp;&nbsp;&nbsp;&nbsp;'}</span>`);
+  root.innerHTML=`
+   <div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${QS.i+(answered?1:0)}"><i style="width:${(QS.i+(answered?1:0))/n*100}%"></i></div>
+   <div class="qmeta"><span>سؤال ${QS.i+1} من ${n}</span><span>${esc(sec)}</span></div>
+   <p class="qp">${promptHtml}</p>
+   <div class="opts">${opts.map((o,k)=>`<button type="button" class="opt${answered?(o.ok?' right':(k===pick?' wrongpick':'')):''}" data-k="${k}" ${answered?'disabled':''}><span class="L">${LET[k]}</span><span>${esc(o.t)}</span></button>`).join('')}</div>
+   ${answered?`<div class="fb" aria-live="polite">
+     <div class="v ${opts[pick].ok?'ok':'no'}">${opts[pick].ok?'صح.':'مش دقيق.'}</div>
+     <p><b>ليه الإجابة دي:</b> ${esc(q.why)}</p>
+     ${q.clue?`<p><b>الدليل:</b> ${esc(q.clue)}</p>`:''}
+     <div><b>ليه الباقي غلط:</b><ul>${opts.map((o,k)=>o.ok?'':`<li class="${k===pick?'picked':''}">${esc(o.t)}: ${esc(o.why)}${k===pick?' (اختيارك)':''}</li>`).join('')}</ul></div>
+    </div>
+    <button type="button" class="btn" id="qnext">${QS.i+1<n?'السؤال التالي':'شوف النتيجة'}</button>`:''}`;
+  root.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{QS.picks[QS.i]=+b.dataset.k;quizDraw();const nb=$('#qnext');if(nb)nb.focus({preventScroll:true})}));
+  const nb=$('#qnext');if(nb)nb.addEventListener('click',()=>{QS.i++;quizDraw();root.scrollIntoView({block:'nearest'})});
+}
+function quizResult(root){
+  const n=QUIZ.questions.length;let total=0;const per={};
+  QUIZ.sections.forEach(s=>per[s.id]={t:0,c:0});
+  QS.order.forEach((qi,i)=>{const q=QUIZ.questions[qi];const ok=QS.opts[qi][QS.picks[i]].ok;per[q.section].t++;if(ok){per[q.section].c++;total++}});
+  const rows=QUIZ.sections.filter(s=>per[s.id].t).map(s=>({s,p:Math.round(per[s.id].c/per[s.id].t*100)}));
+  const weak=rows.slice().sort((a,b)=>a.p-b.p)[0];
+  root.innerHTML=`<div class="res">
+   <div class="prog"><i style="width:100%"></i></div>
+   <div class="score"><bdi class="ltr" dir="ltr">${total} / ${n}</bdi></div>
+   <div class="bars">${rows.map(r=>`<div class="bar${r===weak&&r.p<100?' weak':''}"><span>${esc(r.s.title)}</span><span class="pb"><i style="width:${r.p}%"></i></span><span class="ltr">${r.p}%</span></div>`).join('')}</div>
+   <p>${weak.p<100?`أضعف قسم: <mark>${esc(weak.s.title)}</mark>. ارجع له في المذكرة وحاول تاني.`:'كل الأقسام 100%. ممتاز.'}</p>
+   <button type="button" class="btn" id="qrestart">ابدأ من جديد</button></div>`;
+  $('#qrestart').addEventListener('click',quizStart);
+}
+
+/* ===== التجميع ===== */
+// كل الأقسام بتترسم بترتيبها في الملف حسب نوعها (type)، حتى لو الـid مش من الأسماء الافتراضية
+const R={concepts,compare,confusing,conflicts,reference,lookup};
+const SHORT={concepts:'المفاهيم',compare:'الفروقات',confusing:'حالات بتلخبط',conflicts:'تعارضات',reference:'أرقام وجداول',lookup:'دوّر على دليل'};
+function chipName(sec){
+  const nConcepts=NOTE.sections.filter(x=>(x.type||x.id)==='concepts').length;
+  const t=(sec.type||sec.id);
+  if(t==='concepts'&&nConcepts>1){const c=String(sec.title||'').replace(/^\d+[\.\-\s]*/,'').split(/[:(،]/)[0].trim();return c.length>22?c.slice(0,21)+'…':c}
+  return SHORT[t]||sec.title;
+}
+function build(){
+  const secs=NOTE.sections.filter(x=>R[x.type||x.id]);
+  $('#sheet').innerHTML=`
+   <header class="hero"><span class="stamp">${esc(NOTE.stamp)}</span><h1>${esc(NOTE.title)}</h1><p class="sub">${esc(NOTE.subtitle)}</p></header>
+   ${summary()}${secs.map(x=>R[x.type||x.id](x)).join('')}
+   <section id="quiz-sec"><h2 id="quiz-h">اختبر نفسك</h2><div class="quiz" id="quiz"></div></section>
+   <p class="foot">ملخص مذاكرة لامتحان مصرفي أول G3</p>`;
+  $('#chips').innerHTML=[['summary','الخلاصة'],...secs.map(x=>[x.id,chipName(x)]),['quiz-sec','اختبر نفسك']]
+    .map(([id,l])=>`<a class="chip" href="#${id}" data-id="${id}">${esc(l)}</a>`).join('');
+  const lk=secs.find(x=>(x.type||x.id)==='lookup');if(lk)fillLookup(lk.rows);
+  quizStart();
+  const links=[...document.querySelectorAll('.chip')],bar=$('#chips');
+  const center=l=>{const a=l.getBoundingClientRect(),c=bar.getBoundingClientRect();bar.scrollBy({left:(a.left+a.width/2)-(c.left+c.width/2),behavior:'smooth'})};
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>{const on=l.dataset.id===e.target.id;if(on&&!l.classList.contains('on'))center(l);l.classList.toggle('on',on)})})},{rootMargin:'-80px 0px -65% 0px'});
+    links.forEach(l=>{const t=document.getElementById(l.dataset.id);if(t)io.observe(t)});
+  }
+}
+/* المظهر: زرار واحد شمس/قمر، ومحفوظ في kk-theme المشترك مع التطبيق */
+const themeBtn=$('#themeb');
+function curTheme(){try{return localStorage.getItem('kk-theme')||'system'}catch(e){return 'system'}}
+const isDark=()=>{const m=curTheme();return m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)};
+function setTheme(m){
+  const r=document.documentElement;
+  if(m==='light'||m==='dark')r.setAttribute('data-theme',m);else r.removeAttribute('data-theme');
+  try{localStorage.setItem('kk-theme',m)}catch(e){}
+  const d=isDark();themeBtn.classList.toggle('dark',d);themeBtn.setAttribute('aria-label',d?'الوضع الداكن. دوس للفاتح':'الوضع الفاتح. دوس للداكن');
+}
+themeBtn.addEventListener('click',()=>setTheme(isDark()?'light':'dark'));
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>setTheme(curTheme()));
+build();setTheme(curTheme());
+</script>
+
+<style>
+.bg3-home{position:fixed;left:max(14px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;
+ display:flex;align-items:center;gap:6px;padding:9px 16px 9px 14px;border-radius:999px;background:var(--head-bg);color:var(--head-ink);
+ font-family:var(--f-ui);font-weight:700;font-size:14px;line-height:1.3;text-decoration:none;box-shadow:var(--shadow)}
+.bg3-home svg{width:18px;height:18px}
+.bg3-home:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+</style>
+<a class="bg3-home" href="../index.html#notes" aria-label="رجوع لقائمة الملخصات">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>الملخصات</a>
+<script>
+(function(){var K="risk";
+function g(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var all=g('bg3:notes',{}),me=all[K]||{};me.last=Date.now();all[K]=me;s('bg3:notes',all);s('bg3:lastNote',K);
+if(location.hash==='#resume'){history.replaceState(null,'',location.pathname);
+ if(me.y)requestAnimationFrame(function(){setTimeout(function(){window.scrollTo({top:me.y,behavior:'instant'})},80)})}
+var t;addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(function(){
+ var a=g('bg3:notes',{}),m=a[K]||{},h=document.documentElement.scrollHeight-innerHeight,p=h>0?Math.round(scrollY/h*100):100;
+ m.y=Math.round(scrollY);m.pct=Math.max(m.pct||0,Math.min(100,p));a[K]=m;s('bg3:notes',a)},250)},{passive:true});
+})();
+</script>

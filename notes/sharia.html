@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c1f3f">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<title>ملخص الالتزام الشرعي</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: ورقة كشكول واحدة في النص، هامش أحمر، شريط أقسام ثابت فوق */
+:root{
+  --bg:#e6ebf3; --paper:#fbfcfe; --card:#ffffff; --card-edge:#cbd6e8;
+  --ink:#0c1f3f; --ink-2:#44577a; --line:#dbe3f0;
+  --gold:#c9a13b; --gold-ink:#7d5f0c; --gold-wash:#faf2d8; --hl:rgba(201,161,59,.38);
+  --margin:#d4584c;
+  --cat-a:#a23d35; --cat-a-wash:#fbebe9;
+  --cat-b:#1f4f9a; --cat-b-wash:#e6eefb;
+  --cat-c:#7d5f0c; --cat-c-wash:#faf2d8;
+  --ok:#1d7a4d; --no:#b3382e; --ok-wash:#e4f4ec; --no-wash:#fbebe9;
+  --head-bg:#0c1f3f; --head-ink:#f3f6fc;
+  --shadow:0 1px 0 rgba(12,31,63,.06),0 10px 28px rgba(12,31,63,.10);
+  --f-display:'Aref Ruqaa','Amiri',serif;
+  --f-body:'Tajawal','Cairo',system-ui,sans-serif;
+  --f-ui:'Cairo','Tajawal',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+    --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+    --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+    --margin:#e5675c;
+    --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+    --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+    --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+    --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+    --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+  --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+  --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+  --margin:#e5675c;
+  --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+  --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+  --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+  --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+  --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.95;margin:0;
+  padding-block:0 72px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));
+  -webkit-text-size-adjust:100%;text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+bdi.en,.ltr{font-family:var(--f-ui);unicode-bidi:isolate}
+.ltr{direction:ltr;text-align:left}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+
+/* شريط الأقسام */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);display:flex;gap:10px;align-items:center;padding-block:8px;border-bottom:1px solid var(--card-edge)}
+.chips{display:flex;gap:6px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none;padding-block:2px;
+  -webkit-mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);padding-inline-end:20px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-family:var(--f-ui);font-size:13.5px;font-weight:600;line-height:1.4;padding:6px 13px;border-radius:999px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chip:hover,.chip.on{background:var(--head-bg);border-color:var(--head-bg);color:var(--head-ink)}
+.themeb{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--card-edge);background:var(--card);color:var(--gold-ink);cursor:pointer;padding:0}
+.themeb svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.themeb .i-moon{display:none}
+.themeb.dark .i-sun{display:none}
+.themeb.dark .i-moon{display:block;fill:currentColor}
+
+/* الورقة */
+.sheet{position:relative;width:100%;background-color:var(--paper);
+  border-radius:6px;box-shadow:var(--shadow);padding-block:28px 40px;padding-inline-start:44px;padding-inline-end:28px;
+  display:flex;flex-direction:column;gap:44px;min-width:0}
+.sheet::before{content:"";position:absolute;inset-block:0;inset-inline-start:30px;width:0;border-inline-start:1.5px solid var(--margin);opacity:.55;pointer-events:none}
+.sheet::after{content:"";position:absolute;inset-block:0;inset-inline-start:9px;width:10px;pointer-events:none;
+  background:radial-gradient(circle at center,var(--bg) 0 3.5px,transparent 4px) center 36px/10px 96px repeat-y}
+.sheet>*{min-width:0}
+.sheet{overflow-wrap:anywhere}
+mark{background:none;color:inherit;box-shadow:inset 0 -.5em 0 var(--hl);padding-inline:1px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,6vw,42px);line-height:1.5;margin:0;text-decoration:underline wavy var(--gold);text-decoration-thickness:2px;text-underline-offset:12px;text-wrap:balance}
+section>h2{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.6;margin:0 0 16px;display:inline-block;box-shadow:inset 0 -.32em 0 var(--hl)}
+h3{font-family:var(--f-ui);font-size:17.5px;margin:0;line-height:1.6}
+p{margin:0}
+.lead{color:var(--ink-2)}
+.hero{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.stamp{display:inline-block;transform:rotate(-2deg);font-family:var(--f-ui);font-weight:600;font-size:13px;line-height:1.5;color:var(--gold-ink);background:var(--gold-wash);border:2px solid var(--gold);border-radius:6px;padding:2px 12px}
+.sub{color:var(--ink-2);font-size:17px}
+
+/* الجداول: جدول عادي على الشاشات الواسعة، وكروت مرصوصة على الموبايل (كل خانة معاها اسم العمود) */
+.tscroll{overflow-x:auto;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.75;table-layout:auto}
+th{background:var(--head-bg);color:var(--head-ink);font-family:var(--f-ui);font-weight:700;font-size:14px;padding:10px 14px;text-align:start;vertical-align:bottom;line-height:1.5}
+td{padding:11px 14px;vertical-align:top;text-align:start;border-top:1px solid var(--card-edge);font-variant-numeric:tabular-nums}
+tbody tr:nth-child(even) td:not([class]){background:color-mix(in srgb,var(--paper) 55%,transparent)}
+td.first{background:var(--gold-wash);font-weight:700;min-width:7.5em}
+td.first small{display:block;font-weight:400;color:var(--ink-2);font-size:13px;line-height:1.5}
+td.c-a{background:var(--cat-a-wash)} td.c-b{background:var(--cat-b-wash)} td.c-c{background:var(--cat-c-wash)}
+td .ex{display:block;color:var(--ink-2);font-size:13.5px;line-height:1.6;margin-top:4px}
+.tscroll.w2 table td.first{width:38%}
+@media (max-width:700px){
+  .tscroll.stk{overflow:visible;border:0;background:none;border-radius:0}
+  .tscroll.stk table,.tscroll.stk tbody,.tscroll.stk tr,.tscroll.stk td{display:block;width:100%}
+  .tscroll.stk thead{display:none}
+  .tscroll.stk tr{border:1px solid var(--card-edge);border-radius:10px;overflow:hidden;background:var(--card);margin-bottom:10px}
+  .tscroll.stk tr:last-child{margin-bottom:0}
+  .tscroll.stk td{border-top:1px solid var(--line);padding:9px 14px;background:none}
+  .tscroll.stk td.first{border-top:0;background:var(--gold-wash);font-size:16.5px;min-width:0}
+  .tscroll.stk td.c-a{background:var(--cat-a-wash)} .tscroll.stk td.c-b{background:var(--cat-b-wash)} .tscroll.stk td.c-c{background:var(--cat-c-wash)}
+  .tscroll.stk td[data-l]:not(.first)::before{content:attr(data-l);display:block;font-family:var(--f-ui);font-size:12.5px;font-weight:700;color:var(--ink-2);line-height:1.5;margin-bottom:1px}
+  .tscroll.stk td.empty::before{display:none}
+}
+.legend{font-size:14px;color:var(--ink-2);margin-top:12px}
+.legend .k{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-inline:4px 4px}
+
+/* مربعات */
+.golden,.tip,.formula{border:2px dashed var(--gold);background:var(--gold-wash);border-radius:8px;padding:10px 16px;line-height:1.9}
+.golden b{color:var(--gold-ink)}
+.tip{border-color:var(--margin);background:var(--card)}
+.tip b{color:var(--margin)}
+.stack{display:flex;flex-direction:column;gap:16px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.card{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tag{align-self:flex-start;font-family:var(--f-ui);font-size:12px;font-weight:700;line-height:1.5;padding:1px 10px;border-radius:999px}
+.tag.a{background:var(--cat-a-wash);color:var(--cat-a)} .tag.b{background:var(--cat-b-wash);color:var(--cat-b)} .tag.c{background:var(--cat-c-wash);color:var(--cat-c)}
+.cname{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.cname .en{font-family:var(--f-ui);font-weight:700;font-size:18px;direction:ltr}
+.cname .ar{font-size:16px;color:var(--ink-2)}
+.formula{display:flex;flex-direction:column;gap:6px;padding:10px 12px}
+.frow{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.dot{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-size:13px;font-weight:700;color:var(--paper);margin-top:2px}
+.dot.p{background:var(--ok)} .dot.m{background:var(--no)} .dot.q{background:var(--cat-b)}
+h4{font-family:var(--f-ui);font-size:14px;margin:0;color:var(--ink-2);line-height:1.6}
+ul.plain{margin:0;padding-inline-start:20px;display:flex;flex-direction:column}
+.exs{display:flex;flex-direction:column;gap:6px}
+.exi{display:flex;flex-direction:column;border-inline-start:3px solid var(--card-edge);padding-inline-start:12px;line-height:1.7}
+.exi .a2{color:var(--ink-2);font-size:14px}
+.sig{display:flex;flex-wrap:wrap;gap:6px}
+.sig span{direction:ltr;font-family:var(--f-ui);font-size:13px;line-height:1.5;padding:2px 10px;border-radius:999px;background:var(--gold-wash);color:var(--gold-ink);border:1px solid var(--gold)}
+.sig span.rtl{direction:rtl;font-family:var(--f-body)}
+.cmp-cols{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.cmp-col{border-radius:6px;border:1px solid var(--card-edge);padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.cmp-col.a{background:var(--cat-a-wash)} .cmp-col.b{background:var(--cat-b-wash)} .cmp-col.c{background:var(--cat-c-wash)}
+.cmp-col h4{color:var(--ink);font-size:15px}
+.cmp-title{direction:ltr;text-align:left;font-family:var(--f-ui);font-weight:700;font-size:18px}
+.cl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.cl li{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.cl .m{flex:none;width:22px;text-align:center;font-family:var(--f-ui);font-weight:700}
+.cl .ok .m{color:var(--ok)} .cl .no .m{color:var(--no)} .cl .nt .m{color:var(--cat-c)}
+.cl .no .t{text-decoration:line-through;text-decoration-color:var(--no)}
+.cl .note{display:block;font-size:13px;color:var(--ink-2);line-height:1.6}
+
+/* بحث */
+.search{width:100%;font:inherit;font-family:var(--f-ui);font-size:16px;line-height:1.5;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink)}
+.search::placeholder{color:var(--ink-2)}
+.cnt{font-size:13px;color:var(--ink-2);font-family:var(--f-ui)}
+.empty{padding:16px;color:var(--ink-2)}
+
+/* كويز */
+.quiz{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:16px}
+.prog{height:8px;border-radius:999px;background:var(--line);overflow:hidden;border:1px solid var(--card-edge)}
+.prog i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.qmeta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-ui);font-size:13px;color:var(--ink-2)}
+.qp{font-size:18px;line-height:1.9;font-weight:500}
+.qp .blank{display:inline-block;min-width:80px;border-bottom:2px dashed var(--gold);text-align:center;padding-inline:6px}
+.qp .blank.ok{border-bottom:2px solid var(--ok);color:var(--ok);font-weight:700}
+.qp .blank.no{border-bottom:2px solid var(--no);color:var(--no);font-weight:700}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:start;width:100%;font:inherit;line-height:1.7;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--paper);color:var(--ink);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--gold);background:var(--gold-wash)}
+.opt .L{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-weight:700;font-size:13px;line-height:1;background:var(--line);color:var(--ink);margin-top:2px}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--ok-wash);border-color:var(--ok)}
+.opt.wrongpick{background:var(--no-wash);border-color:var(--no)}
+.fb{display:flex;flex-direction:column;gap:10px;border-radius:8px;padding:12px 16px;background:var(--gold-wash);border:1px dashed var(--gold)}
+.fb .v{font-weight:700;font-family:var(--f-ui)}
+.fb .v.ok{color:var(--ok)} .fb .v.no{color:var(--no)}
+.fb ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:4px}
+.fb li.picked{font-weight:700}
+.btn{align-self:flex-start;font-family:var(--f-ui);font-weight:600;font-size:15px;line-height:1.4;padding:10px 20px;border-radius:8px;border:0;background:var(--head-bg);color:var(--head-ink);cursor:pointer}
+.res{display:flex;flex-direction:column;gap:12px}
+.score{font-family:var(--f-display);font-size:40px;line-height:1.4}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(90px,140px) 1fr 44px;gap:10px;align-items:center;font-size:14px;line-height:1.5}
+.bar .pb{height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar .pb i{display:block;height:100%;background:var(--cat-b)}
+.bar.weak .pb i{background:var(--no)}
+.srcl{font-family:var(--f-ui);font-size:12px;line-height:1.6;color:var(--ink-2);margin:0}
+.foot{font-size:14px;color:var(--ink-2)}
+@media (max-width:600px){
+  body{padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+  .sheet{padding-block:22px 32px;padding-inline-start:26px;padding-inline-end:14px;gap:38px}
+  .sheet::before{inset-inline-start:16px}
+  .sheet::after{display:none}
+  .card{padding:14px}
+  section>h2{font-size:25px}
+  .bar{grid-template-columns:84px 1fr 40px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.prog i{transition:none}}
+</style>
+
+<div class="wrap">
+  <nav class="nav" aria-label="أقسام المذكرة">
+    <div class="chips" id="chips"></div>
+    <button type="button" class="themeb" id="themeb" aria-label="المظهر">
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+    </button>
+  </nav>
+  <main class="sheet" id="sheet" dir="rtl" lang="ar"></main>
+</div>
+
+<script>
+/* ===== المحتوى ===== */
+const NOTE = {
+  title:"مفاهيم الالتزام الشرعي",
+  subtitle:"الحوكمة الشرعية والهيئة الشرعية ومخاطر عدم الالتزام، والضوابط الشرعية للصيغ والحسابات والخدمات، مع التركيز على اللي يخص موظف الفرع الإسلامي",
+  stamp:"مذكرة · Sharia Compliance",
+  categories:{a:"الحوكمة والهيئة", b:"المخاطر والفرع", c:"الصيغ والضوابط"},
+  summary:{
+    lead:"الالتزام الشرعي معناه إن **كل معاملة** في الفرع الإسلامي ماشية حسب **توصيات الهيئة الشرعية**. والرقابة بتحصل **قبل** التنفيذ و**أثناءه** و**بعده**. وأي موظف بيتعامل في منتج إسلامي **مسئول** عن الالتزام ده، مش إدارة الالتزام لوحدها.",
+    colHeaders:["إيه هو","المفتاح","رقم أو مثال"],
+    rows:[
+      {head:"الهيئة الشرعية", sub:"مين؟",
+       cells:[{main:"لجنة **مستقلة** من فقهاء المعاملات، و**توصياتها ملزمة**", ex:"عدد **فردي ≥ 3**، والتشكيل بقرار **الجمعية العامة**", cat:"a"},
+              {main:"اجتماع كل **3 شهور** على الأقل، وحضور العضو **≥ 75%**", ex:"عند التساوي يرجّح **صوت الرئيس**", cat:"a"},
+              {main:"تقرير **سنوي** للجمعية العامة عن مدى الالتزام", ex:"", cat:"a"}]},
+      {head:"الرقابة", sub:"إمتى؟",
+       cells:[{main:"**سابقة** + **مصاحبة** + **لاحقة** للتنفيذ", ex:"قبل وأثناء وبعد", cat:"a"},
+              {main:"الالتزام الشرعي: **السابقة والمصاحبة**", ex:"التدقيق الشرعي: **اللاحقة**", cat:"a"},
+              {main:"النطاق: **كل موظف** بيتعامل في المنتجات الإسلامية", ex:"إدارات وفروع", cat:"b"}]},
+      {head:"المخاطر", sub:"لو حصلت مخالفة",
+       cells:[{main:"**مالية**، **قانونية**، **سمعة**", ex:"", cat:"b"},
+              {main:"**مرتفع**: يأثر على **صحة المعاملة أو ربحها**", ex:"العميل ما مضاش إقرار فهم المرابحة", cat:"b"},
+              {main:"**متوسط**: إجرائي يتابَع · **منخفض**: شكلي بسيط", ex:"تأخير تحديث / عدم حفظ نسخة إلكترونية", cat:"b"}]},
+      {head:"الصيغ", sub:"أساس العقود",
+       cells:[{main:"الجاري = **قرض حسن** (الخراج بالضمان)", ex:"لا ربح ولا خسارة", cat:"c"},
+              {main:"الاستثماري والتوفير والشهادات = **مضاربة مطلقة** (الغُنم بالغُرم)", ex:"", cat:"c"},
+              {main:"المرابحة: البنك **يتملك قبل ما يبيع**", ex:"والربح **معلوم**", cat:"c"}]}
+    ],
+    legend:"الأحمر = الحوكمة والهيئة · الأزرق = المخاطر ودور الفرع · الذهبي = الصيغ والضوابط.",
+    goldenRule:"اسأل نفسك: **مين المسئول؟** كل موظف. **إمتى الرقابة؟** قبل وأثناء وبعد. **أخطر مخالفة؟** اللي بتبوّظ **صحة العقد أو ربحه**."
+  },
+  sections:[
+    {type:"concepts", id:"concepts", title:"الحوكمة والهيئة الشرعية", items:[
+      {nameEn:"Compliance Objectives", nameAr:"أهداف الالتزام بالمتطلبات الشرعية (5)", cat:"a",
+       formula:[{sign:"+",text:"**الامتثال** لمعايير الحوكمة الشرعية"},
+                {sign:"+",text:"**تعزيز التزام** البنك بالشريعة الإسلامية"},
+                {sign:"+",text:"**إحكام** عمليات الالتزام وضبطها"},
+                {sign:"+",text:"رفع **المصداقية والثقة**"},
+                {sign:"+",text:"**تنمية مهارات** العاملين في المجال الشرعي"}],
+       uses:["سؤال: من أهداف الالتزام الشرعي"],
+       examples:[{en:"تدريب موظفي الفروع على أحكام المرابحة",ar:"هدف **تنمية المهارات**"},
+                 {en:"تعظيم أرباح البنك",ar:"**مش** من الأهداف الخمسة"}],
+       signals:["امتثال","تعزيز","إحكام","مصداقية","تنمية"],
+       tip:"احفظها كده: **امتثال، التزام، إحكام، مصداقية، مهارات**. أي اختيار عن الربح أو الميزانية مش منهم.",
+       src:"مفاهيم الالتزام الشرعي"},
+      {nameEn:"Sharia Board", nameAr:"الهيئة الشرعية: تعريفها وتشكيلها", cat:"a",
+       formula:[{sign:"+",text:"لجنة **مستقلة** من الفقهاء المتخصصين في **فقه المعاملات**، بتوجّه أنشطة البنك وتراقبها"},
+                {sign:"+",text:"**فتواها وتوصياتها ملزمة** للبنك، وليها **لائحة عمل** و**أمانة عامة**"},
+                {sign:"+",text:"عدد **فردي** و**3 أعضاء على الأقل**، والرئيس **منهم**"},
+                {sign:"+",text:"التشكيل بقرار من **المساهمين في الجمعية العامة**، وليهم حق الإضافة والحذف"},
+                {sign:"-",text:"العضو **ما يكونش** في منصب إداري تنفيذي بالبنك، ولا مساهم مؤثر"},
+                {sign:"+",text:"هيئة بنك مصر: **د. مجدي عاشور** (رئيس)، **د. محمد وسام خضر**، **د. محمد إبراهيم البلتاجي**"}],
+       uses:["أسئلة التعريف والتشكيل"],
+       examples:[{en:"عضو هيئة شرعية بقى مدير قطاع بالبنك",ar:"**تعارض**؛ لازم يكون غير تنفيذي"},
+                 {en:"الهيئة 4 أعضاء",ar:"**مخالف**؛ لازم عدد فردي"}],
+       signals:["مستقلة","ملزمة","فردي ≥ 3","الجمعية العامة"],
+       tip:"العدد **فردي** عشان التصويت يحسم. والعضو **مش تنفيذي** عشان ما يحكمش على شغله.",
+       src:"شهادة المصرفي الإسلامي – الهيئة الشرعية"},
+      {nameEn:"Board Meetings", nameAr:"اجتماعات الهيئة", cat:"a",
+       formula:[{sign:"+",text:"بانتظام أو وقت الحاجة، و**مرة كل 3 شهور على الأقل**"},
+                {sign:"+",text:"صحة الاجتماع: حضور **أغلبية الأعضاء**، والتوصيات **بأغلبية الحاضرين**"},
+                {sign:"+",text:"لو الأصوات **اتساوت**: يرجح الجانب اللي فيه **رئيس اللجنة**"},
+                {sign:"+",text:"حضور العضو **≥ 75%** من اجتماعات السنة المالية"},
+                {sign:"+",text:"**محاضر موثقة** بالمناقشات والتصويت والتحفظات، وموقعة من **كل الحاضرين**"}],
+       uses:["أرقام الاجتماعات"],
+       examples:[{en:"تعادل 1 ضد 1 والرئيس مع الرأي الأول",ar:"**الرأي الأول** هو التوصية"}],
+       signals:["3 شهور","75%","أغلبية","صوت الرئيس"],
+       tip:"رقمين بس: **كل 3 شهور** و**75% حضور**.",
+       src:"الهيئة الشرعية – الاجتماعات"},
+      {nameEn:"Board Duties", nameAr:"مهام الهيئة الشرعية", cat:"a",
+       formula:[{sign:"+",text:"دراسة الموضوعات و**إصدار التوصيات الشرعية** ليتسنى للبنك الالتزام بيها، ووضع الضوابط للمنتجات"},
+                {sign:"+",text:"**مراجعة واعتماد** النماذج والعقود والاتفاقيات والسياسات **قبل** تطبيقها"},
+                {sign:"+",text:"اقتراح **الحلول والبدائل** الشرعية"},
+                {sign:"+",text:"الاطلاع على **تقارير التدقيق الشرعي** ومتابعة تنفيذ توصياتها"},
+                {sign:"+",text:"تقديم **المشورة** للإدارة"},
+                {sign:"+",text:"**تقرير سنوي** للجمعية العامة عن مدى توافق النشاط مع الشريعة"},
+                {sign:"+",text:"اقتراح **البرامج التدريبية** للعاملين"},
+                {sign:"-",text:"**مش** من مهامها: اعتماد الميزانية أو تعيين المديرين التنفيذيين"}],
+       uses:["سؤال: أهم مسئوليات الهيئة"],
+       examples:[{en:"منتج جديد",ar:"الهيئة تراجع العقد وتصدر **التوصية** قبل الطرح"}],
+       signals:["إصدار التوصيات","اعتماد العقود","تقرير سنوي"],
+       tip:"أهم مسئولية بتتسأل: **إصدار التوصيات بشأن المسائل الشرعية ليتسنى للبنك الالتزام بيها**.",
+       src:"مهام الهيئة"},
+      {nameEn:"Independence & Annual Report", nameAr:"الاستقلالية والتقرير السنوي", cat:"a",
+       formula:[{sign:"+",text:"إدارة البنك **تقر باستقلالية** الهيئة وتمنع أي تأثير عليها"},
+                {sign:"+",text:"الأصل إن **ارتباطها التنظيمي** يكون **مباشر بالجمعية العامة**"},
+                {sign:"-",text:"**ممنوع** تعديل أو تجاهل توصياتها **من غير موافقتها**"},
+                {sign:"+",text:"من حقها **معلومات كاملة**، ولو ما اتدّتهاش تبلغ الإدارة"},
+                {sign:"+",text:"ملتزمة **بالسرية**، لكن **إفصاحها للبنك عن مخالفات** مش خرق للسرية"},
+                {sign:"+",text:"**التقرير السنوي** للجمعية العامة: نطاق العمل، الأعمال، **إقرار الاستقلالية**، **رأيها في الالتزام**، توافق العقود، تقييم **الرقابة الداخلية**، التوصيات، وتوقيع الأعضاء"},
+                {sign:"+",text:"**رأي الهيئة الشرعية** = رأيها في **مدى التزام البنك بتطبيق الضوابط والمتطلبات الشرعية** (تقييم شامل، مش رصد مخالفات مالية بس)"}],
+       uses:["أسئلة الاستقلالية ورأي الهيئة"],
+       examples:[{en:"مدير عايز يعدّل توصية عشان تسهّل منتج",ar:"**لا** من غير موافقة الهيئة"}],
+       signals:["الجمعية العامة","استقلالية","رأي الهيئة"],
+       tip:"الاستقلالية معناها إن الهيئة **ترفع للجهة الأعلى** (الجمعية العامة) مش للإدارة التنفيذية اللي بتراقبها.",
+       src:"استقلالية الهيئة والتقرير السنوي"},
+      {nameEn:"Supervision Components", nameAr:"مكونات الرقابة الشرعية ومراحلها", cat:"a",
+       formula:[{sign:"+",text:"**الهيئة الشرعية**: الرأي والحلول والبدائل"},
+                {sign:"+",text:"**إدارة الالتزام الشرعي**: رقابة **سابقة ومصاحبة** للتنفيذ، و**تعاون الإدارات التنفيذية** في تدارك الملاحظات"},
+                {sign:"+",text:"**إدارة التدقيق الشرعي**: رقابة **لاحقة**؛ عينات ومراجعة وتقارير للهيئة والإدارة"},
+                {sign:"+",text:"الرقابة الشرعية بترتكز على **3 محاور**: **السابقة** + **المصاحبة** + **اللاحقة**"}],
+       uses:["سؤال: الرقابة الشرعية من حيث التوقيت"],
+       examples:[{en:"مراجعة عقد قبل ما يتمضي",ar:"رقابة **سابقة**"},
+                 {en:"متابعة التنفيذ في الفرع لحظيًا",ar:"رقابة **مصاحبة**"},
+                 {en:"عينة ملفات بعد التنفيذ",ar:"رقابة **لاحقة** (تدقيق)"}],
+       signals:["سابقة","مصاحبة","لاحقة"],
+       tip:"أكتر غلطة: اختيار **سابقة ولاحقة فقط**. متنساش **المصاحبة**.",
+       src:"مكونات الرقابة الشرعية"},
+      {nameEn:"8 References", nameAr:"المرجعيات الثمانية للالتزام الشرعي", cat:"a",
+       formula:[{sign:"+",text:"**توصيات الهيئة الشرعية**"},
+                {sign:"+",text:"**أدلة التعليمات** والسياسات الداخلية"},
+                {sign:"+",text:"**النماذج والعقود المعتمدة** (مرابحة، مضاربة، إجارة)"},
+                {sign:"+",text:"**تعليمات الجهات الرقابية** (البنك المركزي)"},
+                {sign:"+",text:"**لوائح عمل الهيئة**"},
+                {sign:"+",text:"**المعايير الشرعية الدولية** (هيئة المحاسبة والمراجعة للمؤسسات المالية الإسلامية)"},
+                {sign:"+",text:"**تقارير الفحص والتدقيق**"},
+                {sign:"+",text:"**التعليمات المستجدة**"}],
+       uses:["سؤال: من مرجعيات إدارة الالتزام"],
+       examples:[{en:"تعميم جديد من البنك المركزي",ar:"**تعليمات رقابية** و**مستجدة**"}],
+       signals:["توصيات","أدلة","عقود","رقابية","لوائح","دولية","تقارير","مستجدة"],
+       tip:"المرجعيات كلها **مصادر قواعد**. لو الاختيار عن **رأي العميل** أو **أرباح البنك**، فهو مش منها.",
+       src:"مفاهيم الالتزام الشرعي"},
+      {nameEn:"Governance Importance", nameAr:"أهمية الحوكمة الشرعية (6)", cat:"a",
+       formula:[{sign:"+",text:"**الحد من مخاطر عدم الالتزام الشرعي** (ده هدفها الأساسي)"},
+                {sign:"+",text:"دعم **استقرار** الصناعة المالية الإسلامية"},
+                {sign:"+",text:"تحسين **الكفاءة التشغيلية**"},
+                {sign:"+",text:"جذب **الاستثمارات الخارجية**"},
+                {sign:"+",text:"تحسين **الثقة مع أصحاب المصالح**: العملاء (ولاء، رضا، رصيد أعلى) والرقابيين (تقييمات أحسن، غرامات أقل)"},
+                {sign:"+",text:"تعزيز العلاقة مع **المودعين والمستثمرين**"}],
+       uses:["سؤال: الحوكمة الشرعية بتحمي من إيه؟"],
+       examples:[{en:"الحوكمة بتحمي البنك من",ar:"**مخاطر عدم الالتزام الشرعي**"}],
+       signals:["الحد من المخاطر","ثقة","استقرار"],
+       tip:"لو السؤال **'تحمي من إيه'**: جاوب **مخاطر عدم الالتزام الشرعي**، مش مخاطر التدقيق ولا الرقابة الداخلية.",
+       src:"مفاهيم الالتزام الشرعي"}
+    ]},
+    {type:"concepts", id:"risk", title:"المخاطر ودور الفرع", items:[
+      {nameEn:"Scope", nameAr:"نطاق تطبيق الالتزام الشرعي", cat:"b",
+       formula:[{sign:"+",text:"بيشمل **موظفي الإدارات والفروع** اللي بتتعامل في **المنتجات والخدمات المصرفية الإسلامية**"},
+                {sign:"-",text:"**مش** مقصور على إدارة الالتزام ولا على الإدارة التنفيذية"}],
+       uses:["سؤال النطاق"],
+       examples:[{en:"موظف خدمة عملاء في فرع كنانة",ar:"**مسئول** عن الالتزام في معاملاته"}],
+       signals:["كل موظف","المنتجات الإسلامية"],
+       tip:"أنت أول خط رقابة **مصاحبة**؛ لأنك اللي بتنفذ قدام العميل.",
+       src:"مفاهيم الالتزام الشرعي"},
+      {nameEn:"Non-Compliance Risks", nameAr:"مخاطر عدم الالتزام الشرعي وأسبابها", cat:"b",
+       formula:[{sign:"+",text:"**مالية**: خسائر من **إلغاء** معاملات غير متوافقة، **غرامات** رقابية، تكاليف إعادة هيكلة"},
+                {sign:"+",text:"**قانونية**: مخالفات للبنك المركزي، مشاكل مع مراقبي الحسابات، **مساءلة من العملاء**"},
+                {sign:"+",text:"**سمعة**: فقدان ثقة العملاء والمودعين، تراجع الحصة السوقية"},
+                {sign:"+",text:"الأسباب: **ضعف الوعي الشرعي** + **إهمال الإجراءات** + **عدم تدريب العاملين** (جميع ما سبق)"}],
+       uses:["أنواع المخاطر"],
+       examples:[{en:"عقد مرابحة اتلغى لأنه اتمضي قبل تملك البنك",ar:"خطر **مالي** (ضياع الربح) و**سمعة**"}],
+       signals:["مالية","قانونية","سمعة","جميع ما سبق"],
+       tip:"في أسئلة **الأسباب**، الإجابة غالبًا **جميع ما سبق**؛ لأن الأسباب متداخلة.",
+       src:"مفاهيم الالتزام الشرعي"},
+      {nameEn:"Risk Levels", nameAr:"مستويات المخاطر الشرعية", cat:"b",
+       formula:[{sign:"+",text:"**مرتفع**: خطر **جوهري** يأثر على **صحة المعاملة أو ربحها** ويضر السمعة. مؤشراته: **مفيش موافقة شرعية**، **مخالفة صريحة للفتاوى**"},
+                {sign:"+",text:"**متوسط**: يحتاج **متابعة** وما يتكررش، ومش بيأثر على الربح. مؤشراته: **أخطاء توثيق**، **تأخير تحديثات**"},
+                {sign:"+",text:"**منخفض**: بسيط، **سهل التصحيح**. مؤشراته: **أخطاء إجرائية بسيطة**، **مخالفات شكلية في الملفات**"}],
+       uses:["تصنيف موقف عملي"],
+       examples:[{en:"العميل ما مضاش إقرار فهم طبيعة المرابحة رغم إنه اتشرح له شفهي",ar:"**مرتفع**"},
+                 {en:"تأخير يومين في تحديث ملف العميل بآخر التوصيات",ar:"**متوسط**"},
+                 {en:"نسخة العقد مش محفوظة إلكترونيًا رغم وجودها ورقي",ar:"**منخفض**"}],
+       signals:["صحة المعاملة","متابعة","شكلي"],
+       tip:"المعيار: **هل المعاملة نفسها لسه صحيحة؟** لو لأ أو مشكوك فيها يبقى **مرتفع**. لو صحيحة بس الإجراء متأخر يبقى **متوسط**. لو شكل بس يبقى **منخفض**.",
+       src:"مفاهيم الالتزام الشرعي"},
+      {nameEn:"Branch Controls", nameAr:"ضوابط في إيدك في الفرع", cat:"b",
+       formula:[{sign:"-",text:"**ما تمضيش العميل على عقد المرابحة** قبل ما البنك **يتملك السلعة** (حقيقي أو حكمي)"},
+                {sign:"+",text:"قيد **الارتباط مع المورد** بيتعمل **عند شراء البنك للبضاعة**"},
+                {sign:"+",text:"البنك **يدفع للمورد بنفسه**، وعروض الأسعار **يُفضّل تكون باسم البنك**"},
+                {sign:"-",text:"البائع لازم **طرف تالت**، مش العميل ولا وكيله ولا حد له علاقة بيه (عشان ما تبقاش **بيع عينة** أو بيع صوري)"},
+                {sign:"-",text:"**ما ينفعش** تطالب العميل بمصاريف **خارج العقد**، ولا **تزود المديونية** مقابل التأخير"},
+                {sign:"+",text:"مرابحة السيارات: **نوع ومواصفات العربية وثمنها والربح وطريقة السداد** واضحين في العقد"},
+                {sign:"+",text:"العميل **يمضي إقرار فهم طبيعة المرابحة**، وملفه **يتحدث** بآخر التوصيات"}],
+       uses:["تنفيذ يومي"],
+       examples:[{en:"العميل جاب عرض سعر من معرض أخوه",ar:"**مرفوض**؛ البائع ليه علاقة بالعميل"},
+                 {en:"العميل مضى عقد المرابحة والبنك لسه ما اشتراش",ar:"**مخالفة جوهرية**"}],
+       signals:["تملك قبل البيع","طرف ثالث","مصاريف خارج العقد"],
+       tip:"البنك بيكسب في المرابحة لأنه **تاجر بيتحمل مخاطر الملكية**. لو باع قبل ما يملك، يبقى ده **تمويل بفايدة متخفي**.",
+       src:"الضوابط الشرعية للمرابحة"}
+    ]},
+    {type:"concepts", id:"forms", title:"الصيغ والضوابط", items:[
+      {nameEn:"Islamic vs Conventional", nameAr:"الفرق بين البنوك الإسلامية والتقليدية", cat:"c",
+       formula:[{sign:"+",text:"**النقود**: وسيلة **بيتاجر بيها** (إسلامي) / سلعة **بيتاجر فيها** (تقليدي)"},
+                {sign:"+",text:"**العميل**: **شريك** / دائن ومدين"},
+                {sign:"+",text:"**العقد**: **مشاركة** / مديونية"},
+                {sign:"+",text:"**الربح**: **معلوم غير مقطوع** / معلوم ومقطوع"},
+                {sign:"+",text:"**الآلية**: **المشاركة في الربح** / سعر الفائدة"},
+                {sign:"+",text:"**التمويل**: **أصول وسلع وخدمات** / ديون"},
+                {sign:"+",text:"**الضوابط**: **مصرفية وشرعية** / مصرفية"},
+                {sign:"+",text:"البنك الإسلامي بيطبق **الوساطة المالية** القائمة على **المشاركة في الربح والخسارة** في إطار **الوكالة العامة والخاصة**"}],
+       uses:["أسئلة صح وغلط"],
+       examples:[{en:"الوساطة في البنوك التقليدية على أساس المشاركة في الربح والخسارة",ar:"**غلط**؛ دي للإسلامية"},
+                 {en:"التمويل الإسلامي تمويل سلع وأصول مش ديون",ar:"**صح**"}],
+       signals:["وسيلة / سلعة","شريك","معلوم غير مقطوع"],
+       tip:"قاعدة واحدة بتفسر كل الجدول: **الغُنم بالغُرم**. اللي بياخد الربح لازم يشيل الخطر.",
+       src:"شهادة المصرفي الإسلامي"},
+      {nameEn:"Investment Controls", nameAr:"ضوابط استثمار الأموال", cat:"c",
+       formula:[{sign:"+",text:"**المشروعية**: الأصل في المعاملات **الحِل** طالما مفيهاش محرّم"},
+                {sign:"+",text:"**مقاصد الشريعة**: حفظ الدين والنفس والعقل والنسل والمال"},
+                {sign:"+",text:"**القواعد الفقهية**: الغُنم بالغُرم، الخراج بالضمان، لا ضرر ولا ضرار، المشقة تجلب التيسير"},
+                {sign:"+",text:"**الأولويات**: الضروريات ثم الحاجيات ثم التحسينات"},
+                {sign:"+",text:"**تنمية المال** وعدم الاكتناز، و**حمايته** من المخاطر، واتباع أفضل السبل"},
+                {sign:"+",text:"الصدق والأمانة، ومنع **الغش والغرر والاحتكار**، و**توثيق** المعاملات"}],
+       uses:["أسئلة الضوابط العامة"],
+       examples:[{en:"تمويل مصنع خمور",ar:"يخالف **المشروعية**"}],
+       signals:["الغنم بالغرم","الخراج بالضمان","المقاصد"],
+       tip:"**الغنم بالغرم** = الربح مقابل تحمّل الخسارة. **الخراج بالضمان** = اللي بيضمن الأصل ليه عائده.",
+       src:"ضوابط استثمار الأموال"},
+      {nameEn:"Murabaha", nameAr:"المرابحة للآمر بالشراء", cat:"c",
+       formula:[{sign:"+",text:"بيع **بمثل الثمن الأول** + **ربح معلوم**؛ يعني بيع **بالتكلفة مضاف لها ربح**"},
+                {sign:"+",text:"الأطراف: **عميل وبنك ومورد**"},
+                {sign:"+",text:"الضوابط: السلعة **مباحة**، الربح **معلوم** بنسبة أو مبلغ، و**العقد الأول** (شراء البنك من المورد) **صحيح**"},
+                {sign:"+",text:"البنك بيبيع سلعة **على الوصف مع الحيازة المستندية**"},
+                {sign:"+",text:"لو العميل **نكل** عن وعد ملزم: البنك ياخد تعويض عن **الضرر الفعلي** بس"},
+                {sign:"+",text:"**هامش الجدية**: مبلغ **قابل للاسترداد**"},
+                {sign:"+",text:"يجوز شرط **بيع البراءة** (البراءة من عيوب السلعة)"},
+                {sign:"-",text:"**ممنوع**: المرابحة المؤجلة على **الذهب والفضة والعملات**، وتحويل ارتباط سابق بين العميل والبائع للبنك"},
+                {sign:"+",text:"**التولية** = البيع **برأس المال** من غير زيادة ولا نقص. **الوضيعة** = بخسارة"}],
+       uses:["أسئلة المرابحة"],
+       examples:[{en:"العميل مضى عقد شراء مع المعرض قبل ما يجي البنك",ar:"**ما ينفعش** تحويل الارتباط للبنك"},
+                 {en:"عميل عايز مرابحة على سبيكة ذهب بالتقسيط",ar:"**ممنوع**"}],
+       signals:["تكلفة + ربح","حيازة مستندية","هامش الجدية"],
+       tip:"الذهب والفضة والعملات **أثمان**، وتبادلها لازم يكون **يد بيد**، فما ينفعش فيها تأجيل.",
+       src:"المرابحة وضوابطها"},
+      {nameEn:"Murabaha by Wakala (Sharia view)", nameAr:"المرابحة بالوكالة شرعًا", cat:"c",
+       formula:[{sign:"+",text:"يجوز للبنك يشتري عن طريق **وكيل غير الآمر بالشراء**، و**توكيل العميل** بيبقى **عند الحاجة الملحة** بس"},
+                {sign:"-",text:"الوكيل **ما يبيعش لنفسه**؛ البيع بيتم **من خلال البنك** بعد ما يتملك السلعة مستنديًا"},
+                {sign:"+",text:"البنك يدفع الثمن **للبائع مباشرة** كل ما أمكن، ويجيب **المستندات** اللي تثبت حقيقة البيع"},
+                {sign:"+",text:"**بطاقة ائتمان كنانة** شغالة بصيغة **المرابحة بالوكالة**"}],
+       uses:["فهم أساس منتج الوكالة"],
+       examples:[{en:"ليه بنطلب إيصالات من المورد لو متوفرة؟",ar:"لإثبات **حقيقة البيع**"}],
+       signals:["وكيل","حاجة ملحة","حقيقة البيع"],
+       tip:"الوكالة **استثناء** محتاج ضبط، ومستنداته (إقرار، إيصالات) هي اللي **بتثبت إن فيه بيع حقيقي**.",
+       src:"المرابحة بالوكالة"},
+      {nameEn:"Mudaraba & Musharaka", nameAr:"المضاربة والمشاركة", cat:"c",
+       formula:[{sign:"+",text:"**المضاربة**: شركة في الربح، **مال من طرف** (رب المال) و**عمل من طرف** (المضارب)"},
+                {sign:"+",text:"نوعين: **مطلقة** و**مقيدة**. ورأس المال **معلوم** و**ما ينفعش يكون دين**"},
+                {sign:"+",text:"الربح **بالنسبة المتفق عليها**، والخسارة على **رب المال**، والمضارب يخسر **جهده**"},
+                {sign:"+",text:"المضارب **أمين**؛ يضمن رأس المال بس لو **تعدّى أو قصّر أو خالف الشروط**"},
+                {sign:"+",text:"المضاربة من **عقود الأمانات**، ويجوز للمضارب **يخلط ماله** بمال المضاربة"},
+                {sign:"+",text:"**المشاركة**: الطرفين شركاء في **العمل ورأس المال**؛ الربح **حسب الاتفاق**، والخسارة **حسب حصص رأس المال**"},
+                {sign:"+",text:"**المتناقصة**: طرف يتعهد يشتري حصة التاني تدريجيًا، وشروط البيع **ما تدخلش في عقد المشاركة**"}],
+       uses:["أسئلة الصيغ"],
+       examples:[{en:"الخسارة في المشاركة حسب الاتفاق",ar:"**غلط**؛ حسب حصص رأس المال"},
+                 {en:"ضمان الأرباح وفق رأس المال في المضاربة",ar:"**غلط**؛ الربح مش مضمون"}],
+       signals:["مال + عمل","أمانة","تعدّي / تقصير"],
+       tip:"الربح ممكن **يتفق عليه** بأي نسبة، لكن الخسارة **مالهاش اتفاق**: بتتوزع على **رأس المال**.",
+       src:"صيغ التمويل"},
+      {nameEn:"Ijara & Istisna", nameAr:"الإجارة والاستصناع", cat:"c",
+       formula:[{sign:"+",text:"**الإجارة**: العقد على **المنافع**؛ البنك يأجّر أصل مملوك له مقابل أجرة محددة"},
+                {sign:"+",text:"**المنتهية بالتمليك**: طريقة التمليك بتتحدد في **وثيقة مستقلة** عن عقد الإجارة (وعد بالبيع، وعد بالهبة، أو هبة معلقة على سداد الأقساط)"},
+                {sign:"+",text:"**الإجارة مع الوعد بالتمليك** = تأجير المنفعة **ثم** بيع العين"},
+                {sign:"+",text:"عميل محتاج **منفعة آلات معينة وموجودة** وعايز يتملكها بعدين ← **إجارة مع الوعد بالتمليك**"},
+                {sign:"+",text:"**الاستصناع**: بيع أصل **هيتصنّع** بمواصفات محددة، مع **استصناع موازٍ** مع الصانع، **من غير ربط** بين العقدين"}],
+       uses:["أسئلة التكييف"],
+       examples:[{en:"عميل عايز يبني مصنع بمواصفات خاصة",ar:"**استصناع**"}],
+       signals:["منافع","وثيقة مستقلة","استصناع موازٍ"],
+       tip:"الإجارة: **البنك مالك** طول المدة، فهو بيتحمل مخاطر الأصل، وده اللي بيبرر الأجرة.",
+       src:"صيغ التمويل"},
+      {nameEn:"Accounts & Certificates", nameAr:"الضوابط الشرعية للحسابات والشهادات", cat:"c",
+       formula:[{sign:"+",text:"**الجاري**: **قرض حسن** بقاعدة **الخراج بالضمان**؛ لا ربح ولا خسارة، والبنك يرد الرصيد عند الطلب، والعميل **يأذن للبنك** يستثمره"},
+                {sign:"+",text:"**الاستثماري والتوفير والشهادات**: **مضاربة مطلقة** بقاعدة **الغُنم بالغُرم**؛ البنك **وكيل** في الاستثمار"},
+                {sign:"+",text:"الاستثمار بيشمل **كامل المبلغ** إلا **الاحتياطي القانوني** و**نسبة السيولة**"},
+                {sign:"+",text:"العائد **نسبة شائعة من الربح**: البنك (كمضارب) **50%** في ملحق الضوابط، والعميل يتحمل الخسارة **إلا لو البنك قصّر**"},
+                {sign:"+",text:"**اليومي**: العائد **تحت التسوية** لحد آخر الشهر"},
+                {sign:"+",text:"**لجنة تحديد معدلات العائد للفروع الإسلامية**: بتنعقد **آخر كل شهر ميلادي**"},
+                {sign:"+",text:"النسب المكتوبة عند فتح الحساب **سارية** لحد ما البنك يعدّلها ويبلغ العميل في الفروع أو بأي إعلان"}],
+       uses:["أسئلة الحسابات"],
+       examples:[{en:"الحساب الجاري بيستحق عائد",ar:"**غلط**"},
+                 {en:"الحساب الاستثماري يخضع لـ",ar:"**الغنم بالغرم + المضاربة**"}],
+       signals:["قرض حسن","مضاربة مطلقة","50%","آخر الشهر"],
+       tip:"**الجاري مضمون**، فمالوش ربح (الخراج بالضمان). **الاستثماري مش مضمون**، فليه ربح (الغنم بالغرم).",
+       src:"ضوابط الأوعية الادخارية"},
+      {nameEn:"Banking Services", nameAr:"الخدمات المصرفية وتكييفها", cat:"c",
+       formula:[{sign:"+",text:"الخدمات بتتكيّف **إجارة أو وكالة أو كفالة**، والبنك ياخد **أجر** (مقطوع أو نسبة معلومة)"},
+                {sign:"+",text:"**الاعتمادات** و**خطابات الضمان**: وكالة / كفالة"},
+                {sign:"+",text:"**التحصيل**، **إدارة الأوراق المالية**، **إصدار الفيزا**، **التحويلات**: **وكالة**"},
+                {sign:"+",text:"**تبديل العملة**: **عقد صرف**. **الخزائن**: **إجارة**. **السحب على المكشوف**: **قرض حسن**"},
+                {sign:"-",text:"**مرفوض**: **خصم الأوراق التجارية** (بيع ديون) و**الجاري المدين بفائدة**"},
+                {sign:"+",text:"**صناديق الاستثمار**: إدارة على أساس **الوكالة أو المضاربة**"}],
+       uses:["أسئلة التكييف"],
+       examples:[{en:"تحويل للخارج",ar:"**وكالة** بأجر"},
+                 {en:"تأجير خزينة",ar:"**إجارة**"}],
+       signals:["وكالة","كفالة","إجارة","صرف"],
+       tip:"الخدمة اللي فيها **فلوس بتتدفع مقدمًا من البنك بفايدة** مرفوضة. اللي فيها **مجهود بأجر** مقبولة.",
+       src:"الخدمات المصرفية"},
+      {nameEn:"Defaulting Debtor", nameAr:"المدين المماطل", cat:"c",
+       formula:[{sign:"+",text:"**غرامة الضرر** على المماطل، ودليلها حديث **«لَيُّ الواجد يُحِل عرضه وعقوبته»**"},
+                {sign:"+",text:"المماطل **يتحمل المصاريف القضائية** لأنه المتسبب"},
+                {sign:"+",text:"يجوز اشتراط **حلول الأقساط كلها** لو اتأخر"},
+                {sign:"-",text:"**ممنوع زيادة المديونية** مقابل التأخير (ربا)"},
+                {sign:"+",text:"يجوز طلب **كفيل أو أكتر**، وتوقيت الكفالة، ووضع حد أعلى للمبلغ المكفول"}],
+       uses:["أسئلة التعثر"],
+       examples:[{en:"العميل اتأخر 3 أقساط",ar:"**غرامة ضرر** (مش زيادة في الدين)"}],
+       signals:["لي الواجد","غرامة ضرر","مصاريف قضائية"],
+       tip:"الفرق: **زيادة الدين** بتدخل للبنك كربح، ودي **ربا**. **غرامة الضرر** عقوبة على المماطلة بضوابط الهيئة، مش ثمن للوقت.",
+       src:"المدين المماطل"}
+    ]},
+    {type:"compare", id:"compare", title:"الفروقات", items:[
+      {title:"Current vs Investment", cols:[
+        {name:"الحساب الجاري", cat:"c", when:"قرض حسن",
+         ex:["الخراج بالضمان","مضمون للعميل","لا ربح ولا خسارة"]},
+        {name:"الاستثماري / التوفير / الشهادات", cat:"c", when:"مضاربة مطلقة",
+         ex:["الغنم بالغرم","مش مضمون","ربح بنسبة شائعة، والخسارة على العميل إلا لو البنك قصّر"]}],
+       golden:"**الضمان** هو اللي بيحدد: المضمون **مالوش ربح**، وغير المضمون **ليه ربح**."},
+      {title:"Compliance vs Audit", cols:[
+        {name:"إدارة الالتزام الشرعي", cat:"a", when:"قبل وأثناء",
+         ex:["رقابة سابقة ومصاحبة","معاونة الإدارات التنفيذية"]},
+        {name:"إدارة التدقيق الشرعي", cat:"a", when:"بعد",
+         ex:["رقابة لاحقة","عينات وتقارير للهيئة"]}],
+       golden:"**الالتزام بيمنع**، و**التدقيق بيكتشف**."},
+      {title:"Mudaraba vs Musharaka", cols:[
+        {name:"المضاربة", cat:"c", when:"مال من طرف وعمل من طرف",
+         ex:["الخسارة على رب المال","المضارب يخسر جهده","المضارب أمين"]},
+        {name:"المشاركة", cat:"c", when:"الاتنين مال وعمل",
+         ex:["الربح حسب الاتفاق","الخسارة حسب حصص رأس المال"]}],
+       golden:"في الاتنين **الخسارة تتبع رأس المال**."}
+    ]},
+    {type:"confusing", id:"confusing", title:"حالات بتلخبط", items:[
+      {title:"تصنيف مستوى الخطر",
+       explain:"المعيار: هل المعاملة نفسها اتأثرت؟",
+       examples:[{text:"العميل ما مضاش إقرار فهم المرابحة",note:"مرتفع",correct:true},
+                 {text:"تأخير تحديث ملف العميل",note:"متوسط",correct:true},
+                 {text:"عدم حفظ نسخة إلكترونية والورقي موجود",note:"منخفض",correct:true},
+                 {text:"تأخير التحديث = مرتفع",note:"غلط؛ مش بيأثر على صحة المعاملة",correct:false}]},
+      {title:"قواعد بتتشابه",
+       explain:"قاعدتين بيتقلبوا كتير.",
+       examples:[{text:"الخراج بالضمان",note:"الحساب الجاري (قرض حسن)",correct:true},
+                 {text:"الغنم بالغرم",note:"الاستثماري والشهادات (مضاربة)",correct:true},
+                 {text:"الاستثماري = الخراج بالضمان",note:"غلط",correct:false}]},
+      {title:"أنواع البيوع",
+       explain:"حسب علاقة السعر بالتكلفة.",
+       examples:[{text:"التولية",note:"بالتكلفة بالظبط",correct:true},
+                 {text:"المرابحة",note:"التكلفة + ربح",correct:true},
+                 {text:"الوضيعة",note:"أقل من التكلفة",correct:true},
+                 {text:"المساومة",note:"من غير ذكر التكلفة",correct:true}]}
+    ]},
+    {type:"conflicts", id:"conflicts", title:"تنبيهات", items:[
+      {title:"الهيئة الشرعية بترفع تقاريرها لمين؟",
+       text:"الضوابط الرسمية بتقول إن ارتباط الهيئة التنظيمي **مباشر بالجمعية العامة**، وتقريرها السنوي بيتقدم **للجمعية العامة**. ملخص 'مفاهيم الالتزام الشرعي' مكتوب فيه إنها ترفع **لمجلس الإدارة** لضمان استقلالها عن التنفيذيين، لكن في سؤال الاختبار علّم على **'الإدارات التنفيذية'**، وده بيتعارض مع فكرة الاستقلالية نفسها. لو الاختيارات فيها **الجمعية العامة** اختارها. ولو مش موجودة، فالأقرب لفكرة الاستقلالية **مجلس الإدارة**. خلي بالك إن مصدر 'الإدارات التنفيذية' هو الملخص ده بس."},
+      {title:"'الوساطة المالية' في البنك الإسلامي",
+       text:"فيه أسئلة صح وغلط بتقول إن الوساطة في البنوك الإسلامية قائمة على **المديونية وسعر الفائدة**، ودي **غلط**. الصح: قائمة على **المشاركة في الربح والخسارة**، وده اللي بيميزها عن التقليدية."}
+    ]},
+    {type:"reference", id:"ref", title:"أرقام", tables:[
+      {id:"nums", title:"أرقام", headers:["البند","القيمة"],
+       rows:[["أعضاء الهيئة","عدد فردي، 3 على الأقل"],["اجتماعات الهيئة","مرة كل 3 شهور على الأقل"],["حضور العضو","≥ 75% من اجتماعات السنة"],
+             ["أهداف الالتزام","5"],["المرجعيات","8"],["أهمية الحوكمة","6 نقاط"],["مستويات الخطر","3 (مرتفع، متوسط، منخفض)"],
+             ["محاور الرقابة","3 (سابقة، مصاحبة، لاحقة)"],["حصة البنك كمضارب","50% من الربح"],["لجنة معدلات العائد","آخر كل شهر ميلادي"],
+             ["البنوك في مصر","37، منها 14 بتقدم منتجات إسلامية"],["فروع بنك مصر كنانة","56 فرع"],["أساس النشاط الإسلامي لبنك مصر","المادة 3 من النظام الأساسي"]]}
+    ]},
+    {type:"lookup", id:"lookup", title:"دوّر على دليل", rows:[
+      {signal:"قبل وأثناء وبعد", target:"محاور الرقابة الشرعية", note:""},
+      {signal:"إصدار التوصيات", target:"أهم مسئولية للهيئة", note:""},
+      {signal:"صحة المعاملة / ربحها", target:"خطر مرتفع", note:""},
+      {signal:"أخطاء توثيق / تأخير تحديث", target:"خطر متوسط", note:""},
+      {signal:"شكلي في الملفات", target:"خطر منخفض", note:""},
+      {signal:"قرض حسن + الخراج بالضمان", target:"الحساب الجاري", note:""},
+      {signal:"مضاربة مطلقة + الغنم بالغرم", target:"الاستثماري والشهادات", note:""},
+      {signal:"لي الواجد", target:"غرامة الضرر على المماطل", note:""},
+      {signal:"التكلفة + ربح", target:"المرابحة", note:""},
+      {signal:"برأس المال بلا زيادة", target:"التولية", note:""},
+      {signal:"منافع", target:"الإجارة", note:""},
+      {signal:"خصم الأوراق التجارية", target:"بيع ديون؛ غير جائز", note:""},
+      {signal:"كنانة كارت", target:"المرابحة بالوكالة", note:""},
+      {signal:"الجمعية العامة", target:"تشكيل الهيئة وتقريرها السنوي", note:""}
+    ]}
+  ]
+};
+
+const QUIZ = {
+  sections:[{id:"s1",title:"الحوكمة والهيئة"},{id:"s2",title:"المخاطر والفرع"},{id:"s3",title:"الصيغ والضوابط"}],
+  questions:[
+   {id:"q1",section:"s1",prompt:"المقصود بمصطلح 'رأي الهيئة الشرعية':",answer:"الرأي بشأن مدى التزام البنك بتطبيق الضوابط والمتطلبات الشرعية",clue:"تقييم شامل.",
+    why:"الهيئة دورها تحكم على **التزام البنك كله**، فرأيها تقييم شامل لكل الأنشطة، مش مجرد حصر لمخالفات.",
+    wrong:[{option:"المخالفات اللي ترتب عليها أثر مالي فقط",why:"ده جزء صغير؛ فيه مخالفات من غير أثر مالي وبرضه بتتقيّم."},{option:"الملاحظات غير الجوهرية فقط",why:"الرأي بيشمل الجوهري قبل غير الجوهري."},{option:"رأيها في ربحية البنك",why:"الربحية مش اختصاصها."}]},
+   {id:"q2",section:"s2",prompt:"نطاق تطبيق التزامات الشريعة الإسلامية في بنك مصر:",answer:"موظفو الإدارات والفروع اللي بتتعامل في المنتجات والخدمات المصرفية الإسلامية",clue:"مش قسم واحد.",
+    why:"المخالفة بتحصل **وقت التنفيذ**، يعني في إيد اللي بيتعامل مع العميل والمنتج. فالالتزام لازم يشمل **كل** الموظفين دول.",
+    wrong:[{option:"إدارة الالتزام دون غيرها",why:"إدارة الالتزام بتراقب، لكنها مش اللي بتنفذ المعاملات."},{option:"الإدارة التنفيذية دون غيرها",why:"الفروع جزء أساسي من التنفيذ."},{option:"الهيئة الشرعية فقط",why:"الهيئة بتصدر التوصيات، والتطبيق على الموظفين."}]},
+   {id:"q3",section:"s1",prompt:"الرقابة الشرعية بترتكز على:",answer:"المراجعة السابقة على التنفيذ والمصاحبة له واللاحقة له",clue:"3 محاور.",
+    why:"الخطأ ممكن يتمنع **قبل** ما يحصل، أو يتمسك **وقت** التنفيذ، أو يتكشف **بعده**. والتلاتة مع بعض بيقفلوا كل الثغرات.",
+    wrong:[{option:"السابقة واللاحقة فقط",why:"ناقصة المصاحبة، ودي أهم حاجة في الفرع."},{option:"لا يوجد فرق في التوقيت",why:"التوقيت هو أساس التقسيم."},{option:"اللاحقة فقط",why:"دي التدقيق بس."}]},
+   {id:"q4",section:"s2",prompt:"أسباب مخاطر عدم الالتزام الشرعي:",answer:"جميع ما سبق: ضعف الوعي الشرعي، وإهمال الإجراءات، وعدم تدريب العاملين",clue:"أسباب متداخلة.",
+    why:"الموظف اللي **مش واعي** أو **مش متدرب** أو **بيستسهل الإجراء** ممكن يعمل مخالفة. فأي سبب منهم لوحده كفاية يسبب الخطر.",
+    wrong:[{option:"عدم التدريب فقط",why:"سبب من أكتر من سبب."},{option:"ضعف الوعي فقط",why:"سبب من أكتر من سبب."},{option:"قرارات الهيئة",why:"الهيئة بتقلل الخطر، مش بتسببه."}]},
+   {id:"q5",section:"s1",prompt:"من أهم مسئوليات الهيئة الشرعية:",answer:"إصدار التوصيات بشأن المسائل الشرعية ليتسنى للبنك الالتزام بيها",clue:"دورها شرعي.",
+    why:"الهيئة جهة **شرعية**، فشغلها إنها تحدد للبنك **إيه الصح شرعًا** في توصيات ملزمة.",
+    wrong:[{option:"اعتماد الميزانية السنوية",why:"دي مسئولية مجلس الإدارة والجمعية العامة."},{option:"تعيين المديرين التنفيذيين",why:"دي صلاحية الإدارة، والعضو أصلًا مش تنفيذي."},{option:"تحديد معدلات العائد",why:"دي لجنة تحديد معدلات العائد."}]},
+   {id:"q6",section:"s1",prompt:"الحوكمة الشرعية بتحمي البنك من:",answer:"مخاطر عدم الالتزام الشرعي",clue:"اسمها بيقول.",
+    why:"الحوكمة الشرعية هي **النظام** اللي بيضمن إن كل حاجة ماشية شرعًا، فهدفها المباشر إنها تقلل احتمال **عدم الالتزام**.",
+    wrong:[{option:"مخاطر التدقيق الشرعي",why:"التدقيق أداة من أدوات الحوكمة، مش خطر."},{option:"مخاطر الرقابة الداخلية",why:"مصطلح أعم ومش هدفها المباشر."},{option:"مخاطر السوق",why:"مخاطر استثمارية مش شرعية."}]},
+   {id:"q7",section:"s1",prompt:"تشكيل الهيئة الشرعية:",answer:"عدد فردي لا يقل عن 3 أعضاء، بقرار من الجمعية العامة",clue:"التصويت لازم يحسم.",
+    why:"العدد **الفردي** بيمنع التعادل الدائم، و**3** أقل عدد يدّي تنوع رأي. والتشكيل من **الجمعية العامة** عشان تبقى مستقلة عن الإدارة.",
+    wrong:[{option:"عضوين بقرار من رئيس البنك",why:"عدد زوجي وتعيين من التنفيذيين، والاتنين ضد الاستقلالية."},{option:"4 أعضاء على الأقل",why:"لازم فردي."},{option:"عضو واحد",why:"أقل من الحد الأدنى."}]},
+   {id:"q8",section:"s1",prompt:"اجتماعات الهيئة الشرعية تنعقد على الأقل:",answer:"مرة كل 3 شهور",clue:"ربع سنوي.",
+    why:"الانتظام ده بيضمن إن الهيئة متابعة المنتجات والملاحظات بشكل مستمر، من غير ما تفوتها مشاكل لفترات طويلة.",
+    wrong:[{option:"مرة في السنة",why:"ده التقرير السنوي، مش الاجتماعات."},{option:"كل شهر",why:"أكتر من الحد الأدنى المطلوب."},{option:"كل 6 شهور",why:"أقل من المطلوب."}]},
+   {id:"q9",section:"s1",prompt:"لو أصوات الهيئة اتساوت في موضوع:",answer:"يرجح الجانب اللي صوّت معاه رئيس اللجنة",clue:"لازم قرار.",
+    why:"الهيئة لازم تطلع **بتوصية** في الآخر، والرئيس بيحسم التعادل لأنه المسئول عن إدارة الاجتماع.",
+    wrong:[{option:"يتأجل الموضوع لحد ما يتعين عضو جديد",why:"الحسم بيتم في نفس الاجتماع."},{option:"يرجع للإدارة",why:"ده ضد الاستقلالية."},{option:"يرجح رأي الأكبر سنًا",why:"مش قاعدة."}]},
+   {id:"q10",section:"s1",prompt:"عضو الهيئة الشرعية لازم:",answer:"ما يكونش في منصب إداري تنفيذي بالبنك ولا مساهم مؤثر",clue:"الاستقلالية.",
+    why:"الهيئة بتحكم على شغل الإدارة التنفيذية، فلو العضو جزء منها هيبقى **بيحكم على نفسه**. ونفس الكلام لو مساهم مؤثر، لأن له مصلحة في الربح.",
+    wrong:[{option:"يكون مدير فرع إسلامي",why:"منصب تنفيذي."},{option:"يكون من كبار المساهمين",why:"تعارض مصالح."},{option:"يكون موظف في إدارة الالتزام",why:"تبعية تنفيذية."}]},
+   {id:"q11",section:"s1",prompt:"مدير طلب تعديل توصية للهيئة الشرعية عشان تسهّل بيع منتج:",answer:"لا يجوز تعديل أو تجاهل توصياتها من غير موافقتها",clue:"توصياتها ملزمة.",
+    why:"توصيات الهيئة **ملزمة**، ولو الإدارة تقدر تغيّرها، الهيئة تفقد استقلاليتها وقيمتها.",
+    wrong:[{option:"يجوز بموافقة مدير القطاع",why:"الإدارة مش فوق الهيئة."},{option:"يجوز لو المنتج مربح",why:"الربح مش معيار شرعي."},{option:"يجوز مؤقتًا",why:"مفيش استثناء."}]},
+   {id:"q12",section:"s1",prompt:"المرجعيات اللي بتعتمد عليها إدارة الالتزام الشرعي بتشمل:",answer:"توصيات الهيئة، وأدلة التعليمات، والعقود المعتمدة، وتعليمات البنك المركزي، والمعايير الدولية",clue:"مصادر القواعد.",
+    why:"إدارة الالتزام بتقيس الشغل على **قواعد مكتوبة ومعتمدة**، داخلية (الهيئة، الأدلة، العقود) وخارجية (الرقابيين، المعايير الدولية).",
+    wrong:[{option:"آراء العملاء",why:"مش مرجعية شرعية."},{option:"أهداف المبيعات",why:"مش مرجعية."},{option:"اجتهاد موظف الفرع",why:"الموظف بيطبق المرجعيات، مش مصدرها."}]},
+   {id:"q13",section:"s2",prompt:"موظف شرح المرابحة للعميل شفهي، لكن العميل ما مضاش إقرار فهم طبيعة المرابحة. مستوى الخطر:",answer:"مرتفع",clue:"صحة المعاملة.",
+    why:"الإقرار بيثبت إن العميل فاهم إنه **بيشتري سلعة بربح** مش واخد قرض. ومن غيره صحة المعاملة نفسها **ممكن تتطعن**، ودي أعلى درجة خطر.",
+    wrong:[{option:"منخفض لأنه اتشرح شفهي",why:"الشرح الشفهي مالوش إثبات."},{option:"متوسط",why:"المتوسط للأخطاء الإجرائية اللي ما بتمسش صحة العقد."},{option:"مفيش خطر",why:"فيه خطر جوهري."}]},
+   {id:"q14",section:"s2",prompt:"تأخير يومين في تحديث ملف العميل بآخر التوصيات الشرعية:",answer:"خطر متوسط",clue:"تأخير تحديثات.",
+    why:"المعاملة لسه صحيحة، لكن التأخير محتاج **متابعة** عشان ما يتكررش ويتحول لمخالفة.",
+    wrong:[{option:"مرتفع",why:"مش بيمس صحة المعاملة."},{option:"منخفض",why:"المنخفض للأخطاء الشكلية البسيطة."},{option:"مش خطر",why:"تأخير التحديث مؤشر خطر متوسط."}]},
+   {id:"q15",section:"s2",prompt:"نسخة العقد مش محفوظة في الملف الإلكتروني، لكنها موجودة في الملف الورقي:",answer:"خطر منخفض",clue:"شكلي.",
+    why:"العقد **موجود وصحيح**؛ المشكلة في **الحفظ** بس، وده سهل يتصلح فورًا.",
+    wrong:[{option:"مرتفع",why:"العقد موجود."},{option:"متوسط",why:"مش تأخير تحديث ولا خطأ توثيق جوهري."},{option:"يتلغى العقد",why:"العقد سليم."}]},
+   {id:"q16",section:"s2",prompt:"موظف مضّى العميل على عقد بيع المرابحة قبل ما البنك يشتري السلعة من المورد:",answer:"مخالفة جوهرية؛ البنك ما ينفعش يبيع حاجة ما يملكهاش",clue:"العقد الأول.",
+    why:"ربح البنك في المرابحة مقابل إنه **تاجر بيتحمل مخاطر الملكية**. لو باع قبل ما يملك، يبقى بياخد زيادة على فلوس من غير ما يشيل أي خطر، وده **ربا متخفي**.",
+    wrong:[{option:"عادي طالما هيشتري بعدها",why:"الترتيب شرط لصحة البيع."},{option:"خطأ شكلي",why:"بيمس صحة المعاملة."},{option:"جائز لو العميل وافق",why:"موافقة العميل ما بتصححش العقد."}]},
+   {id:"q17",section:"s2",prompt:"القيد النظامي الخاص بالارتباط مع المورد في المرابحة بيتعمل:",answer:"عند شراء البنك للبضاعة من المورد",clue:"لحظة العقد الأول.",
+    why:"الارتباط مع المورد بيبدأ فعلًا لما البنك **يشتري**، فالقيد بيعكس الحدث ده في وقته.",
+    wrong:[{option:"أثناء التقدم بالطلب",why:"لسه مفيش شراء."},{option:"بعد توقيع العميل على عقد البيع",why:"الشراء لازم يسبق البيع."},{option:"بعد استلام العميل للبضاعة",why:"متأخر جدًا."}]},
+   {id:"q18",section:"s3",prompt:"الحساب الجاري في الفروع الإسلامية:",answer:"قرض حسن بيخضع لقاعدة الخراج بالضمان",clue:"البنك ضامن.",
+    why:"البنك **بيضمن** رد الرصيد كامل عند الطلب. فبما إنه ضامن، العائد بيبقى من حقه (الخراج بالضمان)، والعميل **ما ياخدش ربح**.",
+    wrong:[{option:"مضاربة",why:"المضاربة للحسابات الاستثمارية."},{option:"قرض حسن بقاعدة الغنم بالغرم",why:"الغنم بالغرم للحسابات اللي فيها مخاطرة."},{option:"مشاركة",why:"العميل مش شريك في الجاري."}]},
+   {id:"q19",section:"s3",prompt:"حساب الاستثمار في المصرف الإسلامي بيخضع لـ:",answer:"قاعدة الغنم بالغرم وصيغة المضاربة",clue:"ربح مقابل مخاطرة.",
+    why:"العميل بيدّي البنك فلوسه **يستثمرها** (مضاربة)، وبياخد نصيب من الربح، فلازم **يتحمل الخسارة** كمان (الغنم بالغرم).",
+    wrong:[{option:"الخراج بالضمان والقرض الحسن",why:"ده الحساب الجاري."},{option:"الخراج بالضمان والمضاربة",why:"المضاربة مش مضمونة."},{option:"الغنم بالغرم والقرض الحسن",why:"القرض الحسن مالوش ربح."}]},
+   {id:"q20",section:"s3",prompt:"الحسابات الاستثمارية بتتفتح في الفروع الإسلامية بصيغة:",answer:"المضاربة المطلقة",clue:"البنك حر في الاستثمار.",
+    why:"العميل **ما بيحددش** للبنك يستثمر في إيه، وبيسيبه يستثمر في أي مجال حلال، وده معنى **المطلقة**.",
+    wrong:[{option:"المضاربة المقيدة",why:"العميل ما بيقيدش البنك بنشاط معين."},{option:"المرابحة",why:"المرابحة بيع، مش استثمار ودائع."},{option:"الإجارة",why:"الإجارة على منافع أصول."}]},
+   {id:"q21",section:"s3",prompt:"أي عبارة غلط عن المضاربة؟",answer:"يتم ضمان الأرباح وفق رأس المال",clue:"المضاربة مخاطرة.",
+    why:"لو الربح **مضمون** يبقى ده **فايدة**، مش مضاربة. الربح في المضاربة بيتوزع بنسبة من **الناتج الفعلي**.",
+    wrong:[{option:"يجوز للمضارب يخلط ماله بمال المضاربة",why:"صح؛ مسموح."},{option:"المضاربة نوعين: مطلقة ومقيدة",why:"صح."},{option:"الأرباح حسب ناتج النشاط",why:"صح؛ ده جوهرها."}]},
+   {id:"q22",section:"s3",prompt:"المضارب بيضمن رأس المال لو ثبت:",answer:"تعدّيه أو تقصيره أو مخالفته لشروط العقد",clue:"عقد أمانة.",
+    why:"المضارب **أمين** على المال، والأمين ما بيضمنش إلا لو **أخطأ**. أما لو الخسارة حصلت من السوق، فرب المال هو اللي يتحملها.",
+    wrong:[{option:"في كل الأحوال",why:"كده يبقى قرض مش مضاربة."},{option:"لو الخسارة أكبر من 50%",why:"مفيش نسبة."},{option:"مش بيضمن أبدًا",why:"بيضمن لو تعدّى أو قصّر."}]},
+   {id:"q23",section:"s3",prompt:"في عقد المشاركة:",answer:"الأرباح حسب الاتفاق والخسائر حسب حصص رأس المال",clue:"الخسارة ما بتتفاوضش.",
+    why:"الربح نتيجة **المال والجهد** مع بعض، فالشركاء ممكن يتفقوا يدّوا اللي بيشتغل أكتر نسبة أكبر. لكن الخسارة **نقص في المال نفسه**، فلازم تتوزع على حصص رأس المال.",
+    wrong:[{option:"الأرباح والخسائر حسب الاتفاق",why:"الخسارة مش بالاتفاق."},{option:"الأرباح بمبلغ ثابت",why:"المبلغ الثابت ربا."},{option:"الأرباح بنسبة من رأس المال",why:"الربح بنسبة من الربح، مش من رأس المال."}]},
+   {id:"q24",section:"s3",prompt:"في الإجارة، العقد بيكون على:",answer:"المنافع",clue:"المؤجر بيفضل مالك.",
+    why:"المستأجر بياخد **حق الانتفاع** بالأصل لمدة محددة، والملكية بتفضل للبنك. فالمعقود عليه هو **المنفعة**.",
+    wrong:[{option:"الثمن",why:"الثمن في البيع."},{option:"السلع",why:"السلعة نفسها ما بتتنقلش."},{option:"جميع ما سبق",why:"المنفعة بس."}]},
+   {id:"q25",section:"s3",prompt:"عميل محتاج يستخدم آلات معينة وموجودة، وعايز يتملكها في الآخر. أنسب عقد:",answer:"إجارة مع الوعد بالتمليك",clue:"منفعة الأول، تملك بعدين.",
+    why:"الآلات **موجودة ومعينة**، فالبنك يشتريها ويأجرها للعميل، ومع **وعد منفصل** إنه يملّكها له في الآخر.",
+    wrong:[{option:"مرابحة آلات",why:"المرابحة بتنقل الملكية فورًا، والعميل عايز ينتفع الأول."},{option:"إجارة تشغيلية",why:"ما فيهاش تمليك."},{option:"إجارة موصوفة في الذمة",why:"دي لأصل مش موجود لسه."}]},
+   {id:"q26",section:"s3",prompt:"حديث «لَيُّ الواجد يُحِل عرضه وعقوبته» بيستند عليه في:",answer:"توقيع غرامة ضرر على المدين المماطل",clue:"الواجد = القادر.",
+    why:"الحديث بيفرّق بين **العاجز** و**القادر اللي بيماطل**. المماطل وهو قادر بيظلم الدائن، فيجوز عقابه بغرامة، من غير ما تبقى زيادة ربوية في الدين.",
+    wrong:[{option:"أخذ الضمانات",why:"ليها أدلة تانية."},{option:"توثيق العقود",why:"ليه أدلة تانية."},{option:"زيادة المديونية مقابل التأخير",why:"دي ممنوعة لأنها ربا."}]},
+   {id:"q27",section:"s3",prompt:"بيع السلعة برأس مالها من غير زيادة ولا نقص اسمه:",answer:"التولية",clue:"بالتكلفة.",
+    why:"البيوع بتتسمى حسب علاقة السعر بالتكلفة: **بالتكلفة** = تولية، **أعلى** = مرابحة، **أقل** = وضيعة.",
+    wrong:[{option:"المرابحة",why:"فيها ربح."},{option:"الوضيعة",why:"فيها خسارة."},{option:"المساومة",why:"من غير ذكر التكلفة."}]},
+   {id:"q28",section:"s3",prompt:"بطاقة ائتمان بنك مصر الإسلامية (كنانة) بتطبق بصيغة:",answer:"المرابحة بالوكالة",clue:"العميل بيشتري بنفسه.",
+    why:"صاحب البطاقة بيشتري من التجار **بنفسه** وبتوكيل من البنك، والبنك بيبيعها له مرابحة، وده هو أساس صيغة **الوكالة**.",
+    wrong:[{option:"المضاربة",why:"مفيش استثمار مال."},{option:"المشاركة",why:"مفيش شراكة."},{option:"الإجارة",why:"مفيش انتفاع بأصل مؤجر."}]},
+   {id:"q29",section:"s3",prompt:"تبديل العملة الأجنبية في البنك الإسلامي بيتكيّف كـ:",answer:"عقد صرف",clue:"عملة بعملة.",
+    why:"تبديل عملة بعملة هو **الصرف**، وشرطه يكون **يد بيد**، وعشان كده ما ينفعش فيه تأجيل.",
+    wrong:[{option:"وكالة",why:"الوكالة للتحويلات والتحصيل."},{option:"مرابحة",why:"المرابحة المؤجلة على العملات ممنوعة."},{option:"قرض حسن",why:"ده تكييف المكشوف."}]},
+   {id:"q30",section:"s3",prompt:"أي خدمة من دول مرفوضة في البنك الإسلامي؟",answer:"خصم الأوراق التجارية",clue:"بيع دين.",
+    why:"خصم الكمبيالة معناه البنك يدفع أقل من قيمتها دلوقتي ويحصّل كامل قيمتها بعدين، وده **بيع دين بأقل منه**، يعني **ربا**.",
+    wrong:[{option:"تحصيل الأوراق التجارية",why:"وكالة بأجر، جائزة."},{option:"تأجير الخزائن",why:"إجارة، جائزة."},{option:"خطابات الضمان",why:"كفالة ووكالة، جائزة."}]}
+  ]
+};
+
+/* ===== أدوات ===== */
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<mark>$1</mark>').replace(/\[\[(.+?)\]\]/g,'<bdi class="en" dir="ltr">$1</bdi>');
+const $=(s,r=document)=>r.querySelector(s);
+const CAT=NOTE.categories;
+
+const plain=s=>String(s).replace(/\*\*|\[\[|\]\]/g,'');
+const lab=h=>` data-l="${esc(plain(h)).replace(/"/g,'&quot;')}"`;
+function table(t){
+  const n=t.headers.length;
+  return `<div class="stack">${t.title?`<h3>${inl(t.title)}</h3>`:''}
+  <div class="tscroll ${n>=3?'stk':'w2'}"><table><thead><tr>${t.headers.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead>
+  <tbody>${t.rows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0?' class="first"':''}${lab(t.headers[i]||'')}>${inl(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+  ${t.tip?`<div class="tip"><b>انتبه:</b> ${inl(t.tip)}</div>`:''}</div>`;
+}
+function summary(){
+  const s=NOTE.summary;
+  return `<section id="summary"><h2>الخلاصة</h2><div class="stack">
+   <p>${inl(s.lead)}</p>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">البند</th>${s.colHeaders.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead><tbody>
+   ${s.rows.map(r=>`<tr><td class="first">${inl(r.head)}${r.sub?`<small>${inl(r.sub)}</small>`:''}</td>${r.cells.map((c,i)=>`<td class="c-${c.cat}"${lab(s.colHeaders[i]||'')}>${inl(c.main)}${c.ex?`<span class="ex">${inl(c.ex)}</span>`:''}</td>`).join('')}</tr>`).join('')}
+   </tbody></table></div>
+   <p class="legend">${inl(s.legend)}</p>
+   <div class="golden"><b>القاعدة الذهبية:</b> ${inl(s.goldenRule)}</div></div></section>`;
+}
+function concepts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="grid">${sec.items.map(c=>`
+   <article class="card">
+    <span class="tag ${c.cat}">${CAT[c.cat]}</span>
+    <div class="cname"><span class="en">${esc(c.nameEn)}</span><span class="ar">${esc(c.nameAr)}</span></div>
+    <div class="formula">${c.formula.map(f=>`<div class="frow"><span class="dot ${f.sign==='+'?'p':f.sign==='-'?'m':'q'}">${f.sign==='+'?'✓':f.sign==='-'?'−':'?'}</span><span>${inl(f.text)}</span></div>`).join('')}</div>
+    <div><h4>بنستخدمه في</h4><ul class="plain">${c.uses.map(u=>`<li>${inl(u)}</li>`).join('')}</ul></div>
+    <div><h4>أمثلة</h4><div class="exs">${c.examples.map(e=>`<div class="exi"><span>${inl(e.en)}</span><span class="a2">${inl(e.ar)}</span></div>`).join('')}</div></div>
+    <div><h4>دلائل</h4><div class="sig">${c.signals.map(x=>`<span class="rtl">${esc(x)}</span>`).join('')}</div></div>
+    <div class="tip"><b>انتبه:</b> ${inl(c.tip)}</div>
+    ${c.src?`<p class="srcl">المصدر: ${esc(c.src)}</p>`:''}
+   </article>`).join('')}</div></section>`;
+}
+function compare(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><div class="cmp-title">${esc(c.title)}</div>
+    <div class="cmp-cols">${c.cols.map(col=>`<div class="cmp-col ${col.cat}"><h4>${esc(col.name)}</h4><p>${inl(col.when)}</p>
+      <ul class="plain">${col.ex.map(e=>`<li>${inl(e)}</li>`).join('')}</ul></div>`).join('')}</div>
+    <div class="golden"><b>القاعدة الذهبية:</b> ${inl(c.golden)}</div></article>`).join('')}</div></section>`;
+}
+function confusing(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.explain)}</p>
+    <ul class="cl">${c.examples.map(e=>{const k=e.correct===true?'ok':e.correct===false?'no':'nt';const m=k==='ok'?'✓':k==='no'?'✗':'•';
+      return `<li class="${k}"><span class="m">${m}</span><span><span class="t">${inl(e.text)}</span>${e.note?`<span class="note">${inl(e.note)}</span>`:''}</span></li>`}).join('')}</ul>
+   </article>`).join('')}</div></section>`;
+}
+function conflicts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`<article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.text)}</p></article>`).join('')}</div></section>`;
+}
+function reference(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.tables.map(table).join('')}</div></section>`;
+}
+function lookup(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">
+   <input class="search" id="lq" type="search" placeholder="اكتب كلمة دالة، مثلًا: رب المال أو الفلتر أو 1975" autocomplete="off" aria-label="بحث في الدلائل">
+   <div class="cnt" id="lcnt"></div>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">الدليل</th><th scope="col">المفهوم</th><th scope="col">ملاحظة</th></tr></thead><tbody id="lb"></tbody></table></div></div></section>`;
+}
+function fillLookup(rows){
+  const lb=$('#lb'),inp=$('#lq'),cnt=$('#lcnt');
+  const norm=s=>s.replace(/[ً-ْـ]/g,'').replace(/[إأآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').toLowerCase();
+  const draw=()=>{
+    const q=norm(inp.value.trim());
+    const r=rows.filter(x=>!q||norm(x.signal+' '+x.target+' '+x.note).includes(q));
+    lb.innerHTML=r.length?r.map(x=>`<tr><td class="first">${esc(x.signal)}</td><td data-l="المفهوم">${esc(x.target)}</td><td data-l="ملاحظة">${esc(x.note)}</td></tr>`).join(''):`<tr><td colspan="3" class="empty">مفيش نتيجة للكلمة دي.</td></tr>`;
+    cnt.textContent=r.length+' من '+rows.length;
+  };
+  inp.addEventListener('input',draw);draw();
+}
+
+/* ===== الكويز ===== */
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const LET=['A','B','C','D'];
+let QS={i:0,order:[],picks:[],opts:[]};
+function quizStart(){
+  QS={i:0,order:shuffle(QUIZ.questions.map((_,i)=>i)),picks:[],opts:{}};
+  quizDraw();
+}
+function quizDraw(){
+  const root=$('#quiz');
+  const n=QUIZ.questions.length;
+  if(QS.i>=n){return quizResult(root)}
+  const qi=QS.order[QS.i],q=QUIZ.questions[qi];
+  const sec=QUIZ.sections.find(s=>s.id===q.section).title;
+  const opts=QS.opts[qi]||(QS.opts[qi]=shuffle([{t:q.answer,ok:true},...q.wrong.map(w=>({t:w.option,ok:false,why:w.why}))]));
+  const pick=QS.picks[QS.i];
+  const answered=pick!==undefined;
+  const promptHtml=esc(q.prompt).replace('___',`<span class="blank${answered?(opts[pick].ok?' ok':' no'):''}">${answered?esc(q.answer):'&nbsp;&nbsp;&nbsp;&nbsp;'}</span>`);
+  root.innerHTML=`
+   <div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${QS.i+(answered?1:0)}"><i style="width:${(QS.i+(answered?1:0))/n*100}%"></i></div>
+   <div class="qmeta"><span>سؤال ${QS.i+1} من ${n}</span><span>${esc(sec)}</span></div>
+   <p class="qp">${promptHtml}</p>
+   <div class="opts">${opts.map((o,k)=>`<button type="button" class="opt${answered?(o.ok?' right':(k===pick?' wrongpick':'')):''}" data-k="${k}" ${answered?'disabled':''}><span class="L">${LET[k]}</span><span>${esc(o.t)}</span></button>`).join('')}</div>
+   ${answered?`<div class="fb" aria-live="polite">
+     <div class="v ${opts[pick].ok?'ok':'no'}">${opts[pick].ok?'صح.':'مش دقيق.'}</div>
+     <p><b>ليه الإجابة دي:</b> ${esc(q.why)}</p>
+     ${q.clue?`<p><b>الدليل:</b> ${esc(q.clue)}</p>`:''}
+     <div><b>ليه الباقي غلط:</b><ul>${opts.map((o,k)=>o.ok?'':`<li class="${k===pick?'picked':''}">${esc(o.t)}: ${esc(o.why)}${k===pick?' (اختيارك)':''}</li>`).join('')}</ul></div>
+    </div>
+    <button type="button" class="btn" id="qnext">${QS.i+1<n?'السؤال التالي':'شوف النتيجة'}</button>`:''}`;
+  root.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{QS.picks[QS.i]=+b.dataset.k;quizDraw();const nb=$('#qnext');if(nb)nb.focus({preventScroll:true})}));
+  const nb=$('#qnext');if(nb)nb.addEventListener('click',()=>{QS.i++;quizDraw();root.scrollIntoView({block:'nearest'})});
+}
+function quizResult(root){
+  const n=QUIZ.questions.length;let total=0;const per={};
+  QUIZ.sections.forEach(s=>per[s.id]={t:0,c:0});
+  QS.order.forEach((qi,i)=>{const q=QUIZ.questions[qi];const ok=QS.opts[qi][QS.picks[i]].ok;per[q.section].t++;if(ok){per[q.section].c++;total++}});
+  const rows=QUIZ.sections.filter(s=>per[s.id].t).map(s=>({s,p:Math.round(per[s.id].c/per[s.id].t*100)}));
+  const weak=rows.slice().sort((a,b)=>a.p-b.p)[0];
+  root.innerHTML=`<div class="res">
+   <div class="prog"><i style="width:100%"></i></div>
+   <div class="score"><bdi class="ltr" dir="ltr">${total} / ${n}</bdi></div>
+   <div class="bars">${rows.map(r=>`<div class="bar${r===weak&&r.p<100?' weak':''}"><span>${esc(r.s.title)}</span><span class="pb"><i style="width:${r.p}%"></i></span><span class="ltr">${r.p}%</span></div>`).join('')}</div>
+   <p>${weak.p<100?`أضعف قسم: <mark>${esc(weak.s.title)}</mark>. ارجع له في المذكرة وحاول تاني.`:'كل الأقسام 100%. ممتاز.'}</p>
+   <button type="button" class="btn" id="qrestart">ابدأ من جديد</button></div>`;
+  $('#qrestart').addEventListener('click',quizStart);
+}
+
+/* ===== التجميع ===== */
+// كل الأقسام بتترسم بترتيبها في الملف حسب نوعها (type)، حتى لو الـid مش من الأسماء الافتراضية
+const R={concepts,compare,confusing,conflicts,reference,lookup};
+const SHORT={concepts:'المفاهيم',compare:'الفروقات',confusing:'حالات بتلخبط',conflicts:'تعارضات',reference:'أرقام وجداول',lookup:'دوّر على دليل'};
+function chipName(sec){
+  const nConcepts=NOTE.sections.filter(x=>(x.type||x.id)==='concepts').length;
+  const t=(sec.type||sec.id);
+  if(t==='concepts'&&nConcepts>1){const c=String(sec.title||'').replace(/^\d+[\.\-\s]*/,'').split(/[:(،]/)[0].trim();return c.length>22?c.slice(0,21)+'…':c}
+  return SHORT[t]||sec.title;
+}
+function build(){
+  const secs=NOTE.sections.filter(x=>R[x.type||x.id]);
+  $('#sheet').innerHTML=`
+   <header class="hero"><span class="stamp">${esc(NOTE.stamp)}</span><h1>${esc(NOTE.title)}</h1><p class="sub">${esc(NOTE.subtitle)}</p></header>
+   ${summary()}${secs.map(x=>R[x.type||x.id](x)).join('')}
+   <section id="quiz-sec"><h2 id="quiz-h">اختبر نفسك</h2><div class="quiz" id="quiz"></div></section>
+   <p class="foot">ملخص مذاكرة لامتحان مصرفي أول G3</p>`;
+  $('#chips').innerHTML=[['summary','الخلاصة'],...secs.map(x=>[x.id,chipName(x)]),['quiz-sec','اختبر نفسك']]
+    .map(([id,l])=>`<a class="chip" href="#${id}" data-id="${id}">${esc(l)}</a>`).join('');
+  const lk=secs.find(x=>(x.type||x.id)==='lookup');if(lk)fillLookup(lk.rows);
+  quizStart();
+  const links=[...document.querySelectorAll('.chip')],bar=$('#chips');
+  const center=l=>{const a=l.getBoundingClientRect(),c=bar.getBoundingClientRect();bar.scrollBy({left:(a.left+a.width/2)-(c.left+c.width/2),behavior:'smooth'})};
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>{const on=l.dataset.id===e.target.id;if(on&&!l.classList.contains('on'))center(l);l.classList.toggle('on',on)})})},{rootMargin:'-80px 0px -65% 0px'});
+    links.forEach(l=>{const t=document.getElementById(l.dataset.id);if(t)io.observe(t)});
+  }
+}
+/* المظهر: زرار واحد شمس/قمر، ومحفوظ في kk-theme المشترك مع التطبيق */
+const themeBtn=$('#themeb');
+function curTheme(){try{return localStorage.getItem('kk-theme')||'system'}catch(e){return 'system'}}
+const isDark=()=>{const m=curTheme();return m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)};
+function setTheme(m){
+  const r=document.documentElement;
+  if(m==='light'||m==='dark')r.setAttribute('data-theme',m);else r.removeAttribute('data-theme');
+  try{localStorage.setItem('kk-theme',m)}catch(e){}
+  const d=isDark();themeBtn.classList.toggle('dark',d);themeBtn.setAttribute('aria-label',d?'الوضع الداكن. دوس للفاتح':'الوضع الفاتح. دوس للداكن');
+}
+themeBtn.addEventListener('click',()=>setTheme(isDark()?'light':'dark'));
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>setTheme(curTheme()));
+build();setTheme(curTheme());
+</script>
+
+<style>
+.bg3-home{position:fixed;left:max(14px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;
+ display:flex;align-items:center;gap:6px;padding:9px 16px 9px 14px;border-radius:999px;background:var(--head-bg);color:var(--head-ink);
+ font-family:var(--f-ui);font-weight:700;font-size:14px;line-height:1.3;text-decoration:none;box-shadow:var(--shadow)}
+.bg3-home svg{width:18px;height:18px}
+.bg3-home:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+</style>
+<a class="bg3-home" href="../index.html#notes" aria-label="رجوع لقائمة الملخصات">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>الملخصات</a>
+<script>
+(function(){var K="sharia";
+function g(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var all=g('bg3:notes',{}),me=all[K]||{};me.last=Date.now();all[K]=me;s('bg3:notes',all);s('bg3:lastNote',K);
+if(location.hash==='#resume'){history.replaceState(null,'',location.pathname);
+ if(me.y)requestAnimationFrame(function(){setTimeout(function(){window.scrollTo({top:me.y,behavior:'instant'})},80)})}
+var t;addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(function(){
+ var a=g('bg3:notes',{}),m=a[K]||{},h=document.documentElement.scrollHeight-innerHeight,p=h>0?Math.round(scrollY/h*100):100;
+ m.y=Math.round(scrollY);m.pct=Math.max(m.pct||0,Math.min(100,p));a[K]=m;s('bg3:notes',a)},250)},{passive:true});
+})();
+</script>

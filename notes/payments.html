@@ -1,0 +1,957 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c1f3f">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<title>ملخص التحويلات والمدفوعات</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: ورقة كشكول واحدة في النص، هامش أحمر، شريط أقسام ثابت فوق */
+:root{
+  --bg:#e6ebf3; --paper:#fbfcfe; --card:#ffffff; --card-edge:#cbd6e8;
+  --ink:#0c1f3f; --ink-2:#44577a; --line:#dbe3f0;
+  --gold:#c9a13b; --gold-ink:#7d5f0c; --gold-wash:#faf2d8; --hl:rgba(201,161,59,.38);
+  --margin:#d4584c;
+  --cat-a:#a23d35; --cat-a-wash:#fbebe9;
+  --cat-b:#1f4f9a; --cat-b-wash:#e6eefb;
+  --cat-c:#7d5f0c; --cat-c-wash:#faf2d8;
+  --ok:#1d7a4d; --no:#b3382e; --ok-wash:#e4f4ec; --no-wash:#fbebe9;
+  --head-bg:#0c1f3f; --head-ink:#f3f6fc;
+  --shadow:0 1px 0 rgba(12,31,63,.06),0 10px 28px rgba(12,31,63,.10);
+  --f-display:'Aref Ruqaa','Amiri',serif;
+  --f-body:'Tajawal','Cairo',system-ui,sans-serif;
+  --f-ui:'Cairo','Tajawal',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+    --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+    --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+    --margin:#e5675c;
+    --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+    --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+    --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+    --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+    --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+  --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+  --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+  --margin:#e5675c;
+  --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+  --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+  --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+  --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+  --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.95;margin:0;
+  padding-block:0 72px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));
+  -webkit-text-size-adjust:100%;text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+bdi.en,.ltr{font-family:var(--f-ui);unicode-bidi:isolate}
+.ltr{direction:ltr;text-align:left}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+
+/* شريط الأقسام */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);display:flex;gap:10px;align-items:center;padding-block:8px;border-bottom:1px solid var(--card-edge)}
+.chips{display:flex;gap:6px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none;padding-block:2px;
+  -webkit-mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);padding-inline-end:20px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-family:var(--f-ui);font-size:13.5px;font-weight:600;line-height:1.4;padding:6px 13px;border-radius:999px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chip:hover,.chip.on{background:var(--head-bg);border-color:var(--head-bg);color:var(--head-ink)}
+.themeb{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--card-edge);background:var(--card);color:var(--gold-ink);cursor:pointer;padding:0}
+.themeb svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.themeb .i-moon{display:none}
+.themeb.dark .i-sun{display:none}
+.themeb.dark .i-moon{display:block;fill:currentColor}
+
+/* الورقة */
+.sheet{position:relative;width:100%;background-color:var(--paper);
+  border-radius:6px;box-shadow:var(--shadow);padding-block:28px 40px;padding-inline-start:44px;padding-inline-end:28px;
+  display:flex;flex-direction:column;gap:44px;min-width:0}
+.sheet::before{content:"";position:absolute;inset-block:0;inset-inline-start:30px;width:0;border-inline-start:1.5px solid var(--margin);opacity:.55;pointer-events:none}
+.sheet::after{content:"";position:absolute;inset-block:0;inset-inline-start:9px;width:10px;pointer-events:none;
+  background:radial-gradient(circle at center,var(--bg) 0 3.5px,transparent 4px) center 36px/10px 96px repeat-y}
+.sheet>*{min-width:0}
+.sheet{overflow-wrap:anywhere}
+mark{background:none;color:inherit;box-shadow:inset 0 -.5em 0 var(--hl);padding-inline:1px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,6vw,42px);line-height:1.5;margin:0;text-decoration:underline wavy var(--gold);text-decoration-thickness:2px;text-underline-offset:12px;text-wrap:balance}
+section>h2{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.6;margin:0 0 16px;display:inline-block;box-shadow:inset 0 -.32em 0 var(--hl)}
+h3{font-family:var(--f-ui);font-size:17.5px;margin:0;line-height:1.6}
+p{margin:0}
+.lead{color:var(--ink-2)}
+.hero{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.stamp{display:inline-block;transform:rotate(-2deg);font-family:var(--f-ui);font-weight:600;font-size:13px;line-height:1.5;color:var(--gold-ink);background:var(--gold-wash);border:2px solid var(--gold);border-radius:6px;padding:2px 12px}
+.sub{color:var(--ink-2);font-size:17px}
+
+/* الجداول: جدول عادي على الشاشات الواسعة، وكروت مرصوصة على الموبايل (كل خانة معاها اسم العمود) */
+.tscroll{overflow-x:auto;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.75;table-layout:auto}
+th{background:var(--head-bg);color:var(--head-ink);font-family:var(--f-ui);font-weight:700;font-size:14px;padding:10px 14px;text-align:start;vertical-align:bottom;line-height:1.5}
+td{padding:11px 14px;vertical-align:top;text-align:start;border-top:1px solid var(--card-edge);font-variant-numeric:tabular-nums}
+tbody tr:nth-child(even) td:not([class]){background:color-mix(in srgb,var(--paper) 55%,transparent)}
+td.first{background:var(--gold-wash);font-weight:700;min-width:7.5em}
+td.first small{display:block;font-weight:400;color:var(--ink-2);font-size:13px;line-height:1.5}
+td.c-a{background:var(--cat-a-wash)} td.c-b{background:var(--cat-b-wash)} td.c-c{background:var(--cat-c-wash)}
+td .ex{display:block;color:var(--ink-2);font-size:13.5px;line-height:1.6;margin-top:4px}
+.tscroll.w2 table td.first{width:38%}
+@media (max-width:700px){
+  .tscroll.stk{overflow:visible;border:0;background:none;border-radius:0}
+  .tscroll.stk table,.tscroll.stk tbody,.tscroll.stk tr,.tscroll.stk td{display:block;width:100%}
+  .tscroll.stk thead{display:none}
+  .tscroll.stk tr{border:1px solid var(--card-edge);border-radius:10px;overflow:hidden;background:var(--card);margin-bottom:10px}
+  .tscroll.stk tr:last-child{margin-bottom:0}
+  .tscroll.stk td{border-top:1px solid var(--line);padding:9px 14px;background:none}
+  .tscroll.stk td.first{border-top:0;background:var(--gold-wash);font-size:16.5px;min-width:0}
+  .tscroll.stk td.c-a{background:var(--cat-a-wash)} .tscroll.stk td.c-b{background:var(--cat-b-wash)} .tscroll.stk td.c-c{background:var(--cat-c-wash)}
+  .tscroll.stk td[data-l]:not(.first)::before{content:attr(data-l);display:block;font-family:var(--f-ui);font-size:12.5px;font-weight:700;color:var(--ink-2);line-height:1.5;margin-bottom:1px}
+  .tscroll.stk td.empty::before{display:none}
+}
+.legend{font-size:14px;color:var(--ink-2);margin-top:12px}
+.legend .k{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-inline:4px 4px}
+
+/* مربعات */
+.golden,.tip,.formula{border:2px dashed var(--gold);background:var(--gold-wash);border-radius:8px;padding:10px 16px;line-height:1.9}
+.golden b{color:var(--gold-ink)}
+.tip{border-color:var(--margin);background:var(--card)}
+.tip b{color:var(--margin)}
+.stack{display:flex;flex-direction:column;gap:16px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.card{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tag{align-self:flex-start;font-family:var(--f-ui);font-size:12px;font-weight:700;line-height:1.5;padding:1px 10px;border-radius:999px}
+.tag.a{background:var(--cat-a-wash);color:var(--cat-a)} .tag.b{background:var(--cat-b-wash);color:var(--cat-b)} .tag.c{background:var(--cat-c-wash);color:var(--cat-c)}
+.cname{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.cname .en{font-family:var(--f-ui);font-weight:700;font-size:18px;direction:ltr}
+.cname .ar{font-size:16px;color:var(--ink-2)}
+.formula{display:flex;flex-direction:column;gap:6px;padding:10px 12px}
+.frow{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.dot{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-size:13px;font-weight:700;color:var(--paper);margin-top:2px}
+.dot.p{background:var(--ok)} .dot.m{background:var(--no)} .dot.q{background:var(--cat-b)}
+h4{font-family:var(--f-ui);font-size:14px;margin:0;color:var(--ink-2);line-height:1.6}
+ul.plain{margin:0;padding-inline-start:20px;display:flex;flex-direction:column}
+.exs{display:flex;flex-direction:column;gap:6px}
+.exi{display:flex;flex-direction:column;border-inline-start:3px solid var(--card-edge);padding-inline-start:12px;line-height:1.7}
+.exi .a2{color:var(--ink-2);font-size:14px}
+.sig{display:flex;flex-wrap:wrap;gap:6px}
+.sig span{direction:ltr;font-family:var(--f-ui);font-size:13px;line-height:1.5;padding:2px 10px;border-radius:999px;background:var(--gold-wash);color:var(--gold-ink);border:1px solid var(--gold)}
+.sig span.rtl{direction:rtl;font-family:var(--f-body)}
+.cmp-cols{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.cmp-col{border-radius:6px;border:1px solid var(--card-edge);padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.cmp-col.a{background:var(--cat-a-wash)} .cmp-col.b{background:var(--cat-b-wash)} .cmp-col.c{background:var(--cat-c-wash)}
+.cmp-col h4{color:var(--ink);font-size:15px}
+.cmp-title{direction:ltr;text-align:left;font-family:var(--f-ui);font-weight:700;font-size:18px}
+.cl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.cl li{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.cl .m{flex:none;width:22px;text-align:center;font-family:var(--f-ui);font-weight:700}
+.cl .ok .m{color:var(--ok)} .cl .no .m{color:var(--no)} .cl .nt .m{color:var(--cat-c)}
+.cl .no .t{text-decoration:line-through;text-decoration-color:var(--no)}
+.cl .note{display:block;font-size:13px;color:var(--ink-2);line-height:1.6}
+
+/* بحث */
+.search{width:100%;font:inherit;font-family:var(--f-ui);font-size:16px;line-height:1.5;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink)}
+.search::placeholder{color:var(--ink-2)}
+.cnt{font-size:13px;color:var(--ink-2);font-family:var(--f-ui)}
+.empty{padding:16px;color:var(--ink-2)}
+
+/* كويز */
+.quiz{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:16px}
+.prog{height:8px;border-radius:999px;background:var(--line);overflow:hidden;border:1px solid var(--card-edge)}
+.prog i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.qmeta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-ui);font-size:13px;color:var(--ink-2)}
+.qp{font-size:18px;line-height:1.9;font-weight:500}
+.qp .blank{display:inline-block;min-width:80px;border-bottom:2px dashed var(--gold);text-align:center;padding-inline:6px}
+.qp .blank.ok{border-bottom:2px solid var(--ok);color:var(--ok);font-weight:700}
+.qp .blank.no{border-bottom:2px solid var(--no);color:var(--no);font-weight:700}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:start;width:100%;font:inherit;line-height:1.7;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--paper);color:var(--ink);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--gold);background:var(--gold-wash)}
+.opt .L{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-weight:700;font-size:13px;line-height:1;background:var(--line);color:var(--ink);margin-top:2px}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--ok-wash);border-color:var(--ok)}
+.opt.wrongpick{background:var(--no-wash);border-color:var(--no)}
+.fb{display:flex;flex-direction:column;gap:10px;border-radius:8px;padding:12px 16px;background:var(--gold-wash);border:1px dashed var(--gold)}
+.fb .v{font-weight:700;font-family:var(--f-ui)}
+.fb .v.ok{color:var(--ok)} .fb .v.no{color:var(--no)}
+.fb ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:4px}
+.fb li.picked{font-weight:700}
+.btn{align-self:flex-start;font-family:var(--f-ui);font-weight:600;font-size:15px;line-height:1.4;padding:10px 20px;border-radius:8px;border:0;background:var(--head-bg);color:var(--head-ink);cursor:pointer}
+.res{display:flex;flex-direction:column;gap:12px}
+.score{font-family:var(--f-display);font-size:40px;line-height:1.4}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(90px,140px) 1fr 44px;gap:10px;align-items:center;font-size:14px;line-height:1.5}
+.bar .pb{height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar .pb i{display:block;height:100%;background:var(--cat-b)}
+.bar.weak .pb i{background:var(--no)}
+.srcl{font-family:var(--f-ui);font-size:12px;line-height:1.6;color:var(--ink-2);margin:0}
+.foot{font-size:14px;color:var(--ink-2)}
+@media (max-width:600px){
+  body{padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+  .sheet{padding-block:22px 32px;padding-inline-start:26px;padding-inline-end:14px;gap:38px}
+  .sheet::before{inset-inline-start:16px}
+  .sheet::after{display:none}
+  .card{padding:14px}
+  section>h2{font-size:25px}
+  .bar{grid-template-columns:84px 1fr 40px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.prog i{transition:none}}
+</style>
+
+<div class="wrap">
+  <nav class="nav" aria-label="أقسام المذكرة">
+    <div class="chips" id="chips"></div>
+    <button type="button" class="themeb" id="themeb" aria-label="المظهر">
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+    </button>
+  </nav>
+  <main class="sheet" id="sheet" dir="rtl" lang="ar"></main>
+</div>
+
+<script>
+/* ===== المحتوى ===== */
+const NOTE = {
+  title:"التحويلات والمدفوعات: مذكرة واحدة",
+  subtitle:"دليل تعليمات التحويلات (معتمد 10/6/2021) + منشور 5557 الإصدار الثاني (11/9/2024) + ملف الرقابة الداخلية بالفرع + بنك أسئلة التطبيق",
+  stamp:"مذكرة · Transfers & Payments",
+  categories:{a:"التحويلات", b:"الحوالات", c:"المدفوعات الحكومية"},
+  summary:{
+    lead:"**التحويلات** بتتنفذ من حساب العميل (مستديمة، داخلية، خارجية). **الحوالات** بتتنقل بين الفروع أو بتيجي من بنوك وصيارفة. **المدفوعات الحكومية** بتتسدد عبر **E-Finance** نقدًا أو خصمًا من الحساب.",
+    colHeaders:["إيه هو","أهم تحقق","أرقام وحدود"],
+    rows:[
+      {head:"تحويل مستديم", sub:"تعليمات دورية",
+       cells:[{main:"**محدد القيمة** أو **غير محدد** (رصيد حساب في تاريخ أو عند حد معين)", ex:"من حساب لحساب نفس العميل أو عميل آخر", cat:"a"},
+              {main:"توقيع مطابق + **مذكرة منخفضة** + تصريح المدير", ex:"ويُدخل **الغرض** من التحويل", cat:"a"},
+              {main:"الصيغة غير الواضحة: **مرة واحدة** فقط", ex:"رصيد جزئي = عدم رصيد", cat:"a"}]},
+      {head:"تحويل داخلي", sub:"بين حسابين",
+       cells:[{main:"نقل بين حسابين داخل البنك", ex:"نفس العميل أو حساب آخر", cat:"a"},
+              {main:"مطابقة التوقيع وسماح الرصيد", ex:"الراكد: حضور العميل أو وكيله", cat:"a"},
+              {main:"**150 ألف ج / 10 آلاف $** فأكثر: تعزيز", ex:"لحساب الغير بتفويض جديد أو بريد", cat:"a"}]},
+      {head:"تحويل خارجي", sub:"SWIFT و ACH",
+       cells:[{main:"بالعملة المحلية والأجنبية", ex:"عن طريق **SWIFT** أو **ACH**", cat:"a"},
+              {main:"**IBAN**، الغرض، فحص القوائم، الماسح الضوئي", ex:"المصرح: مدير خدمة العملاء", cat:"a"},
+              {main:"**OUR**: حجز **100 دولار** لعمولة المراسل", ex:"بخطاب معتمد لقطاع العمليات المركزية", cat:"a"}]},
+      {head:"حوالة داخلية", sub:"فرع ← فرع",
+       cells:[{main:"المنشئ يسجل، والمستقبل يصرف من **أي فرع**", ex:"المستفيد والآمر **ثلاثي** على الأقل", cat:"b"},
+              {main:"فحص المستفيد، ولا **عارض** إلا بحساب", ex:"إيصال صرف بتوقيع المستفيد", cat:"b"},
+              {main:"**200 ألف** للحوالة: تُضاف لحساب", ex:"وتُرد للمنشئ بعد **3 شهور**", cat:"b"}]},
+      {head:"حوالة سريعة", sub:"بنوك وصيارفة",
+       cells:[{main:"الواردة من **البنوك والصيارفة العرب**", ex:"SMS تلقائي عبر CRM", cat:"b"},
+              {main:"متابعة يومية وتسجيل **سبب عدم الصرف**", ex:"لا ترد بعدم الوصول قبل البحث", cat:"b"},
+              {main:"تنفذ خلال **ساعة**", ex:"3 أيام بعد SMS: اتصال بكل الوسائل", cat:"b"}]},
+      {head:"مدفوعات حكومية", sub:"E-Finance",
+       cells:[{main:"سداد ضرائب وجمارك ومطالبات وفواتير", ex:"نقدًا أو خصمًا من الحساب", cat:"c"},
+              {main:"هوية المودع + **نموذج السداد الموحد** + مراجعة مدير الخدمات", ex:"وتوقيع العميل بتحمل المسئولية", cat:"c"},
+              {main:"الحساب الموحد **203500477**", ex:"التسوية: حركات حتى 3 عصرًا", cat:"c"}]}
+    ],
+    legend:"الأحمر = تحويلات · الأزرق = حوالات · الذهبي = مدفوعات حكومية. الجدول تجميع من المصادر، وبعض الصياغات اتبسطت.",
+    goldenRule:"**التحويل** من حساب العميل بتوقيعه. **الحوالة** بتتصرف بعد **تحقق من الهوية وفحص القوائم**. **المدفوعة الحكومية** بتتأكد من **شاشة E-Finance** قبل ما تتسلّم الإيصال."
+  },
+  sections:[
+    {type:"concepts", id:"concepts", title:"المفاهيم الأساسية", items:[
+      {nameEn:"Standing Instructions", nameAr:"التحويلات المستديمة", cat:"a",
+       formula:[{sign:"+",text:"**محدد القيمة**: مبلغ محدد بصفة دورية أو في مواعيد ثابتة لفترة محددة"},
+                {sign:"+",text:"**غير محدد القيمة**: تحويل رصيد الحساب في تاريخ محدد أو عند بلوغ قيمة يحددها العميل، مع **الحد الأدنى للرصيد**"},
+                {sign:"+",text:"موظف خدمة العملاء: مطابقة التوقيع، إثبات التعليمات، **مذكرة منخفضة** على الحساب"},
+                {sign:"+",text:"مدير خدمة العملاء: يصرّح على شاشتي التعليمات والمذكرة ويطبع تقرير التعليمات المصرح بها وغير المصرح بها"}],
+       uses:["دفعات دورية أو تحويل رصيد حسب تاريخ أو حد"],
+       examples:[{en:"الصيغة لا تُظهر أنها مستديمة",ar:"ينفذ **مرة واحدة** ويُخطر العميل ويطلب إفادة صريحة"},
+                 {en:"الرصيد يكفي جزءًا من القيمة يوم الاستحقاق",ar:"يُعد عدم رصيد، **إلا** لو التعليمات 'مبلغ كذا أو ما يسمح به الحساب'"},
+                 {en:"إلغاء تحويل نُفذ لصالح الغير",ar:"لا يُسترد بإرادة العميل: يلزم **موافقة المستفيد**"},
+                 {en:"وفاة العميل",ar:"البنك يتوقف من **تاريخ علمه** بالوفاة (انتهاء الوكالة)"},
+                 {en:"رفض المستفيد التحويل",ar:"يُعاد للعميل بشرط أن يكون الرفض **كتابة**"},
+                 {en:"حجز أو إشهار إفلاس قبل التنفيذ",ar:"لا يُنفذ ولا حق للمستفيد في المطالبة. لو بعد تنفيذ تحويل مستحق: لا أثر عليه"}],
+       signals:["مذكرة منخفضة","محدد القيمة","غير محدد القيمة","الحد الأدنى للرصيد","Instruction_chm31_ubs"],
+       tip:"في الحجز أو الإفلاس **التوقيت هو الفيصل**: قبل التنفيذ ممنوع، وبعد تنفيذ تحويل مستحق لا أثر.",
+       src:"دليل تعليمات التحويلات 2021 · بنك أسئلة التطبيق"},
+      {nameEn:"Internal Transfers", nameAr:"التحويلات الداخلية بين الحسابات", cat:"a",
+       formula:[{sign:"+",text:"طلب كامل البيانات: **رقم واسم** المحوَّل منه والمحوَّل إليه والمبلغ"},
+                {sign:"+",text:"مطابقة التوقيع و**سماح الرصيد**، ثم التنفيذ وختم 'المستند مستوفى للتعليمات'"},
+                {sign:"+",text:"المدير يراجع ويصرّح ويتأكد من **وجود العميل أو وكيله** للتحويلات المستلمة"},
+                {sign:"-",text:"**لا تُطبع** إشعارات تحويل بين حسابات **نفس العميل**"}],
+       uses:["نقل بين حسابين داخل البنك"],
+       examples:[{en:"لحساب الغير، بتفويض جديد أو بريد",ar:"**150 ألف ج** فأكثر أو **10 آلاف $** فأكثر: **تعزيز** مع العميل قبل التنفيذ، وإشعار تعزيز له"},
+                 {en:"عدم الوصول للعميل",ar:"العرض على المستوى الإداري الأعلى، ويؤشر بأسباب الموافقة"},
+                 {en:"حساب راكد (فرد)",ar:"بحضور العميل أو وكيله. المسافر: طلب مزيل بتصديق قنصلية أو سفارة أو بنك مراسل"},
+                 {en:"تحويل من حساب أجنبي لمحلي",ar:"يكفي طلب التحويل مع عبارة **'تنازل عن عملة'** في الغرض"},
+                 {en:"هوية العميل",ar:"يُكتفى بـ**الاطلاع** على البطاقة والتأكد من سريانها وتحديثها بدون أخذ صورة"}],
+       signals:["150 ألف","10 آلاف دولار","حساب راكد","تنازل عن عملة","إشعار تعزيز"],
+       tip:"**150 ألف** و**200 ألف** مش نفس الحد: الأول لتعزيز **التحويل**، والتاني لقواعد **صرف الحوالة**.",
+       src:"دليل تعليمات التحويلات 2021 · الرقابة الداخلية بالفرع · بنك أسئلة التطبيق"},
+      {nameEn:"Merchant Standing Transfers", nameAr:"تحويلات التجار المستديمة (منتج 45)", cat:"a",
+       formula:[{sign:"+",text:"حساب **منتج 45** لعملاء المدفوعات الإلكترونية لتحويل أرصدتهم **بالكامل** لبنوك أخرى بـ **IBAN**"},
+                {sign:"+",text:"الإدارة المركزية للمدفوعات والقنوات الإلكترونية تستوفي الطلب وقت التعاقد، **وبنك العميل يصدّق** على التوقيع"},
+                {sign:"+",text:"الفرع يفتح الحساب (عميل حالي) أو يستوفي مستندات الفتح (عميل جديد)"},
+                {sign:"+",text:"أي إضافة أو حذف أو تعديل: مخاطبة **تكنولوجيا المعلومات** على مجموعة BME_UBS_Support"}],
+       uses:["تحويل دوري لأرصدة حسابات التجار"],
+       examples:[{en:"تنفيذ يومي",ar:"الإدارة التخصصية تطبع صباحًا تقرير BALANCE_OF_ACCOUNTS_Prodact CC0045 وتحول الأرصدة حسب الدورية"},
+                 {en:"تحديث الجدول",ar:"IT يحدّث جدول RO_UBSPROD.BM_CC0045_TRANSFERS ويرد بالتنفيذ"}],
+       signals:["منتج 45","IBAN","BM_CC0045_TRANSFERS","BME_UBS_Support"],
+       tip:"الفرع **ما بيحوّلش** بنفسه: بيفتح الحساب ويبلغ IT، والتحويل بيتم مركزيًا.",
+       src:"دليل تعليمات التحويلات 2021"},
+      {nameEn:"SWIFT & ACH", nameAr:"التحويلات الخارجية", cat:"a",
+       formula:[{sign:"+",text:"طلب بالبيانات **عربي وإنجليزي** وتوقيع العميل"},
+                {sign:"+",text:"التأكد: الاسم مطابق للحساب، الرصيد يسمح (مع العمولة)، **الغرض** والمستندات، توقيع مطابق وحساب نشط، **IBAN** لكل الدول المطبقة له"},
+                {sign:"+",text:"**المسح الضوئي** لأصل الطلب ونتيجة فحص القوائم والمرفقات، فيتولد **رقم الطلب بالفرع**"},
+                {sign:"+",text:"مدير خدمة العملاء يصرّح على الماسح فيتولد **رقم المركزية** ويرسل آليًا للإدارة العامة للتحويلات المركزية"}],
+       uses:["تحويل بعملة محلية أو أجنبية خارج البنك"],
+       examples:[{en:"فحص القوائم",ar:"SWIFT أجنبي: المحوِّل والمستفيد وبنك المستفيد · SWIFT بالمحلي و ACH محلي: المستفيد"},
+                 {en:"تشابه في القوائم",ar:"الرجوع لفريق الالتزام والحوكمة (sanctionscreeninggroup)"},
+                 {en:"OUR (المستفيد يتلقى القيمة كاملة)",ar:"خطاب معتمد لحجز **100 دولار** لمقابلة عمولة المراسل"},
+                 {en:"عمولة مميزة",ar:"موافقة **لجنة الأصول والخصوم** سارية مرفقة بالتحويل"},
+                 {en:"عملة أجنبية",ar:"تحديد مصدر التمويل (موارد ذاتية / سوق حرة). الخصم من حساب محلي: طلب على **نظام التدبير** وعلى الماسح"},
+                 {en:"حساب جارٍ مدين",ar:"مركز مالي معتمد من الفرع (إلا المدين بضمان عيني أفراد)"},
+                 {en:"تحصيل شيكات خارج الغرفة بالجنيه",ar:"يودع صافي القيمة في حساب **202602000** ويُخصم العمولة طرف الفرع"},
+                 {en:"التركات",ar:"الخصم مباشرة من حساب **90** باسم الوريث"}],
+       signals:["IBAN","ACH","SWIFT","OUR","الماسح الضوئي","رقم المركزية"],
+       tip:"آخر اليوم: طباعة تقريري **Swift-m-outgoing 2-ubs** و **ACH_Transfer_Customer_Copy** لمراجعة **عدم التكرار** وإرسال الكل للمركزية.",
+       src:"دليل تعليمات التحويلات 2021 · بنك أسئلة التطبيق"},
+      {nameEn:"Suez Canal Fees", nameAr:"تحويلات رسوم قناة السويس", cat:"a",
+       formula:[{sign:"+",text:"حساب **جديد** للتوكيل الملاحي للرسوم المستحقة لهيئة قناة السويس **فقط**، يُغذى بالتحويلات الواردة من الخارج"},
+                {sign:"-",text:"**لا إيداعات نقدية** عليه، مع تسجيل **memo** بذلك"},
+                {sign:"+",text:"التحويل من الحساب الجديد **في نفس يوم** استلام تعليمات التوكيل"},
+                {sign:"?",text:"رسوم **المرور** من الحساب الجديد فقط، وغيرها من أي حساب توكيلي"}],
+       uses:["شهادة بنكية للتوكيلات الملاحية وإحكام الرقابة على موارد الدولة بالعملة الأجنبية"],
+       examples:[{en:"استثناء 1",ar:"مؤجر السفينة شركة **مصرية** والعملية في ميناء مصري مع المستندات"},
+                 {en:"استثناء 2",ar:"اليخوت: خطاب استلام نقدية من **مندوب الجمارك** مختوم بختمها"},
+                 {en:"العطلات الرسمية",ar:"المنظومة تعمل، والتغطية لمراسل البنك المركزي في **أول يوم عمل** للمراسل"}],
+       signals:["قناة السويس","التوكيل الملاحي","رسوم المرور","memo"],
+       tip:"السؤال الدائم: **رسوم المرور** ولا غيرها؟ المرور له قيد على الحساب الجديد.",
+       src:"دليل تعليمات التحويلات 2021"},
+      {nameEn:"Domestic Remittance", nameAr:"الحوالات الداخلية: الإنشاء والمتابعة", cat:"b",
+       formula:[{sign:"+",text:"الطلب: اسم المستفيد **ثلاثي** على الأقل، تليفونه، عنوانه، اسم **الآمر** ثلاثي، الغرض، توقيع العميل"},
+                {sign:"-",text:"**العارض**: لا حوالة إلا بعد رقم تعريفي وحساب وتطبيق التعرف على الهوية، والخصم من حسابه"},
+                {sign:"+",text:"فحص المستفيد على قوائم المتابعة المحلية والعالمية وإرفاق النتيجة"},
+                {sign:"+",text:"إشعار تعزيز للعميل أو الوكيل (يوقع بالاستلام)، أو يُرسل له"}],
+       uses:["نقل مبلغ من فرع لفرع"],
+       examples:[{en:"المستقبل: المتابعة اليومية",ar:"تقرير الحوالات الواردة يوميًا، وبعد **أسبوع** من الورود يتصل بالمستفيد"},
+                 {en:"جرد شهري",ar:"يطبع مدير خدمة العملاء تقرير الجرد ويطابقه على أرصدة الأستاذ العام"},
+                 {en:"لم يتقدم المستفيد",ar:"تُرد للفرع المنشئ بعد **3 شهور** في حساب **109301002** (معاملات بين الفروع) مع إشعار"}],
+       signals:["ثلاثي الاسم","العميل العارض","تقرير الجرد","109301002"],
+       tip:"**مفيش حوالات نقدية بين الفروع بالعملات الأجنبية** نهائيًا.",
+       src:"دليل تعليمات التحويلات 2021"},
+      {nameEn:"Remittance Payout", nameAr:"صرف الحوالة وقاعدة 200 ألف", cat:"b",
+       formula:[{sign:"+",text:"التأكد من بيانات الحوالة وشخصية المستفيد، وتسجيل رقم الحوالة على صورة الهوية"},
+                {sign:"+",text:"فحص المستفيد قبل الصرف وإرفاق النتيجة، وطباعة **إيصال صرف** يوقعه المستفيد قبل التصريح"},
+                {sign:"+",text:"**حوالة واحدة ≥ 200 ألف ج**: تُضاف لحساب العميل (يُفتح حساب بعد التعرف على الهوية لو لا يوجد) ثم يُصرف منه"},
+                {sign:"+",text:"**إجمالي الشهر > 200 ألف**: بريد من الالتزام والحوكمة للفرع للتصرف"}],
+       uses:["صرف الحوالات الداخلية من أي فرع"],
+       examples:[{en:"أقل من 200 ألف وإجمالي الشهر السابق ≤ 200 ألف",ar:"صورة هوية سارية موقعة بـ**'صورة طبق الأصل'** تُحفظ مع المستند"},
+                 {en:"الاستثناء من فتح الحسابات",ar:"**هيئة البريد** والمستفيدون من شركات **CORPAY** (تظهر FUNDS TRANSFER في الأمر)"},
+                 {en:"حوالة بيانات غير مستوفاة",ar:"لا تُصرف إلا بـ**تعزيز** من الفرع المصدر"}],
+       signals:["200 ألف","صورة طبق الأصل","إيصال صرف","CORPAY","هيئة البريد"],
+       tip:"الحوالة **السريعة** ≥ 200 ألف بتحتاج **صورة هوية + نموذج تعارف** (مش إضافة لحساب).",
+       src:"دليل تعليمات التحويلات 2021"},
+      {nameEn:"Fast Remittance", nameAr:"الحوالات السريعة", cat:"b",
+       formula:[{sign:"+",text:"هي الحوالات **الواردة من البنوك والصيارفة العرب**"},
+                {sign:"+",text:"**SMS** تلقائي للمستفيد عبر CRM لو رقم موبايله ضمن البيانات"},
+                {sign:"+",text:"مسئول الاستقبال يوميًا: برنامج **أسباب عدم الصرف**، استعراض الحوالات القائمة، الاتصال بالعملاء"},
+                {sign:"+",text:"بعد **3 أيام** من SMS دون حضور: الاتصال بكل الوسائل المتاحة"}],
+       uses:["إخطار المستفيد وصرف الحوالة الواردة"],
+       examples:[{en:"المستفيد له عنوان",ar:"إخطار بالحضور من **Infoview** ثم **TT-ADVICE TODAY** (فئة FT) بعد 3 أيام من الورود"},
+                 {en:"حوالة مرّ عليها أكثر من أسبوع",ar:"تسجيل **سبب عدم الصرف** من قائمة الأسباب"},
+                 {en:"اختلاف بيانات أو اسم ثلاثي فقط",ar:"العرض على إدارة الفرع، ثم التصعيد للإدارة العامة للحوالات السريعة عند عدم الاطمئنان"},
+                 {en:"الاستعلام",ar:"التحقق من **آخر تعديل** على الحوالة وطباعته وإرفاقه"},
+                 {en:"عميل يسأل عن حوالة لم تصل",ar:"لا يُرد **قبل البحث** على شاشة الحوالات القائمة. وتُنفذ من مركز الحوالات خلال **ساعة** من استلام الملف"}],
+       signals:["حوالة سريعة","SMS","TT-ADVICE TODAY","Infoview","أسباب عدم الصرف"],
+       tip:"لا ترد على العميل بـ'ما وصلتش' قبل ما **تبحث** على شاشة الحوالات القائمة.",
+       src:"دليل تعليمات التحويلات 2021 · الرقابة الداخلية بالفرع"},
+      {nameEn:"Gov Payment Flow", nameAr:"سداد المدفوعات الحكومية (E-Finance)", cat:"c",
+       formula:[{sign:"+",text:"التحقق من شخصية المودع ببطاقة الرقم القومي السارية أو إثبات معتمد (**يُستثنى**: مدفوعة إصدار بطاقة رقم قومي أو بدل فاقد/تالف)"},
+                {sign:"+",text:"العميل يستوفي **نموذج طلب السداد الموحد** بدقة (العملة، رقم المطالبة، بيانات الهوية)"},
+                {sign:"+",text:"الدخول على شاشة **E-Finance** واختيار الاستعلام (ضرائب / جمارك / مطالبات وفواتير)، وتسجيل المدفوعة بالمبلغ شامل العمولة **دون تصريح**"},
+                {sign:"+",text:"طباعة **طلب السداد** من الشاشة (نسخة واحدة) وتوقيع المودع بـ'تمت مراجعة البيانات... تحت مسئوليتي'"},
+                {sign:"+",text:"تحصيل المبلغ وإيداعه **مباشرة** في **الأستاذ العام الموحد**، وكتابة رقم المطالبة واسم المودع، وطباعة إيصال الإيداع"}],
+       uses:["سداد ضرائب وجمارك ومطالبات وفواتير حكومية"],
+       examples:[{en:"السداد خصمًا من الحساب",ar:"مطابقة التوقيع، سماح الرصيد بالقيمة + العمولة، خصم القيمة وإضافتها للأستاذ العام الموحد، وطباعة إشعار الخصم"},
+                 {en:"استعلام ولم يكتمل السداد",ar:"يُلغى الاستعلام **آليًا** من النظام في اليوم التالي"},
+                 {en:"عميل يريد سداد ضريبة بالدولار",ar:"عدّ وفرز النقدية، قيد منفصل بالدولار بالكامل من موارده، وقيد منفصل للعمولة **بالجنيه**، واختيار نوع عملة التحصيل"}],
+       signals:["نموذج السداد الموحد","E-Finance","الأستاذ العام الموحد","إيصال الإيداع","إشعار الخصم"],
+       tip:"العمولة على المتحصلات الضريبية **بالدولار** تُحصَّل **بالجنيه فقط**.",
+       src:"منشور 5557 إصدار ثان · بنك أسئلة التطبيق"},
+      {nameEn:"Payment Confirmation", nameAr:"تأكيد السداد والمتابعة اليومية", cat:"c",
+       formula:[{sign:"+",text:"مدير الخدمات المصرفية يراجع النموذج وطلب السداد وإيصال الإيداع أو إشعار الخصم وتوقيع العميل"},
+                {sign:"+",text:"شاشة **تأكيد السداد**: إدخال رقم طلب السداد والمبلغ من الإيصال، فيطابقه النظام"},
+                {sign:"+",text:"عند المطابقة: **رقم مرجعي** وطباعة **إيصال تأكيد سداد المطالبة** وتسليم العميل نسخة"},
+                {sign:"-",text:"عند عدم المطابقة: رسالة خطأ وإعادة إدخال المبلغ"}],
+       uses:["إتمام السداد على نظام الشركة"],
+       examples:[{en:"آخر اليوم",ar:"طباعة التقرير الإجمالي والتفصيلي للحركات ومطابقة عدد وقيم المبالغ مع **الأستاذ العام الموحد** وحفظ المستندات"},
+                 {en:"شك في التأكيد أو عطل",ar:"طباعة تقرير الصراف من نظام شبكة الشركة (رقم التصديق ومبلغ السداد) أو الرجوع للإدارة المختصة"},
+                 {en:"نقل الموظف من الفرع",ar:"طلب لإدارة **صلاحيات المستخدمين** لإيقاف رقم المستخدم على نظام الشركة"},
+                 {en:"اكتشاف عدم مطابقة أو تداخل",ar:"فحص وتصحيح **فوري** حسب إجراءات معالجة الأخطاء"}],
+       signals:["تأكيد السداد","رقم مرجعي","التقرير الإجمالي","صلاحيات المستخدمين"],
+       tip:"المدفوعة **ما تتأكدش** على نظام الشركة إلا بعد **تغطية** المبلغ والعمولة وإضافتها للأستاذ العام الموحد.",
+       src:"منشور 5557 إصدار ثان"},
+      {nameEn:"Payment Errors", nameAr:"معالجة أخطاء المدفوعات الحكومية", cat:"c",
+       formula:[{sign:"+",text:"**خطأ العميل** (اعترض بعد التأكيد رغم توقيعه): لو يريد الصحيحة، نموذج جديد ولا تأكيد إلا بعد **تغطية** المبلغ والعمولة"},
+                {sign:"+",text:"للمدفوعة الخطأ: **خطاب موقع** من العميل للجهة المستفيدة مرفقًا إيصال التأكيد، أو رد عن طريق البنك بإرسال المستندات لإدارة التسويات"},
+                {sign:"+",text:"**خطأ الفرع**: مذكرة تفصيلية موقعة من **مدير الفرع ومدير الخدمات المصرفية** لمدير عام المنطقة"},
+                {sign:"+",text:"طلب على نظام **تداول المستندات** على مسار 'أخطاء تشغيلية للمدفوعات الحكومية'"}],
+       uses:["تصحيح مدفوعة خاطئة"],
+       examples:[{en:"القيد الأولي لخطأ الفرع",ar:"من **109500148** (فرعي 90) إلى **203500477**"},
+                 {en:"رد الجهة المستفيدة",ar:"يُضاف المبلغ للحساب التشغيلي، ويُسترد للعميل نقدًا أو بالإضافة للحساب"},
+                 {en:"رفض الجهة أو 3 شهور بلا رد",ar:"يُغلق الطلب وتُعتبر **خسائر تشغيلية محققة** وتُعرض على اللجنة المختصة"},
+                 {en:"أخطاء معلقة 3 شهور",ar:"العرض على مدير عام المنطقة مع الأسباب لتحميل **الموظفين المتسببين**"}],
+       signals:["خطأ العميل","خطأ الفرع","تداول المستندات","109500148","خسائر تشغيلية"],
+       tip:"**المسؤولية على العميل** لو وقع ونفذ النموذج. وعلى **الفرع** لو نفذ بخلاف النموذج.",
+       src:"منشور 5557 إصدار ثان"},
+      {nameEn:"Settlement & Accounts", nameAr:"التسوية وأرقام الحسابات", cat:"c",
+       formula:[{sign:"+",text:"حساب **203500477**: الموحد للمدفوعات الحكومية (جنيه ودولار)"},
+                {sign:"+",text:"**203500139**: متحصلات الضرائب بالمركز الرئيسي · **203500279**: الجمارك والمطالبات والفواتير"},
+                {sign:"+",text:"**109500148** (فرعي 90): أخطاء تشغيلية · **405030575**: مصروفات خسائر تشغيلية بالحسابات المركزية"},
+                {sign:"+",text:"**109301002**: حساب المركز الرئيسي (معاملات بين الفروع)"}],
+       uses:["قيود التسوية مع البنك المركزي"],
+       examples:[{en:"المطابقة اليومية",ar:"حركات الفروع **حتى الساعة 3 عصرًا** تُطابَق مع نظام الشركة وتُضاف للحساب الوسيط"},
+                 {en:"التسوية",ar:"الخصم والإضافة على حساب البنك المركزي المصري ومطابقة تقرير الشركة"},
+                 {en:"ضرائب بالدولار",ar:"متابعة التقرير يوميًا حتى **10 صباحًا**، وتنفيذ رسائل SWIFT للمركزي قبل **12 ظهرًا**"},
+                 {en:"عدم تطابق الملفات",ar:"الرجوع لتقرير أكواد الخدمات الجديدة المفعلة، ثم لتكنولوجيا المعلومات"}],
+       signals:["203500477","203500139","203500279","109500148","109301002"],
+       tip:"الأرقام دي بتتسأل: اربط كل رقم بـ**اسمه** (وسيط، ضرائب، جمارك، أخطاء، مركز رئيسي).",
+       src:"منشور 5557 إصدار ثان · دليل تعليمات التحويلات 2021"}
+    ]},
+    {type:"compare", id:"compare", title:"الفروقات", items:[
+      {title:"Fixed vs Non-fixed Standing", cols:[
+        {name:"محدد القيمة", cat:"a", when:"مبلغ **ثابت** ودورية",
+         ex:["مبلغ محدد بصفة دورية","أو في مواعيد ثابتة لفترة محددة","مثال: 2000 ج أول كل شهر لمدة سنة"]},
+        {name:"غير محدد القيمة", cat:"a", when:"**رصيد** حساب أو بلوغ حد",
+         ex:["تحويل رصيد الحساب في تاريخ محدد","أو عند بلوغ قيمة يحددها العميل","مع مراعاة الحد الأدنى للرصيد"]}],
+       golden:"لو **المبلغ معروف** فهو محدد القيمة. لو **المبلغ هو رصيد الحساب** فهو غير محدد."},
+      {title:"Domestic vs Fast Remittance", cols:[
+        {name:"الحوالة الداخلية", cat:"b", when:"**فرع ← فرع** في البنك",
+         ex:["المنشئ يسجل ويصرح","المستقبل يتصل بعد أسبوع","تُرد بعد 3 شهور في 109301002"]},
+        {name:"الحوالة السريعة", cat:"b", when:"واردة من **بنوك وصيارفة عرب**",
+         ex:["تنفذ من مركز الحوالات خلال ساعة","SMS تلقائي","بعد 3 أيام: اتصال بكل الوسائل"]}],
+       golden:"**الداخلية** بين فروعنا وتُرد بعد **3 شهور**. **السريعة** من الخارج وبتتابع **يوميًا**."},
+      {title:"Cash vs Account Payment", cols:[
+        {name:"سداد نقدي", cat:"c", when:"المودع **يورّد نقدًا**",
+         ex:["تحقق الهوية ونموذج السداد الموحد","تحصيل المبلغ وإيداعه في الأستاذ العام الموحد","طباعة إيصال الإيداع"]},
+        {name:"خصم من الحساب", cat:"c", when:"بتوقيع على النموذج أو تفويض",
+         ex:["مطابقة التوقيع وسماح الرصيد","القيمة + العمولة","خصم من شاشة الخصم وطباعة الإشعار"]}],
+       golden:"**نقدًا**: إيصال إيداع. **خصمًا**: إشعار خصم. وفي الاتنين المدير **يراجع ويصرّح**."},
+      {title:"Client Error vs Branch Error", cols:[
+        {name:"خطأ العميل", cat:"c", when:"المدفوعة نُفذت **كما وقّع**",
+         ex:["نموذج جديد للصحيحة بعد تغطيتها","خطاب موقع للجهة المستفيدة","أو رد عن طريق البنك"]},
+        {name:"خطأ الفرع", cat:"c", when:"تنفيذ **بخلاف** النموذج",
+         ex:["مذكرة من مدير الفرع ومدير الخدمات","اعتماد مدير عام المنطقة","قيد على أخطاء تشغيلية وتحميل المتسببين"]}],
+       golden:"اسأل: **التنفيذ طبق توقيع العميل؟** لو آه فالخطأ خطأه، ولو لأ فالخطأ تشغيلي على الفرع."},
+      {title:"Transfers vs Remittances", cols:[
+        {name:"التحويلات", cat:"a", when:"من **حساب العميل**",
+         ex:["مستديمة، داخلية، خارجية","بتوقيع العميل المطابق","تعزيز 150 ألف / 10 آلاف $"]},
+        {name:"الحوالات", cat:"b", when:"**بين الفروع** أو من بنوك وصيارفة",
+         ex:["داخلية وسريعة","تحقق هوية وفحص القوائم","حد 200 ألف للصرف"]}],
+       golden:"التحويل بيتحرك **من الحساب**. الحوالة بتتحرك **للمستفيد** وبتتصرف له."}
+    ]},
+    {type:"confusing", id:"confusing", title:"حالات بتلخبط", items:[
+      {title:"الحدود: 150 ألف ولا 200 ألف ولا 100 دولار؟",
+       explain:"كل رقم ليه موضعه. اربط الرقم بالعملية.",
+       examples:[{text:"150 ألف ج أو 10 آلاف $ فأكثر",note:"تعزيز **تحويل** لحساب الغير بتفويض جديد أو بريد",correct:true},
+                 {text:"200 ألف ج في الحوالة الواحدة",note:"إضافة الحوالة لحساب العميل (الداخلية) أو نموذج تعارف (السريعة)",correct:true},
+                 {text:"100 دولار",note:"حجز لعمولة المراسل في تحويل **OUR**",correct:true},
+                 {text:"إجمالي حوالات الشهر فوق 200 ألف",note:"بريد من الالتزام والحوكمة للفرع للتصرف",correct:true}]},
+      {title:"مواعيد الحوالة اللي ما اتصرفتش",
+       explain:"تلات مواعيد مختلفة، وكل واحد للنوع بتاعه.",
+       examples:[{text:"داخلية: بعد أسبوع من الورود",note:"الاتصال بالمستفيد للحضور",correct:true},
+                 {text:"داخلية: بعد 3 شهور",note:"تُرد للفرع المنشئ في 109301002",correct:true},
+                 {text:"سريعة: 3 أيام بعد SMS",note:"الاتصال بكل الوسائل المتاحة",correct:true},
+                 {text:"سريعة: أكثر من أسبوع",note:"تسجيل سبب عدم الصرف",correct:true}]},
+      {title:"الحوالة السريعة تتضاف على حساب بعملة مختلفة أو مغلق",
+       explain:"الإجراء بيتوقف على **مين المحوِّل** و**مين قفل الحساب**.",
+       examples:[{text:"المحوِّل هو صاحب الحساب، والحساب بالجنيه أو أغلقه البنك",note:"فتح حساب بعملة الحوالة لحين التواصل والحصول على توقيعه",correct:true},
+                 {text:"المحوِّل هو صاحب الحساب والحساب مغلق **بطلبه**",note:"رد الحوالة للمراسل في **نفس يوم العمل**",correct:true},
+                 {text:"المحوِّل شخص آخر والحساب بالجنيه والحوالة أجنبية",note:"الحصول على موافقة المستفيد: حساب بالعملة الأجنبية أو إضافتها لحسابه بالجنيه",correct:true},
+                 {text:"الحساب مغلق بمعرفة البنك وعملة الحوالة مختلفة",note:"موافقة المستفيد: فتح حساب بالأجنبي أو الإضافة لحسابه بالجنيه",correct:true}]},
+      {title:"هل أصوّر الهوية؟",
+       explain:"الإجابة بتتغير حسب العملية.",
+       examples:[{text:"تحويل داخلي من حساب العميل",note:"اطلاع فقط على البطاقة، بدون صورة",correct:false},
+                 {text:"حوالة أقل من 200 ألف (وإجمالي سابق ≤ 200 ألف)",note:"صورة هوية موقعة 'صورة طبق الأصل'",correct:true},
+                 {text:"حوالة سريعة ≥ 200 ألف",note:"صورة طبق الأصل + نموذج تعارف للأشخاص الطبيعيين",correct:true},
+                 {text:"طلب العميل صورة من إيصال الصرف",note:"لا مانع (حماية حقوق العملاء)",correct:true}]},
+      {title:"عميل غيّر رأيه بعد تأكيد المدفوعة الحكومية",
+       explain:"التأكيد اتم والعميل موقّع على النموذج وطلب السداد، فالمسؤولية عليه.",
+       examples:[{text:"يريد سداد المدفوعة الصحيحة",note:"نموذج جديد ولا تأكيد قبل تغطية المبلغ والعمولة",correct:true},
+                 {text:"لا يريد مدفوعة جديدة",note:"خطاب موقع للجهة المستفيدة مرفقًا إيصال التأكيد",correct:true},
+                 {text:"يريد رد المدفوعة عبر البنك",note:"استلام أصل الإيصال وإرسال المستندات لإدارة التسويات",correct:true},
+                 {text:"إلغاء المدفوعة من الفرع من عندنا",note:"غير جائز بدون المسار المحدد",correct:false}]}
+    ]},
+    {type:"conflicts", id:"conflicts", title:"تعارضات وتنبيهات بين المصادر", items:[
+      {title:"سعر استبدال حوالات المصريين العاملين بالخارج",
+       text:"دليل التحويلات 2021: يُعرض على العميل شراء العملة بـ**متوسط الأسعار (MID RATE)** من نشرة البنك وقت التنفيذ. ملف الرقابة الداخلية بالفرع: الأصل في الاستبدال بالجنيه **سعر الشراء (العادي)**، وعند طلب العميل **صرف الحوالة بالعملة الأجنبية** يُعرض **السعر المميز**، وفي بند آخر استبدال القيمة أو جزء منها أو الكسر **بسعر البيع (المميز)**. الصيغ مختلفة وغير متسقة، فاتبع **أحدث تعليمات رسمية** ولا تحفظ رقمًا واحدًا."},
+      {title:"فحص المستفيد في الحوالات الواردة",
+       text:"دليل التحويلات يطلب **فحص المستفيد قبل الصرف** على القوائم. ملف الرقابة الداخلية بيقول: يُفحص **المستفيد فقط**، ولو **له حساب لا يُفحص** ويُكتب رقم الحساب على مستند الهوية. الاتنين ظاهرهم مختلف، فالأحدث والأدق هو ملف الرقابة، لكن راجع التعليمات الأخيرة."},
+      {title:"منشور 5557: الإصدار الأول والثاني",
+       text:"الإصدار الأول (يناير 2023) **أُلغي** بالإصدار الثاني (11/9/2024). الصفحات هنا معتمدة على **الثاني** فقط. بعض صفحاته مستخرجة بنص ناقص، فالتفاصيل الدقيقة (مثل صياغة إيصال التأكيد) راجعها على الأصل."},
+      {title:"تاريخ دليل التحويلات",
+       text:"الدليل **معتمد 10/6/2021** وتصدر منشورات تعتبر جزءًا منه. الحدود (150 ألف و200 ألف و10 آلاف دولار) قد تتغير بمنشور أحدث. اعتبرها **الحالة المتاحة في المواد** وراجع آخر تحديث رسمي."}
+    ]},
+    {type:"reference", id:"ref", title:"أرقام وجداول مرجعية", tables:[
+      {id:"nums", title:"أرقام لازم تحفظها", headers:["الرقم","المعنى"],
+       rows:[["150 ألف ج / 10 آلاف $","تعزيز مع العميل لتحويل لحساب الغير بتفويض جديد أو بريد (فأكثر)"],
+             ["200 ألف ج","حوالة واحدة: إضافة لحساب العميل. وإجمالي الشهر فوقها: بريد الالتزام"],
+             ["100 دولار","حجز عمولة المراسل في تحويل OUR"],
+             ["أسبوع","الحوالة الداخلية: اتصال بالمستفيد، والسريعة: تسجيل سبب عدم الصرف"],
+             ["3 أيام","السريعة: بعد SMS اتصال بكل الوسائل، وإخطار الحضور من Infoview"],
+             ["ساعة","تنفيذ الحوالات السريعة من مركز الحوالات بعد استلام الملف"],
+             ["3 شهور","رد الحوالة الداخلية للمنشئ، وإغلاق طلب إلغاء المدفوعة بلا رد"],
+             ["5 أيام عمل","بيان مجمل لإدارات المناطق عن طلبات تداول المستندات غير المستوفاة"],
+             ["3 عصرًا","حد حركات الفروع للمطابقة والتسوية اليومية"],
+             ["10 صباحًا / 12 ظهرًا","متابعة تقرير الضرائب بالدولار / تنفيذ رسائل SWIFT للمركزي"],
+             ["31/12/2023","موافقة المركزي على تحصيل المتحصلات الضريبية بالعملة الأجنبية"],
+             ["10/6/2021 · 11/9/2024","تاريخ دليل التحويلات · تاريخ المنشور 5557 إصدار ثان"]],
+       tip:"اسأل نفسك: الرقم ده **حد قيمة** ولا **مدة زمنية** ولا **توقيت يوم**؟"},
+      {id:"accts", title:"الحسابات", headers:["الرقم","الحساب"],
+       rows:[["203500477","الأستاذ العام الموحد للمدفوعات الحكومية (جنيه / دولار)"],
+             ["203500139","إجمالي متحصلات الضرائب المسددة بالفروع بالمركز الرئيسي"],
+             ["203500279","متحصلات الجمارك ومطالبات وفواتير بالمركز الرئيسي"],
+             ["109500148","أخطاء تشغيلية للمدفوعات الحكومية (الفرعي 90)"],
+             ["405030575","مصروفات خسائر أحداث تشغيلية (الحسابات المركزية)"],
+             ["109301002","حساب المركز الرئيسي: معاملات بين الفروع"],
+             ["202602000","أوامر دفع وشيكات خارجية (تحصيل شيكات خارج الغرفة بالجنيه)"],
+             ["حساب 90","الخصم منه لتحويلات التركات باسم الوريث"]]},
+      {id:"sys", title:"أنظمة وشاشات وتقارير", headers:["الاسم","الاستخدام"],
+       rows:[["FCUBS","النظام الأساسي للبنك"],["E-pay (E-Finance)","نظام شركة الدفع الإلكتروني للمدفوعات الحكومية"],
+             ["شاشة 1460","تحصيل المبلغ وإيداعه مباشرة بحساب الأستاذ العام"],
+             ["شاشة 1008","خصم وإضافة المبلغ للأستاذ العام (السداد خصمًا)"],
+             ["نظام تداول المستندات","مسار 'أخطاء تشغيلية للمدفوعات الحكومية' وطلبات الاسترداد"],
+             ["نظام التدبير","طلب التحويل الأجنبي بالخصم من حساب محلي"],
+             ["الماسح الضوئي","رقم الطلب بالفرع ثم رقم المركزية"],
+             ["Infoview · TT-ADVICE TODAY","إخطار حضور مستفيد حوالة سريعة (فئة FT)"],
+             ["TT-VOUCHERS","أمر دفع بين الفروع لحوالات تُضاف لحسابات العملاء أو حساب تبرعات"],
+             ["Instruction_chm31_ubs","تقرير التعليمات المستديمة المصرح بها وغير المصرح بها"],
+             ["Swift-m-outgoing 2-ubs · ACH_Transfer_Customer_Copy","تقارير نهاية اليوم للتحويلات الخارجية"],
+             ["BALANCE_OF_ACCOUNTS_Prodact CC0045","حسابات منتج 45 المحولة دوريًا"]]}
+    ]},
+    {type:"lookup", id:"lookup", title:"دوّر على دليل", rows:[
+      {signal:"مذكرة منخفضة", target:"تحويل مستديم", note:"تنشأ على حساب العميل"},
+      {signal:"مبلغ كذا أو ما يسمح به الحساب", target:"تنفيذ جزئي للمستديم", note:"استثناء من عدم الرصيد"},
+      {signal:"الغرض من التحويل", target:"بيان مطلوب في المستديم والخارجي", note:""},
+      {signal:"150 ألف / 10 آلاف دولار", target:"تعزيز مع العميل (تحويل لحساب الغير)", note:"تفويض جديد أو بريد"},
+      {signal:"تنازل عن عملة", target:"عبارة الغرض عند التحويل من أجنبي لمحلي", note:""},
+      {signal:"حساب راكد", target:"حضور شخصي أو وكيل", note:"أو طلب مصدق للمسافر"},
+      {signal:"منتج 45", target:"حسابات التجار للتحويل الدوري", note:"IBAN وتصديق بنك العميل"},
+      {signal:"IBAN", target:"إلزامي في SWIFT للدول المطبقة", note:""},
+      {signal:"OUR", target:"حجز 100 دولار لعمولة المراسل", note:""},
+      {signal:"لجنة الأصول والخصوم", target:"موافقة العمولة المميزة", note:"صورتها مع التحويل"},
+      {signal:"نظام التدبير", target:"تحويل أجنبي بالخصم من حساب محلي", note:""},
+      {signal:"رقم المركزية", target:"يتولد بعد تصريح المدير على الماسح", note:""},
+      {signal:"202602000", target:"حساب تحصيل شيك خارج الغرفة بالجنيه", note:""},
+      {signal:"التوكيل الملاحي", target:"قناة السويس", note:"حساب جديد لا إيداع نقدي"},
+      {signal:"ثلاثي الاسم", target:"المستفيد والآمر في الحوالة", note:""},
+      {signal:"العميل العارض", target:"لا حوالة إلا بعد رقم تعريفي وحساب", note:""},
+      {signal:"109301002", target:"رد الحوالة للمنشئ بعد 3 شهور", note:"معاملات بين الفروع"},
+      {signal:"CORPAY / هيئة البريد", target:"استثناء من فتح حساب عند 200 ألف", note:"FUNDS TRANSFER"},
+      {signal:"حوالة سريعة", target:"واردة من بنوك وصيارفة عرب", note:"SMS وتنفيذ خلال ساعة"},
+      {signal:"TT-ADVICE TODAY", target:"إخطار حضور بعد 3 أيام", note:"Infoview فئة FT"},
+      {signal:"E-Finance", target:"سداد المدفوعات الحكومية", note:""},
+      {signal:"نموذج طلب السداد الموحد", target:"المدفوعات الحكومية", note:"توقيع العميل بتحمل المسئولية"},
+      {signal:"203500477", target:"الأستاذ العام الموحد للمدفوعات", note:""},
+      {signal:"203500139", target:"متحصلات الضرائب بالمركز الرئيسي", note:""},
+      {signal:"203500279", target:"متحصلات الجمارك والمطالبات", note:""},
+      {signal:"109500148", target:"أخطاء تشغيلية للمدفوعات الحكومية", note:"فرعي 90"},
+      {signal:"تداول المستندات", target:"طلب استرداد مدفوعة خطأ", note:""},
+      {signal:"3 عصرًا", target:"حد المطابقة اليومية", note:""},
+      {signal:"صلاحيات المستخدمين", target:"إيقاف مستخدم منقول على نظام الشركة", note:""}
+    ]}
+  ]
+};
+
+const QUIZ = {
+  sections:[{id:"s1",title:"التحويلات"},{id:"s2",title:"الحوالات"},{id:"s3",title:"المدفوعات الحكومية"},{id:"s4",title:"حالات بتلخبط"}],
+  questions:[
+   {id:"q1",section:"s1",prompt:"عميل طلب تحويل رصيد حسابه يوم 25 من كل شهر مع مراعاة الحد الأدنى. نوع التعليمات؟",answer:"تحويل مستديم غير محدد القيمة",
+    clue:"المبلغ هو رصيد الحساب، مش مبلغ ثابت.",
+    why:"التحويل **بيتكرر** كل شهر فهو مستديم، و**المبلغ مش ثابت** لأنه بيعتمد على الرصيد الموجود يومها بعد الحد الأدنى، فهو **غير محدد القيمة**.",
+    wrong:[{option:"تحويل مستديم محدد القيمة",why:"المحدد بيبقى مبلغ ثابت كل مرة (زي 5000 ج)."},
+           {option:"تحويل داخلي لمرة واحدة",why:"الطلب بيتكرر كل شهر."},
+           {option:"تحويل خارجي بنظام ACH",why:"مفيش ما يدل إن الفلوس رايحة بنك تاني."}]},
+   {id:"q2",section:"s1",prompt:"طلب تحويل بياناته كاملة لكن الصيغة لا توضح أنه مستديم. الإجراء؟",answer:"ينفذ مرة واحدة ويُطلب من العميل إفادة صريحة",
+    clue:"ما تفترضش التكرار.",
+    why:"البنك **ما يفترضش** إن العميل عايز يحوّل كل شهر، لأن ده هيخصم من فلوسه من غير ما يقول صراحة. فينفذ **المؤكد** (مرة واحدة)، ويسأل العميل عن الباقي.",
+    wrong:[{option:"ينفذ كمستديم حتى إشعار آخر",why:"كده بتخصم فلوس العميل من غير تعليمات واضحة."},
+           {option:"يُرفض الطلب كاملًا ويُعاد للعميل",why:"البيانات كاملة، فالمرة الواحدة واضحة وتتنفذ."},
+           {option:"ينفذ مرتين ثم يُسأل العميل",why:"المرة التانية من غير تعليمات."}]},
+   {id:"q3",section:"s1",prompt:"يوم استحقاق تحويل مستديم بـ 5000 ج، والرصيد المتاح 3000 ولا يوجد طلب بتنفيذ جزئي.",answer:"لا يُنفذ لأن الجزء المتاح يُعد عدم رصيد",
+    clue:"الجزئي محتاج تعليمات.",
+    why:"العميل طلب **5000 بالظبط**، وممكن يكون المبلغ مطلوب كامل لغرض معين (قسط أو إيجار). فتحويل جزء منه **مش هو اللي طلبه**. التنفيذ الجزئي بس لو التعليمات قالت 'أو ما يسمح به الحساب'.",
+    wrong:[{option:"يُنفذ بـ 3000 تلقائيًا",why:"ده تنفيذ لحاجة العميل ما طلبهاش."},
+           {option:"يُؤجل شهرًا ويُنفذ بـ 8000",why:"مفيش تعليمات بالتجميع."},
+           {option:"يُنفذ بكامل المبلغ بالسحب على المكشوف",why:"ده هيعمل مديونية على العميل من غير موافقة."}]},
+   {id:"q4",section:"s1",prompt:"عميل طلب إلغاء تحويل نُفذ لصالح الغير. هل يُسترد المبلغ بطلبه؟",answer:"لا، يلزم موافقة المستفيد",
+    clue:"الفلوس بقت عند حد تاني.",
+    why:"بعد التنفيذ الفلوس دخلت **ملك المستفيد**، والبنك ما يقدرش ياخدها منه من غير موافقته. وإلا يبقى بيتصرف في فلوس عميل تاني.",
+    wrong:[{option:"نعم، بمجرد توقيع العميل",why:"العميل ما يقدرش يسحب فلوس بقت لحد تاني."},
+           {option:"نعم، بموافقة مدير الفرع فقط",why:"المدير مالوش سلطة على حق المستفيد."},
+           {option:"نعم، خلال 24 ساعة من التنفيذ",why:"مفيش فترة سماح للإلغاء."}]},
+   {id:"q5",section:"s1",prompt:"توفي العميل قبل تنفيذ باقي دفعات التحويلات. متى يتوقف البنك؟",answer:"من تاريخ علم البنك بالوفاة",
+    clue:"الوكالة بتنتهي.",
+    why:"التحويل المستديم **وكالة** من العميل للبنك، والوكالة بتنتهي بالوفاة. بس البنك ما يقدرش يتحاسب على حاجة ما يعرفهاش، فبيوقف **من وقت ما يعلم**.",
+    wrong:[{option:"من تاريخ حدوث الوفاة الفعلي دائمًا",why:"البنك ما كانش يعرف، فما يتحاسبش على اللي نفذه قبل العلم."},
+           {option:"بعد انتهاء آخر دفعة مجدولة",why:"الوكالة انتهت، والفلوس بقت تركة."},
+           {option:"بعد 3 شهور من العلم بالوفاة",why:"لازم يوقف فورًا."}]},
+   {id:"q6",section:"s1",prompt:"الحد الذي يستلزم تعزيز العميل في التحويل لحساب الغير بتفويض جديد أو بريد:",answer:"150 ألف جنيه أو 10 آلاف دولار فأكثر",
+    clue:"الفلوس طالعة لحد تاني.",
+    why:"التفويض **الجديد** أو **البريدي** ممكن يكون مزوّر، والفلوس رايحة **لحد تاني** فصعب ترجع. فمن الحد ده البنك بيأكد مع العميل **قبل** التنفيذ.",
+    wrong:[{option:"200 ألف جنيه فأكثر فقط",why:"ده حد إضافة الحوالة الداخلية لحساب."},
+           {option:"15 ألف دولار فأكثر",why:"ده حد تعزيز الشيك المصرفي."},
+           {option:"100 ألف جنيه فأكثر",why:"مش الحد المقرر."}]},
+   {id:"q7",section:"s1",prompt:"عميل لديه حساب راكد (فرد) ويريد تحويلًا منه:",answer:"بحضور العميل أو وكيله المخول",
+    clue:"الحساب الراكد هدف للاحتيال.",
+    why:"الحساب الراكد **ما حدش بيتابعه**، فلو حد طلب يحوّل منه ببريد أو تليفون، ممكن يكون محتال. عشان كده لازم **العميل نفسه أو وكيله** يحضروا.",
+    wrong:[{option:"بتفويض بريدي عادي",why:"البريد سهل يتزوّر، والعميل مش متابع حسابه."},
+           {option:"بالتعزيز التليفوني وحده",why:"التليفون مش كفاية في حساب ساكن."},
+           {option:"بموافقة مدير الفرع دون العميل",why:"المدير مش صاحب الفلوس."}]},
+   {id:"q8",section:"s1",prompt:"هل تُطبع إشعارات التحويل بين حسابات نفس العميل؟",answer:"لا، لا تُطبع",
+    clue:"الفلوس ما خرجتش من عنده.",
+    why:"الفلوس **ما خرجتش** من ملكية العميل، والحركة بتظهر في كشوفه. فطباعة إشعار بتبقى تكرار من غير فايدة.",
+    wrong:[{option:"نعم، لكل تحويل",why:"تكرار مالوش لازمة."},
+           {option:"نعم، لو تجاوز 10 آلاف جنيه",why:"المبلغ مش معيار هنا."},
+           {option:"نعم، لو طلب العميل فقط",why:"الأصل عدم الطباعة لأي تحويل بين حساباته."}]},
+   {id:"q9",section:"s1",prompt:"عند تنفيذ تحويل داخلي من حساب العميل، بالنسبة لبطاقة الهوية:",answer:"يُكتفى بالاطلاع والتأكد من سريانها وتحديثها دون أخذ صورة",
+    clue:"العميل معروف للبنك.",
+    why:"العميل **معروف** للبنك وصورته موجودة في ملفه. المطلوب بس تتأكد إن **اللي قدامك هو**، وإن بطاقته سارية وبياناته محدّثة.",
+    wrong:[{option:"تؤخذ صورة منها دائمًا",why:"صورته موجودة أصلًا في الملف."},
+           {option:"تؤخذ صورة موقعة 'طبق الأصل'",why:"ده للعارض اللي بيصرف حوالة."},
+           {option:"لا يُطلب الاطلاع عليها",why:"لازم تتأكد من الشخصية والسريان."}]},
+   {id:"q10",section:"s1",prompt:"في SWIFT: IBAN مطلوب لـ:",answer:"جميع الدول المطبق بها نظام IBAN",
+    clue:"مرتبط بالدولة.",
+    why:"IBAN **صيغة حساب** بتطبقها الدولة على بنوكها. فلو الدولة بتطبقه، التحويل من غيره **هيتأخر أو يرجع**، أيًا كانت العملة أو المبلغ.",
+    wrong:[{option:"التحويلات بالدولار فقط",why:"IBAN مرتبط بالدولة، مش بالعملة."},
+           {option:"التحويلات التي تزيد عن 10 آلاف دولار",why:"مالوش علاقة بالمبلغ."},
+           {option:"بنوك أوروبا فقط",why:"دول كتير بره أوروبا بتطبقه (زي مصر والخليج)."}]},
+   {id:"q11",section:"s1",prompt:"فحص القوائم في SWIFT بالعملة الأجنبية يشمل:",answer:"المحوِّل والمستفيد وبنك المستفيد",
+    clue:"خطر خارجي أكبر.",
+    why:"الفلوس **خارجة بره البلد** بعملة أجنبية، فأي طرف فيهم (المرسل، المستقبل، أو بنكه) ممكن يكون عليه **عقوبات**. فلازم الفحص يغطي التلاتة.",
+    wrong:[{option:"المستفيد فقط",why:"ده في ACH المحلي، لأن البنوك المصرية معروفة."},
+           {option:"المحوِّل فقط",why:"المستفيد وبنكه ممكن يكونوا عليهم عقوبات."},
+           {option:"بنك المحوِّل والمراسل فقط",why:"الأشخاص هما الأهم في الفحص."}]},
+   {id:"q12",section:"s1",prompt:"في تحويل OUR، ماذا يفعل الفرع؟",answer:"خطاب معتمد لحجز 100 دولار من حساب العميل لعمولة المراسل",
+    clue:"المستفيد ياخد المبلغ كامل.",
+    why:"في OUR **العميل** بيتحمل كل العمولات، بما فيها عمولة **البنك المراسل** اللي ما تتعرفش غير بعدين. فالبنك **بيحجز** مبلغ يغطيها لحد ما تتحدد.",
+    wrong:[{option:"يخصم 100 جنيه عمولة تحويل فقط",why:"عمولة المراسل بالدولار ولسه ما اتعرفتش."},
+           {option:"لا شيء، المراسل يخصم من المستفيد",why:"ده SHA أو BEN، مش OUR."},
+           {option:"يطلب موافقة لجنة الأصول والخصوم دائمًا",why:"ده للعمولة المميزة بس."}]},
+   {id:"q13",section:"s1",prompt:"حساب جديد للتوكيل الملاحي لرسوم قناة السويس. ما الصحيح؟",answer:"لا تُقبل عليه إيداعات نقدية ويُسجل memo بذلك",
+    clue:"مخصص لغرض واحد.",
+    why:"الحساب **مخصص** لرسوم القناة اللي بتيجي **تحويلات من الخارج**. والإيداع النقدي فيه هيخلط فلوس مجهولة المصدر بفلوس واضحة، وده **خطر غسل أموال**. والـ memo بيمنع أي زميل يقبل كاش بالغلط.",
+    wrong:[{option:"يقبل إيداعات نقدية لحد 100 ألف",why:"مفيش نقدي خالص."},
+           {option:"يستخدم في التعاملات التجارية الأخرى للتوكيل",why:"للرسوم بس."},
+           {option:"يُحول منه بعد 3 أيام عمل",why:"التحويل في نفس يوم التعليمات."}]},
+   {id:"q14",section:"s2",prompt:"عميل عارض يريد إنشاء حوالة داخلية. الموقف؟",answer:"لا يُتعامل معه إلا بعد رقم تعريفي وفتح حساب والخصم من حسابه",
+    clue:"اعرف عميلك.",
+    why:"إرسال فلوس **كاش من شخص مجهول** هو أخطر سيناريو غسل أموال. فالبنك بيلزمه يبقى **عميل معروف** وبحساب، والفلوس تطلع من حسابه.",
+    wrong:[{option:"تُنشأ نقدًا بصورة هوية",why:"صورة الهوية مش KYC كامل."},
+           {option:"تُنشأ بموافقة المدير فقط",why:"الموافقة ما بتعوضش التعرف على العميل."},
+           {option:"تُرفض نهائيًا",why:"ممكن بعد فتح الحساب."}]},
+   {id:"q15",section:"s2",prompt:"المستفيد والآمر في الحوالة الداخلية يُكتبان:",answer:"ثلاثيين على الأقل",
+    clue:"تقليل التشابه.",
+    why:"الاسم الثنائي **بيتكرر كتير**، فممكن الحوالة تتصرف لحد غلط. والثلاثي بيقلل التشابه وبيدقّق الفحص على القوائم.",
+    wrong:[{option:"ثنائيين",why:"تشابه كتير."},
+           {option:"بالاسم الأول فقط",why:"مستحيل تحدد الشخص."},
+           {option:"رباعيين دائمًا",why:"الحد الأدنى ثلاثي."}]},
+   {id:"q16",section:"s2",prompt:"حوالة داخلية لم يتقدم المستفيد لصرفها. متى تُرد للفرع المنشئ؟",answer:"بعد مرور ثلاثة شهور في حساب 109301002",
+    clue:"حساب المعاملات بين الفروع.",
+    why:"المستفيد بياخد **فرصة معقولة** (3 شهور) يصرف. وبعدها الفلوس لازم ترجع **لصاحبها** (الآمر) عن طريق الفرع المنشئ، فبتتقيد على حساب **المعاملات بين الفروع**.",
+    wrong:[{option:"بعد أسبوع في حساب 203500477",why:"الأسبوع للاتصال بالمستفيد، والحساب ده للمدفوعات الحكومية."},
+           {option:"بعد 6 شهور في الأستاذ العام الموحد",why:"المدة 3 شهور."},
+           {option:"لا تُرد وتظل قائمة",why:"الفلوس لازم ترجع لصاحبها."}]},
+   {id:"q17",section:"s2",prompt:"حوالة واحدة بمبلغ 200 ألف جنيه أو أكثر (الداخلية). الإجراء:",answer:"إضافتها لحساب العميل (وفتح حساب لو لا يوجد) ثم الصرف منه",
+    clue:"تقليل الكاش الكبير.",
+    why:"المبالغ الكبيرة **ما تتصرفش كاش** على طول من حوالة. بتدخل **حساب** الأول عشان يبقى فيه **أثر** للفلوس وتتطبق عليها رقابة الحساب.",
+    wrong:[{option:"صرفها نقدًا بصورة هوية فقط",why:"ده للأقل من 200 ألف."},
+           {option:"رفضها وإعادتها للمنشئ",why:"الحوالة سليمة."},
+           {option:"صرفها نقدًا بتعزيز المنشئ فقط",why:"التعزيز ما بيلغيش شرط الحساب."}]},
+   {id:"q18",section:"s2",prompt:"من المستثنون من فتح حسابات عند صرف حوالة 200 ألف فأكثر؟",answer:"هيئة البريد ومستفيدو حوالات شركات CORPAY",
+    clue:"المصدر معروف.",
+    why:"الجهات دي **مصدر فلوسها معروف ومنظم** (هيئة حكومية أو شركات دفع متعاقدة)، فخطر غسل الأموال فيها أقل، ومش محتاجين حساب لكل عملية.",
+    wrong:[{option:"العملاء أصحاب الحسابات الجارية فقط",why:"دول عندهم حسابات أصلًا، فمفيش استثناء."},
+           {option:"المصريون العاملون بالخارج",why:"مش مستثنيين."},
+           {option:"موظفو البنك فقط",why:"مش مستثنيين."}]},
+   {id:"q19",section:"s2",prompt:"الحوالات السريعة هي:",answer:"الحوالات الواردة من البنوك والصيارفة العرب",
+    clue:"جاية من بره.",
+    why:"اسمها **سريعة** لأنها بتوصل من **بنوك وصيارفة بره** وبتتنفذ بسرعة، والعميل بيوصله **SMS** تلقائي.",
+    wrong:[{option:"الحوالات بين فروع بنك مصر",why:"دي الحوالات الداخلية."},
+           {option:"الحوالات بين حسابات نفس العميل",why:"دي تحويلات، مش حوالات."},
+           {option:"حوالات رواتب الشركات فقط",why:"مش تعريفها."}]},
+   {id:"q20",section:"s2",prompt:"حوالة سريعة: لم يحضر المستفيد بعد 3 أيام من إرسال SMS. الإجراء:",answer:"الاتصال به بكل وسائل الاتصال المتاحة",
+    clue:"خدمة العميل.",
+    why:"ممكن الرسالة **ما وصلتش** أو العميل ما خدش باله. فالفرع **بيسعى** يوصله بأي وسيلة قبل ما يعمل أي إجراء تاني، لأن الفلوس فلوسه.",
+    wrong:[{option:"ردها للمراسل فورًا",why:"لسه بدري؛ العميل ممكن ما يعرفش."},
+           {option:"إضافتها لحساب تبرعات",why:"الفلوس ملك المستفيد."},
+           {option:"الانتظار شهرًا قبل أي إجراء",why:"المتابعة فعلية ومستمرة."}]},
+   {id:"q21",section:"s2",prompt:"عميل يسأل عن حوالة سريعة لم تصل. أول خطوة؟",answer:"البحث على شاشة الاستعلام عن الحوالات القائمة قبل الرد",
+    clue:"اتأكد الأول.",
+    why:"الحوالة ممكن تكون **وصلت ومستنياه**، وكونك تقول 'ما وصلتش' من غير بحث بيضيّع حق العميل وبيبوّظ ثقته في البنك.",
+    wrong:[{option:"الرد فورًا بأنها لم تصل",why:"ممكن تكون وصلت فعلًا."},
+           {option:"مطالبته بمراجعة بنك المحوِّل",why:"البحث عندك الأول."},
+           {option:"إنشاء حوالة جديدة له",why:"مالوش معنى."}]},
+   {id:"q22",section:"s2",prompt:"حوالة سريعة، المحوِّل هو نفس صاحب الحساب، والحساب مغلق بطلب العميل. الإجراء:",answer:"رد الحوالة للمراسل في نفس يوم العمل",
+    clue:"العميل اختار يقفل.",
+    why:"العميل **بإرادته** قفل حسابه، فالبنك ما يقدرش يفتح له حساب جديد أو يحط فلوس من غير طلبه. فالأصح ترجع الحوالة **فورًا** لمصدرها.",
+    wrong:[{option:"فتح حساب بعملة الحوالة",why:"ده لو البنك هو اللي قفل الحساب."},
+           {option:"إضافتها لحساب بالجنيه",why:"من غير توقيع العميل ما ينفعش."},
+           {option:"الانتظار 3 شهور",why:"دي مدة الحوالة الداخلية."}]},
+   {id:"q23",section:"s3",prompt:"من أي شاشات يتم السداد الإلكتروني للمدفوعات الحكومية؟",answer:"شاشة شركة E-Finance",
+    clue:"المنظومة الحكومية.",
+    why:"المدفوعات الحكومية مربوطة بمنظومة **الدفع والتحصيل الإلكتروني** اللي بتديرها E-Finance، فالسداد لازم يتعمل على شاشتها عشان يوصل للجهة على طول.",
+    wrong:[{option:"شاشة SWIFT",why:"للتحويلات الخارجية."},
+           {option:"شاشة الماسح الضوئي",why:"للتحويلات الخارجية."},
+           {option:"نظام التدبير",why:"للتحويل الأجنبي."}]},
+   {id:"q24",section:"s3",prompt:"من يُستثنى من إثبات الشخصية في المدفوعات الحكومية؟",answer:"من يسدد لإصدار بطاقة رقم قومي أو بدل فاقد أو تالف",
+    clue:"ما معهوش بطاقة.",
+    why:"الشخص ده **بيدفع عشان يطلّع البطاقة نفسها**، يعني أصلًا **ما عندوش** إثبات شخصية سليم. فطلبه منه مستحيل.",
+    wrong:[{option:"كل من يسدد أقل من 1000 جنيه",why:"المبلغ مش معيار."},
+           {option:"عملاء البنك أصحاب الحسابات",why:"لازم تتحقق من شخصيتهم برضه."},
+           {option:"مندوب الشركات",why:"لازم يتحقق من شخصيته."}]},
+   {id:"q25",section:"s3",prompt:"الحساب الذي تودع فيه مبالغ السداد الحكومي مباشرة:",answer:"الأستاذ العام الموحد 203500477",
+    clue:"حساب واحد موحد.",
+    why:"البنك بيجمّع كل المدفوعات الحكومية في **حساب واحد موحد** عشان التسوية مع E-Finance تبقى سهلة ودقيقة.",
+    wrong:[{option:"203500139 (متحصلات الضرائب بالمركز الرئيسي)",why:"ده حساب تسوية مركزي."},
+           {option:"109301002 (المركز الرئيسي)",why:"ده للمعاملات بين الفروع."},
+           {option:"109500148 (أخطاء تشغيلية)",why:"ده للأخطاء بس."}]},
+   {id:"q26",section:"s3",prompt:"عند السداد خصمًا من حساب العميل، ما الفحص الأساسي؟",answer:"مطابقة التوقيع وسماح الرصيد بالقيمة والعمولة",
+    clue:"الخصم كله مرة واحدة.",
+    why:"التوقيع بيثبت إن **العميل هو اللي طلب**، والرصيد لازم يغطي **القيمة + العمولة** مع بعض، وإلا العملية تقف أو الحساب يبقى مدين.",
+    wrong:[{option:"مطابقة التوقيع وسماح الرصيد بالقيمة فقط",why:"العمولة بتتخصم برضه."},
+           {option:"صورة الهوية فقط",why:"الخصم من الحساب محتاج توقيع."},
+           {option:"موافقة مدير الفرع فقط",why:"المطابقة والرصيد هما الأساس."}]},
+   {id:"q27",section:"s3",prompt:"من يراجع مستندات السداد ويصرّح ويؤكد على نظام الشركة؟",answer:"مدير الخدمات المصرفية",
+    clue:"منفذ ومصرح.",
+    why:"مبدأ **الفصل بين المهام**: مسئول الخدمات المصرفية **بينفذ**، ومدير الخدمات المصرفية **بيراجع ويصرّح**، عشان مفيش حد واحد يعدّي العملية لوحده.",
+    wrong:[{option:"مسئول الخدمات المصرفية نفسه",why:"المنفذ ما يصرّحش على شغله."},
+           {option:"مدير عام المنطقة",why:"بيتدخل في حالة الخطأ بس."},
+           {option:"إدارة التسويات",why:"دورها بعد التنفيذ."}]},
+   {id:"q28",section:"s3",prompt:"عمولة خدمة المتحصلات الضريبية المسددة بالدولار تُحصَّل بـ:",answer:"الجنيه المصري فقط",
+    clue:"العمولة إيراد محلي.",
+    why:"العمولة **إيراد للبنك** على خدمة بيقدّمها في مصر، فبتتحصل **بالعملة المحلية** في قيد منفصل، حتى لو الضريبة نفسها بالدولار.",
+    wrong:[{option:"الدولار فقط",why:"العمولة بالجنيه."},
+           {option:"نصفها دولار ونصفها جنيه",why:"مفيش تقسيم."},
+           {option:"بعملة الضريبة نفسها",why:"العمولة منفصلة وبالجنيه."}]},
+   {id:"q29",section:"s3",prompt:"عميل وقّع على نموذج السداد ونُفذت المدفوعة ثم اعترض. المسؤولية:",answer:"على العميل، لأنه وقّع على مراجعة البيانات بتحمل مسئوليته",
+    clue:"راجع ومضى.",
+    why:"العميل **راجع البيانات ومضى** إنها صح وعلى مسئوليته، والفرع نفّذ **زي النموذج بالظبط**. فلو فيه غلط، يبقى غلط العميل مش البنك.",
+    wrong:[{option:"على الفرع دائمًا",why:"الفرع مسئول بس لو نفّذ بخلاف النموذج."},
+           {option:"على مدير عام المنطقة",why:"مالوش علاقة."},
+           {option:"على الجهة المستفيدة",why:"الجهة استلمت اللي اتبعت لها."}]},
+   {id:"q30",section:"s3",prompt:"الفرع نفّذ مدفوعة بخلاف النموذج المقدم. أول مستند؟",answer:"مذكرة تفصيلية موقعة من مدير الفرع ومدير الخدمات المصرفية",
+    clue:"الخطأ خطأ الفرع.",
+    why:"لما **الفرع** يكون اللي غلط، لازم يوثّق اللي حصل **رسميًا** بمذكرة من المسئولين عن التنفيذ والتصريح، وترفع للمنطقة عشان تتابع الإلغاء أو الاسترداد.",
+    wrong:[{option:"خطاب للجهة المستفيدة موقع من العميل",why:"ده لما العميل يكون هو اللي غلط."},
+           {option:"إشعار خصم من الأستاذ العام",why:"مش أول خطوة."},
+           {option:"تقرير الصراف من نظام الشركة",why:"بيأكد التنفيذ، مش بيوثّق الخطأ."}]},
+   {id:"q31",section:"s3",prompt:"طلب إلغاء مدفوعة خطأ، الجهة لم ترد خلال:",answer:"3 شهور من استلام الشركة لطلب الإلغاء",
+    clue:"بعدها خسارة.",
+    why:"الطلب ما ينفعش يفضل مفتوح للأبد. فبعد **3 شهور** من غير رد (أو لو الجهة رفضت)، الطلب يتقفل والمبلغ يتحسب **خسارة تشغيلية محققة**.",
+    wrong:[{option:"أسبوع واحد",why:"مش وقت كفاية تراجع فيه الجهة."},
+           {option:"يوم عمل واحد",why:"قصير جدًا."},
+           {option:"سنة كاملة",why:"طويل ومش المقرر."}]},
+   {id:"q32",section:"s4",prompt:"أنسب مقارنة بين الحوالة الداخلية والسريعة:",answer:"الداخلية فرع لفرع وتُرد بعد 3 شهور، والسريعة من بنوك وصيارفة وتتابع يوميًا",
+    clue:"المصدر بيفرق.",
+    why:"الداخلية **جوه البنك** فبتستنى المستفيد مدة أطول وترجع للفرع المنشئ. والسريعة **جاية من بره** فبتتتابع يوميًا مع المستفيد وتترد للمراسل.",
+    wrong:[{option:"الداخلية من بنوك، والسريعة فرع لفرع",why:"العكس."},
+           {option:"كلتاهما ترد بعد أسبوع",why:"المدد مختلفة."},
+           {option:"كلتاهما بلا فحص قوائم",why:"الاتنين فيهم فحص."}]},
+   {id:"q33",section:"s4",prompt:"حوالة سريعة أقل من 200 ألف جنيه، إجمالي الشهر السابق لم يتجاوز 200 ألف. ما المطلوب؟",answer:"صورة هوية سارية موقعة بعبارة صورة طبق الأصل تُحفظ مع مستند الصرف",
+    clue:"المبلغ صغير.",
+    why:"المبلغ **تحت الحد** ومفيش تكرار كبير، فالخطر محدود ويكفي **إثبات** إن الصرف اتعمل لصاحب الهوية. ولو المبلغ أو الإجمالي وصل 200 ألف، يبقى محتاج **نموذج تعارف**.",
+    wrong:[{option:"فتح حساب للمستفيد",why:"ده للحوالة الداخلية من 200 ألف."},
+           {option:"نموذج تعارف للأشخاص الطبيعيين",why:"ده من 200 ألف فأكثر."},
+           {option:"لا شيء سوى الاطلاع",why:"لازم صورة موقعة كإثبات."}]}
+  ]
+};
+
+/* ===== أدوات ===== */
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<mark>$1</mark>').replace(/\[\[(.+?)\]\]/g,'<bdi class="en" dir="ltr">$1</bdi>');
+const $=(s,r=document)=>r.querySelector(s);
+const CAT=NOTE.categories;
+
+const plain=s=>String(s).replace(/\*\*|\[\[|\]\]/g,'');
+const lab=h=>` data-l="${esc(plain(h)).replace(/"/g,'&quot;')}"`;
+function table(t){
+  const n=t.headers.length;
+  return `<div class="stack">${t.title?`<h3>${inl(t.title)}</h3>`:''}
+  <div class="tscroll ${n>=3?'stk':'w2'}"><table><thead><tr>${t.headers.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead>
+  <tbody>${t.rows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0?' class="first"':''}${lab(t.headers[i]||'')}>${inl(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+  ${t.tip?`<div class="tip"><b>انتبه:</b> ${inl(t.tip)}</div>`:''}</div>`;
+}
+function summary(){
+  const s=NOTE.summary;
+  return `<section id="summary"><h2>الخلاصة</h2><div class="stack">
+   <p>${inl(s.lead)}</p>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">البند</th>${s.colHeaders.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead><tbody>
+   ${s.rows.map(r=>`<tr><td class="first">${inl(r.head)}${r.sub?`<small>${inl(r.sub)}</small>`:''}</td>${r.cells.map((c,i)=>`<td class="c-${c.cat}"${lab(s.colHeaders[i]||'')}>${inl(c.main)}${c.ex?`<span class="ex">${inl(c.ex)}</span>`:''}</td>`).join('')}</tr>`).join('')}
+   </tbody></table></div>
+   <p class="legend">${inl(s.legend)}</p>
+   <div class="golden"><b>القاعدة الذهبية:</b> ${inl(s.goldenRule)}</div></div></section>`;
+}
+function concepts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="grid">${sec.items.map(c=>`
+   <article class="card">
+    <span class="tag ${c.cat}">${CAT[c.cat]}</span>
+    <div class="cname"><span class="en">${esc(c.nameEn)}</span><span class="ar">${esc(c.nameAr)}</span></div>
+    <div class="formula">${c.formula.map(f=>`<div class="frow"><span class="dot ${f.sign==='+'?'p':f.sign==='-'?'m':'q'}">${f.sign==='+'?'✓':f.sign==='-'?'−':'?'}</span><span>${inl(f.text)}</span></div>`).join('')}</div>
+    <div><h4>بنستخدمه في</h4><ul class="plain">${c.uses.map(u=>`<li>${inl(u)}</li>`).join('')}</ul></div>
+    <div><h4>أمثلة</h4><div class="exs">${c.examples.map(e=>`<div class="exi"><span>${inl(e.en)}</span><span class="a2">${inl(e.ar)}</span></div>`).join('')}</div></div>
+    <div><h4>دلائل</h4><div class="sig">${c.signals.map(x=>`<span class="rtl">${esc(x)}</span>`).join('')}</div></div>
+    <div class="tip"><b>انتبه:</b> ${inl(c.tip)}</div>
+    ${c.src?`<p class="srcl">المصدر: ${esc(c.src)}</p>`:''}
+   </article>`).join('')}</div></section>`;
+}
+function compare(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><div class="cmp-title">${esc(c.title)}</div>
+    <div class="cmp-cols">${c.cols.map(col=>`<div class="cmp-col ${col.cat}"><h4>${esc(col.name)}</h4><p>${inl(col.when)}</p>
+      <ul class="plain">${col.ex.map(e=>`<li>${inl(e)}</li>`).join('')}</ul></div>`).join('')}</div>
+    <div class="golden"><b>القاعدة الذهبية:</b> ${inl(c.golden)}</div></article>`).join('')}</div></section>`;
+}
+function confusing(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.explain)}</p>
+    <ul class="cl">${c.examples.map(e=>{const k=e.correct===true?'ok':e.correct===false?'no':'nt';const m=k==='ok'?'✓':k==='no'?'✗':'•';
+      return `<li class="${k}"><span class="m">${m}</span><span><span class="t">${inl(e.text)}</span>${e.note?`<span class="note">${inl(e.note)}</span>`:''}</span></li>`}).join('')}</ul>
+   </article>`).join('')}</div></section>`;
+}
+function conflicts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`<article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.text)}</p></article>`).join('')}</div></section>`;
+}
+function reference(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.tables.map(table).join('')}</div></section>`;
+}
+function lookup(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">
+   <input class="search" id="lq" type="search" placeholder="اكتب كلمة دالة، مثلًا: رب المال أو الفلتر أو 1975" autocomplete="off" aria-label="بحث في الدلائل">
+   <div class="cnt" id="lcnt"></div>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">الدليل</th><th scope="col">المفهوم</th><th scope="col">ملاحظة</th></tr></thead><tbody id="lb"></tbody></table></div></div></section>`;
+}
+function fillLookup(rows){
+  const lb=$('#lb'),inp=$('#lq'),cnt=$('#lcnt');
+  const norm=s=>s.replace(/[ً-ْـ]/g,'').replace(/[إأآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').toLowerCase();
+  const draw=()=>{
+    const q=norm(inp.value.trim());
+    const r=rows.filter(x=>!q||norm(x.signal+' '+x.target+' '+x.note).includes(q));
+    lb.innerHTML=r.length?r.map(x=>`<tr><td class="first">${esc(x.signal)}</td><td data-l="المفهوم">${esc(x.target)}</td><td data-l="ملاحظة">${esc(x.note)}</td></tr>`).join(''):`<tr><td colspan="3" class="empty">مفيش نتيجة للكلمة دي.</td></tr>`;
+    cnt.textContent=r.length+' من '+rows.length;
+  };
+  inp.addEventListener('input',draw);draw();
+}
+
+/* ===== الكويز ===== */
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const LET=['A','B','C','D'];
+let QS={i:0,order:[],picks:[],opts:[]};
+function quizStart(){
+  QS={i:0,order:shuffle(QUIZ.questions.map((_,i)=>i)),picks:[],opts:{}};
+  quizDraw();
+}
+function quizDraw(){
+  const root=$('#quiz');
+  const n=QUIZ.questions.length;
+  if(QS.i>=n){return quizResult(root)}
+  const qi=QS.order[QS.i],q=QUIZ.questions[qi];
+  const sec=QUIZ.sections.find(s=>s.id===q.section).title;
+  const opts=QS.opts[qi]||(QS.opts[qi]=shuffle([{t:q.answer,ok:true},...q.wrong.map(w=>({t:w.option,ok:false,why:w.why}))]));
+  const pick=QS.picks[QS.i];
+  const answered=pick!==undefined;
+  const promptHtml=esc(q.prompt).replace('___',`<span class="blank${answered?(opts[pick].ok?' ok':' no'):''}">${answered?esc(q.answer):'&nbsp;&nbsp;&nbsp;&nbsp;'}</span>`);
+  root.innerHTML=`
+   <div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${QS.i+(answered?1:0)}"><i style="width:${(QS.i+(answered?1:0))/n*100}%"></i></div>
+   <div class="qmeta"><span>سؤال ${QS.i+1} من ${n}</span><span>${esc(sec)}</span></div>
+   <p class="qp">${promptHtml}</p>
+   <div class="opts">${opts.map((o,k)=>`<button type="button" class="opt${answered?(o.ok?' right':(k===pick?' wrongpick':'')):''}" data-k="${k}" ${answered?'disabled':''}><span class="L">${LET[k]}</span><span>${esc(o.t)}</span></button>`).join('')}</div>
+   ${answered?`<div class="fb" aria-live="polite">
+     <div class="v ${opts[pick].ok?'ok':'no'}">${opts[pick].ok?'صح.':'مش دقيق.'}</div>
+     <p><b>ليه الإجابة دي:</b> ${esc(q.why)}</p>
+     ${q.clue?`<p><b>الدليل:</b> ${esc(q.clue)}</p>`:''}
+     <div><b>ليه الباقي غلط:</b><ul>${opts.map((o,k)=>o.ok?'':`<li class="${k===pick?'picked':''}">${esc(o.t)}: ${esc(o.why)}${k===pick?' (اختيارك)':''}</li>`).join('')}</ul></div>
+    </div>
+    <button type="button" class="btn" id="qnext">${QS.i+1<n?'السؤال التالي':'شوف النتيجة'}</button>`:''}`;
+  root.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{QS.picks[QS.i]=+b.dataset.k;quizDraw();const nb=$('#qnext');if(nb)nb.focus({preventScroll:true})}));
+  const nb=$('#qnext');if(nb)nb.addEventListener('click',()=>{QS.i++;quizDraw();root.scrollIntoView({block:'nearest'})});
+}
+function quizResult(root){
+  const n=QUIZ.questions.length;let total=0;const per={};
+  QUIZ.sections.forEach(s=>per[s.id]={t:0,c:0});
+  QS.order.forEach((qi,i)=>{const q=QUIZ.questions[qi];const ok=QS.opts[qi][QS.picks[i]].ok;per[q.section].t++;if(ok){per[q.section].c++;total++}});
+  const rows=QUIZ.sections.filter(s=>per[s.id].t).map(s=>({s,p:Math.round(per[s.id].c/per[s.id].t*100)}));
+  const weak=rows.slice().sort((a,b)=>a.p-b.p)[0];
+  root.innerHTML=`<div class="res">
+   <div class="prog"><i style="width:100%"></i></div>
+   <div class="score"><bdi class="ltr" dir="ltr">${total} / ${n}</bdi></div>
+   <div class="bars">${rows.map(r=>`<div class="bar${r===weak&&r.p<100?' weak':''}"><span>${esc(r.s.title)}</span><span class="pb"><i style="width:${r.p}%"></i></span><span class="ltr">${r.p}%</span></div>`).join('')}</div>
+   <p>${weak.p<100?`أضعف قسم: <mark>${esc(weak.s.title)}</mark>. ارجع له في المذكرة وحاول تاني.`:'كل الأقسام 100%. ممتاز.'}</p>
+   <button type="button" class="btn" id="qrestart">ابدأ من جديد</button></div>`;
+  $('#qrestart').addEventListener('click',quizStart);
+}
+
+/* ===== التجميع ===== */
+// كل الأقسام بتترسم بترتيبها في الملف حسب نوعها (type)، حتى لو الـid مش من الأسماء الافتراضية
+const R={concepts,compare,confusing,conflicts,reference,lookup};
+const SHORT={concepts:'المفاهيم',compare:'الفروقات',confusing:'حالات بتلخبط',conflicts:'تعارضات',reference:'أرقام وجداول',lookup:'دوّر على دليل'};
+function chipName(sec){
+  const nConcepts=NOTE.sections.filter(x=>(x.type||x.id)==='concepts').length;
+  const t=(sec.type||sec.id);
+  if(t==='concepts'&&nConcepts>1){const c=String(sec.title||'').replace(/^\d+[\.\-\s]*/,'').split(/[:(،]/)[0].trim();return c.length>22?c.slice(0,21)+'…':c}
+  return SHORT[t]||sec.title;
+}
+function build(){
+  const secs=NOTE.sections.filter(x=>R[x.type||x.id]);
+  $('#sheet').innerHTML=`
+   <header class="hero"><span class="stamp">${esc(NOTE.stamp)}</span><h1>${esc(NOTE.title)}</h1><p class="sub">${esc(NOTE.subtitle)}</p></header>
+   ${summary()}${secs.map(x=>R[x.type||x.id](x)).join('')}
+   <section id="quiz-sec"><h2 id="quiz-h">اختبر نفسك</h2><div class="quiz" id="quiz"></div></section>
+   <p class="foot">ملخص مذاكرة لامتحان مصرفي أول G3</p>`;
+  $('#chips').innerHTML=[['summary','الخلاصة'],...secs.map(x=>[x.id,chipName(x)]),['quiz-sec','اختبر نفسك']]
+    .map(([id,l])=>`<a class="chip" href="#${id}" data-id="${id}">${esc(l)}</a>`).join('');
+  const lk=secs.find(x=>(x.type||x.id)==='lookup');if(lk)fillLookup(lk.rows);
+  quizStart();
+  const links=[...document.querySelectorAll('.chip')],bar=$('#chips');
+  const center=l=>{const a=l.getBoundingClientRect(),c=bar.getBoundingClientRect();bar.scrollBy({left:(a.left+a.width/2)-(c.left+c.width/2),behavior:'smooth'})};
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>{const on=l.dataset.id===e.target.id;if(on&&!l.classList.contains('on'))center(l);l.classList.toggle('on',on)})})},{rootMargin:'-80px 0px -65% 0px'});
+    links.forEach(l=>{const t=document.getElementById(l.dataset.id);if(t)io.observe(t)});
+  }
+}
+/* المظهر: زرار واحد شمس/قمر، ومحفوظ في kk-theme المشترك مع التطبيق */
+const themeBtn=$('#themeb');
+function curTheme(){try{return localStorage.getItem('kk-theme')||'system'}catch(e){return 'system'}}
+const isDark=()=>{const m=curTheme();return m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)};
+function setTheme(m){
+  const r=document.documentElement;
+  if(m==='light'||m==='dark')r.setAttribute('data-theme',m);else r.removeAttribute('data-theme');
+  try{localStorage.setItem('kk-theme',m)}catch(e){}
+  const d=isDark();themeBtn.classList.toggle('dark',d);themeBtn.setAttribute('aria-label',d?'الوضع الداكن. دوس للفاتح':'الوضع الفاتح. دوس للداكن');
+}
+themeBtn.addEventListener('click',()=>setTheme(isDark()?'light':'dark'));
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>setTheme(curTheme()));
+build();setTheme(curTheme());
+</script>
+
+<style>
+.bg3-home{position:fixed;left:max(14px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;
+ display:flex;align-items:center;gap:6px;padding:9px 16px 9px 14px;border-radius:999px;background:var(--head-bg);color:var(--head-ink);
+ font-family:var(--f-ui);font-weight:700;font-size:14px;line-height:1.3;text-decoration:none;box-shadow:var(--shadow)}
+.bg3-home svg{width:18px;height:18px}
+.bg3-home:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+</style>
+<a class="bg3-home" href="../index.html#notes" aria-label="رجوع لقائمة الملخصات">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>الملخصات</a>
+<script>
+(function(){var K="payments";
+function g(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var all=g('bg3:notes',{}),me=all[K]||{};me.last=Date.now();all[K]=me;s('bg3:notes',all);s('bg3:lastNote',K);
+if(location.hash==='#resume'){history.replaceState(null,'',location.pathname);
+ if(me.y)requestAnimationFrame(function(){setTimeout(function(){window.scrollTo({top:me.y,behavior:'instant'})},80)})}
+var t;addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(function(){
+ var a=g('bg3:notes',{}),m=a[K]||{},h=document.documentElement.scrollHeight-innerHeight,p=h>0?Math.round(scrollY/h*100):100;
+ m.y=Math.round(scrollY);m.pct=Math.max(m.pct||0,Math.min(100,p));a[K]=m;s('bg3:notes',a)},250)},{passive:true});
+})();
+</script>

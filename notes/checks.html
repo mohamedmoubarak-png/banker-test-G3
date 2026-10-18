@@ -1,0 +1,914 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c1f3f">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<title>ملخص الشيكات</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: ورقة كشكول واحدة في النص، هامش أحمر، شريط أقسام ثابت فوق */
+:root{
+  --bg:#e6ebf3; --paper:#fbfcfe; --card:#ffffff; --card-edge:#cbd6e8;
+  --ink:#0c1f3f; --ink-2:#44577a; --line:#dbe3f0;
+  --gold:#c9a13b; --gold-ink:#7d5f0c; --gold-wash:#faf2d8; --hl:rgba(201,161,59,.38);
+  --margin:#d4584c;
+  --cat-a:#a23d35; --cat-a-wash:#fbebe9;
+  --cat-b:#1f4f9a; --cat-b-wash:#e6eefb;
+  --cat-c:#7d5f0c; --cat-c-wash:#faf2d8;
+  --ok:#1d7a4d; --no:#b3382e; --ok-wash:#e4f4ec; --no-wash:#fbebe9;
+  --head-bg:#0c1f3f; --head-ink:#f3f6fc;
+  --shadow:0 1px 0 rgba(12,31,63,.06),0 10px 28px rgba(12,31,63,.10);
+  --f-display:'Aref Ruqaa','Amiri',serif;
+  --f-body:'Tajawal','Cairo',system-ui,sans-serif;
+  --f-ui:'Cairo','Tajawal',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+    --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+    --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+    --margin:#e5675c;
+    --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+    --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+    --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+    --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+    --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+  --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+  --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+  --margin:#e5675c;
+  --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+  --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+  --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+  --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+  --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.95;margin:0;
+  padding-block:0 72px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));
+  -webkit-text-size-adjust:100%;text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+bdi.en,.ltr{font-family:var(--f-ui);unicode-bidi:isolate}
+.ltr{direction:ltr;text-align:left}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+
+/* شريط الأقسام */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);display:flex;gap:10px;align-items:center;padding-block:8px;border-bottom:1px solid var(--card-edge)}
+.chips{display:flex;gap:6px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none;padding-block:2px;
+  -webkit-mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);padding-inline-end:20px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-family:var(--f-ui);font-size:13.5px;font-weight:600;line-height:1.4;padding:6px 13px;border-radius:999px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chip:hover,.chip.on{background:var(--head-bg);border-color:var(--head-bg);color:var(--head-ink)}
+.themeb{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--card-edge);background:var(--card);color:var(--gold-ink);cursor:pointer;padding:0}
+.themeb svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.themeb .i-moon{display:none}
+.themeb.dark .i-sun{display:none}
+.themeb.dark .i-moon{display:block;fill:currentColor}
+
+/* الورقة */
+.sheet{position:relative;width:100%;background-color:var(--paper);
+  border-radius:6px;box-shadow:var(--shadow);padding-block:28px 40px;padding-inline-start:44px;padding-inline-end:28px;
+  display:flex;flex-direction:column;gap:44px;min-width:0}
+.sheet::before{content:"";position:absolute;inset-block:0;inset-inline-start:30px;width:0;border-inline-start:1.5px solid var(--margin);opacity:.55;pointer-events:none}
+.sheet::after{content:"";position:absolute;inset-block:0;inset-inline-start:9px;width:10px;pointer-events:none;
+  background:radial-gradient(circle at center,var(--bg) 0 3.5px,transparent 4px) center 36px/10px 96px repeat-y}
+.sheet>*{min-width:0}
+.sheet{overflow-wrap:anywhere}
+mark{background:none;color:inherit;box-shadow:inset 0 -.5em 0 var(--hl);padding-inline:1px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,6vw,42px);line-height:1.5;margin:0;text-decoration:underline wavy var(--gold);text-decoration-thickness:2px;text-underline-offset:12px;text-wrap:balance}
+section>h2{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.6;margin:0 0 16px;display:inline-block;box-shadow:inset 0 -.32em 0 var(--hl)}
+h3{font-family:var(--f-ui);font-size:17.5px;margin:0;line-height:1.6}
+p{margin:0}
+.lead{color:var(--ink-2)}
+.hero{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.stamp{display:inline-block;transform:rotate(-2deg);font-family:var(--f-ui);font-weight:600;font-size:13px;line-height:1.5;color:var(--gold-ink);background:var(--gold-wash);border:2px solid var(--gold);border-radius:6px;padding:2px 12px}
+.sub{color:var(--ink-2);font-size:17px}
+
+/* الجداول: جدول عادي على الشاشات الواسعة، وكروت مرصوصة على الموبايل (كل خانة معاها اسم العمود) */
+.tscroll{overflow-x:auto;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.75;table-layout:auto}
+th{background:var(--head-bg);color:var(--head-ink);font-family:var(--f-ui);font-weight:700;font-size:14px;padding:10px 14px;text-align:start;vertical-align:bottom;line-height:1.5}
+td{padding:11px 14px;vertical-align:top;text-align:start;border-top:1px solid var(--card-edge);font-variant-numeric:tabular-nums}
+tbody tr:nth-child(even) td:not([class]){background:color-mix(in srgb,var(--paper) 55%,transparent)}
+td.first{background:var(--gold-wash);font-weight:700;min-width:7.5em}
+td.first small{display:block;font-weight:400;color:var(--ink-2);font-size:13px;line-height:1.5}
+td.c-a{background:var(--cat-a-wash)} td.c-b{background:var(--cat-b-wash)} td.c-c{background:var(--cat-c-wash)}
+td .ex{display:block;color:var(--ink-2);font-size:13.5px;line-height:1.6;margin-top:4px}
+.tscroll.w2 table td.first{width:38%}
+@media (max-width:700px){
+  .tscroll.stk{overflow:visible;border:0;background:none;border-radius:0}
+  .tscroll.stk table,.tscroll.stk tbody,.tscroll.stk tr,.tscroll.stk td{display:block;width:100%}
+  .tscroll.stk thead{display:none}
+  .tscroll.stk tr{border:1px solid var(--card-edge);border-radius:10px;overflow:hidden;background:var(--card);margin-bottom:10px}
+  .tscroll.stk tr:last-child{margin-bottom:0}
+  .tscroll.stk td{border-top:1px solid var(--line);padding:9px 14px;background:none}
+  .tscroll.stk td.first{border-top:0;background:var(--gold-wash);font-size:16.5px;min-width:0}
+  .tscroll.stk td.c-a{background:var(--cat-a-wash)} .tscroll.stk td.c-b{background:var(--cat-b-wash)} .tscroll.stk td.c-c{background:var(--cat-c-wash)}
+  .tscroll.stk td[data-l]:not(.first)::before{content:attr(data-l);display:block;font-family:var(--f-ui);font-size:12.5px;font-weight:700;color:var(--ink-2);line-height:1.5;margin-bottom:1px}
+  .tscroll.stk td.empty::before{display:none}
+}
+.legend{font-size:14px;color:var(--ink-2);margin-top:12px}
+.legend .k{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-inline:4px 4px}
+
+/* مربعات */
+.golden,.tip,.formula{border:2px dashed var(--gold);background:var(--gold-wash);border-radius:8px;padding:10px 16px;line-height:1.9}
+.golden b{color:var(--gold-ink)}
+.tip{border-color:var(--margin);background:var(--card)}
+.tip b{color:var(--margin)}
+.stack{display:flex;flex-direction:column;gap:16px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.card{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tag{align-self:flex-start;font-family:var(--f-ui);font-size:12px;font-weight:700;line-height:1.5;padding:1px 10px;border-radius:999px}
+.tag.a{background:var(--cat-a-wash);color:var(--cat-a)} .tag.b{background:var(--cat-b-wash);color:var(--cat-b)} .tag.c{background:var(--cat-c-wash);color:var(--cat-c)}
+.cname{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.cname .en{font-family:var(--f-ui);font-weight:700;font-size:18px;direction:ltr}
+.cname .ar{font-size:16px;color:var(--ink-2)}
+.formula{display:flex;flex-direction:column;gap:6px;padding:10px 12px}
+.frow{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.dot{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-size:13px;font-weight:700;color:var(--paper);margin-top:2px}
+.dot.p{background:var(--ok)} .dot.m{background:var(--no)} .dot.q{background:var(--cat-b)}
+h4{font-family:var(--f-ui);font-size:14px;margin:0;color:var(--ink-2);line-height:1.6}
+ul.plain{margin:0;padding-inline-start:20px;display:flex;flex-direction:column}
+.exs{display:flex;flex-direction:column;gap:6px}
+.exi{display:flex;flex-direction:column;border-inline-start:3px solid var(--card-edge);padding-inline-start:12px;line-height:1.7}
+.exi .a2{color:var(--ink-2);font-size:14px}
+.sig{display:flex;flex-wrap:wrap;gap:6px}
+.sig span{direction:ltr;font-family:var(--f-ui);font-size:13px;line-height:1.5;padding:2px 10px;border-radius:999px;background:var(--gold-wash);color:var(--gold-ink);border:1px solid var(--gold)}
+.sig span.rtl{direction:rtl;font-family:var(--f-body)}
+.cmp-cols{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.cmp-col{border-radius:6px;border:1px solid var(--card-edge);padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.cmp-col.a{background:var(--cat-a-wash)} .cmp-col.b{background:var(--cat-b-wash)} .cmp-col.c{background:var(--cat-c-wash)}
+.cmp-col h4{color:var(--ink);font-size:15px}
+.cmp-title{direction:ltr;text-align:left;font-family:var(--f-ui);font-weight:700;font-size:18px}
+.cl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.cl li{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.cl .m{flex:none;width:22px;text-align:center;font-family:var(--f-ui);font-weight:700}
+.cl .ok .m{color:var(--ok)} .cl .no .m{color:var(--no)} .cl .nt .m{color:var(--cat-c)}
+.cl .no .t{text-decoration:line-through;text-decoration-color:var(--no)}
+.cl .note{display:block;font-size:13px;color:var(--ink-2);line-height:1.6}
+
+/* بحث */
+.search{width:100%;font:inherit;font-family:var(--f-ui);font-size:16px;line-height:1.5;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink)}
+.search::placeholder{color:var(--ink-2)}
+.cnt{font-size:13px;color:var(--ink-2);font-family:var(--f-ui)}
+.empty{padding:16px;color:var(--ink-2)}
+
+/* كويز */
+.quiz{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:16px}
+.prog{height:8px;border-radius:999px;background:var(--line);overflow:hidden;border:1px solid var(--card-edge)}
+.prog i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.qmeta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-ui);font-size:13px;color:var(--ink-2)}
+.qp{font-size:18px;line-height:1.9;font-weight:500}
+.qp .blank{display:inline-block;min-width:80px;border-bottom:2px dashed var(--gold);text-align:center;padding-inline:6px}
+.qp .blank.ok{border-bottom:2px solid var(--ok);color:var(--ok);font-weight:700}
+.qp .blank.no{border-bottom:2px solid var(--no);color:var(--no);font-weight:700}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:start;width:100%;font:inherit;line-height:1.7;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--paper);color:var(--ink);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--gold);background:var(--gold-wash)}
+.opt .L{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-weight:700;font-size:13px;line-height:1;background:var(--line);color:var(--ink);margin-top:2px}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--ok-wash);border-color:var(--ok)}
+.opt.wrongpick{background:var(--no-wash);border-color:var(--no)}
+.fb{display:flex;flex-direction:column;gap:10px;border-radius:8px;padding:12px 16px;background:var(--gold-wash);border:1px dashed var(--gold)}
+.fb .v{font-weight:700;font-family:var(--f-ui)}
+.fb .v.ok{color:var(--ok)} .fb .v.no{color:var(--no)}
+.fb ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:4px}
+.fb li.picked{font-weight:700}
+.btn{align-self:flex-start;font-family:var(--f-ui);font-weight:600;font-size:15px;line-height:1.4;padding:10px 20px;border-radius:8px;border:0;background:var(--head-bg);color:var(--head-ink);cursor:pointer}
+.res{display:flex;flex-direction:column;gap:12px}
+.score{font-family:var(--f-display);font-size:40px;line-height:1.4}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(90px,140px) 1fr 44px;gap:10px;align-items:center;font-size:14px;line-height:1.5}
+.bar .pb{height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar .pb i{display:block;height:100%;background:var(--cat-b)}
+.bar.weak .pb i{background:var(--no)}
+.srcl{font-family:var(--f-ui);font-size:12px;line-height:1.6;color:var(--ink-2);margin:0}
+.foot{font-size:14px;color:var(--ink-2)}
+@media (max-width:600px){
+  body{padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+  .sheet{padding-block:22px 32px;padding-inline-start:26px;padding-inline-end:14px;gap:38px}
+  .sheet::before{inset-inline-start:16px}
+  .sheet::after{display:none}
+  .card{padding:14px}
+  section>h2{font-size:25px}
+  .bar{grid-template-columns:84px 1fr 40px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.prog i{transition:none}}
+</style>
+
+<div class="wrap">
+  <nav class="nav" aria-label="أقسام المذكرة">
+    <div class="chips" id="chips"></div>
+    <button type="button" class="themeb" id="themeb" aria-label="المظهر">
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+    </button>
+  </nav>
+  <main class="sheet" id="sheet" dir="rtl" lang="ar"></main>
+</div>
+
+<script>
+/* ===== المحتوى ===== */
+const NOTE = {
+  title:"الشيكات: مذكرة واحدة",
+  subtitle:"دمج أسئلة الشيكات + برنامج أحكام الشيك + دليل الشيكات المصرفية والمعتمدة + ملف الرقابة الداخلية بالفرع",
+  stamp:"مذكرة · Cheques",
+  categories:{a:"الأساسيات", b:"التداول والصرف", c:"المصرفي والمعتمد"},
+  summary:{
+    lead:"الشيك **أداة وفاء** (مش ائتمان): أمر غير معلق على شرط من الساحب للبنك بدفع مبلغ معين للمستفيد **بمجرد الاطلاع**. الاستثناء: **المسطر** و**الحكومي** مش بيُصرفوا إلا في **تاريخ الاستحقاق**.",
+    colHeaders:["التعريف","الصرف نقدًا؟","الموعد والصلاحية"],
+    rows:[
+      {head:"عادي", sub:"من دفتر العميل",
+       cells:[{main:"يحرره العميل على **نماذج البنك** المسحوب عليه", ex:"لأمر، أو لحامله، أو ليس لأمر", cat:"a"},
+              {main:"**يجوز** بعد التحقق من التوقيع والشخصية", ex:"أكتر من 200 ألف: تعزيز تليفوني", cat:"a"},
+              {main:"يُوفى **بمجرد الاطلاع**", ex:"ولو مؤرخ بتاريخ لاحق، وتقديمه خلال **6 أشهر**", cat:"a"}]},
+      {head:"مسطر", sub:"خطان متوازيان",
+       cells:[{main:"خطان متوازيان في الصدر أو عبارة **القيد بالحساب**", ex:"مش خط واحد", cat:"b"},
+              {main:"**لا يجوز**: يُصرف بالقيد بالحساب فقط", ex:"شطب التسطير لا يُعتد به", cat:"b"},
+              {main:"**في تاريخ استحقاقه فقط**", ex:"لو عطلة: أول يوم عمل لاحق", cat:"b"}]},
+      {head:"حكومي", sub:"على البنك المركزي",
+       cells:[{main:"تصدره جهات إدارية، والبنوك تصرفه **نيابة عن المركزي**", ex:"توقيعان: الأول والثاني", cat:"b"},
+              {main:"حسب تعليمات الصرف", ex:"لا يُقبل لو المستفيد هو أحد الموقعين", cat:"b"},
+              {main:"**في تاريخ استحقاقه فقط**", ex:"أُلغي العمل به 29/11/2017", cat:"b"}]},
+      {head:"مصرفي", sub:"البنك على نفسه",
+       cells:[{main:"البنك يسحبه **على نفسه** بطلب عميل مقابل عمولة", ex:"لعملاء البنك فقط، خصمًا من حساباتهم", cat:"c"},
+              {main:"**ليس لأمر**: لا يُصرف إلا للمستفيد الأول", ex:"وغير قابل للتظهير", cat:"c"},
+              {main:"تقادمه للمستفيد **3 سنوات و6 أشهر**", ex:"من تاريخ الإصدار", cat:"c"}]},
+      {head:"معتمد", sub:"شيك العميل + اعتماد",
+       cells:[{main:"شيك العميل **يؤشر عليه البنك بالاعتماد**", ex:"مقابل عمولة، ويثبت وجود مقابل الوفاء", cat:"c"},
+              {main:"**ليس لأمر**: لا يُصرف إلا للمستفيد الأول", ex:"مسؤولية الصرف على البنك", cat:"c"},
+              {main:"المقابل مجمد **6 أشهر** داخل مصر و**8** خارجها", ex:"بعدها يعود الشيك عاديًا", cat:"c"}]}
+    ],
+    legend:"الأحمر = عادي · الأزرق = استثناءات (مسطر وحكومي) · الذهبي = مصرفي ومعتمد. الجدول تجميع من المصادر الأربعة.",
+    goldenRule:"**العادي** يُوفى بمجرد الاطلاع. **المسطر والحكومي** لتاريخ الاستحقاق فقط. **المصرفي والمعتمد** مسؤولية البنك و**للمستفيد الأول** بس."
+  },
+  sections:[
+    {type:"concepts", id:"concepts", title:"المفاهيم الأساسية", items:[
+      {nameEn:"Check Basics", nameAr:"تعريف الشيك وأركانه", cat:"a",
+       formula:[{sign:"+",text:"كلمة **شيك** مكتوبة على الوجه وبلغة الشيك"},
+                {sign:"+",text:"**أمر بالدفع** غير معلق على شرط، بمبلغ بـ**الحروف والأرقام**"},
+                {sign:"+",text:"اسم **البنك والفرع** المسحوب عليه"},
+                {sign:"+",text:"**تاريخ** الإصدار"},
+                {sign:"+",text:"**اسم وتوقيع** من أصدر الشيك"},
+                {sign:"?",text:"اختياري: مكان الوفاء، مكان الإصدار، اسم المستفيد"}],
+       uses:["الحكم على الشيك قبل الصرف أو الرفض","قانون التجارة 17 لسنة 1999 والعمل به من 1/10/2006"],
+       examples:[{en:"المبلغ بالحروف يخالف الأرقام",ar:"يُصرف بالمبلغ **بالحروف**"},
+                 {en:"المبلغ بالأرقام فقط أو بالحروف فقط",ar:"ركن ناقص: ينبه الحامل لاستيفائه، فإن أصر يُرد"},
+                 {en:"مفيش اسم مستفيد",ar:"الشيك يعتبر **لحامله**"},
+                 {en:"مطبوع على نماذج الشركة",ar:"مش شيك: لازم نماذج **البنك المسحوب عليه**"}],
+       signals:["كلمة شيك","أمر غير معلق على شرط","بالحروف والأرقام","اسم الساحب وتوقيعه","تاريخ الإصدار"],
+       tip:"اسم المستفيد **اختياري**. غيابه مش بيبطل الشيك، بيخليه لحامله.",
+       src:"برنامج أحكام الشيك · أسئلة الشيكات · بنك أسئلة التطبيق"},
+      {nameEn:"Crossed Check", nameAr:"الشيك المسطر", cat:"b",
+       formula:[{sign:"+",text:"**خطان** متوازيان في الصدر، أو عبارة **القيد بالحساب**"},
+                {sign:"-",text:"**لا يُصرف نقدًا** من الشباك، وإنما بالقيد بالحساب"},
+                {sign:"+",text:"لا يُصرف إلا في **تاريخ استحقاقه** (أو أول يوم عمل لاحق لو عطلة)"},
+                {sign:"-",text:"**شطب** التسطير أو عبارة القيد **لا يُعتد به** ولو وقّع الساحب"}],
+       uses:["أداة تحصيل آمنة عن طريق الحساب"],
+       examples:[{en:"خط واحد فقط",ar:"مش تسطير"},
+                 {en:"مسطر ومظهَّر",ar:"يجوز تظهيره بشرط **حساب للمستفيد الأخير**"},
+                 {en:"مسطر + ليس لأمر",ar:"لا يُتداول ولا يُظهَّر"},
+                 {en:"تسطير خاص باسم بنك",ar:"يُحصَّل في بنك محدد فقط (مثال البرنامج: البنك الأهلي فرع شريف)"}],
+       signals:["خطين متوازيين","القيد بالحساب","لا يصرف نقدًا","تاريخ الاستحقاق"],
+       tip:"التسطير **بخطين** مش بخط واحد. والساحب نفسه **ما يقدرش يلغيه** بالشطب.",
+       src:"أسئلة الشيكات · برنامج أحكام الشيك"},
+      {nameEn:"Transferability", nameAr:"أنواع الشيك حسب التداول", cat:"b",
+       formula:[{sign:"+",text:"**لحامله**: بدون اسم مستفيد، يتداول **بالمناولة**"},
+                {sign:"+",text:"**لأمر**: اسم مستفيد مكتوب، **قابل للتظهير**"},
+                {sign:"-",text:"**ليس لأمر**: لا يُصرف إلا للمستفيد الأول"}],
+       uses:["تحديد من يملك الصرف وكيف انتقل الشيك"],
+       examples:[{en:"ليس لأمر",ar:"أو: غير قابل للتداول / للتظهير / للتحويل / لا يصرف إلا للمستفيد الأول"},
+                 {en:"صرف ليس لأمر",ar:"للمستفيد الأول، أو للغير بـ**توكيل** أو **تفويض معتمد** من أحد البنوك"},
+                 {en:"شطب كلمة لأمر",ar:"**لا** يجعله غير قابل للتظهير"},
+                 {en:"أكثر من مستفيد",ar:"يتقدمون **مجتمعين** أو يظهرونه كلهم لأحدهم أو يوكلون أحدهم"}],
+       signals:["لحامله","لأمر","ليس لأمر","غير قابل للتظهير","غير قابل للتداول"],
+       tip:"اللي يقرر ده هو **العبارة المكتوبة** على الشيك، مش شطب كلمة هنا أو هناك.",
+       src:"برنامج أحكام الشيك · أسئلة الشيكات · بنك أسئلة التطبيق"},
+      {nameEn:"Endorsement Rules", nameAr:"أحكام التظهير", cat:"b",
+       formula:[{sign:"+",text:"يُكتب **اسم المظهر** على ظهر الشيك أو يكتفى بـ**توقيعه**"},
+                {sign:"+",text:"**ناقل للملكية**، أو **توكيلي** بعبارة 'القيمة للتحصيل / للقبض / للتوكيل'"},
+                {sign:"-",text:"**التظهير الجزئي باطل**"},
+                {sign:"-",text:"الشرط على التظهير **كأن لم يكن** والتظهير صحيح"}],
+       uses:["نقل الحقوق للمظهر إليه (الحامل)"],
+       examples:[{en:"تظهير توكيلي",ar:"الحامل يستعمل الحقوق لكن **لا يظهر إلا توكيليًا**، والوكالة لا تنقضي بوفاة الموكل"},
+                 {en:"تظهير على بياض",ar:"ناقل للملكية، ويجوز لحامله ملء البياض أو تظهيره من جديد"},
+                 {en:"تاريخ التظهير",ar:"اختياري، ولو ذُكر يكون **لاحقًا** لتاريخ تحرير الشيك"},
+                 {en:"توقيعات المظهرين",ar:"البنك **لا يلتزم** بالتحقق منها ولا يُسأل عن تزويرها"},
+                 {en:"التظهيرات المشطوبة",ar:"كأنها لم تكن، ويجوز للمظهر حظر تظهيره من جديد"}],
+       signals:["القيمة للتحصيل","على بياض","التظهير الجزئي","الحامل الشرعي"],
+       tip:"أخطاء التظهير (زي نقص تظهير المستفيد الأول) تخلي الشيك **مش مقبول** للصرف.",
+       src:"برنامج أحكام الشيك · أسئلة الشيكات"},
+      {nameEn:"Presentation & Payment", nameAr:"الوفاء ومواعيد التقديم", cat:"b",
+       formula:[{sign:"+",text:"مسحوب في مصر ومستحق فيها: التقديم خلال **6 أشهر**"},
+                {sign:"+",text:"مسحوب خارج مصر ومستحق في مصر: خلال **8 أشهر**"},
+                {sign:"+",text:"التقديم لـ**غرفة المقاصة** = تقديم للوفاء"},
+                {sign:"-",text:"لا يمتنع البنك عن الوفاء لو عنده **مقابل**، ولو انقضى الميعاد"}],
+       uses:["تحديد وقت قبول الشيك أو رفضه"],
+       examples:[{en:"مقدم قبل تاريخه",ar:"يُوفى يوم تقديمه، **عدا** الحكومي والمسطر والخطي الآجل ثابت التاريخ حتى 30/9/2006"},
+                 {en:"الرصيد غير كافٍ",ar:"لا يصدر نموذج رفض بعدم كفاية الرصيد **إلا في تاريخ الاستحقاق**"},
+                 {en:"29 فبراير 2018",ar:"تاريخ غير موجود، فاستحقاقه **28 فبراير**"},
+                 {en:"عدة شيكات والرصيد لا يكفي",ar:"الأقدم تاريخًا أولًا، وعند تساوي التاريخ: نفس الدفتر الأسبق رقمًا، ودفاتر مختلفة الأقل مبلغًا"}],
+       signals:["6 أشهر","8 أشهر","غرفة المقاصة","مقابل الوفاء"],
+       tip:"أي شيك اتأكد من توقيعه وسلامته لازم يتختم بـ**'التوقيع مطابق'** وبـ**ختم كشف التزوير**.",
+       src:"برنامج أحكام الشيك · أسئلة الشيكات"},
+      {nameEn:"Partial Payment", nameAr:"الوفاء الجزئي", cat:"b",
+       formula:[{sign:"+",text:"البنك **يعرض** الوفاء بالمتاح، والمستفيد **حر** يقبل أو يرفض"},
+                {sign:"+",text:"يُخصم الجزء من الحساب بـ**إذن صرف**"},
+                {sign:"+",text:"التأشير على **أصل الشيك** بالسداد الجزئي"},
+                {sign:"+",text:"**مخالصة** من المستفيد + **شهادة وفاء جزئي** من البنك"}],
+       uses:["لما الرصيد لا يكفي لكامل قيمة الشيك"],
+       examples:[{en:"يستلم المستفيد",ar:"**صورة** الشيك مؤشر عليها + **أصل** شهادة الوفاء الجزئي"},
+                 {en:"يحتفظ البنك بـ",ar:"**أصل** الشيك + إذن الصرف + المخالصة + صورة الشهادة"},
+                 {en:"رفض المستفيد",ar:"الرفض بعبارة 'الرصيد لا يكفي ورفض المستفيد السداد الجزئي'"},
+                 {en:"باقي المبلغ",ar:"لا يطالب به البنك مرة أخرى، ويعمل **احتجاجًا** عن الباقي"}],
+       signals:["وفاء جزئي","مخالصة","شهادة وفاء جزئي","إذن صرف"],
+       tip:"**مش** بيطبق على الشيكات المقدمة عن طريق **غرفة المقاصة**، وقبله اتأكد إن مفيش مبالغ مودعة أو تحت التحصيل.",
+       src:"أسئلة الشيكات · برنامج أحكام الشيك"},
+      {nameEn:"Objection", nameAr:"الاعتراض على الوفاء", cat:"b",
+       formula:[{sign:"+",text:"**معارضة كتابية** دائمًا، فيها رقم الشيك والمبلغ والتاريخ واسم الساحب"},
+                {sign:"+",text:"تُقبل فقط لـ**ضياع/هلاك/سرقة**، **إفلاس** حامله، **الحجر** على حامله"},
+                {sign:"+",text:"البنك **يسجل** الاعتراض على النظام"},
+                {sign:"?",text:"الملاك: صاحب الحساب أو وكيله، أمين التفليسة، المستفيد، القيم على المحجور عليه"}],
+       uses:["إيقاف صرف الشيك"],
+       examples:[{en:"شيك لأمر + رصيد كافٍ",ar:"رفض: 'معترض عليه من جانب ... ومجنب مبلغ ... بحساب الأمانات'"},
+                 {en:"شيك لأمر + مفيش رصيد",ar:"رفض: 'معترض عليه للضياع مع الرجوع على الساحب لعدم وجود رصيد'"},
+                 {en:"شيك لحامله",ar:"تجنيب القيمة بالأمانات، وعند تقدم الحائز: بياناته وعنوانه + التأشير + صورة + إبلاغ المعترض"},
+                 {en:"حساب مشترك",ar:"أي طرف يعترض، والبنك ينفذ ويطلب توقيع باقي الأطراف ويخطرهم كتابة"}],
+       signals:["معارضة كتابية","حساب الأمانات","ضياع","إفلاس","الحجر"],
+       tip:"الساحب **ما يقدرش** يوقف شيك من غير اعتراض كتابي. ولو الشيك اتصرف قبل الاعتراض: رد فوري بسبق الصرف.",
+       src:"برنامج أحكام الشيك · أسئلة الشيكات"},
+      {nameEn:"Rejection", nameAr:"رفض الشيك", cat:"b",
+       formula:[{sign:"+",text:"التسجيل على **FCUBS**: مقدم الشيك، المبلغ، التاريخ"},
+                {sign:"+",text:"**مدير خدمة العملاء** يراجع بعد اختيار السبب"},
+                {sign:"-",text:"أكتر من سبب **من بينهم التوقيع**: يُرفض بـ'التوقيع غير مطابق' **فقط**"},
+                {sign:"+",text:"أكتر من سبب **من غير التوقيع**: تُذكر كل الأسباب"}],
+       uses:["تحديد عبارة الرفض الصحيحة"],
+       examples:[{en:"أول إجراء",ar:"**مطابقة التوقيع** قبل أي حاجة تانية"},
+                 {en:"مهلة قبل الرفض",ar:"لو الشيك مستوفٍ والرصيد لا يسمح وللعميل سوابق جيدة: مهلة لحد **يوم العمل التالي**، و**مرة واحدة** فقط"},
+                 {en:"غرفة المقاصة",ar:"على حساب جارٍ مدين لا تقرر بنفسها: ترسل صورة الشيك **لفرع الحساب**"},
+                 {en:"البيانات بخط اليد",ar:"اسم الساحب، مقدم الشيك، المبلغ، التاريخ"}],
+       signals:["التوقيع غير مطابق","عدم وجود رصيد","الحساب مغلق","الحساب مجمد","ينقص التوقيع"],
+       tip:"قاعدة **التوقيع الأول** تغلب الباقي: رصيد مش كافي + توقيع غير مطابق = 'التوقيع غير مطابق'.",
+       src:"أسئلة الشيكات · برنامج أحكام الشيك"},
+      {nameEn:"Cashier Check", nameAr:"الشيك المصرفي", cat:"c",
+       formula:[{sign:"+",text:"البنك **يسحبه على نفسه** لصالح مستفيد بطلب عميل مقابل **عمولة**"},
+                {sign:"+",text:"يُصدر لـ**عملاء البنك فقط** خصمًا من حساباتهم"},
+                {sign:"+",text:"عبارة **'لا يصرف إلا للمستفيد الأول'**، غير قابل للتظهير"},
+                {sign:"+",text:"توقيعان على الأقل (أحدهما **توقيع أول**) + الختم المؤمن"}],
+       uses:["ضمان وجود مقابل الوفاء لجهات وأفراد يطلبون ذلك"],
+       examples:[{en:"طلب 15 ألف دولار فأكثر",ar:"من وكيل بتفويضات جديدة أو عبر البريد: **تعزيز** مع العميل قبل التنفيذ"},
+                 {en:"إصدار بمذكرة داخلية",ar:"**بدون عمولة**، وللالتزامات يُذكر **سبب الإصدار**"},
+                 {en:"قبل الإصدار",ar:"مطابقة التوقيع، سماح الرصيد بالقيمة والعمولة، القوائم السلبية، ثم # اسم المستفيد #"},
+                 {en:"تقادمه",ar:"للمستفيد **3 سنوات و6 أشهر** من الإصدار"},
+                 {en:"عميل عارض قبل 18/3/2020",ar:"للمشتري **15 عامًا**"},
+                 {en:"بدل فاقد",ar:"حضور العميل والمستفيد، أو محضر شرطة، وخطاب من الجهة الحكومية لو مستفيدة"}],
+       signals:["ليس لأمر","الشيكرز","القوائم السلبية","بدل فاقد","تقادم"],
+       tip:"الدليل **بيفرق** بين التقادم للمستفيد (**3 سنوات و6 أشهر**) وللمشتري العارض قبل 18/3/2020 (**15 عامًا**).",
+       src:"دليل الشيكات المصرفية والمعتمدة · أسئلة الشيكات · الرقابة الداخلية بالفرع"},
+      {nameEn:"Certified Check", nameAr:"الشيك المعتمد", cat:"c",
+       formula:[{sign:"+",text:"شيك **العميل** من دفتره، مسحوب على حسابه، **يؤشر عليه البنك بالاعتماد**"},
+                {sign:"-",text:"لازم يكون **غير مسطر** وسليمًا من الكشط والتعديل، وغير مؤرخ بتاريخ لاحق"},
+                {sign:"+",text:"البنك **يخصم القيمة** ويجنبها لحين تقدم الحامل"},
+                {sign:"+",text:"**ختم الاعتماد** + تاريخ البداية والنهاية + توقيعان + 'لا يصرف إلا للمستفيد الأول'"}],
+       uses:["شيك بقوة المصرفي: المسؤولية على البنك مش العميل"],
+       examples:[{en:"مدة الاعتماد",ar:"**6 أشهر** للمسحوب داخل مصر، **8 أشهر** للمسحوب خارجها"},
+                 {en:"بعد انتهاء المدة",ar:"تُرد القيمة آليًا للحساب ويعود الشيك **عاديًا**"},
+                 {en:"إيقاف الصرف",ar:"قبل مرور 6 أشهر: الرجوع **للإدارة القانونية**، وبعدها قواعد الشيك العادي"}],
+       signals:["الاعتماد","غير مسطر","مقابل مجمد","6 أشهر / 8 أشهر"],
+       tip:"المعتمد **مش بيتسطّر**، والمقابل بيتجمد، وبعد المدة **يرجع عادي**.",
+       src:"دليل الشيكات المصرفية والمعتمدة · أسئلة الشيكات"},
+      {nameEn:"Counter & Special Rules", nameAr:"الصرف من الشباك وحالات خاصة", cat:"b",
+       formula:[{sign:"+",text:"**200 ألف جنيه فأكثر**: تعزيز تليفوني مع العميل ببيانات الشيك"},
+                {sign:"?",text:"لو تعذر التواصل والتوقيع مطابق والرصيد يسمح: **يُصرف** مع إثبات المحاولة"},
+                {sign:"+",text:"عملة أجنبية: الوفاء بنفس العملة لو في مقابل، وإلا يُعرض المحلي"},
+                {sign:"-",text:"وفاة أو إفلاس أو فقد أهلية الساحب بعد الإصدار **لا يؤثر** على الشيك"}],
+       uses:["قرارات الصرف اليومية على الشباك"],
+       examples:[{en:"شيك باسم الشركة",ar:"الصرف النقدي بالاسم التجاري أو الاسم والسمة معًا. **السمة وحدها**: لا صرف نقدي، والتحصيل مع الإقرار (تعميم 21/3/2024)"},
+                 {en:"شيك لمستفيد غير صاحب الحساب",ar:"عند الإيداع: لا يوقع صاحب الحساب على الحافظة، ويكفي بيانات وتوقيع المودع"},
+                 {en:"ادفعوا لأمر شركة *** لصاحبها",ar:"يصرف لصاحبها بعد إثبات الشخصية (منشأة فردية)"},
+                 {en:"الشيك المصرفي المسيّل في حساب عميل",ar:"لا يُبحث المستفيد على القوائم السلبية"}],
+       signals:["تعزيز تليفوني","200 ألف","عملة الشيك","السمة التجارية"],
+       tip:"في العملة الأجنبية: لو المستفيد رفض المحلي، الرفض بعبارة **'الرصيد لا يسمح بالوفاء بعملة الشيك ورفض المستفيد الوفاء بالعملة المحلية'**.",
+       src:"أسئلة الشيكات · الرقابة الداخلية بالفرع · برنامج أحكام الشيك"},
+      {nameEn:"Guarantee & Check Books", nameAr:"الضمان الاحتياطي ودفاتر الشيكات", cat:"a",
+       formula:[{sign:"+",text:"الضمان الاحتياطي: عبارة **'للضمان الاحتياطي'** + توقيع الضامن على **صدر** الشيك"},
+                {sign:"-",text:"الضامن **أي شخص** عدا البنك المسحوب عليه"},
+                {sign:"+",text:"قبل إصدار دفتر: انتظام الحساب، الشيكات المرفوضة، الحجوزات، دفتر سابق لم يُستعمل"},
+                {sign:"+",text:"الطباعة من مركز الطباعة، وعند التسليم تتغير الحالة من **مصدرة** إلى **مسلمة**"}],
+       uses:["تقوية الثقة في شيك ضعيف الملاءة","منح دفاتر شيكات للعملاء"],
+       examples:[{en:"طلب دفتر شيكات",ar:"يوقع العميل على الطلب **مرة واحدة** ويؤشر فقط على وسيلة التوصيل"},
+                 {en:"الحسابات التي يصدر عليها شيكات",ar:"الجارية (مدينة أو دائنة) وحسابات الصيارفة العرب"}],
+       signals:["للضمان الاحتياطي","دفتر شيكات","مصدرة / مسلمة"],
+       tip:"لو ظهرت مشاكل في سلوك العميل مع الشيكات، البنك **يجوز** يمتنع عن إصدار دفاتر جديدة.",
+       src:"أسئلة الشيكات · الرقابة الداخلية بالفرع"}
+    ]},
+    {type:"compare", id:"compare", title:"الفروقات", items:[
+      {title:"Regular vs Crossed vs Government", cols:[
+        {name:"العادي", cat:"a", when:"**بمجرد الاطلاع**",
+         ex:["يُوفى يوم تقديمه ولو قبل تاريخه","الرفض لعدم الرصيد في تاريخ الاستحقاق","لحامله أو لأمر أو ليس لأمر"]},
+        {name:"المسطر", cat:"b", when:"**لتاريخ الاستحقاق** + قيد بحساب",
+         ex:["خطان أو 'القيد بالحساب'","لا صرف نقدي","شطبه لا يُعتد به"]},
+        {name:"الحكومي", cat:"b", when:"**لتاريخ الاستحقاق** + على المركزي",
+         ex:["توقيعان من الجهة","لا يُقبل لو المستفيد من الموقعين","أُلغي 29/11/2017"]}],
+       golden:"المستحق **بمجرد الاطلاع** هو العادي وأنواعه (لحامله، لأمر، ليس لأمر، المظهَّر). **المسطر والحكومي** استثناء: **لتاريخ الاستحقاق فقط**."},
+      {title:"Cashier vs Certified", cols:[
+        {name:"المصرفي", cat:"c", when:"البنك **يسحبه على نفسه**",
+         ex:["خصمًا من حساب العميل لحظة الإصدار","من مطبوعات البنك المرقمة","تقادمه 3 سنوات و6 أشهر للمستفيد"]},
+        {name:"المعتمد", cat:"c", when:"شيك **العميل** + اعتماد البنك",
+         ex:["من دفتر شيكات العميل","لازم غير مسطر","المقابل مجمد 6/8 أشهر ثم يعود عاديًا"]}],
+       golden:"المصرفي **بنك ← بنك**، والمعتمد **عميل ← بنك يعتمده**. الاتنين **لا يصرفان إلا للمستفيد الأول**."},
+      {title:"Bearer vs Order vs Not-to-order", cols:[
+        {name:"لحامله", cat:"a", when:"**مفيش** اسم مستفيد",
+         ex:["يتداول بالمناولة","ما يحتاجش تظهير"]},
+        {name:"لأمر", cat:"b", when:"**اسم** مستفيد مكتوب",
+         ex:["قابل للتظهير","حائزه هو حامله الشرعي"]},
+        {name:"ليس لأمر", cat:"c", when:"**'ليس لأمر'** أو ما يفيد",
+         ex:["للمستفيد الأول","أو لغيره بتوكيل/تفويض معتمد"]}],
+       golden:"**العبارة المكتوبة** هي اللي تحكم، مش شكل الشيك."},
+      {title:"Objection: Order vs Bearer", cols:[
+        {name:"شيك لأمر", cat:"b", when:"بيانات + **سبب الاعتراض**",
+         ex:["محل إقامة المعترض في مصر","عند تقدم المستفيد: رفض بعبارة الأمانات/عدم الرصيد"]},
+        {name:"شيك لحامله", cat:"b", when:"بيانات + **ظروف الفقد**",
+         ex:["التجنيب بالأمانات من البداية","عند تقدم الحائز: بياناته وعنوانه + التأشير + صورة + إبلاغ المعترض"]}],
+       golden:"في **لحامله** البنك بياخد **بيانات الحائز** ويبلغ المعترض بيها. في **لأمر** الرفض بعبارة الأمانات أو عدم الرصيد."},
+      {title:"Endorsement: Transfer vs Agency", cols:[
+        {name:"ناقل للملكية", cat:"b", when:"ينقل **كل** الحقوق",
+         ex:["ومنه التظهير على بياض","الحامل يملأ البياض بالاسم"]},
+        {name:"توكيلي", cat:"b", when:"**'القيمة للتحصيل'** أو ما يفيد التوكيل",
+         ex:["الحامل يستعمل الحقوق فقط","لا يظهر إلا توكيليًا","الوكالة لا تنقضي بوفاة الموكل"]}],
+       golden:"**توكيلي** = تحصيل فقط. **ناقل** = ملكية كاملة."}
+    ]},
+    {type:"confusing", id:"confusing", title:"حالات بتلخبط", items:[
+      {title:"الشيك مؤرخ بتاريخ لاحق وجه النهارده",
+       explain:"**العادي** يُوفى يوم تقديمه ولو قبل تاريخه، لكن **المسطر والحكومي** لا.",
+       examples:[{text:"شيك عادي مؤرخ بكرة، الرصيد كافٍ",note:"يُصرف اليوم",correct:true},
+                 {text:"شيك مسطر مؤرخ بكرة",note:"لا يُصرف قبل تاريخه",correct:false},
+                 {text:"الرصيد غير كافٍ في شيك عادي مؤرخ بكرة",note:"لا يصدر نموذج الرفض قبل تاريخ الاستحقاق"}]},
+      {title:"اسم المنشأة واسم الشخص في الشيك",
+       explain:"ترتيب الاسمين في المستفيد بيحدد هل الشيك **شخصي** (يُظهَّر) أو **باسم المنشأة** (يودع بحسابها).",
+       examples:[{text:"اسم المنشأة سبق اسم الشخص",note:"لا يُظهَّر، يُودع في حساب المنشأة",correct:true},
+                 {text:"اسم الشخص سبق اسم المنشأة",note:"شخصي ويمكن تظهيره لو قابل للتداول",correct:true},
+                 {text:"'ادفعوا لأمر شركة *** لصاحبها'",note:"يُصرف لصاحبها بعد إثبات الشخصية (منشأة فردية)"}]},
+      {title:"شيكات القُصَّر",
+       explain:"الحكم بيختلف حسب **سن القاصر** و**مين اللي بحوزته الشيك** و**مصدر الشيك**. راجع جدول القاصر في قسم الجداول.",
+       examples:[{text:"عمره 19 والشيك بحوزته من صراف عربي",note:"قاصر مميز: يُصرف له بعد التحقق من الشخصية",correct:true},
+                 {text:"شيك لـ'قصر المرحوم ... بولاية السيد ...'",note:"لا يُصرف نقدًا: يُودع في حسابات القصر ولا صرف إلا بتصريح النيابة الحسبية",correct:false},
+                 {text:"الشيك بحوزة الولي الطبيعي",note:"يُصرف للولي سواء القاصر مميز أو غير مميز",correct:true}]},
+      {title:"وفاة الساحب أو إفلاسه",
+       explain:"الوفاة أو الإفلاس أو فقد الأهلية **بعد الإصدار** لا يغير أحكام الشيك، ويُصرف للمستفيد الشرعي ما لم يصل اعتراض. وفي منشور 5589 تفاصيل التاريخ.",
+       examples:[{text:"مؤرخ قبل الوفاة وقُدم بعد علم البنك بها",note:"يُصرف للحامل الشرعي وفق ضوابط الشيك",correct:true},
+                 {text:"غير مسطر ومؤرخ بعد الوفاة",note:"رفض بعبارة 'الحساب مجمد' (5589)",correct:false},
+                 {text:"مسطر ومؤرخ بعد الوفاة",note:"يُصرف وفق الضوابط (5589)",correct:true}]},
+      {title:"أرقام تقادم وصلاحية بتتشابه",
+       explain:"**6 أشهر** و**8 أشهر** و**3 سنوات و6 أشهر** و**15 عامًا** كلها في الشيكات، لكن كل رقم ليه معنى.",
+       examples:[{text:"6 أشهر / 8 أشهر",note:"ميعاد تقديم الشيك للوفاء، وهي أيضًا مدة اعتماد الشيك المعتمد"},
+                 {text:"3 سنوات و6 أشهر",note:"تقادم الشيك المصرفي للمستفيد من تاريخ الإصدار"},
+                 {text:"15 عامًا",note:"تقادم المصرفي لمشتٍ عارض طلبه قبل 18/3/2020، مع بقاء التزام طبيعي على البنك"},
+                 {text:"6 أشهر من الاعتراض",note:"شرط من شروط رد الأمانات للساحب"}]},
+      {title:"شطب التسطير وشطب 'لأمر'",
+       explain:"الاتنين شطب، لكن **أثرهم مختلف**.",
+       examples:[{text:"شطب علامة التسطير أو 'القيد بالحساب'",note:"لا يُعتد به ولو وقّع الساحب، ويظل مسطرًا",correct:false},
+                 {text:"شطب كلمة 'لأمر'",note:"لا يجعل الشيك غير قابل للتظهير",correct:false},
+                 {text:"شطب تظهير",note:"التظهيرات المشطوبة كأن لم تكن",correct:true}]}
+    ]},
+    {type:"conflicts", id:"conflicts", title:"تعارضات بين المصادر", items:[
+      {title:"شطب التسطير (شريحة 17 في برنامج أحكام الشيك)",
+       text:"شريحة 17 بتقول 'الشيك قابل للتظهير حيث **يجوز إلغاء قفل الشيك** ولكن بتوقيعات الساحب المعتمدة'. ده **بيعارض** شريحة 10 في نفس البرنامج وملف أسئلة الشيكات (أكتر من موضع) اللي بيقولوا إن **التسطير لا يُلغى** ولو بتوقيع الساحب. أخدت بالأغلبية، وراجع تعليمات الفرع الرسمية قبل ما تعتمد على ده في إجابة."},
+      {title:"المبلغ بالأرقام فقط أو بالحروف فقط",
+       text:"البرنامج وبنك الأسئلة بيقولوا 'غير مقبول لنقص ركن'. ملف الأسئلة بيضيف **الإجراء**: التنبيه على الحامل لاستيفائه أولًا، فإن أصر يُرد. جمعتهم: ينبه ثم يرفض."},
+      {title:"عبارة الرفض لنقص البيانات",
+       text:"ملف الأسئلة بيذكر 'عدم اكتمال بيانات الشيك'، وقائمة أسباب الرفض في البرنامج فيها 'الشيك يفقد أحد الأركان القانونية اللازمة لصحته وهو ----'. المختار حسب السؤال، وفي القائمة الرسمية (FCUBS) الثانية هي المعتمدة."}
+    ]},
+    {type:"reference", id:"ref", title:"أرقام وجداول مرجعية", tables:[
+      {id:"nums", title:"أرقام لازم تحفظها", headers:["الرقم","المعنى"],
+       rows:[["6 أشهر","ميعاد تقديم شيك مسحوب في مصر ومستحق فيها، وصلاحية المعتمد داخل مصر"],
+             ["8 أشهر","شيك مسحوب خارج مصر ومستحق في مصر، وصلاحية المعتمد خارج مصر"],
+             ["3 سنوات و6 أشهر","تقادم المصرفي للمستفيد من تاريخ الإصدار"],
+             ["15 عامًا","تقادم المصرفي لمشترٍ عارض قبل 18/3/2020"],
+             ["200 ألف جنيه","تعزيز تليفوني على الشباك (أو أكثر)"],
+             ["15 ألف دولار","تعزيز مع العميل لشيك مصرفي بتفويضات جديدة (أو أكثر ومعادلها)"],
+             ["1000 جنيه","الأم تستلم عن قاصر غير مميز (شيك من صراف/مصرف/أفراد)"],
+             ["16 و21 سنة","حدود القاصر المميز"],
+             ["1/10/2006","العمل بالقانون، ولا يُعتد بالشيك الخطي بعده"],
+             ["29/11/2017","إلغاء الشيكات الحكومية"],
+             ["يوم العمل التالي","أقصى مهلة قبل الرفض، ومرة واحدة"],
+             ["6 أشهر من الاعتراض","شرط لرد الأمانات للساحب (مع عدم مطالبة الحامل ورأي القانونية)"]],
+       tip:"كل رقم ليه موضع واحد. اسأل نفسك: ده **تقديم** ولا **تقادم** ولا **اعتماد**؟"},
+      {id:"minors", title:"صرف شيكات القُصَّر", headers:["الحالة","شيك من الصيارفة العرب أو مصرف آخر أو أفراد","شيك من لجنة المعونات الشتوية أو شركات القطاع العام أو التأمين"],
+       rows:[["أقل من 16 سنة (غير مميز)","للولي الطبيعي أو الوصي بموجب قرار الوصاية (مع صورة منه). ويجوز للأم لو القيمة لا تتجاوز 1000 جم","للولي الطبيعي أو الوصي بموجب قرار الوصاية (مع صورة منه)"],
+             ["16 إلى أقل من 21 (مميز)","مباشرة للقاصر لو الشيك بحوزته بعد التحقق من شخصيته","للقاصر لو بحوزته على أن **يوقع معه** الولي أو الوصي (مع صورة منه)"],
+             ["الشيك بحوزة الولي الطبيعي","للولي، سواء القاصر مميز أو غير مميز","للولي، سواء القاصر مميز أو غير مميز"]],
+       tip:"شيك 'لقصر المرحوم ... بولاية السيد ...' **لا يُصرف نقدًا**: يُودع في حسابات القصر ولا صرف إلا بتصريح النيابة الحسبية."},
+      {id:"reasons", title:"أسباب رفض الشيك على FCUBS", headers:["السبب","ملاحظة"],
+       rows:[["ليس للعميل حساب لدينا",""],["التوقيع غير مطابق","يغلب باقي الأسباب"],["الحساب مغلق",""],["الحساب مجمد",""],
+             ["عدم وجود رصيد",""],["ينقص التوقيع / أحد التوقيعين",""],
+             ["الشيك معترض عليه وتم تعلية مبلغ ... أمانات","الاعتراض مع رصيد"],
+             ["الشيك معترض عليه والقيمة معلاة أمانات","الاعتراض"],
+             ["الشيك معترض عليه ولا يوجد رصيد","الاعتراض بدون رصيد"],
+             ["الشيك مقدم بعد الميعاد القانوني",""],["يقدم يوم العمل التالي","المهلة"],
+             ["الشيك مرفوض لأكثر من سبب","من غير التوقيع: تُذكر كل الأسباب"],
+             ["الشيك يفقد أحد الأركان القانونية اللازمة لصحته","يذكر الركن"],
+             ["الشيك معلق على شرط",""],
+             ["الرصيد لا يسمح للوفاء بعملة الشيك ورفض المستفيد ...","عملة أجنبية"],
+             ["عدم كفاية الرصيد ورفض المستفيد السداد الجزئي","الوفاء الجزئي"]]},
+      {id:"cashier", title:"الشيك المصرفي: خطوات الإصدار والصرف", headers:["المرحلة","أهم النقاط"],
+       rows:[["الطلب","حضور العميل أو مندوب بتوقيع مطابق، أو بريد، أو وكيل بتوكيل يتضمن ذلك صراحة"],
+             ["قبل الإصدار","مطابقة التوقيع، سماح الرصيد بالقيمة والعمولة، لا تعليمات تمنع، فحص القوائم السلبية"],
+             ["الإصدار","رقم الشيك على النظام، # اسم المستفيد #، الغرض، طباعة المبلغ بآلة الشيكرز"],
+             ["المراجعة","مدير خدمة العملاء: مطابقة الرقم والعملة والطباعة، الختم المؤمن، توقيعان (أحدهما أول)"],
+             ["الصرف","هوية المستفيد، عدم التقادم، مطابقة توقيع الفرع المصدر، كشف التزوير، الخصم والتصريح"],
+             ["الإلغاء","طلب من العميل أو وكيله، ختم 'ملغى'، إضافة القيمة للحساب الذي يحدده العميل"],
+             ["الإيقاف","يُعرض على الإدارة العامة للفتاوى والشكاوى والتظلمات بقطاع الشئون القانونية"],
+             ["المتابعة","جرد شهري للشيكات المصرفية والمعتمدة القائمة بالفرع"]],
+       tip:"عند التقادم: التسييل للأستاذ العام (تسوية غير تلقائية) وإشعار الحسابات المركزية. ولو جه المستفيد بعدها: القانونية ثم القطاع المالي."}
+    ]},
+    {type:"lookup", id:"lookup", title:"دوّر على دليل", rows:[
+      {signal:"خطين متوازيين", target:"شيك مسطر", note:"مش خط واحد"},
+      {signal:"القيد بالحساب", target:"شيك مسطر", note:"لا يُصرف نقدًا"},
+      {signal:"ليس لأمر", target:"للمستفيد الأول فقط", note:"أو بتوكيل/تفويض معتمد"},
+      {signal:"بمجرد الاطلاع", target:"الشيك العادي", note:"أصل عام"},
+      {signal:"تاريخ الاستحقاق فقط", target:"المسطر والحكومي", note:"استثناء"},
+      {signal:"القيمة للتحصيل", target:"تظهير توكيلي", note:"لا ينقل الملكية"},
+      {signal:"على بياض", target:"تظهير ناقل للملكية", note:"يجوز ملء البياض"},
+      {signal:"التظهير الجزئي", target:"باطل", note:""},
+      {signal:"للضمان الاحتياطي", target:"ضمان من غير البنك", note:"توقيع على صدر الشيك"},
+      {signal:"6 أشهر", target:"تقديم الشيك داخل مصر / اعتماد داخل مصر", note:""},
+      {signal:"8 أشهر", target:"تقديم الشيك المسحوب خارج مصر / اعتماد خارج مصر", note:""},
+      {signal:"3 سنوات و6 أشهر", target:"تقادم المصرفي للمستفيد", note:""},
+      {signal:"18/3/2020", target:"تاريخ فاصل لمشتري المصرفي العارض (15 عامًا قبله)", note:""},
+      {signal:"29 فبراير 2018", target:"يُعتبر 28 فبراير", note:"مقصد الساحب نهاية الشهر"},
+      {signal:"1/10/2006", target:"العمل بالقانون وإلغاء الخطي", note:""},
+      {signal:"29/11/2017", target:"إلغاء الشيكات الحكومية", note:"وزارة المالية"},
+      {signal:"200 ألف", target:"تعزيز تليفوني على الشباك", note:""},
+      {signal:"15 ألف دولار", target:"تعزيز مع العميل لتفويض جديد", note:"شيك مصرفي"},
+      {signal:"حساب الأمانات", target:"تجنيب قيمة الشيك المعترض عليه", note:""},
+      {signal:"مجتمعين", target:"أكثر من مستفيد", note:"أو تظهير/توكيل"},
+      {signal:"الحساب مجمد", target:"رفض غير مسطر مؤرخ بعد وفاة الساحب", note:"منشور 5589"},
+      {signal:"السمة التجارية", target:"لا صرف نقدي لو وحدها", note:"التحصيل مع الإقرار"},
+      {signal:"الشيكرز", target:"آلة طباعة مبلغ الشيك المصرفي والمعتمد", note:""},
+      {signal:"FCUBS", target:"النظام اللي بيسجل الرفض", note:""},
+      {signal:"شيكات مصرفية أو مقبولة الدفع - مفقودة", target:"حساب قيد قيمة المفقود", note:"203500113"}
+    ]}
+  ]
+};
+
+const QUIZ = {
+  sections:[{id:"s1",title:"الأساسيات"},{id:"s2",title:"المقارنات"},{id:"s3",title:"الأرقام والدلائل"},{id:"s4",title:"حالات بتلخبط"}],
+  questions:[
+   {id:"q1",section:"s1",prompt:"أي بيان من التالي **ليس** من البيانات الإلزامية في الشيك؟",answer:"اسم المستفيد",
+    clue:"لو اتساب فاضي الشيك بيفضل صالح.",
+    why:"الشيك من غير اسم مستفيد **ما بيبطلش**، بيتحول **لحامله** ويتصرف لأي حد ماسكه. أما التاريخ والتوقيع والبنك المسحوب عليه، فمن غيرهم الشيك ما ينفعش: مش هتعرف إمتى يستحق، ولا مين الملتزم، ولا تصرفه منين.",
+    wrong:[{option:"تاريخ إصدار الشيك",why:"من غيره مش هتعرف ميعاد التقديم ولا تقدر تحسب مدته."},
+           {option:"اسم وتوقيع من أصدر الشيك",why:"التوقيع هو الأمر بالدفع نفسه، ومن غيره مفيش التزام."},
+           {option:"اسم البنك والفرع المسحوب عليه",why:"لازم تعرف مين اللي هيدفع."}]},
+   {id:"q2",section:"s1",prompt:"عند اختلاف المبلغ بالأرقام عن المبلغ بالحروف، يُصرف الشيك بـ:",answer:"المبلغ المكتوب بالحروف",
+    clue:"أصعب في التزوير.",
+    why:"الحروف **أصعب في التغيير والتزوير** من الأرقام (صفر زيادة بيتحط بسهولة)، وكمان بتعبّر عن نية الساحب بشكل أوضح. عشان كده العبرة بالحروف لما يحصل تعارض.",
+    wrong:[{option:"المبلغ المكتوب بالأرقام",why:"الأرقام سهل تتعدّل، فمش هي المرجع."},
+           {option:"المبلغ الأقل بين الاثنين",why:"مفيش قاعدة بتختار الأقل؛ المرجع الحروف أيًا كانت قيمتها."},
+           {option:"المبلغ الأعلى بين الاثنين",why:"ده هيضر الساحب من غير سند."}]},
+   {id:"q3",section:"s1",prompt:"شيك مكتوب المبلغ فيه بالأرقام فقط. أول إجراء قبل الرد؟",answer:"التنبيه على الحامل لاستيفائه قبل الصرف",
+    clue:"فرصة للتصحيح الأول.",
+    why:"البيان ناقص، لكن ممكن **يتكمّل**. فالبنك بيدّي الحامل فرصة يستوفيه بدل ما يرد الشيك على طول. ولو أصر يسيبه ناقص، يترد بعدم اكتمال البيانات.",
+    wrong:[{option:"صرفه مباشرة بالمبلغ بالأرقام",why:"فيه بيان ناقص، والصرف كده مخاطرة."},
+           {option:"رفضه فورًا بعبارة التوقيع غير مطابق",why:"المشكلة في المبلغ، مش في التوقيع."},
+           {option:"إيقافه وإبلاغ الساحب بالاعتراض",why:"مفيش اعتراض أصلًا."}]},
+   {id:"q4",section:"s2",prompt:"الشيك المسطر هو الشيك:",answer:"عليه خطان متوازيان أو عبارة القيد بالحساب ولا يُصرف نقدًا",
+    clue:"خطين.",
+    why:"التسطير هدفه إن الفلوس **تدخل حساب** بدل ما تتصرف كاش، فلو الشيك اتسرق، الحرامي ما يقدرش يصرفه على الشباك، وكمان المستفيد بيبقى معروف.",
+    wrong:[{option:"عليه خط واحد في الصدر ويُصرف نقدًا بعد التحقق",why:"الخط الواحد مش تسطير."},
+           {option:"المكتوب عليه عبارة ليس لأمر بدون أي تسطير",why:"دي بتمنع التظهير، مش الصرف النقدي."},
+           {option:"الذي يسحبه البنك على نفسه لصالح مستفيد",why:"ده الشيك المصرفي."}]},
+   {id:"q5",section:"s4",prompt:"الساحب شطب علامة التسطير على الشيك ووقع بجانبها. الموقف؟",answer:"لا يُعتد بالشطب ويظل الشيك مسطرًا",
+    clue:"حماية للمستفيد.",
+    why:"التسطير بيحمي **أي حد** هيمسك الشيك. لو الشطب يلغيه، أي حد سرق الشيك يقدر يشطب ويصرف كاش. عشان كده الشطب ما بيأثرش حتى لو الساحب نفسه عمله.",
+    wrong:[{option:"يصبح عاديًا ويُصرف نقدًا",why:"ده هيفتح باب للاحتيال."},
+           {option:"يُصرف نقدًا بعد مطابقة توقيع الساحب",why:"التوقيع ما بيلغيش التسطير."},
+           {option:"يُرفض بعبارة معلق على شرط",why:"الشيك سليم ويتحصل بالقيد."}]},
+   {id:"q6",section:"s3",prompt:"ميعاد تقديم شيك مسحوب في مصر ومستحق الوفاء فيها:",answer:"خلال 6 أشهر من التاريخ المبين فيه",
+    clue:"داخل مصر أقصر.",
+    why:"الشيك **أداة وفاء سريعة**، فالقانون بيحدد مدة معقولة لتقديمه. وداخل مصر المسافات والإجراءات أقصر، فالمدة **6 شهور**.",
+    wrong:[{option:"خلال 8 أشهر من تاريخه",why:"دي للمسحوب بره مصر، لأنه محتاج وقت أطول يوصل."},
+           {option:"خلال 3 سنوات و6 أشهر",why:"دي مدة تقادم الشيك المصرفي."},
+           {option:"خلال سنة من تاريخه",why:"مش من المدد المقررة."}]},
+   {id:"q7",section:"s3",prompt:"شيك مسحوب في لندن ومستحق الوفاء في مصر. مدة تقديمه:",answer:"8 أشهر من تاريخه",
+    clue:"مسحوب برّه.",
+    why:"الشيك المسحوب **بره مصر** بياخد وقت أطول على ما يوصل للمستفيد ويتقدم هنا، فبياخد **شهرين زيادة** عن الداخلي.",
+    wrong:[{option:"6 أشهر من تاريخه",why:"دي لو اتسحب جوه مصر."},
+           {option:"12 شهرًا من تاريخه",why:"مش من المدد المقررة."},
+           {option:"30 يومًا من تاريخه",why:"قصيرة جدًا لشيك جاي من الخارج."}]},
+   {id:"q8",section:"s2",prompt:"أي عبارة صحيحة عن الشيك المصرفي؟",answer:"يسحبه البنك على نفسه بطلب العميل ولا يُصرف إلا للمستفيد الأول",
+    clue:"البنك هو الساحب.",
+    why:"البنك بيخصم القيمة من العميل **مقدمًا** ويلتزم بيها بنفسه، فالشيك **مضمون**. وعشان ما يتداولش ويضيع، بيبقى **غير قابل للتظهير** وما يتصرفش إلا للمستفيد الأول.",
+    wrong:[{option:"يحرره العميل من دفتره ثم يؤشر عليه البنك بالاعتماد",why:"ده الشيك المعتمد؛ الساحب فيه العميل."},
+           {option:"يُصدر نقدًا من حساب الأستاذ العام لأي مشتري",why:"بيتصدر لعملاء البنك خصمًا من حساباتهم."},
+           {option:"قابل للتظهير دائمًا دون أي طلب من العميل",why:"العكس؛ غير قابل للتظهير."}]},
+   {id:"q9",section:"s3",prompt:"مدة تقادم الشيك المصرفي بالنسبة للمستفيد:",answer:"3 سنوات و6 أشهر من تاريخ الإصدار",
+    clue:"التقادم غير ميعاد التقديم.",
+    why:"البنك **التزم بالقيمة** ومحتفظ بيها، فالمستفيد ليه حق يطالب لمدة أطول بكتير من ميعاد التقديم العادي. والمدة دي بتوازن بين حق المستفيد واستقرار حسابات البنك.",
+    wrong:[{option:"6 أشهر من تاريخ الإصدار",why:"دي مدة تقديم الشيك العادي، مش التقادم."},
+           {option:"15 عامًا من تاريخ الإصدار",why:"دي للمشتري العارض في الشيكات القديمة قبل 18/3/2020."},
+           {option:"سنة واحدة من تاريخ الإصدار",why:"قصيرة جدًا ومش مقررة."}]},
+   {id:"q10",section:"s2",prompt:"في الشيك المعتمد، ماذا يحدث لمقابل الوفاء؟",answer:"يظل مجمدًا لصالح الحامل حتى انتهاء مواعيد التقديم ثم يُرد آليًا",
+    clue:"الاعتماد = ضمان للحامل.",
+    why:"الاعتماد بيطمّن الحامل إن الفلوس **موجودة ومحجوزة له**. والحجز بيفضل طول **مدة التقديم**، وبعدها مفيش داعي يفضل، فبيرجع لحساب العميل والشيك يرجع عادي.",
+    wrong:[{option:"يُخصم نهائيًا ويُضاف لحساب الأستاذ العام",why:"ده تكييف الشيك المصرفي."},
+           {option:"يظل متاحًا للعميل يسحب منه كما يشاء",why:"كده الاعتماد يبقى مالوش لازمة."},
+           {option:"يُرد فورًا للعميل بعد أسبوع من الاعتماد",why:"الحامل لسه من حقه يقدّم الشيك."}]},
+   {id:"q11",section:"s4",prompt:"شيك لأمر عدة مستفيدين. كيف يُصرف؟",answer:"يتقدمون مجتمعين أو يظهرونه جميعًا أو يوكلون أحدهم",
+    clue:"الحق مشترك.",
+    why:"الحق في القيمة **ملك ليهم كلهم مع بعض**، فلو اتصرف لواحد بس هيضيع حق الباقيين. فلازم كلهم يحضروا، أو يظهروه كلهم، أو يوكلوا واحد منهم.",
+    wrong:[{option:"يُصرف لأي واحد منهم يتقدم بالشيك",why:"كده باقي المستفيدين حقهم يضيع."},
+           {option:"يُقسم المبلغ بالتساوي على من حضر",why:"البنك مش بيقسم حقوق بين المستفيدين."},
+           {option:"يُرفض دائمًا لتعدد المستفيدين",why:"الشيك سليم ويتصرف بالطرق دي."}]},
+   {id:"q12",section:"s4",prompt:"أي حالة من التالي تُقبل فيها المعارضة في الوفاء بقيمة الشيك؟",answer:"ضياع الشيك أو سرقته",
+    clue:"حماية من صرف غلط.",
+    why:"الشيك **أداة وفاء** لازم الناس تثق فيها، فالساحب ما يقدرش يوقفه على مزاجه. الاستثناء بس لما يكون فيه خطر إن الفلوس تروح **لحد مش صاحب حق**: ضياع أو سرقة، إفلاس الحامل، أو الحجر عليه.",
+    wrong:[{option:"ندم الساحب على سبب إصدار الشيك",why:"لو ده مسموح، الشيك هيفقد الثقة فيه."},
+           {option:"خلاف تجاري بين الساحب والمستفيد",why:"ده يتحل بينهم أو في المحكمة، مش بوقف الصرف."},
+           {option:"رغبة الساحب في تأجيل السداد",why:"الشيك مستحق بمجرد الاطلاع."}]},
+   {id:"q13",section:"s4",prompt:"شيك لأمر معترض عليه للضياع. المستفيد قدمه والرصيد يكفي. الرفض بعبارة:",answer:"الشيك معترض عليه من جانب ... ومجنب مبلغ ... بحساب الأمانات",
+    clue:"الرصيد موجود.",
+    why:"الرصيد **يكفي**، فالبنك **يجنّب المبلغ** لحد ما الخلاف يتحل. كده الحامل لو طلع صاحب حق يلاقي فلوسه، والساحب محمي لو الشيك فعلًا ضايع.",
+    wrong:[{option:"الشيك معترض عليه ولا يوجد رصيد",why:"دي لما الرصيد مش موجود."},
+           {option:"عدم وجود رصيد",why:"الرصيد موجود؛ سبب الرفض الاعتراض."},
+           {option:"الحساب مجمد",why:"الحساب مش مجمد."}]},
+   {id:"q14",section:"s4",prompt:"الساحب طلب إعادة قيمة الأمانات لشيك معترض عليه. شروط البنك:",answer:"مرور 6 أشهر وعدم مطالبة الحامل وعرض الأمر على الإدارة القانونية",
+    clue:"تلات شروط مع بعض.",
+    why:"لازم البنك يتأكد إن **حق الحامل خلص**: المدة القانونية للتقديم عدّت (6 شهور)، ومحدش طالب، والشئون القانونية أكدت إنه ما فيش مخاطرة. ساعتها بس الفلوس ترجع للساحب.",
+    wrong:[{option:"مرور 3 أشهر وموافقة مدير الفرع",why:"المدة أقل من ميعاد التقديم، والقرار قانوني مش إداري."},
+           {option:"إقرار من الساحب فقط بعدم المطالبة",why:"الساحب طرف صاحب مصلحة."},
+           {option:"تقدم الحامل بشيك بديل وإقرار",why:"مش من الشروط."}]},
+   {id:"q15",section:"s4",prompt:"متى يُطبَّق مبدأ الوفاء الجزئي؟",answer:"عند عدم كفاية الرصيد لكامل القيمة، وليس للشيكات المقدمة عبر غرفة المقاصة",
+    clue:"المقاصة كلها أو لا.",
+    why:"لو الرصيد مش كفاية، المستفيد ممكن ياخد **الموجود**. لكن المقاصة **نظام آلي** بين البنوك، بيتعامل مع الشيك يا يتدفع كله يا يترد، ومافيهوش تأشير على الأصل.",
+    wrong:[{option:"على أي شيك حتى لو الرصيد يكفي",why:"لو الرصيد يكفي يتصرف كله."},
+           {option:"على الشيكات المقدمة عبر المقاصة فقط",why:"العكس؛ المقاصة مستثناة."},
+           {option:"فقط لو وافق الساحب كتابيًا",why:"الاختيار للمستفيد."}]},
+   {id:"q16",section:"s4",prompt:"بعد قبول المستفيد الوفاء الجزئي، ما الذي يتسلمه؟",answer:"صورة الشيك مؤشرًا عليها بالسداد الجزئي وأصل شهادة الوفاء الجزئي",
+    clue:"الأصل مع البنك.",
+    why:"البنك **دفع جزء** فلازم يحتفظ **بأصل الشيك** كإثبات. والمستفيد محتاج دليل على **الباقي**، فبياخد الصورة المؤشر عليها والشهادة يطالب بيهم الساحب.",
+    wrong:[{option:"أصل الشيك بعد التأشير عليه",why:"البنك محتاج الأصل كإثبات للي دفعه."},
+           {option:"أصل الشيك مع المخالصة",why:"المخالصة بتفضل مع البنك."},
+           {option:"إشعار خصم فقط بالمبلغ المدفوع",why:"مش كفاية يثبت حقه في الباقي."}]},
+   {id:"q17",section:"s4",prompt:"الرصيد لا يسمح والتوقيع غير مطابق. عبارة الرفض:",answer:"التوقيع غير مطابق",
+    clue:"أول خطوة في الفحص.",
+    why:"مطابقة التوقيع هي **أول** حاجة بتتعمل. لو التوقيع مش مطابق، يبقى الشيك ممكن **مش صادر من صاحب الحساب** أصلًا، فمفيش معنى تقول 'الرصيد مش كفاية'، لأن ده بيعني إن الشيك سليم.",
+    wrong:[{option:"عدم وجود رصيد",why:"كده بتعامل شيك ممكن يكون مزوّر على إنه سليم."},
+           {option:"الشيك مرفوض لأكثر من سبب",why:"التوقيع لوحده سبب كافي وبيغلب."},
+           {option:"عدم كفاية الرصيد",why:"نفس المشكلة؛ التوقيع الأول."}]},
+   {id:"q18",section:"s4",prompt:"قاصر عمره 19 سنة قدم شيك صراف عربي باسمه وهو بحوزته. الإجراء:",answer:"يُصرف له بعد التحقق من شخصيته بالرقم القومي",
+    clue:"قاصر مميز.",
+    why:"من **16 لأقل من 21** القاصر **مميز**، وليه أهلية يستلم فلوس مبعوتة **باسمه** (زي حوالة من شغل أو قريب). فالمطلوب بس نتأكد إنه هو.",
+    wrong:[{option:"يُرفض لأنه قاصر",why:"المميز يقدر يستلم."},
+           {option:"يُصرف للأم فقط في حدود 1000 جم",why:"ده لغير المميز."},
+           {option:"لا يُصرف إلا للوصي بقرار الوصاية",why:"ده لغير المميز."}]},
+   {id:"q19",section:"s4",prompt:"شيك على الشباك بمبلغ 200,000 جنيه أو أكثر. الإجراء:",answer:"الاتصال بالعميل لتعزيز بيانات الشيك والحصول على موافقته",
+    clue:"المبلغ كبير.",
+    why:"المبالغ الكبيرة **هدف للتزوير**، والتأكد من الساحب نفسه إنه أصدر الشيك ده بيقفل الباب. ولو ما ردش والتوقيع مطابق والرصيد يسمح، يتصرف مع **إثبات محاولة** الاتصال.",
+    wrong:[{option:"الصرف مباشرة لو التوقيع مطابق",why:"التوقيع ممكن يتقلد؛ التعزيز طبقة حماية زيادة."},
+           {option:"الرفض لأن القيمة كبيرة",why:"القيمة لوحدها مش سبب رفض."},
+           {option:"إيداع القيمة في حساب الأمانات",why:"ده للاعتراض."}]},
+   {id:"q20",section:"s4",prompt:"شيك مؤرخ قبل وفاة الساحب، قُدم بعد علم البنك بالوفاة. الحكم:",answer:"يُصرف للحامل الشرعي وفق ضوابط الشيك ما لم يرد اعتراض",
+    clue:"الشيك اتصدر صح.",
+    why:"الشيك **اتصدر وهو عايش** وبإرادة صحيحة، فالحق انتقل للمستفيد من ساعتها. والوفاة بعد كده ما بتلغيش التزام اتعمل خلاص.",
+    wrong:[{option:"يسقط الشيك بمجرد الوفاة",why:"الحق اتنقل قبل الوفاة."},
+           {option:"يُحجز تلقائيًا حتى انتهاء التركة",why:"الشيك مش جزء من التركة؛ قيمته اتخصصت للمستفيد."},
+           {option:"يُرفض دائمًا بعبارة التوقيع غير مطابق",why:"التوقيع مطابق."}]},
+   {id:"q21",section:"s3",prompt:"ألغت وزارة المالية العمل بالشيكات الحكومية بتاريخ:",answer:"29/11/2017",
+    clue:"التحول للمدفوعات الإلكترونية.",
+    why:"الحكومة اتحولت **للدفع والتحصيل الإلكتروني**، فالشيك الحكومي الورقي اتلغى في 29/11/2017.",
+    wrong:[{option:"1/10/2006",why:"ده تاريخ تطبيق أحكام الشيك في قانون التجارة."},
+           {option:"18/3/2020",why:"ده تاريخ فاصل في تقادم الشيك المصرفي."},
+           {option:"30/9/2006",why:"آخر تاريخ للشيكات الخطية الآجلة."}]},
+   {id:"q22",section:"s2",prompt:"التظهير التوكيلي يكتب فيه:",answer:"القيمة للتحصيل",
+    clue:"توكيل مش نقل ملكية.",
+    why:"صاحب الشيك عايز حد **يحصّل له** القيمة (غالبًا البنك)، من غير ما الشيك يبقى ملكه. فالعبارة بتوضح إن ده **توكيل** في التحصيل.",
+    wrong:[{option:"ادفعوا لأمر فلان",why:"دي بتنقل الملكية."},
+           {option:"للضمان الاحتياطي",why:"دي ضمان للوفاء."},
+           {option:"ليس لأمر",why:"دي بتمنع التظهير."}]},
+   {id:"q23",section:"s4",prompt:"الضمان الاحتياطي على الشيك:",answer:"عبارة 'للضمان الاحتياطي' وتوقيع الضامن على صدر الشيك، ويجوز من غير البنك المسحوب عليه",
+    clue:"البنك مش ضامن.",
+    why:"الضامن بيكفل إن الشيك هيتدفع، فلازم توقيعه يبان بوضوح على **الصدر** بالعبارة. والبنك المسحوب عليه **ما ينفعش يضمن** لأنه هو الملتزم بالدفع لو فيه رصيد، فضمانه مالوش معنى.",
+    wrong:[{option:"يكتب على الظهر ويجوز أن يكون البنك المسحوب عليه ضامنًا",why:"الظهر للتظهير، والبنك مستثنى."},
+           {option:"لا يحتاج عبارة بل يكفي توقيع الساحب مرتين",why:"الساحب ملتزم أصلًا؛ الضامن طرف تاني."},
+           {option:"يكتب على الظهر ويجوز أن يكون المستفيد وحده",why:"المستفيد مش هيضمن لنفسه."}]},
+   {id:"q24",section:"s4",prompt:"شيك غير قابل للتظهير صادر بالسمة التجارية فقط (بدون الاسم التجاري):",answer:"لا يصرف نقدًا، ويُحصَّل مع استيفاء إقرار من له حق التوقيع عن الشركة",
+    clue:"السمة مش اسم قانوني.",
+    why:"السمة **علامة تجارية** مش الاسم القانوني للشركة، فالصرف النقدي بيها ممكن يدّي الفلوس لغير صاحبها. لكن **التحصيل في حساب الشركة** أأمن، والإقرار بيثبت إن السمة بتاعتها.",
+    wrong:[{option:"يُصرف نقدًا بشكل طبيعي",why:"خطر صرف لغير صاحب الحق."},
+           {option:"يُرفض في الصرف والتحصيل معًا",why:"التحصيل متاح بإقرار."},
+           {option:"يُصرف نقدًا بعد إقرار الشركة فقط",why:"الإقرار للتحصيل، مش للصرف."}]},
+   {id:"q25",section:"s4",prompt:"شيك بعملة أجنبية، لا مقابل بالأجنبي بل بالمحلي يكفي، والمستفيد رفض المحلي. الرفض:",answer:"الرصيد لا يسمح بالوفاء بعملة الشيك ورفض المستفيد الوفاء بالعملة المحلية",
+    clue:"العبارة بتشرح الموقف كامل.",
+    why:"الساحب **مش مقصّر**؛ البنك عرض يدفع **بالمحلي** والمستفيد رفض. فعبارة الرفض لازم توضح السببين، عشان ما يتحسبش على الساحب إنه **ما عندوش رصيد**.",
+    wrong:[{option:"عدم وجود رصيد",why:"فيه رصيد بالمحلي يكفي، وده هيظلم الساحب."},
+           {option:"الرصيد لا يكفي ورفض المستفيد السداد الجزئي",why:"دي للوفاء الجزئي؛ هنا الرصيد يكفي."},
+           {option:"الحساب مجمد",why:"الحساب مش مجمد."}]},
+   {id:"q26",section:"s3",prompt:"طلب إصدار شيك مصرفي من وكيل بتفويضات جديدة، المبلغ يبدأ من:",answer:"15 ألف دولار أو ما يعادلها",
+    clue:"تعزيز مع العميل.",
+    why:"الوكيل بتفويض **جديد** + مبلغ كبير = خطر إن التفويض يكون مزوّر أو اتلغى. فمن **15 ألف دولار** البنك بيأكد مع العميل الأصلي قبل ما يصدر الشيك.",
+    wrong:[{option:"5 آلاف دولار أو ما يعادلها",why:"أقل من الحد المقرر."},
+           {option:"50 ألف جنيه مصري",why:"مش الحد."},
+           {option:"200 ألف جنيه مصري",why:"ده حد تعزيز صرف الشيكات على الشباك."}]}
+  ]
+};
+
+/* ===== أدوات ===== */
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<mark>$1</mark>').replace(/\[\[(.+?)\]\]/g,'<bdi class="en" dir="ltr">$1</bdi>');
+const $=(s,r=document)=>r.querySelector(s);
+const CAT=NOTE.categories;
+
+const plain=s=>String(s).replace(/\*\*|\[\[|\]\]/g,'');
+const lab=h=>` data-l="${esc(plain(h)).replace(/"/g,'&quot;')}"`;
+function table(t){
+  const n=t.headers.length;
+  return `<div class="stack">${t.title?`<h3>${inl(t.title)}</h3>`:''}
+  <div class="tscroll ${n>=3?'stk':'w2'}"><table><thead><tr>${t.headers.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead>
+  <tbody>${t.rows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0?' class="first"':''}${lab(t.headers[i]||'')}>${inl(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+  ${t.tip?`<div class="tip"><b>انتبه:</b> ${inl(t.tip)}</div>`:''}</div>`;
+}
+function summary(){
+  const s=NOTE.summary;
+  return `<section id="summary"><h2>الخلاصة</h2><div class="stack">
+   <p>${inl(s.lead)}</p>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">البند</th>${s.colHeaders.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead><tbody>
+   ${s.rows.map(r=>`<tr><td class="first">${inl(r.head)}${r.sub?`<small>${inl(r.sub)}</small>`:''}</td>${r.cells.map((c,i)=>`<td class="c-${c.cat}"${lab(s.colHeaders[i]||'')}>${inl(c.main)}${c.ex?`<span class="ex">${inl(c.ex)}</span>`:''}</td>`).join('')}</tr>`).join('')}
+   </tbody></table></div>
+   <p class="legend">${inl(s.legend)}</p>
+   <div class="golden"><b>القاعدة الذهبية:</b> ${inl(s.goldenRule)}</div></div></section>`;
+}
+function concepts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="grid">${sec.items.map(c=>`
+   <article class="card">
+    <span class="tag ${c.cat}">${CAT[c.cat]}</span>
+    <div class="cname"><span class="en">${esc(c.nameEn)}</span><span class="ar">${esc(c.nameAr)}</span></div>
+    <div class="formula">${c.formula.map(f=>`<div class="frow"><span class="dot ${f.sign==='+'?'p':f.sign==='-'?'m':'q'}">${f.sign==='+'?'✓':f.sign==='-'?'−':'?'}</span><span>${inl(f.text)}</span></div>`).join('')}</div>
+    <div><h4>بنستخدمه في</h4><ul class="plain">${c.uses.map(u=>`<li>${inl(u)}</li>`).join('')}</ul></div>
+    <div><h4>أمثلة</h4><div class="exs">${c.examples.map(e=>`<div class="exi"><span>${inl(e.en)}</span><span class="a2">${inl(e.ar)}</span></div>`).join('')}</div></div>
+    <div><h4>دلائل</h4><div class="sig">${c.signals.map(x=>`<span class="rtl">${esc(x)}</span>`).join('')}</div></div>
+    <div class="tip"><b>انتبه:</b> ${inl(c.tip)}</div>
+    ${c.src?`<p class="srcl">المصدر: ${esc(c.src)}</p>`:''}
+   </article>`).join('')}</div></section>`;
+}
+function compare(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><div class="cmp-title">${esc(c.title)}</div>
+    <div class="cmp-cols">${c.cols.map(col=>`<div class="cmp-col ${col.cat}"><h4>${esc(col.name)}</h4><p>${inl(col.when)}</p>
+      <ul class="plain">${col.ex.map(e=>`<li>${inl(e)}</li>`).join('')}</ul></div>`).join('')}</div>
+    <div class="golden"><b>القاعدة الذهبية:</b> ${inl(c.golden)}</div></article>`).join('')}</div></section>`;
+}
+function confusing(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.explain)}</p>
+    <ul class="cl">${c.examples.map(e=>{const k=e.correct===true?'ok':e.correct===false?'no':'nt';const m=k==='ok'?'✓':k==='no'?'✗':'•';
+      return `<li class="${k}"><span class="m">${m}</span><span><span class="t">${inl(e.text)}</span>${e.note?`<span class="note">${inl(e.note)}</span>`:''}</span></li>`}).join('')}</ul>
+   </article>`).join('')}</div></section>`;
+}
+function conflicts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`<article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.text)}</p></article>`).join('')}</div></section>`;
+}
+function reference(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.tables.map(table).join('')}</div></section>`;
+}
+function lookup(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">
+   <input class="search" id="lq" type="search" placeholder="اكتب كلمة دالة، مثلًا: رب المال أو الفلتر أو 1975" autocomplete="off" aria-label="بحث في الدلائل">
+   <div class="cnt" id="lcnt"></div>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">الدليل</th><th scope="col">المفهوم</th><th scope="col">ملاحظة</th></tr></thead><tbody id="lb"></tbody></table></div></div></section>`;
+}
+function fillLookup(rows){
+  const lb=$('#lb'),inp=$('#lq'),cnt=$('#lcnt');
+  const norm=s=>s.replace(/[ً-ْـ]/g,'').replace(/[إأآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').toLowerCase();
+  const draw=()=>{
+    const q=norm(inp.value.trim());
+    const r=rows.filter(x=>!q||norm(x.signal+' '+x.target+' '+x.note).includes(q));
+    lb.innerHTML=r.length?r.map(x=>`<tr><td class="first">${esc(x.signal)}</td><td data-l="المفهوم">${esc(x.target)}</td><td data-l="ملاحظة">${esc(x.note)}</td></tr>`).join(''):`<tr><td colspan="3" class="empty">مفيش نتيجة للكلمة دي.</td></tr>`;
+    cnt.textContent=r.length+' من '+rows.length;
+  };
+  inp.addEventListener('input',draw);draw();
+}
+
+/* ===== الكويز ===== */
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const LET=['A','B','C','D'];
+let QS={i:0,order:[],picks:[],opts:[]};
+function quizStart(){
+  QS={i:0,order:shuffle(QUIZ.questions.map((_,i)=>i)),picks:[],opts:{}};
+  quizDraw();
+}
+function quizDraw(){
+  const root=$('#quiz');
+  const n=QUIZ.questions.length;
+  if(QS.i>=n){return quizResult(root)}
+  const qi=QS.order[QS.i],q=QUIZ.questions[qi];
+  const sec=QUIZ.sections.find(s=>s.id===q.section).title;
+  const opts=QS.opts[qi]||(QS.opts[qi]=shuffle([{t:q.answer,ok:true},...q.wrong.map(w=>({t:w.option,ok:false,why:w.why}))]));
+  const pick=QS.picks[QS.i];
+  const answered=pick!==undefined;
+  const promptHtml=esc(q.prompt).replace('___',`<span class="blank${answered?(opts[pick].ok?' ok':' no'):''}">${answered?esc(q.answer):'&nbsp;&nbsp;&nbsp;&nbsp;'}</span>`);
+  root.innerHTML=`
+   <div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${QS.i+(answered?1:0)}"><i style="width:${(QS.i+(answered?1:0))/n*100}%"></i></div>
+   <div class="qmeta"><span>سؤال ${QS.i+1} من ${n}</span><span>${esc(sec)}</span></div>
+   <p class="qp">${promptHtml}</p>
+   <div class="opts">${opts.map((o,k)=>`<button type="button" class="opt${answered?(o.ok?' right':(k===pick?' wrongpick':'')):''}" data-k="${k}" ${answered?'disabled':''}><span class="L">${LET[k]}</span><span>${esc(o.t)}</span></button>`).join('')}</div>
+   ${answered?`<div class="fb" aria-live="polite">
+     <div class="v ${opts[pick].ok?'ok':'no'}">${opts[pick].ok?'صح.':'مش دقيق.'}</div>
+     <p><b>ليه الإجابة دي:</b> ${esc(q.why)}</p>
+     ${q.clue?`<p><b>الدليل:</b> ${esc(q.clue)}</p>`:''}
+     <div><b>ليه الباقي غلط:</b><ul>${opts.map((o,k)=>o.ok?'':`<li class="${k===pick?'picked':''}">${esc(o.t)}: ${esc(o.why)}${k===pick?' (اختيارك)':''}</li>`).join('')}</ul></div>
+    </div>
+    <button type="button" class="btn" id="qnext">${QS.i+1<n?'السؤال التالي':'شوف النتيجة'}</button>`:''}`;
+  root.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{QS.picks[QS.i]=+b.dataset.k;quizDraw();const nb=$('#qnext');if(nb)nb.focus({preventScroll:true})}));
+  const nb=$('#qnext');if(nb)nb.addEventListener('click',()=>{QS.i++;quizDraw();root.scrollIntoView({block:'nearest'})});
+}
+function quizResult(root){
+  const n=QUIZ.questions.length;let total=0;const per={};
+  QUIZ.sections.forEach(s=>per[s.id]={t:0,c:0});
+  QS.order.forEach((qi,i)=>{const q=QUIZ.questions[qi];const ok=QS.opts[qi][QS.picks[i]].ok;per[q.section].t++;if(ok){per[q.section].c++;total++}});
+  const rows=QUIZ.sections.filter(s=>per[s.id].t).map(s=>({s,p:Math.round(per[s.id].c/per[s.id].t*100)}));
+  const weak=rows.slice().sort((a,b)=>a.p-b.p)[0];
+  root.innerHTML=`<div class="res">
+   <div class="prog"><i style="width:100%"></i></div>
+   <div class="score"><bdi class="ltr" dir="ltr">${total} / ${n}</bdi></div>
+   <div class="bars">${rows.map(r=>`<div class="bar${r===weak&&r.p<100?' weak':''}"><span>${esc(r.s.title)}</span><span class="pb"><i style="width:${r.p}%"></i></span><span class="ltr">${r.p}%</span></div>`).join('')}</div>
+   <p>${weak.p<100?`أضعف قسم: <mark>${esc(weak.s.title)}</mark>. ارجع له في المذكرة وحاول تاني.`:'كل الأقسام 100%. ممتاز.'}</p>
+   <button type="button" class="btn" id="qrestart">ابدأ من جديد</button></div>`;
+  $('#qrestart').addEventListener('click',quizStart);
+}
+
+/* ===== التجميع ===== */
+// كل الأقسام بتترسم بترتيبها في الملف حسب نوعها (type)، حتى لو الـid مش من الأسماء الافتراضية
+const R={concepts,compare,confusing,conflicts,reference,lookup};
+const SHORT={concepts:'المفاهيم',compare:'الفروقات',confusing:'حالات بتلخبط',conflicts:'تعارضات',reference:'أرقام وجداول',lookup:'دوّر على دليل'};
+function chipName(sec){
+  const nConcepts=NOTE.sections.filter(x=>(x.type||x.id)==='concepts').length;
+  const t=(sec.type||sec.id);
+  if(t==='concepts'&&nConcepts>1){const c=String(sec.title||'').replace(/^\d+[\.\-\s]*/,'').split(/[:(،]/)[0].trim();return c.length>22?c.slice(0,21)+'…':c}
+  return SHORT[t]||sec.title;
+}
+function build(){
+  const secs=NOTE.sections.filter(x=>R[x.type||x.id]);
+  $('#sheet').innerHTML=`
+   <header class="hero"><span class="stamp">${esc(NOTE.stamp)}</span><h1>${esc(NOTE.title)}</h1><p class="sub">${esc(NOTE.subtitle)}</p></header>
+   ${summary()}${secs.map(x=>R[x.type||x.id](x)).join('')}
+   <section id="quiz-sec"><h2 id="quiz-h">اختبر نفسك</h2><div class="quiz" id="quiz"></div></section>
+   <p class="foot">ملخص مذاكرة لامتحان مصرفي أول G3</p>`;
+  $('#chips').innerHTML=[['summary','الخلاصة'],...secs.map(x=>[x.id,chipName(x)]),['quiz-sec','اختبر نفسك']]
+    .map(([id,l])=>`<a class="chip" href="#${id}" data-id="${id}">${esc(l)}</a>`).join('');
+  const lk=secs.find(x=>(x.type||x.id)==='lookup');if(lk)fillLookup(lk.rows);
+  quizStart();
+  const links=[...document.querySelectorAll('.chip')],bar=$('#chips');
+  const center=l=>{const a=l.getBoundingClientRect(),c=bar.getBoundingClientRect();bar.scrollBy({left:(a.left+a.width/2)-(c.left+c.width/2),behavior:'smooth'})};
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>{const on=l.dataset.id===e.target.id;if(on&&!l.classList.contains('on'))center(l);l.classList.toggle('on',on)})})},{rootMargin:'-80px 0px -65% 0px'});
+    links.forEach(l=>{const t=document.getElementById(l.dataset.id);if(t)io.observe(t)});
+  }
+}
+/* المظهر: زرار واحد شمس/قمر، ومحفوظ في kk-theme المشترك مع التطبيق */
+const themeBtn=$('#themeb');
+function curTheme(){try{return localStorage.getItem('kk-theme')||'system'}catch(e){return 'system'}}
+const isDark=()=>{const m=curTheme();return m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)};
+function setTheme(m){
+  const r=document.documentElement;
+  if(m==='light'||m==='dark')r.setAttribute('data-theme',m);else r.removeAttribute('data-theme');
+  try{localStorage.setItem('kk-theme',m)}catch(e){}
+  const d=isDark();themeBtn.classList.toggle('dark',d);themeBtn.setAttribute('aria-label',d?'الوضع الداكن. دوس للفاتح':'الوضع الفاتح. دوس للداكن');
+}
+themeBtn.addEventListener('click',()=>setTheme(isDark()?'light':'dark'));
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>setTheme(curTheme()));
+build();setTheme(curTheme());
+</script>
+
+<style>
+.bg3-home{position:fixed;left:max(14px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;
+ display:flex;align-items:center;gap:6px;padding:9px 16px 9px 14px;border-radius:999px;background:var(--head-bg);color:var(--head-ink);
+ font-family:var(--f-ui);font-weight:700;font-size:14px;line-height:1.3;text-decoration:none;box-shadow:var(--shadow)}
+.bg3-home svg{width:18px;height:18px}
+.bg3-home:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+</style>
+<a class="bg3-home" href="../index.html#notes" aria-label="رجوع لقائمة الملخصات">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>الملخصات</a>
+<script>
+(function(){var K="checks";
+function g(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var all=g('bg3:notes',{}),me=all[K]||{};me.last=Date.now();all[K]=me;s('bg3:notes',all);s('bg3:lastNote',K);
+if(location.hash==='#resume'){history.replaceState(null,'',location.pathname);
+ if(me.y)requestAnimationFrame(function(){setTimeout(function(){window.scrollTo({top:me.y,behavior:'instant'})},80)})}
+var t;addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(function(){
+ var a=g('bg3:notes',{}),m=a[K]||{},h=document.documentElement.scrollHeight-innerHeight,p=h>0?Math.round(scrollY/h*100):100;
+ m.y=Math.round(scrollY);m.pct=Math.max(m.pct||0,Math.min(100,p));a[K]=m;s('bg3:notes',a)},250)},{passive:true});
+})();
+</script>

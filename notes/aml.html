@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c1f3f">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<title>ملخص الالتزام وغسل الأموال</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: ورقة كشكول واحدة في النص، هامش أحمر، شريط أقسام ثابت فوق */
+:root{
+  --bg:#e6ebf3; --paper:#fbfcfe; --card:#ffffff; --card-edge:#cbd6e8;
+  --ink:#0c1f3f; --ink-2:#44577a; --line:#dbe3f0;
+  --gold:#c9a13b; --gold-ink:#7d5f0c; --gold-wash:#faf2d8; --hl:rgba(201,161,59,.38);
+  --margin:#d4584c;
+  --cat-a:#a23d35; --cat-a-wash:#fbebe9;
+  --cat-b:#1f4f9a; --cat-b-wash:#e6eefb;
+  --cat-c:#7d5f0c; --cat-c-wash:#faf2d8;
+  --ok:#1d7a4d; --no:#b3382e; --ok-wash:#e4f4ec; --no-wash:#fbebe9;
+  --head-bg:#0c1f3f; --head-ink:#f3f6fc;
+  --shadow:0 1px 0 rgba(12,31,63,.06),0 10px 28px rgba(12,31,63,.10);
+  --f-display:'Aref Ruqaa','Amiri',serif;
+  --f-body:'Tajawal','Cairo',system-ui,sans-serif;
+  --f-ui:'Cairo','Tajawal',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+    --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+    --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+    --margin:#e5675c;
+    --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+    --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+    --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+    --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+    --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+  --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+  --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+  --margin:#e5675c;
+  --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+  --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+  --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+  --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+  --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.95;margin:0;
+  padding-block:0 72px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));
+  -webkit-text-size-adjust:100%;text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+bdi.en,.ltr{font-family:var(--f-ui);unicode-bidi:isolate}
+.ltr{direction:ltr;text-align:left}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+
+/* شريط الأقسام */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);display:flex;gap:10px;align-items:center;padding-block:8px;border-bottom:1px solid var(--card-edge)}
+.chips{display:flex;gap:6px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none;padding-block:2px;
+  -webkit-mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);padding-inline-end:20px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-family:var(--f-ui);font-size:13.5px;font-weight:600;line-height:1.4;padding:6px 13px;border-radius:999px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chip:hover,.chip.on{background:var(--head-bg);border-color:var(--head-bg);color:var(--head-ink)}
+.themeb{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--card-edge);background:var(--card);color:var(--gold-ink);cursor:pointer;padding:0}
+.themeb svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.themeb .i-moon{display:none}
+.themeb.dark .i-sun{display:none}
+.themeb.dark .i-moon{display:block;fill:currentColor}
+
+/* الورقة */
+.sheet{position:relative;width:100%;background-color:var(--paper);
+  border-radius:6px;box-shadow:var(--shadow);padding-block:28px 40px;padding-inline-start:44px;padding-inline-end:28px;
+  display:flex;flex-direction:column;gap:44px;min-width:0}
+.sheet::before{content:"";position:absolute;inset-block:0;inset-inline-start:30px;width:0;border-inline-start:1.5px solid var(--margin);opacity:.55;pointer-events:none}
+.sheet::after{content:"";position:absolute;inset-block:0;inset-inline-start:9px;width:10px;pointer-events:none;
+  background:radial-gradient(circle at center,var(--bg) 0 3.5px,transparent 4px) center 36px/10px 96px repeat-y}
+.sheet>*{min-width:0}
+.sheet{overflow-wrap:anywhere}
+mark{background:none;color:inherit;box-shadow:inset 0 -.5em 0 var(--hl);padding-inline:1px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,6vw,42px);line-height:1.5;margin:0;text-decoration:underline wavy var(--gold);text-decoration-thickness:2px;text-underline-offset:12px;text-wrap:balance}
+section>h2{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.6;margin:0 0 16px;display:inline-block;box-shadow:inset 0 -.32em 0 var(--hl)}
+h3{font-family:var(--f-ui);font-size:17.5px;margin:0;line-height:1.6}
+p{margin:0}
+.lead{color:var(--ink-2)}
+.hero{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.stamp{display:inline-block;transform:rotate(-2deg);font-family:var(--f-ui);font-weight:600;font-size:13px;line-height:1.5;color:var(--gold-ink);background:var(--gold-wash);border:2px solid var(--gold);border-radius:6px;padding:2px 12px}
+.sub{color:var(--ink-2);font-size:17px}
+
+/* الجداول: جدول عادي على الشاشات الواسعة، وكروت مرصوصة على الموبايل (كل خانة معاها اسم العمود) */
+.tscroll{overflow-x:auto;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.75;table-layout:auto}
+th{background:var(--head-bg);color:var(--head-ink);font-family:var(--f-ui);font-weight:700;font-size:14px;padding:10px 14px;text-align:start;vertical-align:bottom;line-height:1.5}
+td{padding:11px 14px;vertical-align:top;text-align:start;border-top:1px solid var(--card-edge);font-variant-numeric:tabular-nums}
+tbody tr:nth-child(even) td:not([class]){background:color-mix(in srgb,var(--paper) 55%,transparent)}
+td.first{background:var(--gold-wash);font-weight:700;min-width:7.5em}
+td.first small{display:block;font-weight:400;color:var(--ink-2);font-size:13px;line-height:1.5}
+td.c-a{background:var(--cat-a-wash)} td.c-b{background:var(--cat-b-wash)} td.c-c{background:var(--cat-c-wash)}
+td .ex{display:block;color:var(--ink-2);font-size:13.5px;line-height:1.6;margin-top:4px}
+.tscroll.w2 table td.first{width:38%}
+@media (max-width:700px){
+  .tscroll.stk{overflow:visible;border:0;background:none;border-radius:0}
+  .tscroll.stk table,.tscroll.stk tbody,.tscroll.stk tr,.tscroll.stk td{display:block;width:100%}
+  .tscroll.stk thead{display:none}
+  .tscroll.stk tr{border:1px solid var(--card-edge);border-radius:10px;overflow:hidden;background:var(--card);margin-bottom:10px}
+  .tscroll.stk tr:last-child{margin-bottom:0}
+  .tscroll.stk td{border-top:1px solid var(--line);padding:9px 14px;background:none}
+  .tscroll.stk td.first{border-top:0;background:var(--gold-wash);font-size:16.5px;min-width:0}
+  .tscroll.stk td.c-a{background:var(--cat-a-wash)} .tscroll.stk td.c-b{background:var(--cat-b-wash)} .tscroll.stk td.c-c{background:var(--cat-c-wash)}
+  .tscroll.stk td[data-l]:not(.first)::before{content:attr(data-l);display:block;font-family:var(--f-ui);font-size:12.5px;font-weight:700;color:var(--ink-2);line-height:1.5;margin-bottom:1px}
+  .tscroll.stk td.empty::before{display:none}
+}
+.legend{font-size:14px;color:var(--ink-2);margin-top:12px}
+.legend .k{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-inline:4px 4px}
+
+/* مربعات */
+.golden,.tip,.formula{border:2px dashed var(--gold);background:var(--gold-wash);border-radius:8px;padding:10px 16px;line-height:1.9}
+.golden b{color:var(--gold-ink)}
+.tip{border-color:var(--margin);background:var(--card)}
+.tip b{color:var(--margin)}
+.stack{display:flex;flex-direction:column;gap:16px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.card{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tag{align-self:flex-start;font-family:var(--f-ui);font-size:12px;font-weight:700;line-height:1.5;padding:1px 10px;border-radius:999px}
+.tag.a{background:var(--cat-a-wash);color:var(--cat-a)} .tag.b{background:var(--cat-b-wash);color:var(--cat-b)} .tag.c{background:var(--cat-c-wash);color:var(--cat-c)}
+.cname{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.cname .en{font-family:var(--f-ui);font-weight:700;font-size:18px;direction:ltr}
+.cname .ar{font-size:16px;color:var(--ink-2)}
+.formula{display:flex;flex-direction:column;gap:6px;padding:10px 12px}
+.frow{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.dot{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-size:13px;font-weight:700;color:var(--paper);margin-top:2px}
+.dot.p{background:var(--ok)} .dot.m{background:var(--no)} .dot.q{background:var(--cat-b)}
+h4{font-family:var(--f-ui);font-size:14px;margin:0;color:var(--ink-2);line-height:1.6}
+ul.plain{margin:0;padding-inline-start:20px;display:flex;flex-direction:column}
+.exs{display:flex;flex-direction:column;gap:6px}
+.exi{display:flex;flex-direction:column;border-inline-start:3px solid var(--card-edge);padding-inline-start:12px;line-height:1.7}
+.exi .a2{color:var(--ink-2);font-size:14px}
+.sig{display:flex;flex-wrap:wrap;gap:6px}
+.sig span{direction:ltr;font-family:var(--f-ui);font-size:13px;line-height:1.5;padding:2px 10px;border-radius:999px;background:var(--gold-wash);color:var(--gold-ink);border:1px solid var(--gold)}
+.sig span.rtl{direction:rtl;font-family:var(--f-body)}
+.cmp-cols{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.cmp-col{border-radius:6px;border:1px solid var(--card-edge);padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.cmp-col.a{background:var(--cat-a-wash)} .cmp-col.b{background:var(--cat-b-wash)} .cmp-col.c{background:var(--cat-c-wash)}
+.cmp-col h4{color:var(--ink);font-size:15px}
+.cmp-title{direction:ltr;text-align:left;font-family:var(--f-ui);font-weight:700;font-size:18px}
+.cl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.cl li{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.cl .m{flex:none;width:22px;text-align:center;font-family:var(--f-ui);font-weight:700}
+.cl .ok .m{color:var(--ok)} .cl .no .m{color:var(--no)} .cl .nt .m{color:var(--cat-c)}
+.cl .no .t{text-decoration:line-through;text-decoration-color:var(--no)}
+.cl .note{display:block;font-size:13px;color:var(--ink-2);line-height:1.6}
+
+/* بحث */
+.search{width:100%;font:inherit;font-family:var(--f-ui);font-size:16px;line-height:1.5;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink)}
+.search::placeholder{color:var(--ink-2)}
+.cnt{font-size:13px;color:var(--ink-2);font-family:var(--f-ui)}
+.empty{padding:16px;color:var(--ink-2)}
+
+/* كويز */
+.quiz{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:16px}
+.prog{height:8px;border-radius:999px;background:var(--line);overflow:hidden;border:1px solid var(--card-edge)}
+.prog i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.qmeta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-ui);font-size:13px;color:var(--ink-2)}
+.qp{font-size:18px;line-height:1.9;font-weight:500}
+.qp .blank{display:inline-block;min-width:80px;border-bottom:2px dashed var(--gold);text-align:center;padding-inline:6px}
+.qp .blank.ok{border-bottom:2px solid var(--ok);color:var(--ok);font-weight:700}
+.qp .blank.no{border-bottom:2px solid var(--no);color:var(--no);font-weight:700}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:start;width:100%;font:inherit;line-height:1.7;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--paper);color:var(--ink);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--gold);background:var(--gold-wash)}
+.opt .L{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-weight:700;font-size:13px;line-height:1;background:var(--line);color:var(--ink);margin-top:2px}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--ok-wash);border-color:var(--ok)}
+.opt.wrongpick{background:var(--no-wash);border-color:var(--no)}
+.fb{display:flex;flex-direction:column;gap:10px;border-radius:8px;padding:12px 16px;background:var(--gold-wash);border:1px dashed var(--gold)}
+.fb .v{font-weight:700;font-family:var(--f-ui)}
+.fb .v.ok{color:var(--ok)} .fb .v.no{color:var(--no)}
+.fb ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:4px}
+.fb li.picked{font-weight:700}
+.btn{align-self:flex-start;font-family:var(--f-ui);font-weight:600;font-size:15px;line-height:1.4;padding:10px 20px;border-radius:8px;border:0;background:var(--head-bg);color:var(--head-ink);cursor:pointer}
+.res{display:flex;flex-direction:column;gap:12px}
+.score{font-family:var(--f-display);font-size:40px;line-height:1.4}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(90px,140px) 1fr 44px;gap:10px;align-items:center;font-size:14px;line-height:1.5}
+.bar .pb{height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar .pb i{display:block;height:100%;background:var(--cat-b)}
+.bar.weak .pb i{background:var(--no)}
+.srcl{font-family:var(--f-ui);font-size:12px;line-height:1.6;color:var(--ink-2);margin:0}
+.foot{font-size:14px;color:var(--ink-2)}
+@media (max-width:600px){
+  body{padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+  .sheet{padding-block:22px 32px;padding-inline-start:26px;padding-inline-end:14px;gap:38px}
+  .sheet::before{inset-inline-start:16px}
+  .sheet::after{display:none}
+  .card{padding:14px}
+  section>h2{font-size:25px}
+  .bar{grid-template-columns:84px 1fr 40px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.prog i{transition:none}}
+</style>
+
+<div class="wrap">
+  <nav class="nav" aria-label="أقسام المذكرة">
+    <div class="chips" id="chips"></div>
+    <button type="button" class="themeb" id="themeb" aria-label="المظهر">
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+    </button>
+  </nav>
+  <main class="sheet" id="sheet" dir="rtl" lang="ar"></main>
+</div>
+
+<script>
+/* ===== المحتوى ===== */
+const NOTE = {
+  title:"الالتزام ومكافحة غسل الأموال: مذكرة واحدة",
+  subtitle:"البرنامج التعريفي للإدارة المركزية لمكافحة الجرائم المالية + مفتاح محاكي الموضوعات الإلزامية سبتمبر 2025",
+  stamp:"مذكرة · Compliance & AML",
+  categories:{a:"غسل الأموال وتمويل الإرهاب", b:"اعرف عميلك والإخطار", c:"العقوبات وFATF"},
+  summary:{
+    lead:"الالتزام = **الذراع الوقائية لضمان كفاءة العمل**. دور الفرع: **يتعرف على العميل جيدًا**، **يصنفه حسب المخاطر**، **يفحص الأسماء على القوائم**، و**يخطر عن الاشتباه** لمسئول الالتزام بالمنطقة **من غير ما يفصح للعميل**، ويحتفظ بالمستندات **5 سنين على الأقل**.",
+    colHeaders:["إيه هو","المفتاح","رقم أو مثال"],
+    rows:[
+      {head:"غسل الأموال", sub:"وتمويل الإرهاب",
+       cells:[{main:"الغسل: أموال **غير مشروعة** وهدف **مكسب**", ex:"جريمة مستقلة عن الجريمة الأصلية (نوفمبر 2023)", cat:"a"},
+              {main:"التمويل: أموال **مشروعة وغير مشروعة**، هدف **عقائدي**", ex:"مبالغ مش بالضرورة كبيرة", cat:"a"},
+              {main:"القانون صدر **2002**", ex:"مراحل التمويل: جمع، نقل، استخدام", cat:"a"}]},
+      {head:"اعرف عميلك", sub:"KYC وEDD",
+       cells:[{main:"عملية عارضة **> 15 ألف دولار** = تعرف على العميل", ex:"أو اشتباه أو شك في البيانات", cat:"b"},
+              {main:"المستفيد الحقيقي: **10% فأكثر**", ex:"أو سيطرة فعلية أو إدارة", cat:"b"},
+              {main:"مرتفع المخاطر: موافقة **قطاع الالتزام والحوكمة** (منشور 5423)", ex:"قبل الفتح أو التحديث", cat:"b"}]},
+      {head:"الإخطار", sub:"STR",
+       cells:[{main:"الموظف يخطر **مسئول الالتزام بالمنطقة**", ex:"ثم STR System ثم FIU", cat:"b"},
+              {main:"**عدم الإفصاح** للعميل", ex:"إلا لوحدة مكافحة غسل الأموال", cat:"b"},
+              {main:"يرفق: طلب الفتح + الهوية + مستندات العملية", ex:"كحد أدنى", cat:"b"}]},
+      {head:"العقوبات وFATF", sub:"قوائم ودول",
+       cells:[{main:"OFAC · EU · UN · UKHMT · MLCU", ex:"تشابه: **فريق العقوبات** بقطاع الالتزام", cat:"c"},
+              {main:"شاملة · **قطاعية** (روسيا) · أفراد", ex:"", cat:"c"},
+              {main:"م1: لا حسابات جديدة · م2: تحويل **بموافقة الالتزام**", ex:"م1 كوريا الشمالية، م2 إيران", cat:"c"}]}
+    ],
+    legend:"الأحمر = غسل الأموال وتمويل الإرهاب · الأزرق = اعرف عميلك والإخطار · الذهبي = العقوبات وFATF.",
+    goldenRule:"شكّيت؟ **بلّغ الالتزام بسرية**، ما تقولش للعميل، وما تنفذش لو فيه تشابه على القوائم قبل الرجوع لفريق العقوبات."
+  },
+  sections:[
+    {type:"concepts", id:"concepts", title:"المفاهيم الأساسية", items:[
+      {nameEn:"Compliance Function", nameAr:"مفهوم الالتزام ومخاطر عدم الالتزام", cat:"b",
+       formula:[{sign:"+",text:"وظيفة **رقابية وإشرافية** ترفع تقارير دورية عن مدى التزام البنك باللوائح"},
+                {sign:"+",text:"التزامات المؤسسة: التعرف على العميل، **الإخطار عند الاشتباه**، التصنيف حسب المخاطر، **عدم الإفصاح**، **الاحتفاظ بالمستندات 5 سنوات على الأقل**، تعيين مسئول التزام"},
+                {sign:"-",text:"عدم الالتزام على **البنك**: مخاطر تشغيلية وقانونية وسمعة"},
+                {sign:"-",text:"على **العميل**: إيقاف التعامل · على **الموظف**: تحقيق وجزاءات ثم فصل"}],
+       uses:["أساس دور الالتزام"],
+       examples:[{en:"زميل خالف قيم ومبادئ السلوك",ar:"إخطار **مسئول الالتزام بالبنك** (مفتاح المحاكي)"},
+                 {en:"غرامات تصل لمليار جنيه لعدم الالتزام بالمعايير الدولية",ar:"العبارة **خاطئة** (مفتاح المحاكي)"}],
+       signals:["الذراع الوقائية","5 سنوات","عدم الإفصاح"],
+       tip:"المادة **مافيهاش أرقام غرامات**، والمفتاح اعتبر عبارة المليار خاطئة.",
+       src:"البرنامج التعريفي – مفهوم الالتزام ومخاطر عدم الالتزام + مفتاح المحاكي"},
+      {nameEn:"Money Laundering", nameAr:"غسل الأموال", cat:"a",
+       formula:[{sign:"+",text:"كل من **علم** أن الأموال متحصلة من **جريمة أصلية** وقام **عمدًا** بتحويلها أو نقلها لإخفاء مصدرها، أو اكتسابها أو حيازتها أو استخدامها أو إخفاء طبيعتها"},
+                {sign:"+",text:"الجريمة الأصلية: **كل جناية أو جنحة** بالقانون المصري داخل البلاد أو خارجها متى كانت معاقبًا عليها في البلدين"},
+                {sign:"+",text:"من **نوفمبر 2023**: الغسل **جريمة مستقلة**، ولا يشترط إدانة سابقة بالجريمة الأصلية"}],
+       uses:["تعريف وتطور القانون (صدر 2002)"],
+       examples:[{en:"المحاكي",ar:"العبارة الصحيحة: '**غسل الأموال لا يتم إلا من أموال غير مشروعة فقط**'"},
+                 {en:"غلط شائع",ar:"'غسل الأموال لا يتم إلا من خلال البنوك' عبارة خاطئة"}],
+       signals:["جريمة أصلية","عمدًا","2002","نوفمبر 2023"],
+       tip:"المادة ذكرت 'مراحل غسل الأموال' في الفهرس بس، من غير شرح.",
+       src:"البرنامج التعريفي – تعريف غسل الأموال + مفتاح المحاكي"},
+      {nameEn:"ML Red Flags", nameAr:"المؤشرات الاسترشادية لغسل الأموال", cat:"a",
+       formula:[{sign:"+",text:"**عامة**: إيداعات نقدية كبيرة أو متكررة في عدة فروع، الصراف الآلي لتجنب الظهور، تحويلات بلا علاقة أو غرض، **السداد المبكر للقروض**، الحساب الشخصي في معاملات تجارية"},
+                {sign:"+",text:"**تحويلات**: مبالغ لا تتناسب مع النشاط، مبالغ متساوية لعدة أطراف، حساب كوسيط، تحويلات من دول عالية المخاطر"},
+                {sign:"+",text:"**بطاقات ومحافظ**: تغذية بطاقة بأكثر من الحد، استخدام كامل الحد ثم السداد بشكل متكرر، شراء عملات افتراضية"},
+                {sign:"+",text:"**أنماط الحسابات**: حركات دائنة ومدينة متقاربة، عدة عملاء بنفس التليفون أو العنوان، **التحايل على التعليمات**، تبرعات بدون تصاريح، إدارة حسابات بتوكيلات من غرباء"}],
+       uses:["متى تشك وتخطر"],
+       examples:[{en:"حسابات الأطباء والمستشفيات بحركة غير مبررة",ar:"قد تشير لـ **تجارة الأعضاء**"},
+                 {en:"المحاكي: أمثلة معايير الاشتباه",ar:"تحويلات كبيرة من مصدر مجهول لنفقات المعيشة، حسابات تُغلق سريعًا أو تركد، تحويلات من دول المخدرات والإرهاب، **التغير المفاجئ في معيشة موظف** ← **جميع ما سبق**"}],
+       signals:["لا يتناسب مع النشاط","بلا علاقة واضحة","سداد مبكر","حساب وسيط"],
+       tip:"المؤشر **سبب للفحص والإخطار** مش دليل إدانة.",
+       src:"البرنامج التعريفي – المؤشرات الاسترشادية + مفتاح المحاكي"},
+      {nameEn:"Terrorist Financing", nameAr:"تمويل الإرهاب", cat:"a",
+       formula:[{sign:"+",text:"توفير أو جمع أموال بأي وسيلة مع العلم أنها ستُستخدم لعمل أو شخص أو منظمة إرهابية، ويشمل **تمويل سفر** أفراد لدولة أخرى لعمل إرهابي"},
+                {sign:"+",text:"المراحل: **جمع** (تبرعات وإيداعات) ← **نقل** (مبالغ صغيرة لتفادي الأنظمة) ← **استخدام**"},
+                {sign:"+",text:"مؤشرات: تحويلات لجهات لا تهدف للربح لا تتناسب مع نشاطها، تبرعات أجنبية ضخمة، حسابات لأجانب غير مقيمين بلا سبب، تحويلات من دول تدعم الإرهاب"}],
+       uses:["التفرقة عن غسل الأموال"],
+       examples:[{en:"تحويلات كبيرة من مصدر مجهول بحجة نفقات معيشة أو تعليم",ar:"مؤشر تمويل إرهاب"}],
+       signals:["عقائدي","مبالغ صغيرة","تبرعات","لا يهدف للربح"],
+       tip:"التمويل **مش لازم** أموال غير مشروعة ولا مبالغ كبيرة.",
+       src:"البرنامج التعريفي – تمويل الإرهاب"},
+      {nameEn:"KYC / CDD", nameAr:"اعرف عميلك والعناية الواجبة", cat:"b",
+       formula:[{sign:"+",text:"التعرف أو التحديث عند: **علاقة جديدة**، **عملية عارضة > 15 ألف دولار** أو ما يعادلها، **اشتباه**، **شك في البيانات**، التحديث الدوري"},
+                {sign:"+",text:"العملاء: جديد، **عارض** (بلا نية علاقة مستمرة)، قائم، وكلهم يطبق عليهم التعرف والفحص"},
+                {sign:"+",text:"المستندات: **مستند تحقيق الشخصية** + **إيصال مرافق** لو العنوان مختلف عن نموذج التعارف"},
+                {sign:"+",text:"اسأل: مصدر الأموال، الغرض، تحويلات متوقعة ومن مين، تعامل تجاري على الحساب الشخصي؟ مين هيتعامل على الحساب؟"}],
+       uses:["فتح الحساب وتحديثه"],
+       examples:[{en:"عميل بدون مستندات فتح الحساب",ar:"**لا يجوز فتح الحساب** (مفتاح المحاكي)، ولا مهلة أسبوع أو أسبوعين"},
+                 {en:"مصدر الأموال",ar:"SOF وSOW (مصدر الأموال ومصدر الثروة)"},
+                 {en:"العملاء الأمريكان",ar:"الجنسية الأمريكية، الـ green card، الإقامة الطويلة في آخر 3 سنين ← **جميع ما سبق** (مفتاح المحاكي)"}],
+       signals:["15 ألف دولار","عارض","إيصال مرافق","SOF/SOW"],
+       tip:"مستندات ناقصة = **مفيش فتح**. التعرف على الهوية شرط سابق.",
+       src:"البرنامج التعريفي – العناية الواجبة + مفتاح المحاكي"},
+      {nameEn:"UBO & High Risk", nameAr:"المستفيد الحقيقي والعملاء مرتفعو المخاطر", cat:"b",
+       formula:[{sign:"+",text:"**المستفيد الحقيقي**: من تؤول له الملكية أو السيطرة، أو من تُنفذ العملية نيابة عنه"},
+                {sign:"+",text:"في الأشخاص الاعتبارية: ملكية **10% فأكثر**، أو سيطرة بوسائل أخرى، أو **المسئول عن الإدارة الفعلية**"},
+                {sign:"+",text:"التصنيف حسب: **الجنسية، دولة الإقامة، طبيعة النشاط** ← عالية / متوسطة / منخفضة"},
+                {sign:"+",text:"مرتفعو المخاطر: **PEPs** وأقاربهم، الهياكل المعقدة، **الجمعيات**، **غير المقيمين**، المشوبة سمعتهم"},
+                {sign:"+",text:"موافقة **قطاع الالتزام والحوكمة** قبل الفتح أو التحديث (منشور **5423**)"}],
+       uses:["EDD: معلومات إضافية، مصدر الثروة، متابعة معززة، فهم غرض الحساب"],
+       examples:[{en:"PEPs",ar:"رئيس دولة أو وزراء أو محافظ أو نائب أو سفير أو رئيس حزب، حالي أو سابق، **وأقاربهم**. لا ينطبق على المناصب المتوسطة"},
+                 {en:"المحاكي",ar:"'يلزم الحصول على موافقة **الإدارة العليا** عند فتح حساب لأي من الأشخاص ذوي المخاطر بحكم منصبه العام' ← **صحيحة**"},
+                 {en:"الجمعيات",ar:"موافقة **وزارة التضامن** + **قطاع الالتزام والحوكمة**"}],
+       signals:["10%","PEPs","5423","التضامن"],
+       tip:"المادة بتقول 'قطاع الالتزام والحوكمة'، والمفتاح قبل 'الإدارة العليا' للـ PEPs: الاتنين بيعنوا موافقة أعلى من الفرع.",
+       src:"البرنامج التعريفي – المستفيد الحقيقي وتصنيف المخاطر + مفتاح المحاكي"},
+      {nameEn:"STR & Tipping-off", nameAr:"الإخطار عن الاشتباه وعدم الإفصاح", cat:"b",
+       formula:[{sign:"+",text:"متابعة حركات الحساب حسب **تصنيف العميل وسلوك الحساب**"},
+                {sign:"+",text:"عند الاشتباه: **الإخطار فورًا** مع **السرية وعدم الإفصاح لأي جهة** إلا وحدة مكافحة غسل الأموال"},
+                {sign:"+",text:"التسلسل: **مسئول الالتزام بالمنطقة** ← مسئولو المكافحة بقطاع الالتزام ← **STR System** ← مسئول الالتزام بالبنك ← **FIU** أو الحفظ"},
+                {sign:"+",text:"المرفقات كحد أدنى: **طلب فتح الحساب**، **مستند تحقيق الشخصية**، **مستندات العملية**، وتفصيل أسباب الاشتباه"}],
+       uses:["دور الفرع عند الشك"],
+       examples:[{en:"أطراف ذات علاقة (زوج/زوجة)",ar:"يتم التحري عنهم وجمع ما يتوفر من بيانات"},
+                 {en:"العميل سأل: إنتم بتبلغوا عني؟",ar:"**لا يُفصح له**"}],
+       signals:["فورًا","عدم الإفصاح","STR System","FIU"],
+       tip:"أول محطة للفرع: **مسئول الالتزام بالمنطقة**.",
+       src:"البرنامج التعريفي – الإخطار"},
+      {nameEn:"Employee Accounts", nameAr:"حسابات الموظفين", cat:"b",
+       formula:[{sign:"-",text:"ممنوع استخدام حساب الموظف في **أغراض تجارية**"},
+                {sign:"-",text:"ممنوع ينفذ **برقم المستخدم الخاص به** معاملات على حساباته أو **أي حساب له علاقة به** ولو بتوكيل"},
+                {sign:"-",text:"ممنوع حسابه لعمليات تخص **طرف ثالث**، أو نيابة عن عملاء **إلا بموافقة مسبقة من إدارة الالتزام**"},
+                {sign:"+",text:"الحركات غير العادية يراجعها قطاع الالتزام، والموظف **لازم يرد** بالمبررات والمستندات"}],
+       uses:["أسئلة الميثاق والالتزام"],
+       examples:[{en:"المحاكي",ar:"'لا يجوز استخدام رقم المستخدم لحساباتك ويمكن استخدامه للحسابات الموكل عليها' ← **خاطئة**"},
+                 {en:"زميل بينفذ لقرايبه برقمه ويستخدم حسابه وسيط",ar:"ممنوع، يتوجّه، ولو أصر **يُبلغ مسئول الالتزام والمدير المباشر**"}],
+       signals:["رقم المستخدم","توكيل","طرف ثالث","موافقة الالتزام"],
+       tip:"حتى الحسابات **الموكَّل عليها** ممنوع تنفذ عليها برقمك.",
+       src:"البرنامج التعريفي – حسابات الموظفين + مفتاح المحاكي"},
+      {nameEn:"Sanctions", nameAr:"برامج العقوبات الدولية", cat:"c",
+       formula:[{sign:"+",text:"البنك يلتزم بعقوبات **OFAC** (أمريكا) و**EU** و**UN** و**UKHMT** و**MLCU**"},
+                {sign:"+",text:"**شاملة**: حكومات أو صناعات بأكملها · **قطاعية**: أنواع معاملات في قطاعات معينة (روسيا: طاقة ودفاع وبنوك) · **أفراد أو كيانات** بعينهم"},
+                {sign:"+",text:"أنواعها: تجميد أصول ومصادرة، حظر سفر، حظر سلاح، حظر سلع استراتيجية"},
+                {sign:"+",text:"الفرع يفحص **كل الأطراف يوميًا** على القوائم: فتح حسابات، أوامر دفع، تحصيل شيكات، **صرف حوالات**، كروت ومحافظ، تمويل تجارة، تسهيلات"}],
+       uses:["قبل أي عملية فيها طرف خارجي"],
+       examples:[{en:"تشابه حقيقي في الاسم",ar:"الرجوع لـ **فريق الحظر والعقوبات بقطاع الالتزام** قبل التنفيذ"},
+                 {en:"دول عقوبات شاملة (حسب المادة)",ar:"كوبا، إيران، كوريا الشمالية، سوريا، لوهانسك ودونيتسك، القرم"},
+                 {en:"قطاعية / انتقائية",ar:"روسيا، بيلاروسيا، فنزويلا"}],
+       signals:["OFAC","قطاعية","تشابه","فريق العقوبات"],
+       tip:"'حظر أنواع معاملات في قطاعات معينة' = **قطاعية**.",
+       src:"البرنامج التعريفي – شرائح 36–45"},
+      {nameEn:"FATF Groups", nameAr:"مجموعة العمل المالي FATF", cat:"c",
+       formula:[{sign:"+",text:"منظمة حكومية دولية، مقرها **باريس**، تأسست **1989**، **37 عضوًا**، ومصر عضو عبر **MENAFATF**"},
+                {sign:"+",text:"**المجموعة الأولى** (كوريا الشمالية): لا حسابات جديدة، لا تحويلات إلا بعد **مخاطبة الإدارة المركزية للالتزام والحوكمة**، أولوية تحديث بيانات القائمين"},
+                {sign:"+",text:"**المجموعة الثانية** (إيران): عناية خاصة وفحص أسماء، أولوية التحديث، مستندات إضافية"},
+                {sign:"+",text:"تحويل لعميل من رعايا المجموعة الثانية: **بعد أخذ موافقة قطاع الالتزام والحوكمة** (مفتاح المحاكي)"}],
+       uses:["أي عميل من دولة مدرجة"],
+       examples:[{en:"المحاكي: توصيات المجموعة الأولى",ar:"**جميع ما سبق**"},
+                 {en:"المحاكي: تحويل للمجموعة الثانية",ar:"**إجراء التحويل بعد أخذ موافقة قطاع الالتزام والحوكمة**"}],
+       signals:["باريس","1989","م1","م2"],
+       tip:"م1 = **ممنوع** الجديد · م2 = **بموافقة** الالتزام.",
+       src:"البرنامج التعريفي – FATF + مفتاح المحاكي"}
+    ]},
+    {type:"compare", id:"compare", title:"الفروقات", items:[
+      {title:"ML vs TF", cols:[
+        {name:"غسل الأموال", cat:"a", when:"إخفاء مصدر **غير مشروع**",
+         ex:["الهدف: المكسب","حجم كبير","عمليات معقدة"]},
+        {name:"تمويل الإرهاب", cat:"a", when:"توجيه أموال لعمل إرهابي",
+         ex:["الهدف: عقائدي","مشروع وغير مشروع","مش لازم كبير ولا معقد"]}],
+       golden:"الغسل بيبص على **مصدر** الفلوس، والتمويل بيبص على **وجهتها**."},
+      {title:"FATF Group 1 vs Group 2", cols:[
+        {name:"المجموعة الأولى", cat:"c", when:"لا تلتزم بأي معايير",
+         ex:["كوريا الشمالية","لا حسابات جديدة","تحويل بعد مخاطبة الالتزام"]},
+        {name:"المجموعة الثانية", cat:"c", when:"لم تلتزم بخطة العمل",
+         ex:["إيران","عناية خاصة وفحص أسماء","تحويل بموافقة قطاع الالتزام (المفتاح)"]}],
+       golden:"الأولى أشد: **مفيش فتح حسابات جديدة**."},
+      {title:"Comprehensive vs Sectoral", cols:[
+        {name:"شاملة", cat:"c", when:"الدولة أو الصناعة كلها",
+         ex:["إيران، كوريا الشمالية، كوبا، سوريا"]},
+        {name:"قطاعية", cat:"c", when:"أنواع معاملات في قطاعات",
+         ex:["روسيا: طاقة ودفاع وبنوك"]}],
+       golden:"'قطاعات معينة' = قطاعية · 'حكومات بأكملها' = شاملة."}
+    ]},
+    {type:"confusing", id:"confusing", title:"حالات بتلخبط", items:[
+      {title:"مين يوافق؟",
+       explain:"كل حالة ليها جهة موافقة مختلفة.",
+       examples:[{text:"فتح حساب لعميل مرتفع المخاطر أو جمعية",note:"قطاع الالتزام والحوكمة (منشور 5423)",correct:true},
+                 {text:"تحويل لرعايا المجموعة الأولى",note:"بعد مخاطبة الإدارة المركزية للالتزام والحوكمة",correct:true},
+                 {text:"استخدام حساب الموظف نيابة عن عميل",note:"موافقة مسبقة من إدارة الالتزام",correct:true},
+                 {text:"PEP بموافقة مدير الفرع وحده",note:"غير كافية",correct:false}]},
+      {title:"عبارات صح ولا غلط",
+       explain:"عبارات جت في المحاكي.",
+       examples:[{text:"غسل الأموال لا يتم إلا من أموال غير مشروعة",note:"صحيحة",correct:true},
+                 {text:"غسل الأموال لا يتم إلا من خلال البنوك",note:"خاطئة",correct:false},
+                 {text:"غرامات عدم الالتزام تصل لمليار جنيه",note:"خاطئة حسب المفتاح",correct:false},
+                 {text:"PEP يحتاج موافقة الإدارة العليا",note:"صحيحة حسب المفتاح",correct:true}]}
+    ]},
+    {type:"conflicts", id:"conflicts", title:"تنبيهات على المصادر", items:[
+      {title:"موافقة الـ PEPs",
+       text:"المادة بتقول موافقة **قطاع الالتزام والحوكمة** لكل مرتفعي المخاطر (منشور 5423)، ومفتاح المحاكي اعتبر عبارة '**موافقة الإدارة العليا**' صحيحة. لو جه السؤال بصيغة المحاكي اختار صحيحة."},
+      {title:"المجموعة الثانية",
+       text:"المادة بتذكر للمجموعة الثانية **عناية خاصة ومستندات إضافية** بس، ومفتاح المحاكي اختار '**إجراء التحويل بعد موافقة قطاع الالتزام والحوكمة**'. احفظ إجابة المفتاح."},
+      {title:"قوائم الدول",
+       text:"تصنيف الدول (كوريا الشمالية م1، إيران م2، ودول العقوبات الشاملة) **حسب المادة**، وقوائم FATF وOFAC بتتغير. في الامتحان اعتمد على المادة. ومراحل غسل الأموال مذكورة في الفهرس بس."}
+    ]},
+    {type:"reference", id:"ref", title:"أرقام وجداول مرجعية", tables:[
+      {id:"nums", title:"أرقام لازم تحفظها", headers:["البند","القيمة"],
+       rows:[["العملية العارضة اللي تستلزم التعرف","أكثر من 15 ألف دولار أو ما يعادلها"],["حصة المستفيد الحقيقي","10% فأكثر"],
+             ["الاحتفاظ بالمستندات","5 سنوات على الأقل"],["صدور قانون مكافحة غسل الأموال","2002"],["الغسل جريمة مستقلة","نوفمبر 2023"],
+             ["منشور موافقة مرتفعي المخاطر","5423"],["FATF","باريس · 1989 · 37 عضوًا"]]},
+      {id:"who", title:"لمين الفرع يرجع؟", headers:["الموقف","الجهة"],
+       rows:[["اشتباه في عملية","مسئول الالتزام بالمنطقة"],["تشابه على قوائم العقوبات","فريق الحظر والعقوبات بقطاع الالتزام"],
+             ["عميل مرتفع المخاطر / جمعية","قطاع الالتزام والحوكمة"],["زميل يخالف قيم السلوك","مسئول الالتزام بالبنك"],["تحويل لرعايا م1","الإدارة المركزية للالتزام والحوكمة"]]}
+    ]},
+    {type:"lookup", id:"lookup", title:"دوّر على دليل", rows:[
+      {signal:"الذراع الوقائية", target:"وظيفة الالتزام", note:""},
+      {signal:"جريمة أصلية", target:"غسل الأموال", note:""},
+      {signal:"عقائدي", target:"تمويل الإرهاب", note:""},
+      {signal:"جمع ← نقل ← استخدام", target:"مراحل تمويل الإرهاب", note:""},
+      {signal:"15 ألف دولار", target:"عملية عارضة تستلزم التعرف", note:""},
+      {signal:"10%", target:"المستفيد الحقيقي", note:""},
+      {signal:"5 سنوات", target:"الاحتفاظ بالمستندات", note:""},
+      {signal:"5423", target:"موافقة الالتزام لمرتفعي المخاطر", note:""},
+      {signal:"STR System", target:"آلية الإخطار عن الاشتباه", note:""},
+      {signal:"Tipping-off", target:"عدم الإفصاح للعميل", note:""},
+      {signal:"FIU / MLCU", target:"وحدة مكافحة غسل الأموال", note:""},
+      {signal:"قطاعات طاقة ودفاع وبنوك", target:"عقوبات قطاعية", note:"روسيا"},
+      {signal:"OFAC", target:"العقوبات الأمريكية", note:""},
+      {signal:"كوريا الشمالية", target:"FATF المجموعة الأولى", note:""},
+      {signal:"إيران", target:"FATF المجموعة الثانية", note:"وعقوبات شاملة"},
+      {signal:"green card", target:"عميل أمريكي", note:""},
+      {signal:"سداد مبكر للقرض", target:"مؤشر غسل أموال", note:""},
+      {signal:"تبرعات أجنبية لجمعية", target:"مؤشر تمويل إرهاب", note:""}
+    ]}
+  ]
+};
+
+const QUIZ = {
+  sections:[{id:"s1",title:"غسل الأموال والتمويل"},{id:"s2",title:"اعرف عميلك"},{id:"s3",title:"الإخطار وحسابات الموظفين"},{id:"s4",title:"العقوبات وFATF"}],
+  questions:[
+   {id:"q1",section:"s1",prompt:"أي من الجمل الآتية صحيحة؟",answer:"غسل الأموال لا يتم إلا من أموال غير مشروعة فقط",clue:"مصدر الغسل.",
+    why:"الغسل معناه إنك تخفي إن الفلوس جاية من جريمة. لو الفلوس مشروعة أصلًا مفيش حاجة تتغسل، فشرط الجريمة إن المصدر غير مشروع.",
+    wrong:[{option:"غسل الأموال لا يتم إلا من خلال البنوك فقط",why:"الغسل بيتم كمان عن طريق العقارات والذهب والصرافة والتجارة، مش البنوك بس."},{option:"تمويل الإرهاب عادة يكون العائد منه نقدي",why:"تمويل الإرهاب مش هدفه عائد أصلًا، هدفه عقائدي."},{option:"تمويل الإرهاب من أموال غير مشروعة فقط",why:"ممكن يكون من فلوس مشروعة زي تبرعات، وده اللي بيخليه صعب الاكتشاف."}]},
+   {id:"q2",section:"s1",prompt:"الهدف من تمويل الإرهاب وفق المقارنة في المادة:",answer:"عقائدي",clue:"الغسل هدفه المكسب.",
+    why:"الممول مش عايز يكسب فلوس، عايز يوصّل فلوس لعمل إرهابي بدافع فكري. ولذلك الفلوس ممكن تبقى صغيرة ومشروعة.",
+    wrong:[{option:"تحقيق المكاسب",why:"ده هدف غاسل الأموال اللي عايز يستمتع بفلوس الجريمة."},{option:"التهرب الضريبي",why:"ده ممكن يكون جريمة أصلية للغسل، مش هدف تمويل الإرهاب."},{option:"إخفاء مصدر الأموال",why:"ده جوهر الغسل؛ تمويل الإرهاب بيركز على إخفاء الوجهة."}]},
+   {id:"q3",section:"s1",prompt:"مراحل تمويل الإرهاب بالترتيب:",answer:"جمع ← نقل ← استخدام",clue:"مبالغ صغيرة في النقل.",
+    why:"الأول الفلوس بتتجمع (تبرعات وإيداعات)، بعدين بتتنقل على دفعات صغيرة عشان الأنظمة ما تكتشفهاش، وفي الآخر بتتاح للاستخدام في العمل الإرهابي.",
+    wrong:[{option:"إيداع ← تمويه ← دمج",why:"دي المراحل المعروفة لغسل الأموال مش للتمويل."},{option:"نقل ← جمع ← استخدام",why:"منطقيًا مينفعش تنقل فلوس قبل ما تجمعها."},{option:"استخدام ← جمع ← نقل",why:"الاستخدام آخر خطوة."}]},
+   {id:"q4",section:"s1",prompt:"من أمثلة معايير الاشتباه الاسترشادية:",answer:"جميع ما سبق",clue:"تحويلات مجهولة، حسابات تُغلق بسرعة، دول مخدرات، تغير معيشة موظف.",
+    why:"كل اختيار فيهم حاجة مش متسقة: فلوس كبيرة من مصدر مجهول، حساب بيتفتح ويتقفل بسرعة بعد حركة، تحويلات من دول خطرة، أو موظف معيشته اتغيرت فجأة. وكلها أسباب للفحص.",
+    wrong:[{option:"التغير المفاجئ في معيشة موظف فقط",why:"صحيح لكنه واحد من مؤشرات كتير."},{option:"تحويلات من دول المخدرات فقط",why:"صحيح لكنه جزء."},{option:"الحسابات التي تُغلق سريعًا فقط",why:"صحيح لكنه جزء."}]},
+   {id:"q5",section:"s1",prompt:"في حال عدم التزام المؤسسات المالية بالمعايير الدولية قد تتعرض لعقوبات تصل إلى مليار جنيه:",answer:"العبارة خاطئة",clue:"رقم مطلق مش موجود.",
+    why:"مخاطر عدم الالتزام بتتلخص في عقوبات قانونية ورقابية وخسائر مالية وخسائر سمعة، من غير سقف ثابت محدد بمليار جنيه. العبارة بتربط العقوبة برقم مش ثابت، فهي خاطئة.",
+    wrong:[{option:"العبارة صحيحة",why:"بتفترض رقم محدد للعقوبات، والعقوبات مش بمبلغ ثابت."}]},
+   {id:"q6",section:"s2",prompt:"يلزم التعرف على العميل عند إجراء عملية عارضة تتجاوز:",answer:"15 ألف دولار أو ما يعادلها",clue:"أو مجموعة معاملات مرتبطة.",
+    why:"العميل العارض ملوش علاقة دائمة بالبنك، فالبنك مش عارف عنه حاجة. لو العملية كبيرة (أكتر من 15 ألف دولار) لازم يتعرف عليه بالكامل، ولو قسّمها لعمليات مرتبطة برضه تتجمع.",
+    wrong:[{option:"5 آلاف دولار",why:"أقل من الحد المحدد."},{option:"50 ألف دولار",why:"أعلى من الحد، وده هيسيب عمليات كبيرة بدون تعرف."},{option:"100 ألف جنيه",why:"الحد محدد بالدولار أو ما يعادله."}]},
+   {id:"q7",section:"s2",prompt:"المستفيد الحقيقي في الشخص الاعتباري يشمل من يملك:",answer:"10% فأكثر من رأس المال",clue:"أو سيطرة فعلية.",
+    why:"الشركة ممكن تكون واجهة، فالبنك لازم يعرف الشخص الطبيعي اللي ورا الملكية. أي حد بيملك 10% أو أكتر، أو مسيطر بطريقة تانية، أو بيدير فعليًا، يعتبر مستفيد حقيقي.",
+    wrong:[{option:"25% فأكثر",why:"نسبة شائعة دوليًا، لكن بنك مصر بيعتمد 10%."},{option:"50% فأكثر",why:"كده هيفوت ملاك مؤثرين."},{option:"5% فأكثر",why:"أقل من الحد المحدد."}]},
+   {id:"q8",section:"s2",prompt:"تقدم إليك عميل بطلب فتح حساب ولا يحمل المستندات المطلوبة:",answer:"لا يجوز فتح الحساب",clue:"التعرف شرط سابق.",
+    why:"التعرف على هوية العميل لازم يحصل قبل بدء العلاقة. لو فتحت الحساب الأول، العميل ممكن يحرك فلوس قبل ما تعرف هو مين، وده أساس ثغرات غسل الأموال.",
+    wrong:[{option:"يجوز مع مهلة أسبوع",why:"المهلة معناها حساب شغال بدون تعرف."},{option:"يجوز مع مهلة أسبوعين",why:"نفس المشكلة بمدة أطول."},{option:"يجوز فتح الحساب",why:"بيخالف شرط التعرف المسبق."}]},
+   {id:"q9",section:"s2",prompt:"يلزم الحصول على موافقة الإدارة العليا عند فتح حساب لأي من الأشخاص ذوي المخاطر بحكم منصبه العام:",answer:"العبارة صحيحة",clue:"PEPs مرتفعو المخاطر.",
+    why:"صاحب المنصب العام عنده نفوذ وممكن يتعرض لرشوة أو فساد، فهو عميل مرتفع المخاطر. فتح حسابه قرار ما ينفعش الفرع ياخده لوحده، ومحتاج موافقة جهة أعلى بعد عناية واجبة معززة.",
+    wrong:[{option:"العبارة خاطئة",why:"بتعامل PEP كعميل عادي، وده عكس قواعد العملاء مرتفعي المخاطر."}]},
+   {id:"q10",section:"s2",prompt:"يعتبر ما يلي من العملاء الأمريكان:",answer:"جميع ما سبق",clue:"جنسية، green card، إقامة طويلة.",
+    why:"القانون الأمريكي (FATCA) بيعتبر الشخص أمريكي لأغراض الضرايب لو معاه الجنسية، أو إقامة دائمة (green card)، أو قعد فترات طويلة في أمريكا في آخر 3 سنين. أي واحدة منهم كفاية.",
+    wrong:[{option:"ذو الجنسية الأمريكية فقط",why:"ناقص؛ حامل الإقامة والمقيم فعليًا كمان."},{option:"حامل الـ green card فقط",why:"ناقص."},{option:"المقيم لفترات طويلة فقط",why:"ناقص."}]},
+   {id:"q11",section:"s2",prompt:"موافقة فتح حساب أو تحديث بيانات عميل مرتفع المخاطر أو جمعية:",answer:"قطاع الالتزام والحوكمة (منشور 5423)",clue:"قبل الفتح.",
+    why:"العميل مرتفع المخاطر محتاج عناية معززة وتقييم متخصص لمصدر ثروته وطبيعة تعامله، وده دور قطاع الالتزام مش الفرع. فالموافقة لازم تيجي من القطاع قبل الفتح أو التحديث.",
+    wrong:[{option:"مدير الفرع",why:"الفرع مش جهة التقييم المتخصص للمخاطر العالية."},{option:"مدير المنطقة",why:"مش الجهة المختصة."},{option:"لا يحتاج موافقة",why:"ده بالظبط نوع العملاء اللي بيحتاج موافقة."}]},
+   {id:"q12",section:"s3",prompt:"اشتبهت في عملية لعميل. أول جهة تخطرها:",answer:"مسئول الالتزام بالمنطقة",clue:"ثم STR System.",
+    why:"الموظف في الفرع مش بيقرر إن العملية غسل أموال؛ هو بيرفع الاشتباه لمسئول الالتزام في منطقته، وهو اللي يدرسه ويصعّده عبر STR System وصولًا لوحدة FIU لو لزم.",
+    wrong:[{option:"العميل نفسه للاستفسار",why:"إبلاغ العميل إنك شاكك فيه ممنوع (عدم الإفصاح)."},{option:"النيابة العامة مباشرة",why:"النيابة بتوصلها الوحدة بعد التحري، مش الفرع."},{option:"وحدة FIU مباشرة",why:"الإخطار للوحدة بيتم من قطاع الالتزام بعد الدراسة."}]},
+   {id:"q13",section:"s3",prompt:"مدة الاحتفاظ بالمستندات:",answer:"لا تقل عن 5 سنوات",clue:"من التزامات المؤسسات المالية.",
+    why:"التحقيقات في غسل الأموال بتاخد وقت وبتحتاج ترجع لمستندات قديمة. الاحتفاظ 5 سنين على الأقل بيضمن إن الأدلة موجودة لما الجهات تطلبها.",
+    wrong:[{option:"سنة",why:"قصيرة جدًا على التحقيقات."},{option:"3 سنوات",why:"أقل من الحد الأدنى."},{option:"10 سنوات",why:"مش الحد المحدد (المطلوب 5 على الأقل)."}]},
+   {id:"q14",section:"s3",prompt:"إذا لاحظت قيام أحد الزملاء بسلوك مخالف لقيم ومبادئ السلوك بالبنك:",answer:"إخطار مسئول الالتزام بالبنك",clue:"الجهة المختصة بالسلوك.",
+    why:"مخالفة قيم ومبادئ السلوك من اختصاص الالتزام، اللي بيضمن الحياد ويحمي المُبلّغ. الإبلاغ للجهة المختصة مباشرة أفضل من الاعتماد على المدير اللي ممكن يكون طرف.",
+    wrong:[{option:"إخطار المدير المباشر",why:"مش الجهة المختصة بمخالفات السلوك."},{option:"تقديم النصح للزميل",why:"ده مش إبلاغ، والمخالفة هتفضل."},{option:"(1، 3)",why:"الجهة المطلوبة هي الالتزام لوحده."}]},
+   {id:"q15",section:"s3",prompt:"لا يجوز استخدام رقم المستخدم لحساباتك ويمكن استخدامه فقط للحسابات الموكل عليها:",answer:"العبارة خاطئة",clue:"ولو بتوكيل.",
+    why:"الممنوع إنك تنفذ برقمك على حساباتك أو أي حساب ليك علاقة بيه، وده يشمل الحسابات اللي معاك توكيل عليها. الشق الأول صح لكن الشق التاني بيبيح ممنوع، فالعبارة كلها خاطئة.",
+    wrong:[{option:"العبارة صحيحة",why:"بتسمح بالحسابات الموكل عليها، وهي ممنوعة لأنها حسابات ذات صلة."}]},
+   {id:"q16",section:"s3",prompt:"استخدام الحساب الشخصي للموظف لعمليات نيابة عن عملاء:",answer:"ممنوع إلا بمبررات وبموافقة مسبقة من إدارة الالتزام",clue:"حسابات الموظفين.",
+    why:"لو فلوس العملاء عدّت على حساب الموظف، مصدرها ووجهتها بيتخبوا ويبقى الموظف وسيط، ودي ثغرة غسل أموال. علشان كده الأصل المنع، والاستثناء محتاج مبرر وموافقة مسبقة من الالتزام.",
+    wrong:[{option:"مسموح للأقارب",why:"القرابة مش استثناء، بالعكس هي حسابات ذات صلة."},{option:"مسموح بإخطار المدير",why:"الموافقة من الالتزام ولازم تكون مسبقة."},{option:"مسموح لو العملية سليمة",why:"سلامة العملية ما تلغيش المنع."}]},
+   {id:"q17",section:"s4",prompt:"تستهدف حظر أنواع معاملات في قطاعات معينة كالطاقة والدفاع والبنوك في روسيا:",answer:"عقوبات قطاعية",clue:"Sectoral.",
+    why:"العقوبة هنا مش على الدولة كلها ولا على أشخاص بعينهم، لكن على قطاعات اقتصادية محددة. ودي العقوبات القطاعية.",
+    wrong:[{option:"عقوبات واسعة النطاق",why:"بتستهدف الدولة أو الصناعة بأكملها زي إيران."},{option:"عقوبات تخص أفرادًا",why:"بتستهدف أسماء أشخاص أو كيانات بعينها."},{option:"حظر سفر",why:"نوع من العقوبات على الأفراد، مش نطاق قطاعي."}]},
+   {id:"q18",section:"s4",prompt:"من توصيات FATF عند التعامل مع دول المجموعة الأولى:",answer:"جميع ما سبق",clue:"أشد مجموعة.",
+    why:"المجموعة الأولى دول مش ملتزمة بأي معايير وبتمثل تهديد مستمر، فالبنك بيطبق أشد إجراءات: ما يفتحش حسابات جديدة، ما يحولش غير بعد مخاطبة الالتزام، ويحدّث بيانات العملاء القائمين بأولوية.",
+    wrong:[{option:"لا يتم فتح حسابات جديدة فقط",why:"ده جزء من السياسة."},{option:"لا تحويلات إلا بعد مخاطبة الالتزام فقط",why:"جزء."},{option:"أولوية تحديث البيانات فقط",why:"جزء."}]},
+   {id:"q19",section:"s4",prompt:"عميل من رعايا دول المجموعة الثانية يطلب تحويلًا للخارج:",answer:"إجراء التحويل بعد أخذ موافقة قطاع الالتزام والحوكمة",clue:"أخف من المجموعة الأولى.",
+    why:"المجموعة الثانية دول عندها قصور لكنها مش محظورة بالكامل زي الأولى، فالتعامل مسموح بعناية خاصة. التحويل يتعمل، بس بعد ما قطاع الالتزام يفحص الاسم والمستندات ويوافق.",
+    wrong:[{option:"عدم إجراء أي تحويل",why:"المنع الكامل أشد من المطلوب للمجموعة الثانية."},{option:"بعد موافقة الإدارة العليا",why:"الجهة المختصة بفحص مخاطر الدول هي قطاع الالتزام."},{option:"لا شيء مما سبق",why:"فيه إجراء محدد."}]},
+   {id:"q20",section:"s4",prompt:"عند وجود تشابه حقيقي في الأسماء على قوائم العقوبات:",answer:"الرجوع لفريق الحظر والعقوبات بقطاع الالتزام قبل التنفيذ",clue:"فحص يومي.",
+    why:"التشابه ممكن يكون نفس الشخص المعاقب أو مجرد تشابه أسماء. الفرع مش هو اللي يحكم؛ يوقف ويرجع لفريق العقوبات قبل التنفيذ، لأن لو نفّذ لشخص معاقب البنك نفسه ممكن يتعاقب.",
+    wrong:[{option:"التنفيذ وإبلاغ الالتزام لاحقًا",why:"بعد التنفيذ الفلوس خرجت والمخالفة حصلت."},{option:"رفض العميل نهائيًا",why:"ممكن يكون مجرد تشابه، والقرار للفريق المختص."},{option:"سؤال العميل عن التشابه",why:"العميل مش مصدر التحقق."}]},
+   {id:"q21",section:"s4",prompt:"مقر مجموعة العمل المالي FATF:",answer:"باريس",clue:"تأسست 1989.",
+    why:"FATF منظمة حكومية دولية مقرها باريس، تأسست 1989 وفيها 37 عضو، ومصر تابعة لها عن طريق MENAFATF.",
+    wrong:[{option:"لندن",why:"مش مقرها."},{option:"نيويورك",why:"مقر الأمم المتحدة مش FATF."},{option:"جنيف",why:"مش مقرها."}]}
+  ]
+};
+
+/* ===== أدوات ===== */
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<mark>$1</mark>').replace(/\[\[(.+?)\]\]/g,'<bdi class="en" dir="ltr">$1</bdi>');
+const $=(s,r=document)=>r.querySelector(s);
+const CAT=NOTE.categories;
+
+const plain=s=>String(s).replace(/\*\*|\[\[|\]\]/g,'');
+const lab=h=>` data-l="${esc(plain(h)).replace(/"/g,'&quot;')}"`;
+function table(t){
+  const n=t.headers.length;
+  return `<div class="stack">${t.title?`<h3>${inl(t.title)}</h3>`:''}
+  <div class="tscroll ${n>=3?'stk':'w2'}"><table><thead><tr>${t.headers.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead>
+  <tbody>${t.rows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0?' class="first"':''}${lab(t.headers[i]||'')}>${inl(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+  ${t.tip?`<div class="tip"><b>انتبه:</b> ${inl(t.tip)}</div>`:''}</div>`;
+}
+function summary(){
+  const s=NOTE.summary;
+  return `<section id="summary"><h2>الخلاصة</h2><div class="stack">
+   <p>${inl(s.lead)}</p>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">البند</th>${s.colHeaders.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead><tbody>
+   ${s.rows.map(r=>`<tr><td class="first">${inl(r.head)}${r.sub?`<small>${inl(r.sub)}</small>`:''}</td>${r.cells.map((c,i)=>`<td class="c-${c.cat}"${lab(s.colHeaders[i]||'')}>${inl(c.main)}${c.ex?`<span class="ex">${inl(c.ex)}</span>`:''}</td>`).join('')}</tr>`).join('')}
+   </tbody></table></div>
+   <p class="legend">${inl(s.legend)}</p>
+   <div class="golden"><b>القاعدة الذهبية:</b> ${inl(s.goldenRule)}</div></div></section>`;
+}
+function concepts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="grid">${sec.items.map(c=>`
+   <article class="card">
+    <span class="tag ${c.cat}">${CAT[c.cat]}</span>
+    <div class="cname"><span class="en">${esc(c.nameEn)}</span><span class="ar">${esc(c.nameAr)}</span></div>
+    <div class="formula">${c.formula.map(f=>`<div class="frow"><span class="dot ${f.sign==='+'?'p':f.sign==='-'?'m':'q'}">${f.sign==='+'?'✓':f.sign==='-'?'−':'?'}</span><span>${inl(f.text)}</span></div>`).join('')}</div>
+    <div><h4>بنستخدمه في</h4><ul class="plain">${c.uses.map(u=>`<li>${inl(u)}</li>`).join('')}</ul></div>
+    <div><h4>أمثلة</h4><div class="exs">${c.examples.map(e=>`<div class="exi"><span>${inl(e.en)}</span><span class="a2">${inl(e.ar)}</span></div>`).join('')}</div></div>
+    <div><h4>دلائل</h4><div class="sig">${c.signals.map(x=>`<span class="rtl">${esc(x)}</span>`).join('')}</div></div>
+    <div class="tip"><b>انتبه:</b> ${inl(c.tip)}</div>
+    ${c.src?`<p class="srcl">المصدر: ${esc(c.src)}</p>`:''}
+   </article>`).join('')}</div></section>`;
+}
+function compare(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><div class="cmp-title">${esc(c.title)}</div>
+    <div class="cmp-cols">${c.cols.map(col=>`<div class="cmp-col ${col.cat}"><h4>${esc(col.name)}</h4><p>${inl(col.when)}</p>
+      <ul class="plain">${col.ex.map(e=>`<li>${inl(e)}</li>`).join('')}</ul></div>`).join('')}</div>
+    <div class="golden"><b>القاعدة الذهبية:</b> ${inl(c.golden)}</div></article>`).join('')}</div></section>`;
+}
+function confusing(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.explain)}</p>
+    <ul class="cl">${c.examples.map(e=>{const k=e.correct===true?'ok':e.correct===false?'no':'nt';const m=k==='ok'?'✓':k==='no'?'✗':'•';
+      return `<li class="${k}"><span class="m">${m}</span><span><span class="t">${inl(e.text)}</span>${e.note?`<span class="note">${inl(e.note)}</span>`:''}</span></li>`}).join('')}</ul>
+   </article>`).join('')}</div></section>`;
+}
+function conflicts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`<article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.text)}</p></article>`).join('')}</div></section>`;
+}
+function reference(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.tables.map(table).join('')}</div></section>`;
+}
+function lookup(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">
+   <input class="search" id="lq" type="search" placeholder="اكتب كلمة دالة، مثلًا: رب المال أو الفلتر أو 1975" autocomplete="off" aria-label="بحث في الدلائل">
+   <div class="cnt" id="lcnt"></div>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">الدليل</th><th scope="col">المفهوم</th><th scope="col">ملاحظة</th></tr></thead><tbody id="lb"></tbody></table></div></div></section>`;
+}
+function fillLookup(rows){
+  const lb=$('#lb'),inp=$('#lq'),cnt=$('#lcnt');
+  const norm=s=>s.replace(/[ً-ْـ]/g,'').replace(/[إأآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').toLowerCase();
+  const draw=()=>{
+    const q=norm(inp.value.trim());
+    const r=rows.filter(x=>!q||norm(x.signal+' '+x.target+' '+x.note).includes(q));
+    lb.innerHTML=r.length?r.map(x=>`<tr><td class="first">${esc(x.signal)}</td><td data-l="المفهوم">${esc(x.target)}</td><td data-l="ملاحظة">${esc(x.note)}</td></tr>`).join(''):`<tr><td colspan="3" class="empty">مفيش نتيجة للكلمة دي.</td></tr>`;
+    cnt.textContent=r.length+' من '+rows.length;
+  };
+  inp.addEventListener('input',draw);draw();
+}
+
+/* ===== الكويز ===== */
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const LET=['A','B','C','D'];
+let QS={i:0,order:[],picks:[],opts:[]};
+function quizStart(){
+  QS={i:0,order:shuffle(QUIZ.questions.map((_,i)=>i)),picks:[],opts:{}};
+  quizDraw();
+}
+function quizDraw(){
+  const root=$('#quiz');
+  const n=QUIZ.questions.length;
+  if(QS.i>=n){return quizResult(root)}
+  const qi=QS.order[QS.i],q=QUIZ.questions[qi];
+  const sec=QUIZ.sections.find(s=>s.id===q.section).title;
+  const opts=QS.opts[qi]||(QS.opts[qi]=shuffle([{t:q.answer,ok:true},...q.wrong.map(w=>({t:w.option,ok:false,why:w.why}))]));
+  const pick=QS.picks[QS.i];
+  const answered=pick!==undefined;
+  const promptHtml=esc(q.prompt).replace('___',`<span class="blank${answered?(opts[pick].ok?' ok':' no'):''}">${answered?esc(q.answer):'&nbsp;&nbsp;&nbsp;&nbsp;'}</span>`);
+  root.innerHTML=`
+   <div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${QS.i+(answered?1:0)}"><i style="width:${(QS.i+(answered?1:0))/n*100}%"></i></div>
+   <div class="qmeta"><span>سؤال ${QS.i+1} من ${n}</span><span>${esc(sec)}</span></div>
+   <p class="qp">${promptHtml}</p>
+   <div class="opts">${opts.map((o,k)=>`<button type="button" class="opt${answered?(o.ok?' right':(k===pick?' wrongpick':'')):''}" data-k="${k}" ${answered?'disabled':''}><span class="L">${LET[k]}</span><span>${esc(o.t)}</span></button>`).join('')}</div>
+   ${answered?`<div class="fb" aria-live="polite">
+     <div class="v ${opts[pick].ok?'ok':'no'}">${opts[pick].ok?'صح.':'مش دقيق.'}</div>
+     <p><b>ليه الإجابة دي:</b> ${esc(q.why)}</p>
+     ${q.clue?`<p><b>الدليل:</b> ${esc(q.clue)}</p>`:''}
+     <div><b>ليه الباقي غلط:</b><ul>${opts.map((o,k)=>o.ok?'':`<li class="${k===pick?'picked':''}">${esc(o.t)}: ${esc(o.why)}${k===pick?' (اختيارك)':''}</li>`).join('')}</ul></div>
+    </div>
+    <button type="button" class="btn" id="qnext">${QS.i+1<n?'السؤال التالي':'شوف النتيجة'}</button>`:''}`;
+  root.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{QS.picks[QS.i]=+b.dataset.k;quizDraw();const nb=$('#qnext');if(nb)nb.focus({preventScroll:true})}));
+  const nb=$('#qnext');if(nb)nb.addEventListener('click',()=>{QS.i++;quizDraw();root.scrollIntoView({block:'nearest'})});
+}
+function quizResult(root){
+  const n=QUIZ.questions.length;let total=0;const per={};
+  QUIZ.sections.forEach(s=>per[s.id]={t:0,c:0});
+  QS.order.forEach((qi,i)=>{const q=QUIZ.questions[qi];const ok=QS.opts[qi][QS.picks[i]].ok;per[q.section].t++;if(ok){per[q.section].c++;total++}});
+  const rows=QUIZ.sections.filter(s=>per[s.id].t).map(s=>({s,p:Math.round(per[s.id].c/per[s.id].t*100)}));
+  const weak=rows.slice().sort((a,b)=>a.p-b.p)[0];
+  root.innerHTML=`<div class="res">
+   <div class="prog"><i style="width:100%"></i></div>
+   <div class="score"><bdi class="ltr" dir="ltr">${total} / ${n}</bdi></div>
+   <div class="bars">${rows.map(r=>`<div class="bar${r===weak&&r.p<100?' weak':''}"><span>${esc(r.s.title)}</span><span class="pb"><i style="width:${r.p}%"></i></span><span class="ltr">${r.p}%</span></div>`).join('')}</div>
+   <p>${weak.p<100?`أضعف قسم: <mark>${esc(weak.s.title)}</mark>. ارجع له في المذكرة وحاول تاني.`:'كل الأقسام 100%. ممتاز.'}</p>
+   <button type="button" class="btn" id="qrestart">ابدأ من جديد</button></div>`;
+  $('#qrestart').addEventListener('click',quizStart);
+}
+
+/* ===== التجميع ===== */
+// كل الأقسام بتترسم بترتيبها في الملف حسب نوعها (type)، حتى لو الـid مش من الأسماء الافتراضية
+const R={concepts,compare,confusing,conflicts,reference,lookup};
+const SHORT={concepts:'المفاهيم',compare:'الفروقات',confusing:'حالات بتلخبط',conflicts:'تعارضات',reference:'أرقام وجداول',lookup:'دوّر على دليل'};
+function chipName(sec){
+  const nConcepts=NOTE.sections.filter(x=>(x.type||x.id)==='concepts').length;
+  const t=(sec.type||sec.id);
+  if(t==='concepts'&&nConcepts>1){const c=String(sec.title||'').replace(/^\d+[\.\-\s]*/,'').split(/[:(،]/)[0].trim();return c.length>22?c.slice(0,21)+'…':c}
+  return SHORT[t]||sec.title;
+}
+function build(){
+  const secs=NOTE.sections.filter(x=>R[x.type||x.id]);
+  $('#sheet').innerHTML=`
+   <header class="hero"><span class="stamp">${esc(NOTE.stamp)}</span><h1>${esc(NOTE.title)}</h1><p class="sub">${esc(NOTE.subtitle)}</p></header>
+   ${summary()}${secs.map(x=>R[x.type||x.id](x)).join('')}
+   <section id="quiz-sec"><h2 id="quiz-h">اختبر نفسك</h2><div class="quiz" id="quiz"></div></section>
+   <p class="foot">ملخص مذاكرة لامتحان مصرفي أول G3</p>`;
+  $('#chips').innerHTML=[['summary','الخلاصة'],...secs.map(x=>[x.id,chipName(x)]),['quiz-sec','اختبر نفسك']]
+    .map(([id,l])=>`<a class="chip" href="#${id}" data-id="${id}">${esc(l)}</a>`).join('');
+  const lk=secs.find(x=>(x.type||x.id)==='lookup');if(lk)fillLookup(lk.rows);
+  quizStart();
+  const links=[...document.querySelectorAll('.chip')],bar=$('#chips');
+  const center=l=>{const a=l.getBoundingClientRect(),c=bar.getBoundingClientRect();bar.scrollBy({left:(a.left+a.width/2)-(c.left+c.width/2),behavior:'smooth'})};
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>{const on=l.dataset.id===e.target.id;if(on&&!l.classList.contains('on'))center(l);l.classList.toggle('on',on)})})},{rootMargin:'-80px 0px -65% 0px'});
+    links.forEach(l=>{const t=document.getElementById(l.dataset.id);if(t)io.observe(t)});
+  }
+}
+/* المظهر: زرار واحد شمس/قمر، ومحفوظ في kk-theme المشترك مع التطبيق */
+const themeBtn=$('#themeb');
+function curTheme(){try{return localStorage.getItem('kk-theme')||'system'}catch(e){return 'system'}}
+const isDark=()=>{const m=curTheme();return m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)};
+function setTheme(m){
+  const r=document.documentElement;
+  if(m==='light'||m==='dark')r.setAttribute('data-theme',m);else r.removeAttribute('data-theme');
+  try{localStorage.setItem('kk-theme',m)}catch(e){}
+  const d=isDark();themeBtn.classList.toggle('dark',d);themeBtn.setAttribute('aria-label',d?'الوضع الداكن. دوس للفاتح':'الوضع الفاتح. دوس للداكن');
+}
+themeBtn.addEventListener('click',()=>setTheme(isDark()?'light':'dark'));
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>setTheme(curTheme()));
+build();setTheme(curTheme());
+</script>
+
+<style>
+.bg3-home{position:fixed;left:max(14px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;
+ display:flex;align-items:center;gap:6px;padding:9px 16px 9px 14px;border-radius:999px;background:var(--head-bg);color:var(--head-ink);
+ font-family:var(--f-ui);font-weight:700;font-size:14px;line-height:1.3;text-decoration:none;box-shadow:var(--shadow)}
+.bg3-home svg{width:18px;height:18px}
+.bg3-home:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+</style>
+<a class="bg3-home" href="../index.html#notes" aria-label="رجوع لقائمة الملخصات">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>الملخصات</a>
+<script>
+(function(){var K="aml";
+function g(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var all=g('bg3:notes',{}),me=all[K]||{};me.last=Date.now();all[K]=me;s('bg3:notes',all);s('bg3:lastNote',K);
+if(location.hash==='#resume'){history.replaceState(null,'',location.pathname);
+ if(me.y)requestAnimationFrame(function(){setTimeout(function(){window.scrollTo({top:me.y,behavior:'instant'})},80)})}
+var t;addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(function(){
+ var a=g('bg3:notes',{}),m=a[K]||{},h=document.documentElement.scrollHeight-innerHeight,p=h>0?Math.round(scrollY/h*100):100;
+ m.y=Math.round(scrollY);m.pct=Math.max(m.pct||0,Math.min(100,p));a[K]=m;s('bg3:notes',a)},250)},{passive:true});
+})();
+</script>

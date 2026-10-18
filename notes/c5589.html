@@ -1,0 +1,709 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c1f3f">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<title>ملخص منشور 5589</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: ورقة كشكول واحدة في النص، هامش أحمر، شريط أقسام ثابت فوق */
+:root{
+  --bg:#e6ebf3; --paper:#fbfcfe; --card:#ffffff; --card-edge:#cbd6e8;
+  --ink:#0c1f3f; --ink-2:#44577a; --line:#dbe3f0;
+  --gold:#c9a13b; --gold-ink:#7d5f0c; --gold-wash:#faf2d8; --hl:rgba(201,161,59,.38);
+  --margin:#d4584c;
+  --cat-a:#a23d35; --cat-a-wash:#fbebe9;
+  --cat-b:#1f4f9a; --cat-b-wash:#e6eefb;
+  --cat-c:#7d5f0c; --cat-c-wash:#faf2d8;
+  --ok:#1d7a4d; --no:#b3382e; --ok-wash:#e4f4ec; --no-wash:#fbebe9;
+  --head-bg:#0c1f3f; --head-ink:#f3f6fc;
+  --shadow:0 1px 0 rgba(12,31,63,.06),0 10px 28px rgba(12,31,63,.10);
+  --f-display:'Aref Ruqaa','Amiri',serif;
+  --f-body:'Tajawal','Cairo',system-ui,sans-serif;
+  --f-ui:'Cairo','Tajawal',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+    --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+    --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+    --margin:#e5675c;
+    --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+    --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+    --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+    --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+    --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+  --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+  --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+  --margin:#e5675c;
+  --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+  --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+  --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+  --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+  --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.95;margin:0;
+  padding-block:0 72px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));
+  -webkit-text-size-adjust:100%;text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+bdi.en,.ltr{font-family:var(--f-ui);unicode-bidi:isolate}
+.ltr{direction:ltr;text-align:left}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+
+/* شريط الأقسام */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);display:flex;gap:10px;align-items:center;padding-block:8px;border-bottom:1px solid var(--card-edge)}
+.chips{display:flex;gap:6px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none;padding-block:2px;
+  -webkit-mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);padding-inline-end:20px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-family:var(--f-ui);font-size:13.5px;font-weight:600;line-height:1.4;padding:6px 13px;border-radius:999px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chip:hover,.chip.on{background:var(--head-bg);border-color:var(--head-bg);color:var(--head-ink)}
+.themeb{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--card-edge);background:var(--card);color:var(--gold-ink);cursor:pointer;padding:0}
+.themeb svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.themeb .i-moon{display:none}
+.themeb.dark .i-sun{display:none}
+.themeb.dark .i-moon{display:block;fill:currentColor}
+
+/* الورقة */
+.sheet{position:relative;width:100%;background-color:var(--paper);
+  border-radius:6px;box-shadow:var(--shadow);padding-block:28px 40px;padding-inline-start:44px;padding-inline-end:28px;
+  display:flex;flex-direction:column;gap:44px;min-width:0}
+.sheet::before{content:"";position:absolute;inset-block:0;inset-inline-start:30px;width:0;border-inline-start:1.5px solid var(--margin);opacity:.55;pointer-events:none}
+.sheet::after{content:"";position:absolute;inset-block:0;inset-inline-start:9px;width:10px;pointer-events:none;
+  background:radial-gradient(circle at center,var(--bg) 0 3.5px,transparent 4px) center 36px/10px 96px repeat-y}
+.sheet>*{min-width:0}
+.sheet{overflow-wrap:anywhere}
+mark{background:none;color:inherit;box-shadow:inset 0 -.5em 0 var(--hl);padding-inline:1px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,6vw,42px);line-height:1.5;margin:0;text-decoration:underline wavy var(--gold);text-decoration-thickness:2px;text-underline-offset:12px;text-wrap:balance}
+section>h2{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.6;margin:0 0 16px;display:inline-block;box-shadow:inset 0 -.32em 0 var(--hl)}
+h3{font-family:var(--f-ui);font-size:17.5px;margin:0;line-height:1.6}
+p{margin:0}
+.lead{color:var(--ink-2)}
+.hero{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.stamp{display:inline-block;transform:rotate(-2deg);font-family:var(--f-ui);font-weight:600;font-size:13px;line-height:1.5;color:var(--gold-ink);background:var(--gold-wash);border:2px solid var(--gold);border-radius:6px;padding:2px 12px}
+.sub{color:var(--ink-2);font-size:17px}
+
+/* الجداول: جدول عادي على الشاشات الواسعة، وكروت مرصوصة على الموبايل (كل خانة معاها اسم العمود) */
+.tscroll{overflow-x:auto;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.75;table-layout:auto}
+th{background:var(--head-bg);color:var(--head-ink);font-family:var(--f-ui);font-weight:700;font-size:14px;padding:10px 14px;text-align:start;vertical-align:bottom;line-height:1.5}
+td{padding:11px 14px;vertical-align:top;text-align:start;border-top:1px solid var(--card-edge);font-variant-numeric:tabular-nums}
+tbody tr:nth-child(even) td:not([class]){background:color-mix(in srgb,var(--paper) 55%,transparent)}
+td.first{background:var(--gold-wash);font-weight:700;min-width:7.5em}
+td.first small{display:block;font-weight:400;color:var(--ink-2);font-size:13px;line-height:1.5}
+td.c-a{background:var(--cat-a-wash)} td.c-b{background:var(--cat-b-wash)} td.c-c{background:var(--cat-c-wash)}
+td .ex{display:block;color:var(--ink-2);font-size:13.5px;line-height:1.6;margin-top:4px}
+.tscroll.w2 table td.first{width:38%}
+@media (max-width:700px){
+  .tscroll.stk{overflow:visible;border:0;background:none;border-radius:0}
+  .tscroll.stk table,.tscroll.stk tbody,.tscroll.stk tr,.tscroll.stk td{display:block;width:100%}
+  .tscroll.stk thead{display:none}
+  .tscroll.stk tr{border:1px solid var(--card-edge);border-radius:10px;overflow:hidden;background:var(--card);margin-bottom:10px}
+  .tscroll.stk tr:last-child{margin-bottom:0}
+  .tscroll.stk td{border-top:1px solid var(--line);padding:9px 14px;background:none}
+  .tscroll.stk td.first{border-top:0;background:var(--gold-wash);font-size:16.5px;min-width:0}
+  .tscroll.stk td.c-a{background:var(--cat-a-wash)} .tscroll.stk td.c-b{background:var(--cat-b-wash)} .tscroll.stk td.c-c{background:var(--cat-c-wash)}
+  .tscroll.stk td[data-l]:not(.first)::before{content:attr(data-l);display:block;font-family:var(--f-ui);font-size:12.5px;font-weight:700;color:var(--ink-2);line-height:1.5;margin-bottom:1px}
+  .tscroll.stk td.empty::before{display:none}
+}
+.legend{font-size:14px;color:var(--ink-2);margin-top:12px}
+.legend .k{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-inline:4px 4px}
+
+/* مربعات */
+.golden,.tip,.formula{border:2px dashed var(--gold);background:var(--gold-wash);border-radius:8px;padding:10px 16px;line-height:1.9}
+.golden b{color:var(--gold-ink)}
+.tip{border-color:var(--margin);background:var(--card)}
+.tip b{color:var(--margin)}
+.stack{display:flex;flex-direction:column;gap:16px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.card{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tag{align-self:flex-start;font-family:var(--f-ui);font-size:12px;font-weight:700;line-height:1.5;padding:1px 10px;border-radius:999px}
+.tag.a{background:var(--cat-a-wash);color:var(--cat-a)} .tag.b{background:var(--cat-b-wash);color:var(--cat-b)} .tag.c{background:var(--cat-c-wash);color:var(--cat-c)}
+.cname{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.cname .en{font-family:var(--f-ui);font-weight:700;font-size:18px;direction:ltr}
+.cname .ar{font-size:16px;color:var(--ink-2)}
+.formula{display:flex;flex-direction:column;gap:6px;padding:10px 12px}
+.frow{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.dot{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-size:13px;font-weight:700;color:var(--paper);margin-top:2px}
+.dot.p{background:var(--ok)} .dot.m{background:var(--no)} .dot.q{background:var(--cat-b)}
+h4{font-family:var(--f-ui);font-size:14px;margin:0;color:var(--ink-2);line-height:1.6}
+ul.plain{margin:0;padding-inline-start:20px;display:flex;flex-direction:column}
+.exs{display:flex;flex-direction:column;gap:6px}
+.exi{display:flex;flex-direction:column;border-inline-start:3px solid var(--card-edge);padding-inline-start:12px;line-height:1.7}
+.exi .a2{color:var(--ink-2);font-size:14px}
+.sig{display:flex;flex-wrap:wrap;gap:6px}
+.sig span{direction:ltr;font-family:var(--f-ui);font-size:13px;line-height:1.5;padding:2px 10px;border-radius:999px;background:var(--gold-wash);color:var(--gold-ink);border:1px solid var(--gold)}
+.sig span.rtl{direction:rtl;font-family:var(--f-body)}
+.cmp-cols{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.cmp-col{border-radius:6px;border:1px solid var(--card-edge);padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.cmp-col.a{background:var(--cat-a-wash)} .cmp-col.b{background:var(--cat-b-wash)} .cmp-col.c{background:var(--cat-c-wash)}
+.cmp-col h4{color:var(--ink);font-size:15px}
+.cmp-title{direction:ltr;text-align:left;font-family:var(--f-ui);font-weight:700;font-size:18px}
+.cl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.cl li{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.cl .m{flex:none;width:22px;text-align:center;font-family:var(--f-ui);font-weight:700}
+.cl .ok .m{color:var(--ok)} .cl .no .m{color:var(--no)} .cl .nt .m{color:var(--cat-c)}
+.cl .no .t{text-decoration:line-through;text-decoration-color:var(--no)}
+.cl .note{display:block;font-size:13px;color:var(--ink-2);line-height:1.6}
+
+/* بحث */
+.search{width:100%;font:inherit;font-family:var(--f-ui);font-size:16px;line-height:1.5;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink)}
+.search::placeholder{color:var(--ink-2)}
+.cnt{font-size:13px;color:var(--ink-2);font-family:var(--f-ui)}
+.empty{padding:16px;color:var(--ink-2)}
+
+/* كويز */
+.quiz{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:16px}
+.prog{height:8px;border-radius:999px;background:var(--line);overflow:hidden;border:1px solid var(--card-edge)}
+.prog i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.qmeta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-ui);font-size:13px;color:var(--ink-2)}
+.qp{font-size:18px;line-height:1.9;font-weight:500}
+.qp .blank{display:inline-block;min-width:80px;border-bottom:2px dashed var(--gold);text-align:center;padding-inline:6px}
+.qp .blank.ok{border-bottom:2px solid var(--ok);color:var(--ok);font-weight:700}
+.qp .blank.no{border-bottom:2px solid var(--no);color:var(--no);font-weight:700}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:start;width:100%;font:inherit;line-height:1.7;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--paper);color:var(--ink);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--gold);background:var(--gold-wash)}
+.opt .L{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-weight:700;font-size:13px;line-height:1;background:var(--line);color:var(--ink);margin-top:2px}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--ok-wash);border-color:var(--ok)}
+.opt.wrongpick{background:var(--no-wash);border-color:var(--no)}
+.fb{display:flex;flex-direction:column;gap:10px;border-radius:8px;padding:12px 16px;background:var(--gold-wash);border:1px dashed var(--gold)}
+.fb .v{font-weight:700;font-family:var(--f-ui)}
+.fb .v.ok{color:var(--ok)} .fb .v.no{color:var(--no)}
+.fb ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:4px}
+.fb li.picked{font-weight:700}
+.btn{align-self:flex-start;font-family:var(--f-ui);font-weight:600;font-size:15px;line-height:1.4;padding:10px 20px;border-radius:8px;border:0;background:var(--head-bg);color:var(--head-ink);cursor:pointer}
+.res{display:flex;flex-direction:column;gap:12px}
+.score{font-family:var(--f-display);font-size:40px;line-height:1.4}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(90px,140px) 1fr 44px;gap:10px;align-items:center;font-size:14px;line-height:1.5}
+.bar .pb{height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar .pb i{display:block;height:100%;background:var(--cat-b)}
+.bar.weak .pb i{background:var(--no)}
+.srcl{font-family:var(--f-ui);font-size:12px;line-height:1.6;color:var(--ink-2);margin:0}
+.foot{font-size:14px;color:var(--ink-2)}
+@media (max-width:600px){
+  body{padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+  .sheet{padding-block:22px 32px;padding-inline-start:26px;padding-inline-end:14px;gap:38px}
+  .sheet::before{inset-inline-start:16px}
+  .sheet::after{display:none}
+  .card{padding:14px}
+  section>h2{font-size:25px}
+  .bar{grid-template-columns:84px 1fr 40px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.prog i{transition:none}}
+</style>
+
+<div class="wrap">
+  <nav class="nav" aria-label="أقسام المذكرة">
+    <div class="chips" id="chips"></div>
+    <button type="button" class="themeb" id="themeb" aria-label="المظهر">
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+    </button>
+  </nav>
+  <main class="sheet" id="sheet" dir="rtl" lang="ar"></main>
+</div>
+
+<script>
+/* ===== المحتوى ===== */
+const NOTE = {
+  title:"منشور 5589: الوفاة وتصفية التركات",
+  subtitle:"منشور دوري 5589 (2/8/2023): مركزية إجراءات حالات الوفاة وتصفية التركات في الإدارة العامة لمركز بيانات العملاء، مع التركيز على دور الفرع",
+  stamp:"مذكرة · Circular 5589",
+  categories:{a:"القواعد العامة", b:"دور الفرع", c:"التوزيع والصرف"},
+  summary:{
+    lead:"شغل الوفاة والتركات **اتنقل من خدمة العملاء في الفروع** لـ **الإدارة العامة لمركز بيانات العملاء** (الإدارة التخصصية للتركات). الفرع بقى **يستلم ويوقف ويبعت**، والمركز **يحصر ويصفّي ويوزّع**، والوريث **بيصرف من أي فرع**.",
+    colHeaders:["إيه هو","المفتاح","رقم أو مثال"],
+    rows:[
+      {head:"الإخطار", sub:"دور الفرع",
+       cells:[{main:"**إخطار كتابي** + صورة **شهادة الوفاة أو تصريح الدفن** مع **تاريخ وساعة** الاستلام", ex:"من **أي فرع**", cat:"b"},
+              {main:"الحسابات ← **No Debit** + **مذكرة مرتفعة** بالوفاة", ex:"", cat:"b"},
+              {main:"طلب على تداول المستندات للإدارة التخصصية للتركات", ex:"**Deceased notification**", cat:"b"}]},
+      {head:"القواعد", sub:"مهمة",
+       cells:[{main:"**إعلام الوراثة** حجة مطلقة لحد حكم بالبطلان", ex:"", cat:"a"},
+              {main:"**مفيش توزيع** قبل **سداد كل المديونيات**", ex:"", cat:"a"},
+              {main:"الشهادات **تكمّل لحد الاستحقاق** إلا لو الورثة طلبوا", ex:"", cat:"a"}]},
+      {head:"الشيكات", sub:"بعد الوفاة",
+       cells:[{main:"تاريخه **قبل** الوفاة ← **يتصرف**", ex:"", cat:"a"},
+              {main:"**بعد** الوفاة **ومسطّر** ← **يتصرف**", ex:"**غير مسطّر** ← **الحساب مجمد**", cat:"a"},
+              {main:"شركة والموقّع متوفي ← **التوقيع غير صالح**", ex:"بعد التوزيع والقفل ← **الحساب مغلق**", cat:"a"}]},
+      {head:"الصرف", sub:"الوريث",
+       cells:[{main:"**نقدي**: مسئول الخدمات المصرفية بعد **فحص الورثة على القوائم**", ex:"", cat:"c"},
+              {main:"**تحويل لحسابه**: طلب تحويل أموال بوصف **'نصيبه في تركة المرحوم …'**", ex:"", cat:"c"},
+              {main:"الأمانات: كود **90** للمتوفي، وحساب أمانات لكل وريث", ex:"", cat:"c"}]}
+    ],
+    legend:"الأحمر = القواعد العامة · الأزرق = دور الفرع · الذهبي = التوزيع والصرف.",
+    goldenRule:"الفرع **بيوقف** الحسابات و**بيبعت** المستندات صح. الحصر والتصفية والتوزيع **مركزي**، وبعدها الوريث **بيصرف** من الفرع."
+  },
+  sections:[
+    {type:"concepts", id:"concepts", title:"القواعد العامة", items:[
+      {nameEn:"Centralization", nameAr:"فكرة المنشور", cat:"a",
+       formula:[{sign:"+",text:"نقل مهام **حالات الوفاة وتصفية التركات** من **خدمة العملاء بالفروع** لـ **الإدارة العامة لمركز بيانات العملاء للأفراد والشركات**"},
+                {sign:"+",text:"المستندات الدالة على الوفاة بتتقدم من **أي فرع**"},
+                {sign:"+",text:"أي **إنذار قضائي أو دعوى** متعلقة بالتركة ← **قطاع الشئون القانونية** (الإدارة المركزية للحجوز والتركات) أو المأمورية القضائية التابع لها الفرع"}],
+       uses:["فهم مين بيعمل إيه"],
+       examples:[{en:"وريث في قنا والحساب في القاهرة",ar:"يقدّم في **أي فرع**"}],
+       signals:["مركزية","أي فرع","مركز بيانات العملاء"],
+       tip:"التركات **معقدة** (ورثة، قصّر، ديون، توكيلات)، فالمركزية بتوحّد التطبيق وبتقلل الأخطاء.",
+       src:"منشور 5589"},
+      {nameEn:"General Rules", nameAr:"قواعد عامة", cat:"a",
+       formula:[{sign:"+",text:"**إعلام الوراثة** هو مستند الميراث، وليه **حجية مطلقة** لحد ما حكم قضائي يبطله"},
+                {sign:"+",text:"الاسم لازم **يتطابق ثلاثيًا على الأقل** بين هوية الوريث وإعلام الوراثة، و**اسم الشهرة** لازم يكون مذكور في الإعلام"},
+                {sign:"+",text:"بيانات حسابات المتوفى بتتدّي (حتى بعد القفل) لـ: **وريث** بعد التأكد من صفته، أو **حكم قضائي**، أو **أمر محكمة**، أو **نيابة الأحوال الشخصية** لو فيه قصّر"},
+                {sign:"+",text:"**العوائد** اللي بتستحق **بعد الوفاة** بتتعامل **زي التركة** وتتوزع بالأنصبة الشرعية"},
+                {sign:"+",text:"**مرتب أو معاش** شهر الوفاة وبعده **يترد** للجهة لو طلبته"},
+                {sign:"+",text:"**عمولة التركات** بتتحصل **كل مرة** يتم فيها توزيع، حتى لو وصلت للحد الأقصى في المرة الواحدة"},
+                {sign:"-",text:"**مفيش توزيع** لأي تركة **قبل التأكد من سداد كل مديونيات** العميل"}],
+       uses:["أسئلة القواعد"],
+       examples:[{en:"وريث اسمه في البطاقة 'محمد علي' بس",ar:"لازم **ثلاثي** يتطابق مع الإعلام"},
+                 {en:"عائد شهادة استحق بعد الوفاة بشهر",ar:"**جزء من التركة**"}],
+       signals:["إعلام الوراثة","ثلاثي","سداد المديونيات أولًا"],
+       tip:"الدين **مقدّم** على الميراث شرعًا وقانونًا: الورثة بياخدوا اللي **فاضل** بعد سداد الديون.",
+       src:"منشور 5589 – قواعد عامة"},
+      {nameEn:"Certificates", nameAr:"شهادات المتوفى", cat:"a",
+       formula:[{sign:"+",text:"الأصل: الشهادات **تكمّل لحد استحقاقها**، وبعدها تتحول **لأمانات تركات** باسم المتوفى"},
+                {sign:"+",text:"إلا لو **الورثة طلبوا التوزيع** قبل الاستحقاق"},
+                {sign:"+",text:"لو **وريث واحد** طلب نصيبه من الشهادات ← يتصرف **جزؤه من أصل الشهادة**"},
+                {sign:"+",text:"الشهادات اللي **اتجددت بعد الوفاة** بتتسترد **من غير توقيع الورثة**"},
+                {sign:"+",text:"الاسترداد قبل الاستحقاق محتاج **طلب موقع من كل الورثة الراغبين** والتأكد إن **مفيش مبالغ مجمدة** عليها"}],
+       uses:["ورثة بيسألوا عن الشهادات"],
+       examples:[{en:"الورثة عايزين يسيبوا الشهادة لحد ما تستحق",ar:"**مسموح** (ده الأصل)"}],
+       signals:["لحد الاستحقاق","جزؤه من الأصل","من غير توقيع"],
+       tip:"كسر الشهادة بدري ممكن **يضيّع عائد** على الورثة، عشان كده الأصل إنها تكمّل.",
+       src:"منشور 5589"},
+      {nameEn:"Cheques After Death", nameAr:"الشيكات بعد الوفاة", cat:"a",
+       formula:[{sign:"+",text:"وفاة الساحب بعد إصدار الشيك **ما بتأثرش** على أحكامه، والشيك **يتصرف للحامل الشرعي** إلا لو فيه اعتراض"},
+                {sign:"+",text:"تاريخ الشيك **قبل الوفاة** ← **يتصرف**"},
+                {sign:"+",text:"تاريخه **بعد الوفاة ومسطّر** ← **يتصرف**"},
+                {sign:"-",text:"تاريخه **بعد الوفاة وغير مسطّر** ← **يترفض: 'الحساب مجمد'**"},
+                {sign:"-",text:"شيك على **شركة** وواحد من الموقّعين **متوفي** وتوقيعه **اتشال** ← **'التوقيع غير صالح'**"},
+                {sign:"-",text:"شيك اتقدم **بعد توزيع التركة وقفل الحساب** ← **'الحساب مغلق'**"},
+                {sign:"+",text:"لو مؤشر **Deceased** بيمنع صرف أو تحصيل شيك سليم ← طلب للإدارة التخصصية **تشيل المؤشر مؤقتًا**، وبعد الصرف **يرجع**"}],
+       uses:["شيك على حساب متوفى"],
+       examples:[{en:"شيك غير مسطر تاريخه بعد الوفاة بأسبوع",ar:"**الحساب مجمد**"},
+                 {en:"نفس الشيك بس مسطر",ar:"**يتصرف**"}],
+       signals:["قبل / بعد الوفاة","مسطّر","الحساب مجمد","التوقيع غير صالح"],
+       tip:"المسطّر **ما بيتصرفش نقدي**؛ بيدخل حساب المستفيد فبيبقى ليه أثر واضح. أما غير المسطّر بعد الوفاة فممكن يكون اتكتب **بعد** ما الساحب مات.",
+       src:"منشور 5589"},
+      {nameEn:"Required Documents", nameAr:"مستندات تصفية التركة", cat:"a",
+       formula:[{sign:"+",text:"**طلب تصفية التركة**"},
+                {sign:"+",text:"صورة طبق الأصل من **إعلام الوراثة** و**شهادة الوفاة**"},
+                {sign:"+",text:"صورة **هوية** الورثة. **القاصر**: هوية أو **شهادة ميلاد**. ولو **النوع** (ذكر/أنثى) مش واضح: **قيد عائلي**، ولو صعب ← نصيبه **يتجنّب على إنه ذكر** لحد ما يجيب المستند"},
+                {sign:"+",text:"**قرار الوصاية أو القوامة** لو فيه قصّر أو ناقصي أهلية"},
+                {sign:"+",text:"**مؤخر الصداق** (لو الزوجة قدمت ما يثبته) **دين على التركة**؛ يتجنّب لحد ما تجيب **حكم**، وما يتصرفش إلا بعد الشئون القانونية"},
+                {sign:"+",text:"العملاء **الأجانب**: التنسيق مع الإدارات المختصة"},
+                {sign:"+",text:"لإيقاف الحسابات وتصفية المديونيات بس ← **صورة شهادة الوفاة أو تصريح الدفن** تكفي"}],
+       uses:["استلام ملف التركة"],
+       examples:[{en:"وريث قاصر ومش معاه بطاقة",ar:"**شهادة ميلاد**"},
+                 {en:"زوجة معاها وثيقة زواج فيها مؤخر",ar:"**يتجنّب** لحد الحكم"}],
+       signals:["إعلام الوراثة","قيد عائلي","يتجنّب كذكر","مؤخر الصداق"],
+       tip:"تجنيب نصيب الوريث **كذكر** بيحمي حقه، لأن نصيب الذكر **أكبر**؛ لو طلعت أنثى يترد الفرق للباقيين.",
+       src:"منشور 5589"},
+      {nameEn:"Minors", nameAr:"القصّر في التركة", cat:"a",
+       formula:[{sign:"+",text:"الولاية **للأب** (ولي طبيعي) ثم **للجد الصحيح** (ولي شرعي)"},
+                {sign:"+",text:"**الأب** يتصرف في كل اللي ورثه القاصر **إلا**: **أوراق مالية** (أسهم وسندات) **أكتر من 300 ج** محتاجة **إذن محكمة الأسرة**، وما وصل **بالهبة** لو الواهب اشترط، ولو المورّث **أوصى** إن الولي ما يتصرفش"},
+                {sign:"+",text:"**الجد** ← **إذن وقرار محكمة الأسرة** قبل الصرف"},
+                {sign:"+",text:"مفيش قرار من محكمة الأسرة ← نصيب القاصر يدخل **حساب أحوال شخصية (حسبي)**"},
+                {sign:"+",text:"الصرف للوصي أو الولي الشرعي بالضوابط الواردة في منشور **5409**"}],
+       uses:["فيه قاصر بين الورثة"],
+       examples:[{en:"الجد عايز يصرف نصيب حفيده",ar:"**إذن محكمة الأسرة** الأول"}],
+       signals:["الأب ثم الجد","300 ج","محكمة الأسرة","حسبي"],
+       tip:"الأب **أوسع صلاحية** لأنه الولي الطبيعي، والجد محتاج رقابة المحكمة على كل حاجة.",
+       src:"منشور 5589"}
+    ]},
+    {type:"concepts", id:"branch", title:"دور الفرع", items:[
+      {nameEn:"Customer Service Officer", nameAr:"دور مسئول خدمة العملاء", cat:"b",
+       formula:[{sign:"+",text:"ياخد **إخطار كتابي** بتوقيع المبلّغ، و**صورة طبق الأصل** من **شهادة الوفاة أو تصريح الدفن**، ويسجّل **تاريخ وساعة** الاستلام"},
+                {sign:"+",text:"أو ياخد **طلب توزيع التركة** لو إعلام الوراثة موجود، ويختم المستندات **'مستوفى'** ويوقّع"},
+                {sign:"+",text:"نفس الإجراء لأصحاب **البطاقات المدفوعة مقدمًا** أو **محفظة بنك مصر** أو **البطاقة الائتمانية** من غير رقم تعريفي، مع **صورة هوية المتوفى**"},
+                {sign:"+",text:"يحوّل حسابات المتوفى لـ **No Debit** ويسجّل **مذكرة مرتفعة** بالوفاة"},
+                {sign:"+",text:"ينشئ **طلب على تداول المستندات** للإدارة التخصصية للتركات بالمستندات بعد **اعتمادها بأختام وتوقيعات الفرع**"},
+                {sign:"+",text:"يستوفي ملاحظات الإدارة، ويرجّع حالة الطلب لـ **open** بدل **pending**"}],
+       uses:["وريث جه يبلّغ بالوفاة"],
+       examples:[{en:"ابن المتوفى جه بتصريح الدفن",ar:"إخطار كتابي + **No Debit** + طلب للتركات"}],
+       signals:["إخطار كتابي","تاريخ وساعة","No Debit","open"],
+       tip:"**No Debit** بيمنع **الصرف** بس، لكن الحساب **بيفضل يستقبل** (معاش، مستحقات)، فالتركة ما بتخسرش فلوس داخلة.",
+       src:"منشور 5589 – دور المنفذ"},
+      {nameEn:"Special Cases", nameAr:"حالات خاصة في الفرع", cat:"b",
+       formula:[{sign:"+",text:"**خزنة أمانات** ← بتتخلّى عند التوزيع حسب التعليمات"},
+                {sign:"+",text:"وريث جاب **خطاب الجهة برد المرتب أو المعاش** قبل التوزيع ← يتبعت للإدارة التخصصية على تداول المستندات"},
+                {sign:"+",text:"**قروض بدون ضمان ومؤمن عليها** ← المستندات **للإدارة التخصصية للتعويضات والتسويات**"},
+                {sign:"+",text:"**خصومات** حصلت **بعد الوفاة وقبل إخطار البنك** ← **مصادقة بالأرصدة** موقعة من **كل الورثة** إنهم مش هيرجعوا على البنك، **أو** الورثة يردّوا المبالغ قبل التوزيع"},
+                {sign:"+",text:"**شهادات أمان** ← المستندات بالإيميل **للتعويضات والتسويات**، مع صورة على تداول المستندات"},
+                {sign:"+",text:"**حوالة لمتوفى مالوش حساب** ← مستندات الوفاة + صورة الحوالة على تداول المستندات"}],
+       uses:["المتوفى عليه قرض أو جاله معاش"],
+       examples:[{en:"اتسحب من ATM بعد الوفاة وقبل ما البنك يعرف",ar:"**مصادقة** من كل الورثة أو يردّوا المبلغ"}],
+       signals:["خطاب الجهة","التعويضات والتسويات","مصادقة","شهادات أمان"],
+       tip:"المصادقة بتحمي البنك: الورثة بيقروا إنهم عارفين بالخصومات ومش هيطالبوا بيها بعدين.",
+       src:"منشور 5589"},
+      {nameEn:"Manager Role", nameAr:"دور مدير خدمة العملاء", cat:"b",
+       formula:[{sign:"+",text:"**المراجعة الفنية والمستندية** لمستندات الورثة، واعتمادها **بأختام وتوقيعات الفرع**"},
+                {sign:"-",text:"لو فيه اختلاف ← يرجّع المستندات للمنفذ يستوفيها"},
+                {sign:"+",text:"**التصريح** على العمليات على النظام البنكي"},
+                {sign:"+",text:"يتأكد إن **أصول** طلب التوزيع أو الإخطار اتبعتت للإدارة التخصصية **في المدة المقررة** (اتفاقية مستوى الخدمة)"}],
+       uses:["المراجعة في الفرع"],
+       examples:[{en:"الاسم في الإعلام مختلف عن البطاقة",ar:"**يرجّع** للمنفذ يستوفي"}],
+       signals:["مراجعة","تصريح","الأصول في المدة"],
+       tip:"الصور بتروح على النظام **فورًا**، لكن **الأصول** لازم توصل في **مدة محددة** عشان الإدارة تطابقها.",
+       src:"منشور 5589"},
+      {nameEn:"Central Unit (brief)", nameAr:"دور الإدارة التخصصية (باختصار)", cat:"b",
+       formula:[{sign:"+",text:"تلغي **التوكيلات** على الحسابات والخزن، وتوقف **كل البطاقات**، وتحوّل حالة الخزن لوفاة"},
+                {sign:"+",text:"**تحصر التركة** بالاسم والرقم القومي على كل الأنظمة (حسابات، شهادات، صناديق، أوراق مالية، أذون، بطاقات، محافظ، قروض)"},
+                {sign:"+",text:"تشيل مؤشر **الإنترنت البنكي والتوكين** و**ATM**، وتسجّل تاريخ الوفاة وتاريخ الإخطار"},
+                {sign:"+",text:"لو فيه **حجوزات أو تحفظات** ← الشئون القانونية أو الالتزام"},
+                {sign:"+",text:"مؤشر **Deceased** بيتحط على الرقم التعريفي للعميل غير الائتماني، ومش بيتحط لو الحسابات اتقفلت واتحولت لأمانات تركات"}],
+       uses:["فهم الصورة الكاملة"],
+       examples:[{en:"المتوفى عنده صناديق استثمار",ar:"تتسترد بعد إعلام الوراثة وتدخل حسابه، وبعدين التوزيع"}],
+       signals:["حصر","Deceased","توكيلات"],
+       tip:"ده **مش شغل الفرع**؛ مهم بس تعرف إن الحصر والإيقاف الكامل **مركزي**.",
+       src:"منشور 5589"}
+    ]},
+    {type:"concepts", id:"dist", title:"التوزيع والصرف", items:[
+      {nameEn:"Distribution", nameAr:"إجراءات التوزيع (مركزي)", cat:"c",
+       formula:[{sign:"+",text:"فتح حساب **أمانات تركات كود 90** على **الفرع اللي أنشأ الطلب** تحت الرقم التعريفي للمتوفى، وتحويل كل أرصدته ليه"},
+                {sign:"+",text:"تحصيل **العمولات والمصاريف** حسب التعريفة"},
+                {sign:"+",text:"فتح **حساب أمانات لكل وريث** تحت رقم المتوفى، باسم الوريث و**علاقته** (ابن، زوجة…) 'ورثة المرحوم …'"},
+                {sign:"+",text:"الوريث يقدر يطلب **تحويل نصيبه لحسابه مباشرة** بموافقة مكتوبة، بوصف **'نصيبه في تركة المرحوم …'**، **من غير** حساب أمانات"},
+                {sign:"+",text:"لو الورثة عايزين **الشهادات تكمّل**: الحساب المربوط بيها يبقى أمانات المتوفى لحد الاستحقاق، وينفع يتضاف عليه وينخصم منه مصاريف البنك"},
+                {sign:"+",text:"المصرّح يتأكد إن التوزيع **بعد سداد كل المديونيات**"}],
+       uses:["فهم مصدر الحسابات"],
+       examples:[{en:"تركة فيها 3 ورثة",ar:"حساب 90 للمتوفى + 3 حسابات أمانات"}],
+       signals:["كود 90","حساب لكل وريث","نصيبه في تركة المرحوم"],
+       tip:"حساب **90** هو **وعاء التركة**؛ منه بتتوزع الأنصبة على حسابات الورثة.",
+       src:"منشور 5589"},
+      {nameEn:"Payout at Branch", nameAr:"صرف التركة في الفرع", cat:"c",
+       formula:[{sign:"+",text:"الورثة بيروحوا **أقرب فرع**، والوريث بيحدد: **تحويل لحسابه الشخصي** (جديد أو قائم) أو **سحب نقدي**"},
+                {sign:"+",text:"**التحويل**: طلب **'تحويل أموال'** و**مطابقة التوقيع**، بوصف **'نصيبه في تركة المرحوم …'**"},
+                {sign:"+",text:"**لبنك تاني**: حسب التعليمات (ACH من كود 90 من غير فتح حساب)"},
+                {sign:"+",text:"**النقدي**: يتوجّه **لمسئول الخدمات المصرفية**، و**فحص الورثة على القوائم المحلية والعالمية**، ولو فيه اشتباه **قطاع الالتزام**"},
+                {sign:"+",text:"بعد الصرف ومفيش أوعية مستحقة ← **قفل حسابات الأمانات**، والمصرّح بيصرّح على القفل"}],
+       uses:["وريث جه يصرف"],
+       examples:[{en:"وريث عايز نصيبه كاش",ar:"**فحص قوائم** ثم الصرف من الشباك"}],
+       signals:["أقرب فرع","فحص القوائم","قفل الأمانات"],
+       tip:"الوريث هنا **مستلم فلوس** زي أي عميل، فلازم **يتفحص** قبل الصرف النقدي.",
+       src:"منشور 5589 – صرف التركة"},
+      {nameEn:"Staff Estates", nameAr:"تركات موظفي البنك", cat:"c",
+       formula:[{sign:"+",text:"**مستحقات** الموظف المتوفى (فروع أو مركز رئيسي) بتتوزع من **الإدارة المركزية لعمليات الموارد البشرية**"},
+                {sign:"+",text:"قرار **إنهاء الخدمة للوفاة** ← طلب للإدارة التخصصية للتركات لوقف التعامل على حساباته (مسار **Staff Inheritance Distribution**)"}],
+       uses:["زميل اتوفى"],
+       examples:[{en:"مستحقات صندوق التأمين لزميل متوفى",ar:"**الموارد البشرية**"}],
+       signals:["الموارد البشرية","Staff Inheritance"],
+       tip:"الموارد البشرية هي اللي عارفة مستحقات الموظف (مرتبات، حوافز، صندوق)، فهي اللي بتوزعها.",
+       src:"منشور 5589"}
+    ]},
+    {type:"compare", id:"compare", title:"الفروقات", items:[
+      {title:"Branch vs Central", cols:[
+        {name:"الفرع", cat:"b", when:"استلام وإيقاف وصرف",
+         ex:["إخطار كتابي وشهادة الوفاة","No Debit ومذكرة مرتفعة","طلب على تداول المستندات","صرف الأنصبة للورثة"]},
+        {name:"الإدارة التخصصية للتركات", cat:"b", when:"حصر وتصفية وتوزيع",
+         ex:["إلغاء التوكيلات وإيقاف البطاقات","حصر التركة","فتح حساب 90 وحسابات الورثة","التوزيع"]}],
+       golden:"الفرع **بداية ونهاية** الرحلة، والمركز **في النص**."},
+      {title:"Father vs Grandfather", cols:[
+        {name:"الأب (ولي طبيعي)", cat:"a", when:"صلاحية واسعة",
+         ex:["يتصرف في الميراث","إلا أوراق مالية فوق 300 ج","أو هبة بشرط أو وصية"]},
+        {name:"الجد (ولي شرعي)", cat:"a", when:"صلاحية محدودة",
+         ex:["إذن وقرار محكمة الأسرة قبل الصرف"]}],
+       golden:"**الأب** إلا استثناءات، و**الجد** دايمًا بإذن."}
+    ]},
+    {type:"confusing", id:"confusing", title:"حالات بتلخبط", items:[
+      {title:"عبارات رفض الشيك",
+       explain:"كل حالة ليها عبارة.",
+       examples:[{text:"بعد الوفاة وغير مسطّر",note:"الحساب مجمد",correct:true},
+                 {text:"الموقّع على حساب الشركة متوفي",note:"التوقيع غير صالح",correct:true},
+                 {text:"بعد التوزيع والقفل",note:"الحساب مغلق",correct:true},
+                 {text:"بعد الوفاة ومسطّر",note:"يتصرف",correct:true}]},
+      {title:"No Debit ولا Deceased؟",
+       explain:"",
+       examples:[{text:"No Debit",note:"الفرع على حسابات المتوفى فور الإخطار",correct:true},
+                 {text:"Deceased",note:"الإدارة التخصصية على الرقم التعريفي",correct:true}]}
+    ]},
+    {type:"conflicts", id:"conflicts", title:"تنبيهات", items:[
+      {title:"دور الفرع اتغير",
+       text:"قبل 5589 الفرع كان بيصفّي ويوزّع بنفسه. لو سؤال قديم بيقول 'الفرع يوزّع التركة'، الإجابة الحالية إن **الإدارة التخصصية للتركات** هي اللي بتوزّع، والفرع **يستلم ويبعت ويصرف**."}
+    ]},
+    {type:"reference", id:"ref", title:"أرقام", tables:[
+      {id:"n", title:"أرقام ومسارات", headers:["البند","القيمة"],
+       rows:[["تاريخ المنشور","2/8/2023"],["مطابقة الاسم","ثلاثي على الأقل"],["أوراق القاصر المالية اللي محتاجة إذن للأب","أكتر من 300 ج"],["حساب أمانات المتوفى","كود 90"],
+             ["مسار الإخطار","Account opening center – Deceased notification"],["مسار التوزيع","Inheritance distribution"],["مسار حذف المؤشر","Deceased Flag"],["تركات الموظفين","Staff Inheritance Distribution"]]}
+    ]},
+    {type:"lookup", id:"lookup", title:"دوّر على دليل", rows:[
+      {signal:"No Debit", target:"حسابات المتوفى فور الإخطار", note:"الفرع"},
+      {signal:"مذكرة مرتفعة", target:"واقعة الوفاة", note:""},
+      {signal:"pending ← open", target:"بعد استيفاء ملاحظات الإدارة", note:""},
+      {signal:"كود 90", target:"أمانات تركات المتوفى", note:""},
+      {signal:"الحساب مجمد", target:"شيك غير مسطر بعد الوفاة", note:""},
+      {signal:"التوقيع غير صالح", target:"موقّع شركة متوفي", note:""},
+      {signal:"مصادقة الورثة", target:"خصومات بعد الوفاة وقبل الإخطار", note:""},
+      {signal:"قيد عائلي", target:"تحديد نوع الوريث", note:""},
+      {signal:"5409", target:"الصرف للوصي أو الولي الشرعي", note:""}
+    ]}
+  ]
+};
+
+const QUIZ = {
+  sections:[{id:"s1",title:"القواعد العامة"},{id:"s2",title:"دور الفرع"},{id:"s3",title:"التوزيع والصرف"}],
+  questions:[
+   {id:"q1",section:"s1",prompt:"منشور 5589 نقل مهام حالات الوفاة وتصفية التركات إلى:",answer:"الإدارة العامة لمركز بيانات العملاء للأفراد والشركات",clue:"مركزية.",
+    why:"التركات **معقدة** وفيها ورثة وقصّر وديون وتوكيلات، فالبنك **ركّزها** في إدارة متخصصة عشان التطبيق يبقى موحد ودقيق، والفرع بقى بيستلم ويبعت.",
+    wrong:[{option:"خدمة العملاء بالفروع",why:"دي اللي اتنقلت منها المهام."},{option:"قطاع الشئون القانونية",why:"بيتدخل في الدعاوى والحجوز بس."},{option:"إدارة المنطقة",why:"مش جهة التصفية."}]},
+   {id:"q2",section:"s1",prompt:"المستند الدال على الميراث واللي ليه حجية مطلقة لحد حكم ببطلانه:",answer:"إعلام الوراثة",clue:"مين الورثة.",
+    why:"إعلام الوراثة هو اللي بيحدد **مين الورثة وأنصبتهم**، فهو أساس التوزيع، وبيفضل حجة لحد ما حكم قضائي يبطله.",
+    wrong:[{option:"شهادة الوفاة",why:"بتثبت الوفاة بس."},{option:"إقرار من أحد الورثة",why:"مالوش حجية على الباقيين."},{option:"قيد عائلي",why:"بيحدد النوع، مش الورثة."}]},
+   {id:"q3",section:"s1",prompt:"وريث عايز يصرف من التركة، واسمه في البطاقة مختلف عن إعلام الوراثة وليه اسم شهرة:",answer:"لازم الاسم يتطابق ثلاثيًا على الأقل، واسم الشهرة يكون مذكور في الإعلام",clue:"التطابق.",
+    why:"البنك لازم يتأكد إن **اللي قدامه هو نفس الوريث** المذكور في الإعلام، والتطابق الثلاثي بيقلل التشابه. واسم الشهرة لو مش في الإعلام مفيش إثبات إنه نفس الشخص.",
+    wrong:[{option:"الاسم الأول يكفي",why:"تشابه كبير."},{option:"إقرار منه بإنه نفس الشخص",why:"مش إثبات."},{option:"شهادة شهود",why:"مش مستند رسمي."}]},
+   {id:"q4",section:"s1",prompt:"الورثة طلبوا توزيع التركة، والمتوفى عليه قرض لسه ما اتسددش:",answer:"مفيش توزيع قبل التأكد من سداد كل المديونيات",clue:"الدين أولًا.",
+    why:"الديون **مقدّمة على الميراث**؛ الورثة بياخدوا اللي **فاضل** بعد سداد حقوق الدائنين. ولو البنك وزّع الأول، يخسر حقه.",
+    wrong:[{option:"يتوزع والقرض يتسدد من الورثة بعدين",why:"الدين يتسدد من التركة أولًا."},{option:"يتوزع لو الرصيد أكبر من الدين",why:"لازم السداد يتم فعلًا."},{option:"يتوزع بموافقة الورثة",why:"حق البنك مش بموافقتهم."}]},
+   {id:"q5",section:"s1",prompt:"شهادات المتوفى، والورثة ما طلبوش حاجة:",answer:"تكمّل لحد الاستحقاق وبعدها تتحول لأمانات تركات",clue:"الأصل.",
+    why:"الشهادة **عقد لمدة محددة**، وكسرها بدري ممكن يضيّع **عائد** على الورثة. فالأصل إنها تكمّل، إلا لو هما طلبوا التوزيع.",
+    wrong:[{option:"تتكسر فورًا",why:"بيضيّع عائد."},{option:"تتجدد تلقائيًا",why:"بتتحول لأمانات تركات."},{option:"عائدها يتلغي",why:"العائد حق التركة."}]},
+   {id:"q6",section:"s1",prompt:"شيك غير مسطّر تاريخه بعد تاريخ وفاة الساحب:",answer:"يُرفض بعبارة 'الحساب مجمد'",clue:"غير مسطّر.",
+    why:"الشيك مكتوب بتاريخ **بعد الوفاة** وممكن يتصرف **نقدي**، فمفيش ضمان إنه اتكتب وصاحبه عايش. عشان كده بيترفض لأن الحساب متجمد.",
+    wrong:[{option:"يتصرف عادي",why:"ده للمسطّر."},{option:"التوقيع غير صالح",why:"دي لموقّع الشركة المتوفي."},{option:"الحساب مغلق",why:"دي بعد التوزيع والقفل."}]},
+   {id:"q7",section:"s1",prompt:"شيك مسطّر تاريخه بعد وفاة الساحب:",answer:"يتصرف",clue:"المسطّر بيدخل حساب.",
+    why:"المسطّر **ما بيتصرفش كاش**؛ بيدخل **حساب** المستفيد، فبيبقى فيه أثر واضح ورقابة على الفلوس، فالمنشور سمح بصرفه.",
+    wrong:[{option:"الحساب مجمد",why:"ده لغير المسطّر."},{option:"يتعرض على الشئون القانونية",why:"مش مطلوب."},{option:"يتصرف للورثة",why:"المستفيد هو الحامل."}]},
+   {id:"q8",section:"s1",prompt:"شيك على حساب شركة، وواحد من الموقّعين اتوفى وتوقيعه اتشال من الحساب:",answer:"يُرفض بعبارة 'التوقيع غير صالح'",clue:"الشركة عايشة.",
+    why:"الحساب **ملك الشركة** ومش متجمد، لكن التوقيع اللي على الشيك **ما بقاش معتمد** بعد ما صاحبه مات. فالمشكلة في **التوقيع**.",
+    wrong:[{option:"الحساب مجمد",why:"حساب الشركة مش متجمد."},{option:"يتصرف",why:"التوقيع مش صالح."},{option:"الحساب مغلق",why:"الحساب شغال."}]},
+   {id:"q9",section:"s1",prompt:"وريث مالوش بطاقة رقم قومي، ونوعه (ذكر ولا أنثى) مش واضح، وصعب يجيب قيد عائلي:",answer:"نصيبه يتجنّب على إنه ذكر لحد ما يجيب مستند",clue:"حماية حقه.",
+    why:"نصيب الذكر **أكبر** من الأنثى، فتجنيبه كذكر بيضمن إن **حقه ما يقلّش**. ولو طلعت أنثى، الفرق يترد للورثة التانيين.",
+    wrong:[{option:"يتجنّب كأنثى",why:"ممكن ينقص حقه."},{option:"ما ياخدش حاجة",why:"ده ظلم."},{option:"يتوزع بالتساوي",why:"ضد الأنصبة الشرعية."}]},
+   {id:"q10",section:"s1",prompt:"الجد (ولي شرعي) عايز يصرف نصيب حفيده القاصر من التركة:",answer:"لازم إذن وقرار من محكمة الأسرة المختصة قبل الصرف",clue:"الجد مش الأب.",
+    why:"الأب **ولي طبيعي** وصلاحيته واسعة، لكن الجد **ولي شرعي** والقانون حاطط على تصرفه **رقابة المحكمة** عشان يحمي فلوس القاصر.",
+    wrong:[{option:"يصرف زي الأب",why:"صلاحيته أضيق."},{option:"بموافقة الأم",why:"مش جهة إذن."},{option:"لو المبلغ أقل من 300 ج",why:"الـ300 ج استثناء خاص بالأب في الأوراق المالية."}]},
+   {id:"q11",section:"s1",prompt:"زوجة المتوفى قدمت وثيقة الزواج اللي فيها مؤخر صداق:",answer:"المؤخر دين على التركة؛ يتجنّب لحد ما تجيب حكم، وما يتصرفش إلا بعد الشئون القانونية",clue:"دين.",
+    why:"المؤخر **دين صحيح** على التركة، فيتسدد **قبل** التوزيع. لكن عشان صرفه للزوجة يبقى سليم قانونًا، لازم **حكم** والشئون القانونية تراجع.",
+    wrong:[{option:"يتصرف لها فورًا",why:"لازم حكم."},{option:"يتجاهل",why:"ده دين على التركة."},{option:"يدخل في نصيبها الشرعي",why:"المؤخر منفصل عن الميراث."}]},
+   {id:"q12",section:"s2",prompt:"ابن المتوفى جه الفرع ومعه تصريح الدفن. أول دور لمسئول خدمة العملاء:",answer:"ياخد إخطار كتابي بتوقيعه وصورة طبق الأصل من التصريح ويسجّل تاريخ وساعة الاستلام",clue:"توثيق اللحظة.",
+    why:"**لحظة علم البنك** بالوفاة مهمة جدًا، لأن البنك مسئول عن أي حركة بعدها. فتسجيل التاريخ والساعة بيحدد بالظبط من إمتى المسئولية.",
+    wrong:[{option:"يوزّع التركة",why:"التوزيع مركزي."},{option:"يقفل الحسابات",why:"بيوقف الصرف بس."},{option:"يطلب إعلام الوراثة الأول",why:"الإخطار بالوفاة بيتقبل من غيره."}]},
+   {id:"q13",section:"s2",prompt:"بعد استلام إخطار الوفاة، حسابات المتوفى على النظام بتتحول لـ:",answer:"No Debit مع مذكرة مرتفعة بالوفاة",clue:"منع الصرف.",
+    why:"الفلوس بقت **تركة**، فلازم **يتمنع الصرف** منها. لكن الحساب **بيفضل يستقبل** (معاش أو مستحقات)، عشان كده No Debit مش قفل.",
+    wrong:[{option:"Closed",why:"القفل بيمنع دخول فلوس للتركة."},{option:"Active",why:"كده الصرف مسموح."},{option:"No Credit",why:"بيمنع الإيداع."}]},
+   {id:"q14",section:"s2",prompt:"الإدارة التخصصية للتركات رجّعت الطلب للفرع pending بملاحظات، والفرع استوفاها:",answer:"يرجّع حالة الطلب لـ open",clue:"يرجع للمسار.",
+    why:"الطلب كان **pending** مستني الفرع، فلما الملاحظات تتستوفى، لازم يرجع **open** عشان الإدارة تكمّل شغلها عليه.",
+    wrong:[{option:"يقفل الطلب",why:"التصفية لسه ما خلصتش."},{option:"يفتح طلب جديد",why:"تكرار."},{option:"يسيبه pending",why:"الإدارة مش هتشوفه."}]},
+   {id:"q15",section:"s2",prompt:"اتسحب من حساب المتوفى بعد وفاته وقبل ما البنك يعرف:",answer:"مصادقة بالأرصدة من كل الورثة إنهم مش هيرجعوا على البنك، أو يردّوا المبالغ قبل التوزيع",clue:"حماية البنك.",
+    why:"البنك **ما كانش يعرف** بالوفاة، فالسحب حصل بحسن نية. لكن عشان الورثة ما يطالبوش بيه بعدين، يا إما **يصادقوا** عليه كلهم، يا إما **يرجّعوه**.",
+    wrong:[{option:"البنك يتحمل المبلغ",why:"البنك ما كانش يعلم."},{option:"تجاهل الخصومات",why:"لازم تتسوّى."},{option:"توقيع وريث واحد",why:"لازم كل الورثة."}]},
+   {id:"q16",section:"s2",prompt:"دور مدير خدمة العملاء في ملفات التركات:",answer:"المراجعة الفنية والمستندية واعتماد المستندات والتصريح، والتأكد من إرسال الأصول في المدة المقررة",clue:"المصرّح.",
+    why:"المنفذ بيجمع ويسجّل، والمدير **بيراجع ويعتمد** كرقابة تانية. كمان مسئول إن **الأصول** توصل الإدارة **في الميعاد** عشان تطابقها بالصور.",
+    wrong:[{option:"توزيع التركة",why:"مركزي."},{option:"حصر التركة",why:"مركزي."},{option:"استلام الإخطار بس",why:"ده دور المنفذ."}]},
+   {id:"q17",section:"s3",prompt:"حساب أمانات التركات اللي بتتحول له أرصدة المتوفى كوده:",answer:"90",clue:"وعاء التركة.",
+    why:"حساب **90** هو **وعاء التركة**: بيتفتح تحت رقم المتوفى، وكل أرصدته بتتجمع فيه، ومنه بتتوزع الأنصبة.",
+    wrong:[{option:"111",why:"حساب مرتبات."},{option:"115",why:"حساب توزيع تركات في الفروع النمطية."},{option:"159",why:"حساب تجزئة للموظفين."}]},
+   {id:"q18",section:"s3",prompt:"وريث جه الفرع يصرف نصيبه نقدي:",answer:"يتوجّه لمسئول الخدمات المصرفية، ويتفحص على القوائم المحلية والعالمية قبل الصرف",clue:"مستلم فلوس.",
+    why:"الوريث هنا **بياخد فلوس كاش** زي أي مستفيد، فلازم يتفحص على القوائم. ولو فيه اشتباه يتبلّغ **قطاع الالتزام**.",
+    wrong:[{option:"يتصرف من غير فحص لأنه وريث",why:"الفحص مطلوب."},{option:"بس لو المبلغ كبير",why:"الفحص في كل الأحوال."},{option:"يتحول لحسابه إجباري",why:"النقدي مسموح."}]},
+   {id:"q19",section:"s3",prompt:"وريث عايز يحوّل نصيبه لحسابه الشخصي في بنك مصر:",answer:"طلب تحويل أموال ومطابقة توقيعه بوصف 'نصيبه في تركة المرحوم …'",clue:"الوصف.",
+    why:"الوصف بيوضح **مصدر الفلوس** في حساب الوريث، فلو اتسأل عنها بعدين يبقى واضح إنها ميراث. ومطابقة التوقيع بتثبت إنه هو اللي طلب.",
+    wrong:[{option:"من غير طلب",why:"لازم طلب موقع."},{option:"شيك مصرفي إجباري",why:"التحويل مسموح."},{option:"لازم يحضر كل الورثة",why:"كل وريث بيصرف نصيبه."}]},
+   {id:"q20",section:"s3",prompt:"مستحقات موظف بنك مصر المتوفى بتتوزع عن طريق:",answer:"الإدارة المركزية لعمليات الموارد البشرية",clue:"مستحقات وظيفية.",
+    why:"مستحقات الموظف (مرتبات، حوافز، صندوق التأمين) **الموارد البشرية** هي اللي عارفاها، فهي اللي بتسويها وتوزعها بعد خصم أي التزامات.",
+    wrong:[{option:"الفرع اللي كان شغال فيه",why:"مش جهة المستحقات."},{option:"الإدارة التخصصية للتركات لوحدها",why:"بتوقف الحسابات وتفتح حسابات الورثة، لكن المستحقات من الموارد البشرية."},{option:"صندوق التأمين",why:"جزء من المستحقات بس."}]}
+  ]
+};
+
+/* ===== أدوات ===== */
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<mark>$1</mark>').replace(/\[\[(.+?)\]\]/g,'<bdi class="en" dir="ltr">$1</bdi>');
+const $=(s,r=document)=>r.querySelector(s);
+const CAT=NOTE.categories;
+
+const plain=s=>String(s).replace(/\*\*|\[\[|\]\]/g,'');
+const lab=h=>` data-l="${esc(plain(h)).replace(/"/g,'&quot;')}"`;
+function table(t){
+  const n=t.headers.length;
+  return `<div class="stack">${t.title?`<h3>${inl(t.title)}</h3>`:''}
+  <div class="tscroll ${n>=3?'stk':'w2'}"><table><thead><tr>${t.headers.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead>
+  <tbody>${t.rows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0?' class="first"':''}${lab(t.headers[i]||'')}>${inl(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+  ${t.tip?`<div class="tip"><b>انتبه:</b> ${inl(t.tip)}</div>`:''}</div>`;
+}
+function summary(){
+  const s=NOTE.summary;
+  return `<section id="summary"><h2>الخلاصة</h2><div class="stack">
+   <p>${inl(s.lead)}</p>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">البند</th>${s.colHeaders.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead><tbody>
+   ${s.rows.map(r=>`<tr><td class="first">${inl(r.head)}${r.sub?`<small>${inl(r.sub)}</small>`:''}</td>${r.cells.map((c,i)=>`<td class="c-${c.cat}"${lab(s.colHeaders[i]||'')}>${inl(c.main)}${c.ex?`<span class="ex">${inl(c.ex)}</span>`:''}</td>`).join('')}</tr>`).join('')}
+   </tbody></table></div>
+   <p class="legend">${inl(s.legend)}</p>
+   <div class="golden"><b>القاعدة الذهبية:</b> ${inl(s.goldenRule)}</div></div></section>`;
+}
+function concepts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="grid">${sec.items.map(c=>`
+   <article class="card">
+    <span class="tag ${c.cat}">${CAT[c.cat]}</span>
+    <div class="cname"><span class="en">${esc(c.nameEn)}</span><span class="ar">${esc(c.nameAr)}</span></div>
+    <div class="formula">${c.formula.map(f=>`<div class="frow"><span class="dot ${f.sign==='+'?'p':f.sign==='-'?'m':'q'}">${f.sign==='+'?'✓':f.sign==='-'?'−':'?'}</span><span>${inl(f.text)}</span></div>`).join('')}</div>
+    <div><h4>بنستخدمه في</h4><ul class="plain">${c.uses.map(u=>`<li>${inl(u)}</li>`).join('')}</ul></div>
+    <div><h4>أمثلة</h4><div class="exs">${c.examples.map(e=>`<div class="exi"><span>${inl(e.en)}</span><span class="a2">${inl(e.ar)}</span></div>`).join('')}</div></div>
+    <div><h4>دلائل</h4><div class="sig">${c.signals.map(x=>`<span class="rtl">${esc(x)}</span>`).join('')}</div></div>
+    <div class="tip"><b>انتبه:</b> ${inl(c.tip)}</div>
+    ${c.src?`<p class="srcl">المصدر: ${esc(c.src)}</p>`:''}
+   </article>`).join('')}</div></section>`;
+}
+function compare(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><div class="cmp-title">${esc(c.title)}</div>
+    <div class="cmp-cols">${c.cols.map(col=>`<div class="cmp-col ${col.cat}"><h4>${esc(col.name)}</h4><p>${inl(col.when)}</p>
+      <ul class="plain">${col.ex.map(e=>`<li>${inl(e)}</li>`).join('')}</ul></div>`).join('')}</div>
+    <div class="golden"><b>القاعدة الذهبية:</b> ${inl(c.golden)}</div></article>`).join('')}</div></section>`;
+}
+function confusing(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.explain)}</p>
+    <ul class="cl">${c.examples.map(e=>{const k=e.correct===true?'ok':e.correct===false?'no':'nt';const m=k==='ok'?'✓':k==='no'?'✗':'•';
+      return `<li class="${k}"><span class="m">${m}</span><span><span class="t">${inl(e.text)}</span>${e.note?`<span class="note">${inl(e.note)}</span>`:''}</span></li>`}).join('')}</ul>
+   </article>`).join('')}</div></section>`;
+}
+function conflicts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`<article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.text)}</p></article>`).join('')}</div></section>`;
+}
+function reference(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.tables.map(table).join('')}</div></section>`;
+}
+function lookup(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">
+   <input class="search" id="lq" type="search" placeholder="اكتب كلمة دالة، مثلًا: رب المال أو الفلتر أو 1975" autocomplete="off" aria-label="بحث في الدلائل">
+   <div class="cnt" id="lcnt"></div>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">الدليل</th><th scope="col">المفهوم</th><th scope="col">ملاحظة</th></tr></thead><tbody id="lb"></tbody></table></div></div></section>`;
+}
+function fillLookup(rows){
+  const lb=$('#lb'),inp=$('#lq'),cnt=$('#lcnt');
+  const norm=s=>s.replace(/[ً-ْـ]/g,'').replace(/[إأآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').toLowerCase();
+  const draw=()=>{
+    const q=norm(inp.value.trim());
+    const r=rows.filter(x=>!q||norm(x.signal+' '+x.target+' '+x.note).includes(q));
+    lb.innerHTML=r.length?r.map(x=>`<tr><td class="first">${esc(x.signal)}</td><td data-l="المفهوم">${esc(x.target)}</td><td data-l="ملاحظة">${esc(x.note)}</td></tr>`).join(''):`<tr><td colspan="3" class="empty">مفيش نتيجة للكلمة دي.</td></tr>`;
+    cnt.textContent=r.length+' من '+rows.length;
+  };
+  inp.addEventListener('input',draw);draw();
+}
+
+/* ===== الكويز ===== */
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const LET=['A','B','C','D'];
+let QS={i:0,order:[],picks:[],opts:[]};
+function quizStart(){
+  QS={i:0,order:shuffle(QUIZ.questions.map((_,i)=>i)),picks:[],opts:{}};
+  quizDraw();
+}
+function quizDraw(){
+  const root=$('#quiz');
+  const n=QUIZ.questions.length;
+  if(QS.i>=n){return quizResult(root)}
+  const qi=QS.order[QS.i],q=QUIZ.questions[qi];
+  const sec=QUIZ.sections.find(s=>s.id===q.section).title;
+  const opts=QS.opts[qi]||(QS.opts[qi]=shuffle([{t:q.answer,ok:true},...q.wrong.map(w=>({t:w.option,ok:false,why:w.why}))]));
+  const pick=QS.picks[QS.i];
+  const answered=pick!==undefined;
+  const promptHtml=esc(q.prompt).replace('___',`<span class="blank${answered?(opts[pick].ok?' ok':' no'):''}">${answered?esc(q.answer):'&nbsp;&nbsp;&nbsp;&nbsp;'}</span>`);
+  root.innerHTML=`
+   <div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${QS.i+(answered?1:0)}"><i style="width:${(QS.i+(answered?1:0))/n*100}%"></i></div>
+   <div class="qmeta"><span>سؤال ${QS.i+1} من ${n}</span><span>${esc(sec)}</span></div>
+   <p class="qp">${promptHtml}</p>
+   <div class="opts">${opts.map((o,k)=>`<button type="button" class="opt${answered?(o.ok?' right':(k===pick?' wrongpick':'')):''}" data-k="${k}" ${answered?'disabled':''}><span class="L">${LET[k]}</span><span>${esc(o.t)}</span></button>`).join('')}</div>
+   ${answered?`<div class="fb" aria-live="polite">
+     <div class="v ${opts[pick].ok?'ok':'no'}">${opts[pick].ok?'صح.':'مش دقيق.'}</div>
+     <p><b>ليه الإجابة دي:</b> ${esc(q.why)}</p>
+     ${q.clue?`<p><b>الدليل:</b> ${esc(q.clue)}</p>`:''}
+     <div><b>ليه الباقي غلط:</b><ul>${opts.map((o,k)=>o.ok?'':`<li class="${k===pick?'picked':''}">${esc(o.t)}: ${esc(o.why)}${k===pick?' (اختيارك)':''}</li>`).join('')}</ul></div>
+    </div>
+    <button type="button" class="btn" id="qnext">${QS.i+1<n?'السؤال التالي':'شوف النتيجة'}</button>`:''}`;
+  root.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{QS.picks[QS.i]=+b.dataset.k;quizDraw();const nb=$('#qnext');if(nb)nb.focus({preventScroll:true})}));
+  const nb=$('#qnext');if(nb)nb.addEventListener('click',()=>{QS.i++;quizDraw();root.scrollIntoView({block:'nearest'})});
+}
+function quizResult(root){
+  const n=QUIZ.questions.length;let total=0;const per={};
+  QUIZ.sections.forEach(s=>per[s.id]={t:0,c:0});
+  QS.order.forEach((qi,i)=>{const q=QUIZ.questions[qi];const ok=QS.opts[qi][QS.picks[i]].ok;per[q.section].t++;if(ok){per[q.section].c++;total++}});
+  const rows=QUIZ.sections.filter(s=>per[s.id].t).map(s=>({s,p:Math.round(per[s.id].c/per[s.id].t*100)}));
+  const weak=rows.slice().sort((a,b)=>a.p-b.p)[0];
+  root.innerHTML=`<div class="res">
+   <div class="prog"><i style="width:100%"></i></div>
+   <div class="score"><bdi class="ltr" dir="ltr">${total} / ${n}</bdi></div>
+   <div class="bars">${rows.map(r=>`<div class="bar${r===weak&&r.p<100?' weak':''}"><span>${esc(r.s.title)}</span><span class="pb"><i style="width:${r.p}%"></i></span><span class="ltr">${r.p}%</span></div>`).join('')}</div>
+   <p>${weak.p<100?`أضعف قسم: <mark>${esc(weak.s.title)}</mark>. ارجع له في المذكرة وحاول تاني.`:'كل الأقسام 100%. ممتاز.'}</p>
+   <button type="button" class="btn" id="qrestart">ابدأ من جديد</button></div>`;
+  $('#qrestart').addEventListener('click',quizStart);
+}
+
+/* ===== التجميع ===== */
+// كل الأقسام بتترسم بترتيبها في الملف حسب نوعها (type)، حتى لو الـid مش من الأسماء الافتراضية
+const R={concepts,compare,confusing,conflicts,reference,lookup};
+const SHORT={concepts:'المفاهيم',compare:'الفروقات',confusing:'حالات بتلخبط',conflicts:'تعارضات',reference:'أرقام وجداول',lookup:'دوّر على دليل'};
+function chipName(sec){
+  const nConcepts=NOTE.sections.filter(x=>(x.type||x.id)==='concepts').length;
+  const t=(sec.type||sec.id);
+  if(t==='concepts'&&nConcepts>1){const c=String(sec.title||'').replace(/^\d+[\.\-\s]*/,'').split(/[:(،]/)[0].trim();return c.length>22?c.slice(0,21)+'…':c}
+  return SHORT[t]||sec.title;
+}
+function build(){
+  const secs=NOTE.sections.filter(x=>R[x.type||x.id]);
+  $('#sheet').innerHTML=`
+   <header class="hero"><span class="stamp">${esc(NOTE.stamp)}</span><h1>${esc(NOTE.title)}</h1><p class="sub">${esc(NOTE.subtitle)}</p></header>
+   ${summary()}${secs.map(x=>R[x.type||x.id](x)).join('')}
+   <section id="quiz-sec"><h2 id="quiz-h">اختبر نفسك</h2><div class="quiz" id="quiz"></div></section>
+   <p class="foot">ملخص مذاكرة لامتحان مصرفي أول G3</p>`;
+  $('#chips').innerHTML=[['summary','الخلاصة'],...secs.map(x=>[x.id,chipName(x)]),['quiz-sec','اختبر نفسك']]
+    .map(([id,l])=>`<a class="chip" href="#${id}" data-id="${id}">${esc(l)}</a>`).join('');
+  const lk=secs.find(x=>(x.type||x.id)==='lookup');if(lk)fillLookup(lk.rows);
+  quizStart();
+  const links=[...document.querySelectorAll('.chip')],bar=$('#chips');
+  const center=l=>{const a=l.getBoundingClientRect(),c=bar.getBoundingClientRect();bar.scrollBy({left:(a.left+a.width/2)-(c.left+c.width/2),behavior:'smooth'})};
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>{const on=l.dataset.id===e.target.id;if(on&&!l.classList.contains('on'))center(l);l.classList.toggle('on',on)})})},{rootMargin:'-80px 0px -65% 0px'});
+    links.forEach(l=>{const t=document.getElementById(l.dataset.id);if(t)io.observe(t)});
+  }
+}
+/* المظهر: زرار واحد شمس/قمر، ومحفوظ في kk-theme المشترك مع التطبيق */
+const themeBtn=$('#themeb');
+function curTheme(){try{return localStorage.getItem('kk-theme')||'system'}catch(e){return 'system'}}
+const isDark=()=>{const m=curTheme();return m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)};
+function setTheme(m){
+  const r=document.documentElement;
+  if(m==='light'||m==='dark')r.setAttribute('data-theme',m);else r.removeAttribute('data-theme');
+  try{localStorage.setItem('kk-theme',m)}catch(e){}
+  const d=isDark();themeBtn.classList.toggle('dark',d);themeBtn.setAttribute('aria-label',d?'الوضع الداكن. دوس للفاتح':'الوضع الفاتح. دوس للداكن');
+}
+themeBtn.addEventListener('click',()=>setTheme(isDark()?'light':'dark'));
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>setTheme(curTheme()));
+build();setTheme(curTheme());
+</script>
+
+<style>
+.bg3-home{position:fixed;left:max(14px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;
+ display:flex;align-items:center;gap:6px;padding:9px 16px 9px 14px;border-radius:999px;background:var(--head-bg);color:var(--head-ink);
+ font-family:var(--f-ui);font-weight:700;font-size:14px;line-height:1.3;text-decoration:none;box-shadow:var(--shadow)}
+.bg3-home svg{width:18px;height:18px}
+.bg3-home:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+</style>
+<a class="bg3-home" href="../index.html#notes" aria-label="رجوع لقائمة الملخصات">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>الملخصات</a>
+<script>
+(function(){var K="c5589";
+function g(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var all=g('bg3:notes',{}),me=all[K]||{};me.last=Date.now();all[K]=me;s('bg3:notes',all);s('bg3:lastNote',K);
+if(location.hash==='#resume'){history.replaceState(null,'',location.pathname);
+ if(me.y)requestAnimationFrame(function(){setTimeout(function(){window.scrollTo({top:me.y,behavior:'instant'})},80)})}
+var t;addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(function(){
+ var a=g('bg3:notes',{}),m=a[K]||{},h=document.documentElement.scrollHeight-innerHeight,p=h>0?Math.round(scrollY/h*100):100;
+ m.y=Math.round(scrollY);m.pct=Math.max(m.pct||0,Math.min(100,p));a[K]=m;s('bg3:notes',a)},250)},{passive:true});
+})();
+</script>

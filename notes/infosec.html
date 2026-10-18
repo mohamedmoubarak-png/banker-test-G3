@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c1f3f">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<title>ملخص أمن المعلومات</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: ورقة كشكول واحدة في النص، هامش أحمر، شريط أقسام ثابت فوق */
+:root{
+  --bg:#e6ebf3; --paper:#fbfcfe; --card:#ffffff; --card-edge:#cbd6e8;
+  --ink:#0c1f3f; --ink-2:#44577a; --line:#dbe3f0;
+  --gold:#c9a13b; --gold-ink:#7d5f0c; --gold-wash:#faf2d8; --hl:rgba(201,161,59,.38);
+  --margin:#d4584c;
+  --cat-a:#a23d35; --cat-a-wash:#fbebe9;
+  --cat-b:#1f4f9a; --cat-b-wash:#e6eefb;
+  --cat-c:#7d5f0c; --cat-c-wash:#faf2d8;
+  --ok:#1d7a4d; --no:#b3382e; --ok-wash:#e4f4ec; --no-wash:#fbebe9;
+  --head-bg:#0c1f3f; --head-ink:#f3f6fc;
+  --shadow:0 1px 0 rgba(12,31,63,.06),0 10px 28px rgba(12,31,63,.10);
+  --f-display:'Aref Ruqaa','Amiri',serif;
+  --f-body:'Tajawal','Cairo',system-ui,sans-serif;
+  --f-ui:'Cairo','Tajawal',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+    --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+    --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+    --margin:#e5675c;
+    --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+    --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+    --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+    --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+    --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#07142b; --paper:#0c1f3f; --card:#132a52; --card-edge:#2a4577;
+  --ink:#eaf0fb; --ink-2:#a9b8d3; --line:rgba(255,255,255,.07);
+  --gold-ink:#e2bf62; --gold-wash:rgba(201,161,59,.14); --hl:rgba(201,161,59,.35);
+  --margin:#e5675c;
+  --cat-a:#f19189; --cat-a-wash:rgba(241,145,137,.13);
+  --cat-b:#8fb8f4; --cat-b-wash:rgba(143,184,244,.13);
+  --cat-c:#e2bf62; --cat-c-wash:rgba(201,161,59,.14);
+  --ok:#6fd3a0; --no:#f19189; --ok-wash:rgba(111,211,160,.14); --no-wash:rgba(241,145,137,.14);
+  --head-bg:#c9a13b; --head-ink:#0c1f3f; --shadow:0 10px 28px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.95;margin:0;
+  padding-block:0 72px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));
+  -webkit-text-size-adjust:100%;text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+bdi.en,.ltr{font-family:var(--f-ui);unicode-bidi:isolate}
+.ltr{direction:ltr;text-align:left}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+
+/* شريط الأقسام */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);display:flex;gap:10px;align-items:center;padding-block:8px;border-bottom:1px solid var(--card-edge)}
+.chips{display:flex;gap:6px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none;padding-block:2px;
+  -webkit-mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to left,#000 calc(100% - 24px),transparent);padding-inline-end:20px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-family:var(--f-ui);font-size:13.5px;font-weight:600;line-height:1.4;padding:6px 13px;border-radius:999px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.chip:hover,.chip.on{background:var(--head-bg);border-color:var(--head-bg);color:var(--head-ink)}
+.themeb{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--card-edge);background:var(--card);color:var(--gold-ink);cursor:pointer;padding:0}
+.themeb svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.themeb .i-moon{display:none}
+.themeb.dark .i-sun{display:none}
+.themeb.dark .i-moon{display:block;fill:currentColor}
+
+/* الورقة */
+.sheet{position:relative;width:100%;background-color:var(--paper);
+  border-radius:6px;box-shadow:var(--shadow);padding-block:28px 40px;padding-inline-start:44px;padding-inline-end:28px;
+  display:flex;flex-direction:column;gap:44px;min-width:0}
+.sheet::before{content:"";position:absolute;inset-block:0;inset-inline-start:30px;width:0;border-inline-start:1.5px solid var(--margin);opacity:.55;pointer-events:none}
+.sheet::after{content:"";position:absolute;inset-block:0;inset-inline-start:9px;width:10px;pointer-events:none;
+  background:radial-gradient(circle at center,var(--bg) 0 3.5px,transparent 4px) center 36px/10px 96px repeat-y}
+.sheet>*{min-width:0}
+.sheet{overflow-wrap:anywhere}
+mark{background:none;color:inherit;box-shadow:inset 0 -.5em 0 var(--hl);padding-inline:1px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,6vw,42px);line-height:1.5;margin:0;text-decoration:underline wavy var(--gold);text-decoration-thickness:2px;text-underline-offset:12px;text-wrap:balance}
+section>h2{font-family:var(--f-display);font-weight:700;font-size:27px;line-height:1.6;margin:0 0 16px;display:inline-block;box-shadow:inset 0 -.32em 0 var(--hl)}
+h3{font-family:var(--f-ui);font-size:17.5px;margin:0;line-height:1.6}
+p{margin:0}
+.lead{color:var(--ink-2)}
+.hero{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.stamp{display:inline-block;transform:rotate(-2deg);font-family:var(--f-ui);font-weight:600;font-size:13px;line-height:1.5;color:var(--gold-ink);background:var(--gold-wash);border:2px solid var(--gold);border-radius:6px;padding:2px 12px}
+.sub{color:var(--ink-2);font-size:17px}
+
+/* الجداول: جدول عادي على الشاشات الواسعة، وكروت مرصوصة على الموبايل (كل خانة معاها اسم العمود) */
+.tscroll{overflow-x:auto;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.75;table-layout:auto}
+th{background:var(--head-bg);color:var(--head-ink);font-family:var(--f-ui);font-weight:700;font-size:14px;padding:10px 14px;text-align:start;vertical-align:bottom;line-height:1.5}
+td{padding:11px 14px;vertical-align:top;text-align:start;border-top:1px solid var(--card-edge);font-variant-numeric:tabular-nums}
+tbody tr:nth-child(even) td:not([class]){background:color-mix(in srgb,var(--paper) 55%,transparent)}
+td.first{background:var(--gold-wash);font-weight:700;min-width:7.5em}
+td.first small{display:block;font-weight:400;color:var(--ink-2);font-size:13px;line-height:1.5}
+td.c-a{background:var(--cat-a-wash)} td.c-b{background:var(--cat-b-wash)} td.c-c{background:var(--cat-c-wash)}
+td .ex{display:block;color:var(--ink-2);font-size:13.5px;line-height:1.6;margin-top:4px}
+.tscroll.w2 table td.first{width:38%}
+@media (max-width:700px){
+  .tscroll.stk{overflow:visible;border:0;background:none;border-radius:0}
+  .tscroll.stk table,.tscroll.stk tbody,.tscroll.stk tr,.tscroll.stk td{display:block;width:100%}
+  .tscroll.stk thead{display:none}
+  .tscroll.stk tr{border:1px solid var(--card-edge);border-radius:10px;overflow:hidden;background:var(--card);margin-bottom:10px}
+  .tscroll.stk tr:last-child{margin-bottom:0}
+  .tscroll.stk td{border-top:1px solid var(--line);padding:9px 14px;background:none}
+  .tscroll.stk td.first{border-top:0;background:var(--gold-wash);font-size:16.5px;min-width:0}
+  .tscroll.stk td.c-a{background:var(--cat-a-wash)} .tscroll.stk td.c-b{background:var(--cat-b-wash)} .tscroll.stk td.c-c{background:var(--cat-c-wash)}
+  .tscroll.stk td[data-l]:not(.first)::before{content:attr(data-l);display:block;font-family:var(--f-ui);font-size:12.5px;font-weight:700;color:var(--ink-2);line-height:1.5;margin-bottom:1px}
+  .tscroll.stk td.empty::before{display:none}
+}
+.legend{font-size:14px;color:var(--ink-2);margin-top:12px}
+.legend .k{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-inline:4px 4px}
+
+/* مربعات */
+.golden,.tip,.formula{border:2px dashed var(--gold);background:var(--gold-wash);border-radius:8px;padding:10px 16px;line-height:1.9}
+.golden b{color:var(--gold-ink)}
+.tip{border-color:var(--margin);background:var(--card)}
+.tip b{color:var(--margin)}
+.stack{display:flex;flex-direction:column;gap:16px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.card{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tag{align-self:flex-start;font-family:var(--f-ui);font-size:12px;font-weight:700;line-height:1.5;padding:1px 10px;border-radius:999px}
+.tag.a{background:var(--cat-a-wash);color:var(--cat-a)} .tag.b{background:var(--cat-b-wash);color:var(--cat-b)} .tag.c{background:var(--cat-c-wash);color:var(--cat-c)}
+.cname{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.cname .en{font-family:var(--f-ui);font-weight:700;font-size:18px;direction:ltr}
+.cname .ar{font-size:16px;color:var(--ink-2)}
+.formula{display:flex;flex-direction:column;gap:6px;padding:10px 12px}
+.frow{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.dot{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-size:13px;font-weight:700;color:var(--paper);margin-top:2px}
+.dot.p{background:var(--ok)} .dot.m{background:var(--no)} .dot.q{background:var(--cat-b)}
+h4{font-family:var(--f-ui);font-size:14px;margin:0;color:var(--ink-2);line-height:1.6}
+ul.plain{margin:0;padding-inline-start:20px;display:flex;flex-direction:column}
+.exs{display:flex;flex-direction:column;gap:6px}
+.exi{display:flex;flex-direction:column;border-inline-start:3px solid var(--card-edge);padding-inline-start:12px;line-height:1.7}
+.exi .a2{color:var(--ink-2);font-size:14px}
+.sig{display:flex;flex-wrap:wrap;gap:6px}
+.sig span{direction:ltr;font-family:var(--f-ui);font-size:13px;line-height:1.5;padding:2px 10px;border-radius:999px;background:var(--gold-wash);color:var(--gold-ink);border:1px solid var(--gold)}
+.sig span.rtl{direction:rtl;font-family:var(--f-body)}
+.cmp-cols{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.cmp-col{border-radius:6px;border:1px solid var(--card-edge);padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.cmp-col.a{background:var(--cat-a-wash)} .cmp-col.b{background:var(--cat-b-wash)} .cmp-col.c{background:var(--cat-c-wash)}
+.cmp-col h4{color:var(--ink);font-size:15px}
+.cmp-title{direction:ltr;text-align:left;font-family:var(--f-ui);font-weight:700;font-size:18px}
+.cl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.cl li{display:flex;gap:10px;align-items:flex-start;line-height:1.7}
+.cl .m{flex:none;width:22px;text-align:center;font-family:var(--f-ui);font-weight:700}
+.cl .ok .m{color:var(--ok)} .cl .no .m{color:var(--no)} .cl .nt .m{color:var(--cat-c)}
+.cl .no .t{text-decoration:line-through;text-decoration-color:var(--no)}
+.cl .note{display:block;font-size:13px;color:var(--ink-2);line-height:1.6}
+
+/* بحث */
+.search{width:100%;font:inherit;font-family:var(--f-ui);font-size:16px;line-height:1.5;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--card);color:var(--ink)}
+.search::placeholder{color:var(--ink-2)}
+.cnt{font-size:13px;color:var(--ink-2);font-family:var(--f-ui)}
+.empty{padding:16px;color:var(--ink-2)}
+
+/* كويز */
+.quiz{background:var(--card);border:1px solid var(--card-edge);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:16px}
+.prog{height:8px;border-radius:999px;background:var(--line);overflow:hidden;border:1px solid var(--card-edge)}
+.prog i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.qmeta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-ui);font-size:13px;color:var(--ink-2)}
+.qp{font-size:18px;line-height:1.9;font-weight:500}
+.qp .blank{display:inline-block;min-width:80px;border-bottom:2px dashed var(--gold);text-align:center;padding-inline:6px}
+.qp .blank.ok{border-bottom:2px solid var(--ok);color:var(--ok);font-weight:700}
+.qp .blank.no{border-bottom:2px solid var(--no);color:var(--no);font-weight:700}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:start;width:100%;font:inherit;line-height:1.7;padding:10px 14px;border-radius:8px;border:1px solid var(--card-edge);background:var(--paper);color:var(--ink);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--gold);background:var(--gold-wash)}
+.opt .L{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-ui);font-weight:700;font-size:13px;line-height:1;background:var(--line);color:var(--ink);margin-top:2px}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--ok-wash);border-color:var(--ok)}
+.opt.wrongpick{background:var(--no-wash);border-color:var(--no)}
+.fb{display:flex;flex-direction:column;gap:10px;border-radius:8px;padding:12px 16px;background:var(--gold-wash);border:1px dashed var(--gold)}
+.fb .v{font-weight:700;font-family:var(--f-ui)}
+.fb .v.ok{color:var(--ok)} .fb .v.no{color:var(--no)}
+.fb ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:4px}
+.fb li.picked{font-weight:700}
+.btn{align-self:flex-start;font-family:var(--f-ui);font-weight:600;font-size:15px;line-height:1.4;padding:10px 20px;border-radius:8px;border:0;background:var(--head-bg);color:var(--head-ink);cursor:pointer}
+.res{display:flex;flex-direction:column;gap:12px}
+.score{font-family:var(--f-display);font-size:40px;line-height:1.4}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(90px,140px) 1fr 44px;gap:10px;align-items:center;font-size:14px;line-height:1.5}
+.bar .pb{height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar .pb i{display:block;height:100%;background:var(--cat-b)}
+.bar.weak .pb i{background:var(--no)}
+.srcl{font-family:var(--f-ui);font-size:12px;line-height:1.6;color:var(--ink-2);margin:0}
+.foot{font-size:14px;color:var(--ink-2)}
+@media (max-width:600px){
+  body{padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+  .sheet{padding-block:22px 32px;padding-inline-start:26px;padding-inline-end:14px;gap:38px}
+  .sheet::before{inset-inline-start:16px}
+  .sheet::after{display:none}
+  .card{padding:14px}
+  section>h2{font-size:25px}
+  .bar{grid-template-columns:84px 1fr 40px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.prog i{transition:none}}
+</style>
+
+<div class="wrap">
+  <nav class="nav" aria-label="أقسام المذكرة">
+    <div class="chips" id="chips"></div>
+    <button type="button" class="themeb" id="themeb" aria-label="المظهر">
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+    </button>
+  </nav>
+  <main class="sheet" id="sheet" dir="rtl" lang="ar"></main>
+</div>
+
+<script>
+/* ===== المحتوى ===== */
+const NOTE = {
+  title:"أمن وسرية المعلومات: مذكرة واحدة",
+  subtitle:"أمن المعلومات 2024 (برنامج التوعية) + أمن وسرية المعلومات 1 + مفتاح محاكي الموضوعات الإلزامية سبتمبر 2025",
+  stamp:"مذكرة · Information Security",
+  categories:{a:"المبادئ والبيانات", b:"كلمات المرور والدخول", c:"الهجمات والإبلاغ"},
+  summary:{
+    lead:"أمن المعلومات = حماية **سرية** و**نزاهة** و**إتاحة** الأصول المعلوماتية (مثلث **CIA**). و**الجميع مسؤولون** عن أمن المعلومات داخل البنك، وأي حادث يتبلغ **فورًا** لفريق **SOC**.",
+    colHeaders:["إيه هو","المفتاح","رقم أو مثال"],
+    rows:[
+      {head:"CIA", sub:"الركائز",
+       cells:[{main:"**C** السرية · **I** النزاهة · **A** الإتاحة", ex:"الإطار الأساسي لتقييم الضوابط", cat:"a"},
+              {main:"**I** = ضمان **صحة** المعلومات دائمًا", ex:"سؤال المحاكي", cat:"a"},
+              {main:"السرية على أساس **الحاجة إلى المعرفة**", ex:"Need-to-know", cat:"a"}]},
+      {head:"تصنيف البيانات", sub:"4 مستويات",
+       cells:[{main:"**عامة ← داخلية ← سرية ← مقيدة**", ex:"من الأقل للأعلى حساسية", cat:"a"},
+              {main:"بيانات حامل البطاقة **سرية**", ex:"PCI DSS", cat:"a"},
+              {main:"الإخفاء: **أول 6 وآخر 4**", ex:"123456 ***** 3456", cat:"a"}]},
+      {head:"كلمة المرور", sub:"سياسة البنك",
+       cells:[{main:"**8** أحرف · تغيير كل **90** يوم", ex:"آخر **6** ممنوعة", cat:"b"},
+              {main:"قفل بعد **5** محاولات فاشلة", ex:"لا تشاركها مع أي أحد", cat:"b"},
+              {main:"أنت مسؤول عن **كل** ما يتنفذ باسم مستخدمك", ex:"ولا تكتبها في أي مكان", cat:"b"}]},
+      {head:"الهجمات", sub:"الهندسة الاجتماعية",
+       cells:[{main:"Phishing بريد · **Smishing** رسائل · **Vishing** مكالمة", ex:"+ QR + السوشيال ميديا", cat:"c"},
+              {main:"حادث أو سلوك مشبوه: **SOC فورًا**", ex:"socteam@banquemisr.com", cat:"c"},
+              {main:"لا تتجاهله ولا تحاول **إصلاحه بنفسك**", ex:"", cat:"c"}]}
+    ],
+    legend:"الأحمر = المبادئ والبيانات · الأزرق = كلمات المرور والدخول · الذهبي = الهجمات والإبلاغ.",
+    goldenRule:"**ما تفتحش، ما تشاركش، ما تصلحش بنفسك، بلّغ فورًا.** وأي طلب لكلمة مرورك مرفوض حتى لو جه من زميل حقيقي."
+  },
+  sections:[
+    {type:"concepts", id:"concepts", title:"المفاهيم الأساسية", items:[
+      {nameEn:"CIA Triad", nameAr:"مثلث CIA", cat:"a",
+       formula:[{sign:"+",text:"**C – السرية**: إتاحة المعلومات **فقط لمن لهم حق الوصول** (الحاجة إلى المعرفة)"},
+                {sign:"+",text:"**I – النزاهة**: **ضمان صحة المعلومات دائمًا**، ودقتها واتساقها ضد التعديل غير المصرح به"},
+                {sign:"+",text:"**A – الإتاحة**: ضمان توافر المعلومات **للمصرح لهم في جميع الأوقات** مع استمرارية الخدمات"}],
+       uses:["أشهر سؤال في المادة"],
+       examples:[{en:"المحاكي",ar:"'يرمز اختصار I إلى' = **ضمان صحة المعلومات دائمًا**"},
+                 {en:"أهمية أمن المعلومات",ar:"حماية الأصول، الحد من المخاطر السيبرانية، الحفاظ على السمعة، دعم رقمنة الخدمات، الامتثال للمركزي والمعايير الدولية"}],
+       signals:["لمن لهم حق الوصول فقط","صحة المعلومات","في جميع الأوقات"],
+       tip:"**فقط** ← السرية · **صحة** ← النزاهة · **جميع الأوقات** ← الإتاحة.",
+       src:"أمن المعلومات 2024 ص2–5 · أمن وسرية المعلومات 1 ش3 · مفتاح المحاكي"},
+      {nameEn:"Data Classification", nameAr:"تصنيف البيانات والتعامل مع السري", cat:"a",
+       formula:[{sign:"+",text:"**عامة**: بلا بيانات حساسة، يصل لها أي شخص دون مخاطرة كبيرة"},
+                {sign:"+",text:"**داخلية**: للاستخدام الداخلي و**غير مسموح بتداولها خارج البنك**"},
+                {sign:"+",text:"**سرية**: مقصورة على فرق أو أفراد أو أقسام محددة"},
+                {sign:"+",text:"**مقيدة / محظورة**: أعلى حساسية، الوصول للي **محتاجها بصفة خاصة** فقط"}],
+       uses:["كل ورقة أو ملف بتتعامل معه"],
+       examples:[{en:"التخزين",ar:"لا تخزن إلا للضرورة وبشكل آمن (مشفرة أو على أجهزة وخوادم البنك)"},
+                 {en:"الإرسال",ar:"لا ترسل بالبريد إلا **مشفرة أو محمية بكلمة مرور**"},
+                 {en:"الورق",ar:"علّمها بـ(سري)، اجمعها من الطابعة فورًا، **افرمها** بعد انتهاء الغرض، ولا تسيبها على المكتب"},
+                 {en:"تخزين مستندات سرية لطبيعة عملك",ar:"أخطر **مكتب الخدمة**"}],
+       signals:["عامة","داخلية","سرية","مقيدة"],
+       tip:"الترتيب من الأقل للأعلى: **عامة ← داخلية ← سرية ← مقيدة**.",
+       src:"أمن المعلومات 2024 ص11–15 · أمن وسرية المعلومات 1 ش7"},
+      {nameEn:"Cardholder Data & PCI DSS", nameAr:"بيانات البطاقات و PCI DSS", cat:"a",
+       formula:[{sign:"+",text:"بيانات حامل البطاقة = **رقم PAN كامل** أو معه **الاسم / تاريخ الانتهاء / رمز الخدمة**، وتُصنف **سرية**"},
+                {sign:"+",text:"PCI DSS نتيجة تعاون **5 شركات**: فيزا، ماستركارد، أمريكان إكسبريس، ديسكفر، JCB"},
+                {sign:"+",text:"**12** متطلبًا رئيسيًا · **78** أساسيًا · **400** عملية اختبار"},
+                {sign:"-",text:"لا تخزنها على جهازك، لا ترسلها بالبريد، لا تاخدها البيت، احفظ الملفات في **خزائن مقفولة**"}],
+       uses:["أي تعامل مع رقم بطاقة"],
+       examples:[{en:"رقم بطاقة ظاهر بالكامل في تطبيق",ar:"اتصل بـ **قطاع تكنولوجيا المعلومات** فورًا لإخفائه"},
+                 {en:"شكل الإخفاء",ar:"**أول 6 وآخر 4** فقط"},
+                 {en:"عدم الامتثال",ar:"غرامات من العلامات التجارية، عدم القدرة على قبول البطاقات، والإضرار بالسمعة"}],
+       signals:["PAN","Masked","12 / 78 / 400","5 شركات"],
+       tip:"رقم بطاقة ظاهر = **IT** مش SOC.",
+       src:"أمن المعلومات 2024 ص16 · أمن وسرية المعلومات 1 ش8–11"},
+      {nameEn:"Password Policy", nameAr:"كلمة المرور واسم المستخدم", cat:"b",
+       formula:[{sign:"+",text:"**8** أحرف على الأقل · تغيير كل **90** يومًا · لا تُستخدم **آخر 6** · قفل بعد **5** محاولات فاشلة"},
+                {sign:"+",text:"استخدم **عبارات** سهلة التذكر صعبة التخمين، وغيّرها فورًا لو شكيت في اختراقها"},
+                {sign:"-",text:"لا تكتبها، لا تشاركها **أبدًا مع أي أحد**، لا تخزنها كنص واضح"},
+                {sign:"+",text:"أنت مسؤول عن **كل الإجراءات** المنفذة باسم المستخدم الخاص بك وعن حمايته"}],
+       uses:["الدخول على الأنظمة"],
+       examples:[{en:"أفضل كلمة مرور في المحاكي",ar:"**silly-bird-rainfall-music** (عبارة طويلة من كلمات عشوائية)"},
+                 {en:"كلمة مرور مستقلة لكل برنامج",ar:"تحمي **باقي حساباتك** لو واحد اتخترق"},
+                 {en:"برنامج إدارة كلمات المرور",ar:"**حفظها واستعادتها وإنتاجها بطريقة آمنة**"},
+                 {en:"عميل كلمك وإنت في إجازة",ar:"الممنوع: تدي زميل اليوزر وكلمة المرور يدخل على جهازك"}],
+       signals:["8","90","6","5","عبارات","لا تشاركها"],
+       tip:"**8 · 90 · 6 · 5** — احفظهم بالترتيب ده: طول، مدة، تاريخ، قفل.",
+       src:"أمن المعلومات 2024 ص17–19 · مفتاح المحاكي"},
+      {nameEn:"Safe Behaviour", nameAr:"كيف تبقى آمنًا", cat:"b",
+       formula:[{sign:"+",text:"اقفل الشاشة لما تسيب مكتبك، وحافظ على **المكتب النظيف**"},
+                {sign:"+",text:"فعّل **المصادقة متعددة العوامل**، وغيّر كلمات المرور بانتظام"},
+                {sign:"-",text:"تجنب **الأجهزة الشخصية** في العمل، ولا تضغط روابط غير موثوقة، ولا تدي بياناتك لموقع غير آمن"},
+                {sign:"+",text:"اقرأ السياسة على الشبكة الداخلية، و**أقرّ كتابيًا سنويًا** بقراءتها، واحضر جلسات التوعية"}],
+       uses:["السلوك اليومي"],
+       examples:[{en:"المكتب النظيف",ar:"مكتب خالٍ من المستندات، الأدراج مقفولة، فرم ما لا تحتاجه، مسح لوحات غرف الاجتماعات"},
+                 {en:"الأمن المادي",ar:"ارتدِ شارتك ولا تشاركها، ابعد عن اللي بيراقب شاشتك، اتبع إجراءات الزوار"},
+                 {en:"USB أو CD ملقاة",ar:"لا تستخدمها وبلّغ **TRM Group**"},
+                 {en:"شبكة واي فاي في فندق مع اتصال مشفر",ar:"**الاتصال من خلال VPN** (مفتاح المحاكي)"},
+                 {en:"السوشيال ميديا",ar:"لا تبالغ في المشاركة، و**المعلومات الحساسة ما تتنشرش أصلًا** (مفتاح المحاكي)"}],
+       signals:["المكتب النظيف","MFA","إقرار سنوي","TRM Group","VPN"],
+       tip:"أفضل حماية لمعلومة حساسة على السوشيال: **ما تنشرهاش**.",
+       src:"أمن المعلومات 2024 ص34–39 · أمن وسرية المعلومات 1 ش12–17 · مفتاح المحاكي"},
+      {nameEn:"Social Engineering", nameAr:"الهندسة الاجتماعية والتصيد", cat:"c",
+       formula:[{sign:"+",text:"هجوم يعتمد على **العنصر البشري** لخداع الشخص لإجراء خاطئ (ضغط رابط، تنزيل برنامج ضار)"},
+                {sign:"+",text:"**Phishing** بالبريد (يبان إنه من البنك أو Google أو مديرك) · **Smishing** بالرسائل النصية · **Vishing** بالمكالمة"},
+                {sign:"+",text:"**QR مزيف** فوق الأصلي · **حسابات مزيفة** على السوشيال ميديا"},
+                {sign:"?",text:"Vishing يعتمد على **الإلحاح** و**انتحال هوية شخص آخر**"}],
+       uses:["أي رسالة أو مكالمة غريبة"],
+       examples:[{en:"بريد من زميل على gmail شخصي",ar:"**تصيد احتيالي** (مفتاح المحاكي)"},
+                 {en:"رابط لتحديث سياسة البنك",ar:"ادخل من **موقع البنك المحفوظ في المفضلة**، مش من الرابط ولا من Google"},
+                 {en:"'زميل الدعم الفني' عايز رقمك السري فورًا",ar:"**تجاهل الرسالة حتى لو حقيقية**"},
+                 {en:"مرفق File.DOCX.exe",ar:"**إلغاء الرسالة** (امتداد مزدوج)"},
+                 {en:"HTTPS",ar:"مش كل موقع عليه HTTPS **موثوق** (العبارة خاطئة)"}],
+       signals:["إلحاح","انتحال","gmail شخصي","امتداد مزدوج","QR"],
+       tip:"**الإلحاح** وطلب **بيانات سرية** علامتين كفاية إنك ترفض.",
+       src:"أمن المعلومات 2024 ص20–29 · مفتاح المحاكي"},
+      {nameEn:"Incident Reporting", nameAr:"الإبلاغ عن الحوادث الأمنية", cat:"c",
+       formula:[{sign:"+",text:"مؤشرات: تغيير كلمة مرور **ما عملتهوش**، Pop-ups غريبة، أيقونات جديدة، برامج ضارة، تعديل أو حذف ملفات، بريد عشوائي"},
+                {sign:"+",text:"الإجراء: اتصل بفريق **SOC** فورًا: socteam@banquemisr.com"},
+                {sign:"-",text:"**لا تتجاهلها ولا تحاول إصلاحها بنفسك**"},
+                {sign:"+",text:"الإبلاغ عن **جميع الحوادث** إلى فريق أمن المعلومات"}],
+       uses:["أي حادث أمني"],
+       examples:[{en:"بريد فيه بيانات سرية اتبعت بالغلط لشخص غير مصرح له",ar:"إبلاغ **مسئول أمن المعلومات بالبنك** (مفتاح المحاكي)"},
+                 {en:"حجم التهديد",ar:"**1,315,425** محاولة هجوم على بنك مصر في الربعين الأول والثاني 2023، واتصدّى لها كلها"}],
+       signals:["SOC","فورًا","لا تصلحه بنفسك"],
+       tip:"بيانات سرية خرجت بالغلط = **أمن المعلومات** (مش المدير ولا الالتزام).",
+       src:"أمن المعلومات 2024 ص32–33، 39 · مفتاح المحاكي"},
+      {nameEn:"E-Signature", nameAr:"التوقيع الإلكتروني", cat:"c",
+       formula:[{sign:"+",text:"يضمن **عدم الإنكار وسلامة البيانات**"},
+                {sign:"-",text:"مش هو اللي بيحقق **السرية** أو **التشفير** أو **النسخ الاحتياطي**"}],
+       uses:["سؤال مباشر في المحاكي"],
+       examples:[{en:"المحاكي",ar:"'التوقيع الإلكتروني يضمن' = **عدم الإنكار وسلامة البيانات**"}],
+       signals:["عدم الإنكار","سلامة البيانات"],
+       tip:"معلومة من مفتاح المحاكي، مش مكتوبة في شرائح المادة.",
+       src:"مفتاح المحاكي"}
+    ]},
+    {type:"compare", id:"compare", title:"الفروقات", items:[
+      {title:"Phishing vs Smishing vs Vishing", cols:[
+        {name:"Phishing / Smishing", cat:"c", when:"**مكتوب**",
+         ex:["Phishing: بريد إلكتروني","Smishing: رسائل نصية SMS","الناس بترد على SMS أسرع"]},
+        {name:"Vishing", cat:"c", when:"**مكالمة**",
+         ex:["مكالمة هاتفية","إلحاح وانتحال هوية","للحصول على بيانات حساسة"]}],
+       golden:"**S** = SMS · **V** = Voice."},
+      {title:"Who to report to", cols:[
+        {name:"SOC / أمن المعلومات", cat:"c", when:"حادث أمني",
+         ex:["سلوك مشبوه على الجهاز","بريد سري اتبعت بالغلط","كل الحوادث"]},
+        {name:"جهات تانية", cat:"c", when:"حالات محددة",
+         ex:["رقم بطاقة ظاهر: تكنولوجيا المعلومات","USB ملقاة: TRM Group","تخزين مستندات سرية: مكتب الخدمة"]}],
+       golden:"الأصل **SOC**، والاستثناءات: بطاقة ← IT، USB ← TRM، تخزين سري ← مكتب الخدمة."}
+    ]},
+    {type:"confusing", id:"confusing", title:"حالات بتلخبط", items:[
+      {title:"حرف CIA",
+       explain:"المحاكي سأل عن **I**، وناس كتير بتختار الإتاحة.",
+       examples:[{text:"إتاحة المعلومات لمن لهم حق الوصول فقط",note:"C السرية",correct:true},
+                 {text:"ضمان صحة المعلومات دائمًا",note:"I النزاهة",correct:true},
+                 {text:"ضمان توافر المعلومات في جميع الأوقات",note:"A الإتاحة",correct:true},
+                 {text:"Identity أو Internet",note:"مش من CIA",correct:false}]},
+      {title:"رسالة تطلب بياناتك",
+       explain:"الطلب نفسه هو العلامة، حتى لو المرسل حقيقي.",
+       examples:[{text:"الدعم الفني يطلب رقمك السري",note:"تجاهل حتى لو حقيقية",correct:true},
+                 {text:"الرد برقمك السري",note:"ممنوع",correct:false},
+                 {text:"رابط تحديث سياسة",note:"ادخل من المفضلة",correct:true},
+                 {text:"البحث عن موقع البنك في Google",note:"مش الطريقة الأأمن",correct:false}]},
+      {title:"كلمة المرور الأفضل",
+       explain:"المحاكي اعتبر العبارة الطويلة أفضل من الرموز القصيرة.",
+       examples:[{text:"silly-bird-rainfall-music",note:"الأفضل",correct:true},
+                 {text:"GazH]7J2Y#",note:"قصيرة وصعبة التذكر",correct:false},
+                 {text:"April121985",note:"اسم وتاريخ",correct:false},
+                 {text:"نفس كلمة المرور لكل البرامج",note:"خطأ: اختراق واحد يفتح الباقي",correct:false}]}
+    ]},
+    {type:"conflicts", id:"conflicts", title:"تنبيهات على المصادر", items:[
+      {title:"حاجات من المحاكي مش في المادة",
+       text:"VPN، التوقيع الإلكتروني، HTTPS، الامتداد المزدوج، برنامج إدارة كلمات المرور، كلمة المرور المستقلة لكل برنامج، والبريد المرسل بالغلط جاية من **مفتاح محاكي سبتمبر 2025**. المادة نفسها مافيهاش Ransomware ولا تفاصيل MFA ولا مدة قفل الحساب."},
+      {title:"بيانات البطاقة: سرية ولا مقيدة؟",
+       text:"النص بيقول **سرية**، وعنوان الشريحة في الملف التاني بيقول 'مقيدة'. لو السؤال 'بيانات حامل البطاقة تصنف' اختار **سرية**."}
+    ]},
+    {type:"reference", id:"ref", title:"أرقام وجداول مرجعية", tables:[
+      {id:"nums", title:"أرقام لازم تحفظها", headers:["البند","القيمة"],
+       rows:[["طول كلمة المرور","8 أحرف على الأقل"],["تغيير كلمة المرور","كل 90 يومًا"],["كلمات مرور ممنوع تكرارها","آخر 6"],
+             ["قفل الحساب","بعد 5 محاولات فاشلة"],["إخفاء رقم البطاقة","أول 6 وآخر 4"],["مستويات تصنيف البيانات","4"],
+             ["PCI DSS","12 رئيسي · 78 أساسي · 400 اختبار · 5 شركات"],["إقرار قراءة السياسة","كتابيًا سنويًا"],
+             ["محاولات الهجوم على بنك مصر","1,315,425 (ر1+ر2 2023)"],["تكلفة الجرائم الإلكترونية المتوقعة","10.5 تريليون $ بحلول 2025"]]},
+      {id:"who", title:"لمين أبلّغ؟", headers:["الموقف","الجهة"],
+       rows:[["سلوك مشبوه أو حادث أمني","فريق SOC فورًا"],["كل الحوادث","فريق أمن المعلومات"],["بريد سري اتبعت بالغلط","مسئول أمن المعلومات (المحاكي)"],
+             ["رقم بطاقة ظاهر بالكامل","قطاع تكنولوجيا المعلومات"],["USB أو CD ملقاة","TRM Group"],["تخزين مستندات سرية","مكتب الخدمة"]]}
+    ]},
+    {type:"lookup", id:"lookup", title:"دوّر على دليل", rows:[
+      {signal:"لمن لهم حق الوصول فقط", target:"السرية C", note:""},
+      {signal:"صحة المعلومات دائمًا", target:"النزاهة I", note:""},
+      {signal:"في جميع الأوقات", target:"الإتاحة A", note:""},
+      {signal:"غير مسموح بتداولها خارج البنك", target:"بيانات داخلية", note:""},
+      {signal:"أعلى حساسية", target:"بيانات مقيدة", note:""},
+      {signal:"8 / 90 / 6 / 5", target:"سياسة كلمة المرور", note:""},
+      {signal:"عبارة طويلة من كلمات", target:"أفضل كلمة مرور", note:""},
+      {signal:"SMS", target:"Smishing", note:""},
+      {signal:"مكالمة + إلحاح", target:"Vishing", note:""},
+      {signal:"ملصق فوق ملصق", target:"احتيال QR", note:""},
+      {signal:"gmail شخصي لزميل", target:"تصيد احتيالي", note:""},
+      {signal:".exe بعد امتداد", target:"إلغاء الرسالة", note:""},
+      {signal:"واي فاي عام", target:"VPN", note:""},
+      {signal:"عدم الإنكار", target:"التوقيع الإلكتروني", note:""},
+      {signal:"socteam@banquemisr.com", target:"الإبلاغ عن الحوادث", note:""},
+      {signal:"أول 6 وآخر 4", target:"إخفاء رقم البطاقة", note:""},
+      {signal:"12 / 78 / 400", target:"PCI DSS", note:""},
+      {signal:"TRM Group", target:"وسائط خارجية ملقاة", note:""}
+    ]}
+  ]
+};
+
+const QUIZ = {
+  sections:[{id:"s1",title:"المبادئ والبيانات"},{id:"s2",title:"كلمات المرور"},{id:"s3",title:"الهجمات"},{id:"s4",title:"الإبلاغ"}],
+  questions:[
+   {id:"q1",section:"s1",prompt:"يرمز اختصار I في مثلث CIA بأمن المعلومات إلى:",answer:"ضمان صحة المعلومات دائمًا",clue:"Integrity.",
+    why:"I = Integrity أي النزاهة: إن المعلومة تفضل صحيحة ومحدش يعدلها من غير تصريح. مثلًا رصيد العميل لازم يكون هو هو اللي في النظام بدون تلاعب.",
+    wrong:[{option:"إتاحة المعلومات لمن لهم حق الوصول فقط",why:"ده تعريف C (السرية): مين يشوف المعلومة."},{option:"ضمان توافر المعلومات في جميع الأوقات",why:"ده تعريف A (الإتاحة): إن النظام يكون شغال وقت الحاجة."},{option:"التحقق من هوية المستخدم",why:"ده Authentication، ومش من حروف CIA."}]},
+   {id:"q2",section:"s1",prompt:"يرمز اختصار A في مثلث CIA إلى:",answer:"ضمان توافر المعلومات للمصرح لهم في جميع الأوقات",clue:"Availability.",
+    why:"A = Availability: المعلومة والنظام يكونوا متاحين للمستخدم المصرح له وقت ما يحتاجهم، زي إن نظام الفرع ما يقعش وقت خدمة العملاء.",
+    wrong:[{option:"ضمان صحة المعلومات",why:"دي النزاهة I."},{option:"إتاحة المعلومات لمن لهم حق الوصول فقط",why:"دي السرية C؛ كلمة 'فقط' هي المفتاح."},{option:"المصادقة",why:"مش من حروف المثلث."}]},
+   {id:"q3",section:"s1",prompt:"البيانات المخصصة للاستخدام الداخلي وغير المسموح بتداولها خارج البنك:",answer:"البيانات الداخلية",clue:"المستوى التاني.",
+    why:"التصنيف متدرج: العامة لأي حد، والداخلية لموظفي البنك كلهم بس ما تخرجش برّه، والسرية لفرق محددة، والمقيدة لأضيق نطاق. الوصف هنا 'داخل البنك كله' = داخلية.",
+    wrong:[{option:"البيانات العامة",why:"العامة ممكن أي حد برّه البنك يشوفها."},{option:"البيانات السرية",why:"السرية مقصورة على أقسام أو أفراد محددين، مش كل البنك."},{option:"البيانات المقيدة",why:"أعلى مستوى، لأفراد محتاجينها بصفة خاصة."}]},
+   {id:"q4",section:"s1",prompt:"عند إخفاء رقم البطاقة يظهر:",answer:"أول 6 وآخر 4 أرقام",clue:"Masking.",
+    why:"أول 6 أرقام بتحدد البنك المُصدر ونوع البطاقة، وآخر 4 بتكفي للتعرف على البطاقة مع العميل. الباقي بيتخفى عشان الرقم الكامل ما يتسربش.",
+    wrong:[{option:"آخر 4 فقط",why:"ده شكل شائع في الإيصالات، لكن القاعدة في المادة أول 6 وآخر 4."},{option:"أول 4 وآخر 6",why:"معكوس."},{option:"الرقم كاملًا للموظف المختص",why:"الرقم الكامل ما يظهرش في الأنظمة، ولو ظهر لازم يتبلغ عنه."}]},
+   {id:"q5",section:"s1",prompt:"وجدت رقم بطاقة ظاهرًا بالكامل في أحد التطبيقات. تتصل بـ:",answer:"قطاع تكنولوجيا المعلومات",clue:"لإخفاء الرقم.",
+    why:"دي مش هجمة، دي مشكلة في إعداد التطبيق نفسه. اللي يقدر يعدّل التطبيق ويخفي الرقم هو قطاع تكنولوجيا المعلومات.",
+    wrong:[{option:"فريق SOC",why:"SOC للحوادث والسلوك المشبوه زي الاختراق، مش لتعديل إعدادات تطبيق."},{option:"TRM Group",why:"للوسائط الخارجية الملقاة زي الفلاشات."},{option:"مكتب الخدمة",why:"لو شغلك محتاج تخزين مستندات سرية."}]},
+   {id:"q6",section:"s2",prompt:"الحد الأدنى لطول كلمة المرور وفق سياسة البنك:",answer:"8 أحرف",clue:"8 · 90 · 6 · 5.",
+    why:"سياسة البنك: 8 أحرف على الأقل، وتتغير كل 90 يوم، وممنوع تكرار آخر 6، والحساب يتقفل بعد 5 محاولات غلط.",
+    wrong:[{option:"6 أحرف",why:"الرقم 6 خاص بعدد كلمات المرور القديمة اللي ما ينفعش تتكرر."},{option:"10 أحرف",why:"مش رقم السياسة."},{option:"12 حرفًا",why:"مش رقم السياسة."}]},
+   {id:"q7",section:"s2",prompt:"يتم قفل الحساب بعد:",answer:"5 محاولات دخول فاشلة",clue:"والتغيير كل 90 يوم.",
+    why:"القفل بعد 5 محاولات بيمنع حد من تجربة كلمات مرور كتير لحد ما يخمّن الصح، ويدّي فرصة كافية للموظف لو نسي.",
+    wrong:[{option:"3 محاولات",why:"مش رقم السياسة."},{option:"6 محاولات",why:"6 خاصة بتاريخ كلمات المرور."},{option:"10 محاولات",why:"مش رقم السياسة."}]},
+   {id:"q8",section:"s2",prompt:"أي الخيارات يُعد نتيجة استخدام أفضل طرق اختيار كلمة المرور؟",answer:"silly-bird-rainfall-music",clue:"عبارة طويلة.",
+    why:"عبارة من كلمات عشوائية طويلة (25 حرف) صعب جدًا تتخمن لأن طولها كبير، وسهل تفتكرها فمش هتكتبها على ورقة. ده المعنى اللي المادة بتقوله: سهلة التذكر صعبة التخمين.",
+    wrong:[{option:"GazH]7J2Y#",why:"معقدة لكنها قصيرة وصعب تتحفظ، فالموظف غالبًا هيكتبها في مكان، وده ممنوع."},{option:"April121985",why:"شهر وتاريخ ميلاد، سهل جدًا يتخمن."},{option:"Password123",why:"من أشهر كلمات المرور المخترقة."}]},
+   {id:"q9",section:"s2",prompt:"الفائدة من استخدام كلمة مرور مستقلة لكل برنامج:",answer:"حماية باقي حساباتك عند اختراق أي منها",clue:"عزل الخطر.",
+    why:"لو كلمة مرور واحدة لكل حاجة، أول ما موقع واحد يتسرب، المخترق يجربها على بريدك وحسابك البنكي. كلمة مستقلة لكل برنامج بتحصر الضرر في البرنامج اللي اتخترق.",
+    wrong:[{option:"إمكانية حفظ كل برنامج بكلمته",why:"ده وصف للحالة، مش الفايدة الأمنية."},{option:"تسريع الدخول",why:"ملهاش علاقة بالسرعة."},{option:"الاستغناء عن التغيير الدوري",why:"التغيير كل 90 يوم مطلوب في كل الأحوال."}]},
+   {id:"q10",section:"s2",prompt:"ما أهمية برنامج إدارة كلمات المرور؟",answer:"حفظ كلمات المرور واستعادتها وإنتاجها بطريقة آمنة",clue:"خزنة مشفرة.",
+    why:"البرنامج بيخزن كلماتك مشفرة، ويولّد كلمات قوية ومختلفة لكل موقع، ويرجّعها لك وقت الحاجة. ده بيحل مشكلة إنك تحفظ كلمات كتير معقدة.",
+    wrong:[{option:"منع سرقتها عند اختراق مزود الإنترنت",why:"البرنامج على جهازك، وما يتحكمش في أمان شركة الإنترنت."},{option:"منع الآخرين من استخدام نفس كلماتك",why:"ما يقدرش يتحكم في اختيارات غيرك."},{option:"إلغاء الحاجة لكلمة مرور",why:"لسه محتاج كلمة مرور رئيسية للبرنامج نفسه."}]},
+   {id:"q11",section:"s2",prompt:"عميل اتصل بك وأنت في إجازة ويحتاج خدمة تتطلب الدخول على جهازك. التصرف الذي يجب تجنبه:",answer:"إعطاء زميل اليوزر ورقم المستخدم للدخول على جهازك",clue:"أنت مسؤول عن كل ما يتنفذ باسمك.",
+    why:"أي عملية بتتنفذ باليوزر بتاعك بتتحسب عليك إنت، حتى لو زميلك اللي عملها. ومشاركة بيانات الدخول ممنوعة نهائيًا مع أي حد.",
+    wrong:[{option:"توجيهه للخط الساخن",why:"تصرف سليم، قناة رسمية."},{option:"توجيهه لزميل في الفرع",why:"الزميل يخدمه باليوزر بتاعه هو، وده سليم."},{option:"طلب الانتظار لعودتك",why:"مقبول أمنيًا."}]},
+   {id:"q12",section:"s3",prompt:"التصيد الاحتيالي عبر الرسائل النصية يسمى:",answer:"Smishing",clue:"S = SMS.",
+    why:"Smishing = SMS + Phishing. المحتال بيستخدم الرسائل النصية لأن الناس بترد عليها أسرع من الإيميل.",
+    wrong:[{option:"Vishing",why:"V = Voice، يعني مكالمة."},{option:"Phishing",why:"الاسم العام، وأشهره بالبريد الإلكتروني."},{option:"QR scam",why:"ملصق QR مزيف."}]},
+   {id:"q13",section:"s3",prompt:"هجوم عبر المكالمة الهاتفية يعتمد على الإلحاح وانتحال الهوية:",answer:"Vishing",clue:"V = Voice.",
+    why:"Vishing = Voice + Phishing. المتصل بيدّعي إنه من جهة موثوقة ويستعجلك عشان ما تلحقش تفكر وتدّيله بيانات.",
+    wrong:[{option:"Smishing",why:"بالرسائل النصية."},{option:"Phishing",why:"بالبريد غالبًا."},{option:"Malware",why:"برامج ضارة مش مكالمة."}]},
+   {id:"q14",section:"s3",prompt:"أي الحالات تدل على وجود تصيد احتيالي؟",answer:"بريد من زميلك من حسابه الشخصي على gmail يطلب الرد على موعد الاجتماع",clue:"خارج النطاق الرسمي.",
+    why:"المراسلات الشغل بتكون من بريد البنك. لما 'زميل' يراسلك من حساب شخصي على gmail في موضوع شغل، غالبًا حد بينتحل شخصيته، ودي علامة تصيد واضحة.",
+    wrong:[{option:"بريد من مديرك فيه معلومات خاطئة",why:"معلومة غلط من البريد الرسمي خطأ عادي، مش تصيد."},{option:"بريد من مديرك يطلب اجتماعًا طارئًا",why:"طلب طبيعي من البريد الرسمي."},{option:"رسالة داخلية بتوقيع الإدارة",why:"قناة رسمية."}]},
+   {id:"q15",section:"s3",prompt:"رسالة مستعجلة من 'زميل بالدعم الفني' تطلب رقمك السري لتحديث جهازك:",answer:"تجاهل الرسالة حتى وإن كانت حقيقية",clue:"لا تشارك كلمة المرور مع أي أحد.",
+    why:"كلمة المرور ما بتتشاركش مع أي حد مهما كانت صفته، والدعم الفني الحقيقي مش محتاجها أصلًا. يعني حتى لو الزميل حقيقي، الطلب نفسه مرفوض. والاستعجال علامة هندسة اجتماعية.",
+    wrong:[{option:"الاتصال بزميلك للتأكد ثم إرسالها",why:"التأكد من شخصيته ما يغيرش إن إرسال كلمة المرور ممنوع."},{option:"الرد برقمك السري",why:"كده سلمت حسابك."},{option:"إرسالها لمديرك ليرسلها",why:"برضه مشاركة ممنوعة."}]},
+   {id:"q16",section:"s3",prompt:"رسالة بها رابط لتحديث سياسة البنك. الطريقة الآمنة للدخول:",answer:"الدخول على موقع البنك المحفوظ في المواقع المفضلة",clue:"لا تستخدم الرابط.",
+    why:"الرابط اللي في الرسالة ممكن يوديك لموقع مقلّد شكله زي البنك. لما تدخل من المفضلة اللي إنت حافظها بنفسك، تبقى متأكد إنه الموقع الرسمي.",
+    wrong:[{option:"فتح الرابط",why:"ده بالظبط اللي المحتال عايزه."},{option:"كتابة الرابط باليد",why:"بتكتب نفس الرابط المزيف، فالمشكلة لسه موجودة."},{option:"البحث في Google",why:"ممكن تطلع لك نتيجة إعلانية مزيفة."}]},
+   {id:"q17",section:"s3",prompt:"رسالة مرفق بها File.DOCX.exe. ماذا تفعل؟",answer:"إلغاء الرسالة",clue:"امتداد مزدوج.",
+    why:"الامتداد الحقيقي هو الأخير (.exe)، يعني برنامج تنفيذي متنكر في شكل ملف Word. فتحه ممكن يشغّل برنامج ضار، فالصح تمسح الرسالة كلها.",
+    wrong:[{option:"فتح الرسالة",why:"بتعرض جهازك للخطر."},{option:"إلغاء الملف فقط",why:"الرسالة الضارة نفسها بتفضل في البريد."},{option:"تجاهل الرسالة",why:"لو سبتها ممكن تتفتح بعدين بالغلط، فالحذف أأمن."}]},
+   {id:"q18",section:"s3",prompt:"كافة المواقع التي تستخدم تقنية التشفير HTTPS تكون موثوقة:",answer:"العبارة خاطئة",clue:"التشفير غير الثقة.",
+    why:"HTTPS معناه إن الاتصال بينك وبين الموقع مشفر، لكنه مش بيضمن إن صاحب الموقع نفسه أمين. المواقع المزيفة نفسها بتطلع شهادات HTTPS.",
+    wrong:[{option:"العبارة صحيحة",why:"بتخلط بين تشفير الاتصال وثقة الموقع."}]},
+   {id:"q19",section:"s3",prompt:"لاستخدام واي فاي فندق مع ضمان اتصال مشفر:",answer:"الاتصال من خلال VPN",clue:"نفق مشفر.",
+    why:"شبكة الفندق عامة وأي حد عليها ممكن يتجسس. الـ VPN بيعمل نفق مشفر بين جهازك والشبكة المطلوبة، فحتى لو حد بيراقب مش هيفهم البيانات.",
+    wrong:[{option:"إنجاز المهام بسرعة وقطع الاتصال",why:"السرعة ما بتشفرش حاجة."},{option:"كلمة مرور معقدة",why:"بتحمي الحساب لكن الاتصال نفسه يفضل مكشوف."},{option:"تحديث نظام التشغيل",why:"بيسد الثغرات لكن ما بيشفرش الاتصال."}]},
+   {id:"q20",section:"s4",prompt:"عند ملاحظة تغيير كلمة مرور لم تقم به أو Pop-ups غريبة:",answer:"الاتصال بفريق SOC فورًا وعدم محاولة الإصلاح بنفسك",clue:"socteam.",
+    why:"دي علامات إن الجهاز ممكن يكون مخترق. محاولة الإصلاح بنفسك ممكن تمسح أدلة أو تنشر المشكلة، فالصح تبلغ SOC فورًا وهما يتعاملوا.",
+    wrong:[{option:"إعادة تشغيل الجهاز",why:"إصلاح ذاتي ممكن يضيع الأدلة."},{option:"تجاهلها",why:"الاختراق بيكبر لو اتساب."},{option:"إبلاغ زميل",why:"الزميل مش جهة الاستجابة للحوادث."}]},
+   {id:"q21",section:"s4",prompt:"أرسلت بالخطأ بريدًا فيه بيانات سرية لشخص غير مصرح له. تبلغ:",answer:"مسئول أمن المعلومات بالبنك",clue:"حادث أمني.",
+    why:"خروج بيانات سرية لشخص غير مصرح له يعتبر تسريب، يعني حادث أمني. الجهة اللي تقدر تحتويه (تسحب الرسالة، تقيّم الضرر) هي أمن المعلومات.",
+    wrong:[{option:"المدير المباشر",why:"ممكن تعرّفه، لكن الجهة المختصة بالحادث هي أمن المعلومات."},{option:"مسئول الالتزام",why:"الالتزام للمخالفات السلوكية والاشتباه، مش لاحتواء تسريب بيانات."},{option:"لا شيء مما سبق",why:"لازم تبلغ."}]},
+   {id:"q22",section:"s4",prompt:"وجدت USB ملقاة في الفرع:",answer:"لا تستخدمها وتبلغ TRM Group",clue:"وسائط خارجية.",
+    why:"الفلاشات الملقاة حيلة معروفة: حد بيسيبها عشان موظف يدخلها على جهازه فينزل برنامج ضار. ما تفتحهاش وبلّغ الجهة المختصة.",
+    wrong:[{option:"تفتحها لمعرفة صاحبها",why:"ده بالظبط اللي المهاجم عايزه."},{option:"تعطيها للأمن بدون إبلاغ",why:"الإجراء الصح إبلاغ الجهة المختصة."},{option:"ترميها",why:"لازم تتبلغ عشان تتعرف لو هي محاولة هجوم."}]},
+   {id:"q23",section:"s4",prompt:"التوقيع الإلكتروني يضمن:",answer:"عدم الإنكار وسلامة البيانات",clue:"مين وقّع وهل اتعدل.",
+    why:"التوقيع الإلكتروني بيثبت إن الشخص ده هو اللي وقّع فما يقدرش ينكر (عدم الإنكار)، وأي تعديل على المستند بعد التوقيع بيبان (سلامة البيانات).",
+    wrong:[{option:"سرية البيانات",why:"السرية بتيجي من التشفير، والمستند الموقع ممكن يكون مقروء لأي حد."},{option:"تشفير البيانات",why:"التوقيع مش بيخفي المحتوى."},{option:"النسخ الاحتياطي",why:"ملهوش علاقة بالتوقيع."}]},
+   {id:"q24",section:"s4",prompt:"أفضل طريقة لتفادي اختراق خصوصية البيانات الحساسة على السوشيال ميديا:",answer:"إذا كانت المعلومات خاصة أو حساسة لا تنشرها",clue:"الوقاية قبل الإعدادات.",
+    why:"أي حاجة اتنشرت ممكن تتنسخ أو تتسرب حتى مع إعدادات الخصوصية. الحماية الوحيدة المضمونة للمعلومة الحساسة إنها ما تتنشرش أصلًا.",
+    wrong:[{option:"أدوات التحكم بالخصوصية",why:"بتقلل اللي يشوف، لكن صديق ممكن ينسخ أو الإعدادات تتغير."},{option:"التحقق بخطوتين",why:"بيحمي حسابك من الاختراق، مش المعلومة اللي نشرتها."},{option:"حساب باسم مستعار",why:"المعلومة نفسها لسه منشورة."}]}
+  ]
+};
+
+/* ===== أدوات ===== */
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<mark>$1</mark>').replace(/\[\[(.+?)\]\]/g,'<bdi class="en" dir="ltr">$1</bdi>');
+const $=(s,r=document)=>r.querySelector(s);
+const CAT=NOTE.categories;
+
+const plain=s=>String(s).replace(/\*\*|\[\[|\]\]/g,'');
+const lab=h=>` data-l="${esc(plain(h)).replace(/"/g,'&quot;')}"`;
+function table(t){
+  const n=t.headers.length;
+  return `<div class="stack">${t.title?`<h3>${inl(t.title)}</h3>`:''}
+  <div class="tscroll ${n>=3?'stk':'w2'}"><table><thead><tr>${t.headers.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead>
+  <tbody>${t.rows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0?' class="first"':''}${lab(t.headers[i]||'')}>${inl(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+  ${t.tip?`<div class="tip"><b>انتبه:</b> ${inl(t.tip)}</div>`:''}</div>`;
+}
+function summary(){
+  const s=NOTE.summary;
+  return `<section id="summary"><h2>الخلاصة</h2><div class="stack">
+   <p>${inl(s.lead)}</p>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">البند</th>${s.colHeaders.map(h=>`<th scope="col">${inl(h)}</th>`).join('')}</tr></thead><tbody>
+   ${s.rows.map(r=>`<tr><td class="first">${inl(r.head)}${r.sub?`<small>${inl(r.sub)}</small>`:''}</td>${r.cells.map((c,i)=>`<td class="c-${c.cat}"${lab(s.colHeaders[i]||'')}>${inl(c.main)}${c.ex?`<span class="ex">${inl(c.ex)}</span>`:''}</td>`).join('')}</tr>`).join('')}
+   </tbody></table></div>
+   <p class="legend">${inl(s.legend)}</p>
+   <div class="golden"><b>القاعدة الذهبية:</b> ${inl(s.goldenRule)}</div></div></section>`;
+}
+function concepts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="grid">${sec.items.map(c=>`
+   <article class="card">
+    <span class="tag ${c.cat}">${CAT[c.cat]}</span>
+    <div class="cname"><span class="en">${esc(c.nameEn)}</span><span class="ar">${esc(c.nameAr)}</span></div>
+    <div class="formula">${c.formula.map(f=>`<div class="frow"><span class="dot ${f.sign==='+'?'p':f.sign==='-'?'m':'q'}">${f.sign==='+'?'✓':f.sign==='-'?'−':'?'}</span><span>${inl(f.text)}</span></div>`).join('')}</div>
+    <div><h4>بنستخدمه في</h4><ul class="plain">${c.uses.map(u=>`<li>${inl(u)}</li>`).join('')}</ul></div>
+    <div><h4>أمثلة</h4><div class="exs">${c.examples.map(e=>`<div class="exi"><span>${inl(e.en)}</span><span class="a2">${inl(e.ar)}</span></div>`).join('')}</div></div>
+    <div><h4>دلائل</h4><div class="sig">${c.signals.map(x=>`<span class="rtl">${esc(x)}</span>`).join('')}</div></div>
+    <div class="tip"><b>انتبه:</b> ${inl(c.tip)}</div>
+    ${c.src?`<p class="srcl">المصدر: ${esc(c.src)}</p>`:''}
+   </article>`).join('')}</div></section>`;
+}
+function compare(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><div class="cmp-title">${esc(c.title)}</div>
+    <div class="cmp-cols">${c.cols.map(col=>`<div class="cmp-col ${col.cat}"><h4>${esc(col.name)}</h4><p>${inl(col.when)}</p>
+      <ul class="plain">${col.ex.map(e=>`<li>${inl(e)}</li>`).join('')}</ul></div>`).join('')}</div>
+    <div class="golden"><b>القاعدة الذهبية:</b> ${inl(c.golden)}</div></article>`).join('')}</div></section>`;
+}
+function confusing(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`
+   <article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.explain)}</p>
+    <ul class="cl">${c.examples.map(e=>{const k=e.correct===true?'ok':e.correct===false?'no':'nt';const m=k==='ok'?'✓':k==='no'?'✗':'•';
+      return `<li class="${k}"><span class="m">${m}</span><span><span class="t">${inl(e.text)}</span>${e.note?`<span class="note">${inl(e.note)}</span>`:''}</span></li>`}).join('')}</ul>
+   </article>`).join('')}</div></section>`;
+}
+function conflicts(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.items.map(c=>`<article class="card"><h3>${inl(c.title)}</h3><p>${inl(c.text)}</p></article>`).join('')}</div></section>`;
+}
+function reference(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">${sec.tables.map(table).join('')}</div></section>`;
+}
+function lookup(sec){
+  return `<section id="${sec.id}"><h2>${sec.title}</h2><div class="stack">
+   <input class="search" id="lq" type="search" placeholder="اكتب كلمة دالة، مثلًا: رب المال أو الفلتر أو 1975" autocomplete="off" aria-label="بحث في الدلائل">
+   <div class="cnt" id="lcnt"></div>
+   <div class="tscroll stk"><table><thead><tr><th scope="col">الدليل</th><th scope="col">المفهوم</th><th scope="col">ملاحظة</th></tr></thead><tbody id="lb"></tbody></table></div></div></section>`;
+}
+function fillLookup(rows){
+  const lb=$('#lb'),inp=$('#lq'),cnt=$('#lcnt');
+  const norm=s=>s.replace(/[ً-ْـ]/g,'').replace(/[إأآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').toLowerCase();
+  const draw=()=>{
+    const q=norm(inp.value.trim());
+    const r=rows.filter(x=>!q||norm(x.signal+' '+x.target+' '+x.note).includes(q));
+    lb.innerHTML=r.length?r.map(x=>`<tr><td class="first">${esc(x.signal)}</td><td data-l="المفهوم">${esc(x.target)}</td><td data-l="ملاحظة">${esc(x.note)}</td></tr>`).join(''):`<tr><td colspan="3" class="empty">مفيش نتيجة للكلمة دي.</td></tr>`;
+    cnt.textContent=r.length+' من '+rows.length;
+  };
+  inp.addEventListener('input',draw);draw();
+}
+
+/* ===== الكويز ===== */
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const LET=['A','B','C','D'];
+let QS={i:0,order:[],picks:[],opts:[]};
+function quizStart(){
+  QS={i:0,order:shuffle(QUIZ.questions.map((_,i)=>i)),picks:[],opts:{}};
+  quizDraw();
+}
+function quizDraw(){
+  const root=$('#quiz');
+  const n=QUIZ.questions.length;
+  if(QS.i>=n){return quizResult(root)}
+  const qi=QS.order[QS.i],q=QUIZ.questions[qi];
+  const sec=QUIZ.sections.find(s=>s.id===q.section).title;
+  const opts=QS.opts[qi]||(QS.opts[qi]=shuffle([{t:q.answer,ok:true},...q.wrong.map(w=>({t:w.option,ok:false,why:w.why}))]));
+  const pick=QS.picks[QS.i];
+  const answered=pick!==undefined;
+  const promptHtml=esc(q.prompt).replace('___',`<span class="blank${answered?(opts[pick].ok?' ok':' no'):''}">${answered?esc(q.answer):'&nbsp;&nbsp;&nbsp;&nbsp;'}</span>`);
+  root.innerHTML=`
+   <div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${QS.i+(answered?1:0)}"><i style="width:${(QS.i+(answered?1:0))/n*100}%"></i></div>
+   <div class="qmeta"><span>سؤال ${QS.i+1} من ${n}</span><span>${esc(sec)}</span></div>
+   <p class="qp">${promptHtml}</p>
+   <div class="opts">${opts.map((o,k)=>`<button type="button" class="opt${answered?(o.ok?' right':(k===pick?' wrongpick':'')):''}" data-k="${k}" ${answered?'disabled':''}><span class="L">${LET[k]}</span><span>${esc(o.t)}</span></button>`).join('')}</div>
+   ${answered?`<div class="fb" aria-live="polite">
+     <div class="v ${opts[pick].ok?'ok':'no'}">${opts[pick].ok?'صح.':'مش دقيق.'}</div>
+     <p><b>ليه الإجابة دي:</b> ${esc(q.why)}</p>
+     ${q.clue?`<p><b>الدليل:</b> ${esc(q.clue)}</p>`:''}
+     <div><b>ليه الباقي غلط:</b><ul>${opts.map((o,k)=>o.ok?'':`<li class="${k===pick?'picked':''}">${esc(o.t)}: ${esc(o.why)}${k===pick?' (اختيارك)':''}</li>`).join('')}</ul></div>
+    </div>
+    <button type="button" class="btn" id="qnext">${QS.i+1<n?'السؤال التالي':'شوف النتيجة'}</button>`:''}`;
+  root.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{QS.picks[QS.i]=+b.dataset.k;quizDraw();const nb=$('#qnext');if(nb)nb.focus({preventScroll:true})}));
+  const nb=$('#qnext');if(nb)nb.addEventListener('click',()=>{QS.i++;quizDraw();root.scrollIntoView({block:'nearest'})});
+}
+function quizResult(root){
+  const n=QUIZ.questions.length;let total=0;const per={};
+  QUIZ.sections.forEach(s=>per[s.id]={t:0,c:0});
+  QS.order.forEach((qi,i)=>{const q=QUIZ.questions[qi];const ok=QS.opts[qi][QS.picks[i]].ok;per[q.section].t++;if(ok){per[q.section].c++;total++}});
+  const rows=QUIZ.sections.filter(s=>per[s.id].t).map(s=>({s,p:Math.round(per[s.id].c/per[s.id].t*100)}));
+  const weak=rows.slice().sort((a,b)=>a.p-b.p)[0];
+  root.innerHTML=`<div class="res">
+   <div class="prog"><i style="width:100%"></i></div>
+   <div class="score"><bdi class="ltr" dir="ltr">${total} / ${n}</bdi></div>
+   <div class="bars">${rows.map(r=>`<div class="bar${r===weak&&r.p<100?' weak':''}"><span>${esc(r.s.title)}</span><span class="pb"><i style="width:${r.p}%"></i></span><span class="ltr">${r.p}%</span></div>`).join('')}</div>
+   <p>${weak.p<100?`أضعف قسم: <mark>${esc(weak.s.title)}</mark>. ارجع له في المذكرة وحاول تاني.`:'كل الأقسام 100%. ممتاز.'}</p>
+   <button type="button" class="btn" id="qrestart">ابدأ من جديد</button></div>`;
+  $('#qrestart').addEventListener('click',quizStart);
+}
+
+/* ===== التجميع ===== */
+// كل الأقسام بتترسم بترتيبها في الملف حسب نوعها (type)، حتى لو الـid مش من الأسماء الافتراضية
+const R={concepts,compare,confusing,conflicts,reference,lookup};
+const SHORT={concepts:'المفاهيم',compare:'الفروقات',confusing:'حالات بتلخبط',conflicts:'تعارضات',reference:'أرقام وجداول',lookup:'دوّر على دليل'};
+function chipName(sec){
+  const nConcepts=NOTE.sections.filter(x=>(x.type||x.id)==='concepts').length;
+  const t=(sec.type||sec.id);
+  if(t==='concepts'&&nConcepts>1){const c=String(sec.title||'').replace(/^\d+[\.\-\s]*/,'').split(/[:(،]/)[0].trim();return c.length>22?c.slice(0,21)+'…':c}
+  return SHORT[t]||sec.title;
+}
+function build(){
+  const secs=NOTE.sections.filter(x=>R[x.type||x.id]);
+  $('#sheet').innerHTML=`
+   <header class="hero"><span class="stamp">${esc(NOTE.stamp)}</span><h1>${esc(NOTE.title)}</h1><p class="sub">${esc(NOTE.subtitle)}</p></header>
+   ${summary()}${secs.map(x=>R[x.type||x.id](x)).join('')}
+   <section id="quiz-sec"><h2 id="quiz-h">اختبر نفسك</h2><div class="quiz" id="quiz"></div></section>
+   <p class="foot">ملخص مذاكرة لامتحان مصرفي أول G3</p>`;
+  $('#chips').innerHTML=[['summary','الخلاصة'],...secs.map(x=>[x.id,chipName(x)]),['quiz-sec','اختبر نفسك']]
+    .map(([id,l])=>`<a class="chip" href="#${id}" data-id="${id}">${esc(l)}</a>`).join('');
+  const lk=secs.find(x=>(x.type||x.id)==='lookup');if(lk)fillLookup(lk.rows);
+  quizStart();
+  const links=[...document.querySelectorAll('.chip')],bar=$('#chips');
+  const center=l=>{const a=l.getBoundingClientRect(),c=bar.getBoundingClientRect();bar.scrollBy({left:(a.left+a.width/2)-(c.left+c.width/2),behavior:'smooth'})};
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>{const on=l.dataset.id===e.target.id;if(on&&!l.classList.contains('on'))center(l);l.classList.toggle('on',on)})})},{rootMargin:'-80px 0px -65% 0px'});
+    links.forEach(l=>{const t=document.getElementById(l.dataset.id);if(t)io.observe(t)});
+  }
+}
+/* المظهر: زرار واحد شمس/قمر، ومحفوظ في kk-theme المشترك مع التطبيق */
+const themeBtn=$('#themeb');
+function curTheme(){try{return localStorage.getItem('kk-theme')||'system'}catch(e){return 'system'}}
+const isDark=()=>{const m=curTheme();return m==='dark'||(m==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)};
+function setTheme(m){
+  const r=document.documentElement;
+  if(m==='light'||m==='dark')r.setAttribute('data-theme',m);else r.removeAttribute('data-theme');
+  try{localStorage.setItem('kk-theme',m)}catch(e){}
+  const d=isDark();themeBtn.classList.toggle('dark',d);themeBtn.setAttribute('aria-label',d?'الوضع الداكن. دوس للفاتح':'الوضع الفاتح. دوس للداكن');
+}
+themeBtn.addEventListener('click',()=>setTheme(isDark()?'light':'dark'));
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>setTheme(curTheme()));
+build();setTheme(curTheme());
+</script>
+
+<style>
+.bg3-home{position:fixed;left:max(14px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;
+ display:flex;align-items:center;gap:6px;padding:9px 16px 9px 14px;border-radius:999px;background:var(--head-bg);color:var(--head-ink);
+ font-family:var(--f-ui);font-weight:700;font-size:14px;line-height:1.3;text-decoration:none;box-shadow:var(--shadow)}
+.bg3-home svg{width:18px;height:18px}
+.bg3-home:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+</style>
+<a class="bg3-home" href="../index.html#notes" aria-label="رجوع لقائمة الملخصات">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>الملخصات</a>
+<script>
+(function(){var K="infosec";
+function g(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var all=g('bg3:notes',{}),me=all[K]||{};me.last=Date.now();all[K]=me;s('bg3:notes',all);s('bg3:lastNote',K);
+if(location.hash==='#resume'){history.replaceState(null,'',location.pathname);
+ if(me.y)requestAnimationFrame(function(){setTimeout(function(){window.scrollTo({top:me.y,behavior:'instant'})},80)})}
+var t;addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(function(){
+ var a=g('bg3:notes',{}),m=a[K]||{},h=document.documentElement.scrollHeight-innerHeight,p=h>0?Math.round(scrollY/h*100):100;
+ m.y=Math.round(scrollY);m.pct=Math.max(m.pct||0,Math.min(100,p));a[K]=m;s('bg3:notes',a)},250)},{passive:true});
+})();
+</script>
