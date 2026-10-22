@@ -434,7 +434,9 @@ const NOTE = {
     ]},
     {type:"conflicts", id:"conflicts", title:"تنبيهات", items:[
       {title:"دور الفرع اتغير",
-       text:"قبل 5589 الفرع كان بيصفّي ويوزّع بنفسه. لو سؤال قديم بيقول 'الفرع يوزّع التركة'، الإجابة الحالية إن **الإدارة التخصصية للتركات** هي اللي بتوزّع، والفرع **يستلم ويبعت ويصرف**."}
+       text:"قبل 5589 الفرع كان بيصفّي ويوزّع بنفسه. لو سؤال قديم بيقول 'الفرع يوزّع التركة'، الإجابة الحالية إن **الإدارة التخصصية للتركات** هي اللي بتوزّع، والفرع **يستلم ويبعت ويصرف**."},
+      {title:"مين يقفل حساب أمانات التركات بعد الصرف؟",
+       text:"المنشور والاستفسارات 6: **الفرع** يقفله بعد التأكد إن مفيش أوعية مستحقة، **من غير طلب من العميل ومن غير مصاريف غلق** لأنه اتفتح بطلب البنك. الاستفسارات 18 (الأحدث): حسابات **توزيع التركات في الفروع النمطية (115 و90)** يتابعها ويقفلها **قطاع العمليات المصرفية** من غير تدخل الفرع. والصرف من أمانات التركات بـ**الإيصال الآلي** من FCUBS."}
     ]},
     {type:"reference", id:"ref", title:"أرقام", tables:[
       {id:"n", title:"أرقام ومسارات", headers:["البند","القيمة"],
@@ -622,9 +624,9 @@ function quizDraw(){
    <div class="opts">${opts.map((o,k)=>`<button type="button" class="opt${answered?(o.ok?' right':(k===pick?' wrongpick':'')):''}" data-k="${k}" ${answered?'disabled':''}><span class="L">${LET[k]}</span><span>${esc(o.t)}</span></button>`).join('')}</div>
    ${answered?`<div class="fb" aria-live="polite">
      <div class="v ${opts[pick].ok?'ok':'no'}">${opts[pick].ok?'صح.':'مش دقيق.'}</div>
-     <p><b>ليه الإجابة دي:</b> ${esc(q.why)}</p>
-     ${q.clue?`<p><b>الدليل:</b> ${esc(q.clue)}</p>`:''}
-     <div><b>ليه الباقي غلط:</b><ul>${opts.map((o,k)=>o.ok?'':`<li class="${k===pick?'picked':''}">${esc(o.t)}: ${esc(o.why)}${k===pick?' (اختيارك)':''}</li>`).join('')}</ul></div>
+     <p><b>ليه الإجابة دي:</b> ${inl(q.why)}</p>
+     ${q.clue?`<p><b>الدليل:</b> ${inl(q.clue)}</p>`:''}
+     <div><b>ليه الباقي غلط:</b><ul>${opts.map((o,k)=>o.ok?'':`<li class="${k===pick?'picked':''}">${esc(o.t)}: ${inl(o.why)}${k===pick?' (اختيارك)':''}</li>`).join('')}</ul></div>
     </div>
     <button type="button" class="btn" id="qnext">${QS.i+1<n?'السؤال التالي':'شوف النتيجة'}</button>`:''}`;
   root.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{QS.picks[QS.i]=+b.dataset.k;quizDraw();const nb=$('#qnext');if(nb)nb.focus({preventScroll:true})}));

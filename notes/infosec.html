@@ -600,9 +600,9 @@ function quizDraw(){
    <div class="opts">${opts.map((o,k)=>`<button type="button" class="opt${answered?(o.ok?' right':(k===pick?' wrongpick':'')):''}" data-k="${k}" ${answered?'disabled':''}><span class="L">${LET[k]}</span><span>${esc(o.t)}</span></button>`).join('')}</div>
    ${answered?`<div class="fb" aria-live="polite">
      <div class="v ${opts[pick].ok?'ok':'no'}">${opts[pick].ok?'صح.':'مش دقيق.'}</div>
-     <p><b>ليه الإجابة دي:</b> ${esc(q.why)}</p>
-     ${q.clue?`<p><b>الدليل:</b> ${esc(q.clue)}</p>`:''}
-     <div><b>ليه الباقي غلط:</b><ul>${opts.map((o,k)=>o.ok?'':`<li class="${k===pick?'picked':''}">${esc(o.t)}: ${esc(o.why)}${k===pick?' (اختيارك)':''}</li>`).join('')}</ul></div>
+     <p><b>ليه الإجابة دي:</b> ${inl(q.why)}</p>
+     ${q.clue?`<p><b>الدليل:</b> ${inl(q.clue)}</p>`:''}
+     <div><b>ليه الباقي غلط:</b><ul>${opts.map((o,k)=>o.ok?'':`<li class="${k===pick?'picked':''}">${esc(o.t)}: ${inl(o.why)}${k===pick?' (اختيارك)':''}</li>`).join('')}</ul></div>
     </div>
     <button type="button" class="btn" id="qnext">${QS.i+1<n?'السؤال التالي':'شوف النتيجة'}</button>`:''}`;
   root.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{QS.picks[QS.i]=+b.dataset.k;quizDraw();const nb=$('#qnext');if(nb)nb.focus({preventScroll:true})}));
